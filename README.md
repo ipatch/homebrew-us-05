@@ -6,5 +6,5 @@ To install formula contained within this repo
 
 ```shell
 brew tap ipatch/homebrew-us-05
-brew install openssh
+brew install ipatch/homebrew-us-05/openssh
 ```
