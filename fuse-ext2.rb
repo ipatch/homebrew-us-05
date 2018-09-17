@@ -29,7 +29,10 @@ class Fuseext2 < Formula
 
     else
 
-      
-      system "make", "install"
+      system "cd fuse-ext2"
+      system "./autogen.sh"
+
+      # system "make", "install"
     end
+  end
 end
