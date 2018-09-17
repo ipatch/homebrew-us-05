@@ -45,6 +45,30 @@ class Qemu < Formula
 
   def install
     ENV["LIBTOOL"] = "glibtool"
+
+    if build.head?
+      system "git submodule init"
+      system "git submodule update --recursive"
+
+      args = %W[
+      --prefix=#{prefix}
+      --cc=#{ENV.cc}
+      --host-cc=#{ENV.cc}
+      --disable-bsd-user
+      --disable-guest-agent
+      --extra-cflags=-DNCURSES_WIDECHAR=1
+      ]
+
+      args << "--enable-docs" if build.with?("docs")
+      args << "--enable-libusb" if build.with?("libusb")
+      args << "--enable-hvf" if build.with?("hvf")
+      args << "--enable-hax" if build.with?("hax")
+
+      system "./configure", *args
+      # system "make 'V=1 -j#{ncpus_int}'"
+      system "make" "V=1"
+      system "make install"
+    end
     
     # Get number of logical CPU's on the system
     ncpus = `sysctl -n hw.ncpu`
