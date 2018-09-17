@@ -35,7 +35,8 @@ class FuseExt2 < Formula
 
     # system "cd fuse-ext2"
     system "./autogen.sh"
-
+    system "./configure"
+    system "make"
     # system "make", "install"
     # end
   end
