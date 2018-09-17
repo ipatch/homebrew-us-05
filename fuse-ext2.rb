@@ -14,6 +14,7 @@ class FuseExt2 < Formula
   depends_on "e2fsprogs" => :build
 
   def install
+    ENV["LIBTOOL"] = 'glibtool"
     ENV.prepend_path "PATH", "/usr/local/opt/m4/bin"
     ENV.prepend_path "PKG_CONFIG_PATH", "/usr/local/lib/pkgconfig"
     ENV.append_path "PKG_CONFIG_PATH", "/usr/local/opt/e2fsprogs/lib/pkgconfig"
