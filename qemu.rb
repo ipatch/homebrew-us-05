@@ -5,13 +5,21 @@ class Qemu < Formula
   sha256 "8d7af64fe8bd5ea5c3bdf17131a8b858491bcce1ee3839425a6d91fb821b5713"
   head "https://git.qemu.org/git/qemu.git"
 
+  option "with-docs", "Install QEMU documentation locally"
+  option "with-hvf", "Install Hypervisor.framework hardware acceleration support"
+  option "with-hax", "Instal Intel HAXM hardware acceleration support"
+
   depends_on "pkg-config" => :build
   depends_on "libtool" => :build
+  depends_on "libffi" => :build
+  depends_on "gettext" => :build
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
   depends_on "jpeg"
   depends_on "gnutls"
-  depends_on "glib"
+  depends_on "glib" => :build
   depends_on "ncurses"
-  depends_on "pixman"
+  depends_on "pixman" => :build
   depends_on "libpng" => :recommended
   depends_on "vde" => :optional
   depends_on "sdl2" => :optional
@@ -37,6 +45,11 @@ class Qemu < Formula
 
   def install
     ENV["LIBTOOL"] = "glibtool"
+    
+    # Get number of logical CPU's on the system
+    ncpus = `sysctl -n hw.ncpu`
+    ncpus_int = ncpus.to_i
+    # puts ncpus_int
 
     args = %W[
       --prefix=#{prefix}
@@ -47,6 +60,11 @@ class Qemu < Formula
       --enable-curses
       --extra-cflags=-DNCURSES_WIDECHAR=1
     ]
+
+    args << "--enable-docs" if build.with?("docs")
+    args << "--enable-libusb" if build.with?("libusb")
+    args << "--enable-hvf" if build.with?("hvf")
+    args << "--enable-hax" if build.with?("hax")
 
     # Cocoa and SDL2/GTK+ UIs cannot both be enabled at once.
     if build.with?("sdl2") || build.with?("gtk+3")
@@ -61,7 +79,9 @@ class Qemu < Formula
     args << (build.with?("libssh2") ? "--enable-libssh2" : "--disable-libssh2")
 
     system "./configure", *args
-    system "make", "V=1", "install"
+    # system "make 'V=1 -j#{ncpus_int}'"
+    system "make" "V=1"
+    system "make install"
   end
 
    test do
