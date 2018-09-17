@@ -74,7 +74,8 @@ class Openssh < Formula
       else
         args << "--with-ssl-dir=#{Formula["openssl"].opt_prefix}"
       end
-
+      
+      system "autoreconf"
       system "./configure", *args
       system "make"
       ENV.deparallelize
