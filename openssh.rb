@@ -13,6 +13,17 @@ class Openssh < Formula
     sha256 "74a820270916e79b3885c171d87a562ddeb5f755f58fde2b80fa9eb63aa09d89" => :el_capitan
   end
 
+  head do
+    url "git://anongit.mindrot.org/openssh.git", :shallow => false
+
+    depends_on "openssl" => :optional
+    depends_on "openssl" => :build if build.with? "openssl"
+    depends_on "ldns" => :optional
+    depends_on "pkg-config" => :build if build.with? "ldns"
+    depends_on "libressl" => :optional
+    depends_on "libressl" => :build if build.with? "libressl"
+  end
+
   # Please don't resubmit the keychain patch option. It will never be accepted.
   # https://github.com/Homebrew/homebrew-dupes/pull/482#issuecomment-118994372
 
@@ -40,41 +51,79 @@ class Openssh < Formula
   end
 
   def install
-    ENV.append "CPPFLAGS", "-D__APPLE_SANDBOX_NAMED_EXTERNAL__"
+    if build.head?
+      ENV.append "CPPFLAGS", "-D__APPLE_SANDBOX_NAMED_EXTERNAL__"
 
-    # Ensure sandbox profile prefix is correct.
-    # We introduce this issue with patching, it's not an upstream bug.
-    inreplace "sandbox-darwin.c", "@PREFIX@/share/openssh", etc/"ssh"
+      # Ensure sandbox profile prefix is correct.
+      # We introduce this issue with patching, it's not an upstream bug.
+      inreplace "sandbox-darwin.c", "@PREFIX@/share/openssh", etc/"ssh"
 
-    args = %W[
+      args = %W[
       --with-libedit
       --with-kerberos5
       --prefix=#{prefix}
       --sysconfdir=#{etc}/ssh
       --with-pam
       --with-ssl-dir=#{Formula["openssl"].opt_prefix}
-    ]
+      ]
 
-    args << "--with-ldns" if build.with? "ldns"
+      args << "--with-ldns" if build.with? "ldns"
 
-    if build.with? "libressl"
-      args << "--with-ssl-dir=#{Formula["libressl"].opt_prefix}"
+      if build.with? "libressl"
+        args << "--with-ssl-dir=#{Formula["libressl"].opt_prefix}"
+      else
+        args << "--with-ssl-dir=#{Formula["openssl"].opt_prefix}"
+      end
+
+      system "./configure", *args
+      system "make"
+      ENV.deparallelize
+      system "make", "install"
+
+      # This was removed by upstream with very little announcement and has
+      # potential to break scripts, so recreate it for now.
+      # Debian have done the same thing.
+      bin.install_symlink bin/"ssh" => "slogin"
+
+      buildpath.install resource("com.openssh.sshd.sb")
+      (etc/"ssh").install "com.openssh.sshd.sb" => "org.openssh.sshd.sb"
     else
-      args << "--with-ssl-dir=#{Formula["openssl"].opt_prefix}"
+      ENV.append "CPPFLAGS", "-D__APPLE_SANDBOX_NAMED_EXTERNAL__"
+
+      # Ensure sandbox profile prefix is correct.
+      # We introduce this issue with patching, it's not an upstream bug.
+      inreplace "sandbox-darwin.c", "@PREFIX@/share/openssh", etc/"ssh"
+
+      args = %W[
+      --with-libedit
+      --with-kerberos5
+      --prefix=#{prefix}
+      --sysconfdir=#{etc}/ssh
+      --with-pam
+      --with-ssl-dir=#{Formula["openssl"].opt_prefix}
+      ]
+
+      args << "--with-ldns" if build.with? "ldns"
+
+      if build.with? "libressl"
+        args << "--with-ssl-dir=#{Formula["libressl"].opt_prefix}"
+      else
+        args << "--with-ssl-dir=#{Formula["openssl"].opt_prefix}"
+      end
+
+      system "./configure", *args
+      system "make"
+      ENV.deparallelize
+      system "make", "install"
+
+      # This was removed by upstream with very little announcement and has
+      # potential to break scripts, so recreate it for now.
+      # Debian have done the same thing.
+      bin.install_symlink bin/"ssh" => "slogin"
+
+      buildpath.install resource("com.openssh.sshd.sb")
+      (etc/"ssh").install "com.openssh.sshd.sb" => "org.openssh.sshd.sb"
     end
-
-    system "./configure", *args
-    system "make"
-    ENV.deparallelize
-    system "make", "install"
-
-    # This was removed by upstream with very little announcement and has
-    # potential to break scripts, so recreate it for now.
-    # Debian have done the same thing.
-    bin.install_symlink bin/"ssh" => "slogin"
-
-    buildpath.install resource("com.openssh.sshd.sb")
-    (etc/"ssh").install "com.openssh.sshd.sb" => "org.openssh.sshd.sb"
   end
 
   test do
