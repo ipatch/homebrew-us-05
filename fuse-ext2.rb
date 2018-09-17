@@ -1,4 +1,4 @@
-class Fuseext2 < Formula
+class FuseExt2 < Formula
   desc "Fuse-ext2 is a multi OS FUSE module to mount ext2, ext3 and ext4 file system devices and/or images with read write support."
   homepage "https://github.com/alperakcan/fuse-ext2"
   url "https://github.com/alperakcan/fuse-ext2"
