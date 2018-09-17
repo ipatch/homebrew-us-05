@@ -26,14 +26,14 @@ class FuseExt2 < Formula
   depends_on "e2fsprogs"
 
   def install
-    if build.head?
+    # if build.head?
 
-    else
+    # else
 
       # system "cd fuse-ext2"
       system "./autogen.sh"
 
       # system "make", "install"
-    end
+    # end
   end
 end
