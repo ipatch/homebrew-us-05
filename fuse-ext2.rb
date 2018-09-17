@@ -3,6 +3,7 @@ class FuseExt2 < Formula
   homepage "https://github.com/alperakcan/fuse-ext2"
   url "https://github.com/alperakcan/fuse-ext2"
   version "0.0.10"
+  sha256 "1823b8eff04b23255ae25e1a0141fbbd13d201e2bbe7a0a5b894360752bade9d"
 
   bottle do
 
@@ -29,7 +30,7 @@ class FuseExt2 < Formula
 
     else
 
-      system "cd fuse-ext2"
+      # system "cd fuse-ext2"
       system "./autogen.sh"
 
       # system "make", "install"
