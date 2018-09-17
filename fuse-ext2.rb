@@ -19,7 +19,7 @@ class FuseExt2 < Formula
     ENV.append_path "PKG_CONFIG_PATH", "/usr/local/opt/e2fsprogs/lib/pkgconfig"
     system "./autogen.sh"
     ENV["CFLAGS"] = "-idirafter/usr/local/include " + "idirafter/usr/local/include/osxfuse "
-    ENV["LDFLAGS"] = "-L/usr/local/lib "
+    ENV["LDFLAGS"] = "-L/usr/local/lib " + "-L/usr/local/opt/e2fsprogs/lib "
     system "./configure"
     system "make"
   end
