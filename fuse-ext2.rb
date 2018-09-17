@@ -4,21 +4,18 @@ class FuseExt2 < Formula
   url "https://github.com/alperakcan/fuse-ext2"
   version "0.0.10"
   sha256 "1823b8eff04b23255ae25e1a0141fbbd13d201e2bbe7a0a5b894360752bade9d"
+  head "https://github.com/alperakcan/fuse-ext2.git"
 
-  bottle do
+  # head do
+  #   url "git@github.com:alperakcan/fuse-ext2.git", :shallow => false
 
-  end
-
-  head do
-    url "git@github.com:alperakcan/fuse-ext2.git", :shallow => false
-
-    depends_on "pkg-config" => :build
-    depends_on "m4" => :build
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
-    depends_on "libtool" => :build
-    depends_on "e2fsprogs" => :build
-  end
+  #   depends_on "pkg-config" => :build
+  #   depends_on "m4" => :build
+  #   depends_on "autoconf" => :build
+  #   depends_on "automake" => :build
+  #   depends_on "libtool" => :build
+  #   depends_on "e2fsprogs" => :build
+  # end
 
   depends_on "pkg-config" => :build
   depends_on "m4" => :build
@@ -28,16 +25,9 @@ class FuseExt2 < Formula
   depends_on "e2fsprogs" => :build
 
   def install
-    # if build.head?
-
-    # else
     ENV.prepend_path "PKG_CONFIG_PATH", "/usr/local/lib/pkgconfig"
-
-    # system "cd fuse-ext2"
     system "./autogen.sh"
     system "./configure"
     system "make"
-    # system "make", "install"
-    # end
   end
 end
