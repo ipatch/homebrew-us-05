@@ -12,28 +12,31 @@ class FuseExt2 < Formula
   head do
     url "git@github.com:alperakcan/fuse-ext2.git", :shallow => false
 
-    depends_on "m4"
-    depends_on "autoconf"
-    depends_on "automake"
-    depends_on "libtool"
-    depends_on "e2fsprogs"
+    depends_on "pkg-config" => :build
+    depends_on "m4" => :build
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
+    depends_on "e2fsprogs" => :build
   end
 
-  depends_on "m4"
-  depends_on "autoconf"
-  depends_on "automake"
-  depends_on "libtool"
-  depends_on "e2fsprogs"
+  depends_on "pkg-config" => :build
+  depends_on "m4" => :build
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
+  depends_on "e2fsprogs" => :build
 
   def install
     # if build.head?
 
     # else
+    ENV.prepend_path "PKG_CONFIG_PATH", "/usr/local/lib/pkgconfig"
 
-      # system "cd fuse-ext2"
-      system "./autogen.sh"
+    # system "cd fuse-ext2"
+    system "./autogen.sh"
 
-      # system "make", "install"
+    # system "make", "install"
     # end
   end
 end
