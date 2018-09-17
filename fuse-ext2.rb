@@ -3,7 +3,7 @@ class FuseExt2 < Formula
   homepage "https://github.com/alperakcan/fuse-ext2/archive/v0.0.10.tar.gz"
   version "v0.0.10"
   url "https://github.com/alperakcan/"
-  sha256 "1823b8eff04b23255ae25e1a0141fbbd13d201e2bbe7a0a5b894360752bade9d"
+  sha256 "6414eff0baae099413590ef7109abbc09bbb2605d057ddee92bfc4ce18543080"
   head "https://github.com/alperakcan/fuse-ext2.git"
 
   depends_on "pkg-config" => :build
