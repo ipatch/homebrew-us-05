@@ -11,6 +11,7 @@ class FuseExt2 < Formula
   depends_on "automake" => :build
   depends_on "libtool" => :build
   depends_on "e2fsprogs" => :build
+  depends_on :osxfuse
 
   conflicts_with "ext2fuse"
 
@@ -25,8 +26,14 @@ class FuseExt2 < Formula
     ENV.append "CFLAGS", "-idirafter" + Formula["e2fsprogs"].include
 
     system "./autogen.sh"
-    system "./configure", "--prefix=#{prefix}" 
+    system "./configure", "--prefix=#{prefix}", "--disable-debug" 
     system "make"
+
+    system "cd tools/macosx && DESTDIR=#{prefix}/System make prefpane install"
+
+    system "cd fuse-ext2 && make install"
+
+    # system "sudo make install"
   end
 
   def caveats; <<~EOS
@@ -35,6 +42,9 @@ class FuseExt2 < Formula
     Fuse for macOS can be installed with the below command:
 
     brew cask install osxfuse
+
+    sudo priviledges are required for completing installation
+
   EOS
   end
 end
