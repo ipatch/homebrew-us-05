@@ -26,8 +26,17 @@ brew tap ipatch/homebrew-us-05
 brew install ipatch/homebrew-us-05/fuse-ext2 --verbose
 ```
 
-> As of September 17, 2018, **fuse-ext2** needs to be manually linked after installing.
+> As of September 17, 2018, **e2fsprogs** needs to be unlinked after installing **fuse-ext2**
+
+To manually unlink **e2fsprogs**
+
+```shell
+brew unlink e2fsprogs
+```
 
 To manually link **fuse-ext2**
 
+```shell
+brew link fuse-ext2
+```
 
