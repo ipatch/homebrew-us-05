@@ -47,4 +47,9 @@ class FuseExt2 < Formula
 
   EOS
   end
+
+  test do
+    # Add some tests to make sure things are working
+
+  end
 end
