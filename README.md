@@ -56,6 +56,12 @@ brew link fuse-ext2
 To install qemu from the homebrew 🍺 repo
 
 ```shell
-brew install ipatch/homebrew-us-05/qemu --verbose --with-docs --with-libusb --with-hvf --with-hax --HEAD
+brew install ipatch/homebrew-us-05/qemu \
+--verbose \
+--with-docs \ 
+--with-libusb \
+--with-hvf \
+--with-hax \ 
+--HEAD
 ```
 
