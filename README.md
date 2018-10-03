@@ -1,6 +1,13 @@
+
+<a href="ipatch-homebrew-us-05"></a>
+
 ## ipatch/homebrew-us-05
 
 > A off beat repo for storing custom ales and lagers to make your life a little beat easier.
+
+<a href="installing-a-formula"></a>
+
+### Installing a formula
 
 To install formula from this repo
 
@@ -14,6 +21,8 @@ brew install ipatch/homebrew-us-05/[name-of-formula] [--with-options]
 ```shell
 brew install ipatch/homebrew-us-05/openssh --with-libressl --verbose
 ```
+
+<a href="working-with-fuse-ext2"></a>
 
 ### Working with fuse-ext2
 
@@ -38,5 +47,15 @@ To manually link **fuse-ext2**
 
 ```shell
 brew link fuse-ext2
+```
+
+<a href="working-with-qemu"></a>
+
+### Working with Qemu
+
+To install qemu from the homebrew 🍺 repo
+
+```shell
+brew install ipatch/homebrew-us-05/qemu --verbose --with-docs --with-libusb --with-hvf --with-hax --HEAD
 ```
 
