@@ -1,3 +1,8 @@
+<a href="contents"></a>
+- [Installing a formula](#installing-a-formula)
+- [Working with fuse-ext2](#working-with-fuse-ext2)
+- [Working with QEMU](#working-with-qemu)
+- [Maintenance](#maintenance)
 
 <a href="ipatch-homebrew-us-05"></a>
 
@@ -53,7 +58,7 @@ brew link fuse-ext2
 
 ### Working with Qemu
 
-To install qemu from the homebrew 🍺 repo
+To install Qemu from this homebrew 🍺 repo
 
 ```shell
 brew install ipatch/homebrew-us-05/qemu \
@@ -65,3 +70,11 @@ brew install ipatch/homebrew-us-05/qemu \
 --HEAD
 ```
 
+<a href="maintenance"></a>
+
+### Maintenance
+To pull down updates from this tap from time to time or when an upstream change has been made
+
+```shell
+brew update
+```
