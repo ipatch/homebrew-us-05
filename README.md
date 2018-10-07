@@ -1,4 +1,6 @@
 <a href="contents"></a>
+
+## Contents
 - [Installing a formula](#installing-a-formula)
 - [Working with fuse-ext2](#working-with-fuse-ext2)
 - [Working with QEMU](#working-with-qemu)
