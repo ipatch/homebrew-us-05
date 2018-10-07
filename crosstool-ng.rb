@@ -20,7 +20,7 @@ class CrosstoolNg < Formula
     depends_on "automake" => :build
     depends_on "binutils" => :build
     depends_on "coreutils" => :build
-    depends_on "flex"
+    depends_on "flex" => :build
     depends_on "gawk" => :build
     depends_on "gnu-sed" => :build
     depends_on "grep" => :build
@@ -49,15 +49,22 @@ class CrosstoolNg < Formula
 
   def install
     if build.head?
+      ENV.libcxx if ENV.compiler == :clang
       ENV["SED"] = "#{Formula["gnu-sed"].opt_bin}/sed"
       ENV["M4"] = "#{Formula["m4"].opt_bin}/m4"
-      ENV["MAKE"] = "/usr/bin/make" # prevent hardcoding make path from superenv
+      ENV["MAKE"] = "/usr/local/bin/make" # prevent hardcoding make path from superenv
       # ENV["LDFLAGS"] = "#{Formula["gettext"]}/opt/gettext/lib"
       # ENV["CPPFLAGS"] = "#{Formula["gettext"]}/opt/gettext/inclue"
+      ENV.delete "LD"
+
+      # system "brew link gettext"
+      (buildpath/"brew_include").install_symlink MacOS.sdk_path/"usr/include/ncurses.h"
+      ENV["ncurses_CFLAGS"] = "-I#{buildpath}/brew_include"
+      ENV["ncurses_LIBS"] = "-L/usr/lib -lncurses"
 
       system "./bootstrap"
 
-      system "./configure", "--prefix=#{prefix}"
+      system "./configure", "--prefix=#{prefix}", "--disable-nls"
 
       # Must be done in two steps
       system "make"
