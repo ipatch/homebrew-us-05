@@ -48,6 +48,8 @@ class CrosstoolNg < Formula
       ENV["M4"] = "#{Formula["m4"].opt_bin}/m4"
       ENV["MAKE"] = "/usr/bin/make" # prevent hardcoding make path from superenv
 
+      system "./bootstrap"
+
       system "./configure", "--prefix=#{prefix}"
 
       # Must be done in two steps
