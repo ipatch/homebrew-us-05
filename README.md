@@ -78,3 +78,13 @@ To pull down updates from this tap from time to time or when an upstream change 
 ```shell
 brew update
 ```
+
+<a href="development"></a>
+
+### Development
+
+When working with formula locally for debugging purposes a path to a local formula can be specified.
+
+```shell
+brew [re]install /path/to/some/local_formula.rb
+```
