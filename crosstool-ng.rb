@@ -16,21 +16,21 @@ class CrosstoolNg < Formula
     url "https://github.com/crosstool-ng/crosstool-ng.git", :shallow => false
 
     depends_on "help2man" => :build
-    depends_on "autoconf"
-    depends_on "automake"
-    depends_on "binutils"
-    depends_on "coreutils"
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "binutils" => :build
+    depends_on "coreutils" => :build
     depends_on "flex"
-    depends_on "gawk"
-    depends_on "gnu-sed"
-    depends_on "grep"
-    depends_on "libtool"
-    depends_on "m4"
-    depends_on "xz"
-    depends_on "gettext"
-    depends_on "bash"
-    depends_on "gcc"
-    depends_on "ncurses"
+    depends_on "gawk" => :build
+    depends_on "gnu-sed" => :build
+    depends_on "grep" => :build
+    depends_on "libtool" => :build
+    depends_on "m4" => :build
+    depends_on "xz" => :build
+    depends_on "gettext" => :build
+    depends_on "bash" => :build
+    depends_on "gcc" => :build
+    depends_on "ncurses" => :build
   end
 
   depends_on "help2man" => :build
