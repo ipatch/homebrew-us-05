@@ -3,6 +3,7 @@
 - [Working with fuse-ext2](#working-with-fuse-ext2)
 - [Working with QEMU](#working-with-qemu)
 - [Maintenance](#maintenance)
+- [Development](#development)
 
 <a href="ipatch-homebrew-us-05"></a>
 
