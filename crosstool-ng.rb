@@ -29,6 +29,7 @@ class CrosstoolNg < Formula
     depends_on "xz"
     depends_on "gettext"
     depends_on "bash"
+    depends_on "gcc"
   end
 
   depends_on "help2man" => :build
