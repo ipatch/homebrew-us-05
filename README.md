@@ -42,6 +42,8 @@ sudo chown root:wheel *_key
 sudo chmod 600 *_key
 ```
 
+- [ ] change permissions, owner, and group of above mentioned files when installing formula.
+
 <a href="working-with-fuse-ext2"></a>
 
 ### Working with fuse-ext2
