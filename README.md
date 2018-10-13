@@ -30,6 +30,18 @@ brew install ipatch/homebrew-us-05/[name-of-formula] [--with-options]
 brew install ipatch/homebrew-us-05/openssh --with-libressl --verbose
 ```
 
+<a href="working-with-openssh"></a>
+
+### Working with OpenSSH _from this repo_
+
+When upgrading or install OpenSSH from this repo, a few files will need to have their permissions changed.
+
+```shell
+cd /usr/local/etc/ssh
+sudo chown root:wheel *_key
+sudo chmod 600 *_key
+```
+
 <a href="working-with-fuse-ext2"></a>
 
 ### Working with fuse-ext2
