@@ -44,6 +44,8 @@ sudo chmod 600 *_key
 
 - [ ] change permissions, owner, and group of above mentioned files when installing formula.
 
+> If LibreSSL has been updated from mainline Homebrew, ie. upgrading from v2.7.x to v2.8.x then this version of OpenSSH will need to be reinstalled from this tap.
+
 <a href="working-with-fuse-ext2"></a>
 
 ### Working with fuse-ext2
