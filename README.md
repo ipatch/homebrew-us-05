@@ -1,19 +1,20 @@
-<a href="contents"></a>
+<a id="contents"></a>
 
 ## Contents 📖
+
 - [Installing a formula](#installing-a-formula)
 - [Working with fuse-ext2](#working-with-fuse-ext2)
 - [Working with QEMU](#working-with-qemu)
 - [Maintenance](#maintenance)
 - [Development](#development)
 
-<a href="ipatch-homebrew-us-05"></a>
+<a id="ipatch-homebrew-us-05"></a>
 
 ## ipatch/homebrew-us-05
 
 > A off beat repo for storing custom ales and lagers to make your life a little beat easier.
 
-<a href="installing-a-formula"></a>
+<a id="installing-a-formula"></a>
 
 ### Installing a formula
 
@@ -24,13 +25,13 @@ brew tap ipatch/homebrew-us-05
 brew install ipatch/homebrew-us-05/[name-of-formula] [--with-options]
 ```
 
-**Example**
+<strong>Example</strong>
 
 ```shell
 brew install ipatch/homebrew-us-05/openssh --with-libressl --verbose
 ```
 
-<a href="working-with-openssh"></a>
+<a id="working-with-openssh"></a>
 
 ### Working with OpenSSH _from this repo_
 
@@ -42,11 +43,13 @@ sudo chown root:wheel *_key
 sudo chmod 600 *_key
 ```
 
+#### TODOs
+
 - [ ] change permissions, owner, and group of above mentioned files when installing formula.
 
 > If LibreSSL has been updated from mainline Homebrew, ie. upgrading from v2.7.x to v2.8.x then this version of OpenSSH will need to be reinstalled from this tap.
 
-<a href="working-with-fuse-ext2"></a>
+<a id="working-with-fuse-ext2"></a>
 
 ### Working with fuse-ext2
 
@@ -73,7 +76,18 @@ To manually link **fuse-ext2**
 brew link fuse-ext2
 ```
 
-<a href="working-with-qemu"></a>
+> When installing fuse-ext2 from my provided homebrew repo the installation will state that it failed even though it has successfully installed.
+
+<details>
+<summary>fuse-ext2.rb Installation Failure üì∏</summary>
+
+<img src="https://imgur.com/HHIDTg5.png">
+
+</details>
+<br>
+<br>
+
+<a id="working-with-qemu"></a>
 
 ### Working with Qemu
 
@@ -82,23 +96,24 @@ To install Qemu from this homebrew 🍺 repo
 ```shell
 brew install ipatch/homebrew-us-05/qemu \
 --verbose \
---with-docs \ 
+--with-docs \
 --with-libusb \
 --with-hvf \
---with-hax \ 
+--with-hax \
 --HEAD
 ```
 
-<a href="maintenance"></a>
+<a id="maintenance"></a>
 
 ### Maintenance
+
 To pull down updates from this tap from time to time or when an upstream change has been made
 
 ```shell
 brew update
 ```
 
-<a href="development"></a>
+<a id="development"></a>
 
 ### Development
 
