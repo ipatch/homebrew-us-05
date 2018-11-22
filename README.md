@@ -123,6 +123,8 @@ When working with formula locally for debugging purposes specify a path to a loc
 brew [re]install /path/to/some/local_formula.rb
 ```
 
+> `brew reinstall` is problematic a majority of the time, so when experimenting with local formula when developing use **brew install** /path/to/formula.rb
+
 #### References
 
 - [**GitHub** > Homebrew Formula Cookbook](https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md)
