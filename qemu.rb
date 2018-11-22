@@ -1,5 +1,5 @@
 class Qemu < Formula
-  desc "x86 and PowerPC Emulator"
+  desc "x86, x86_64, ARM, & PowerPC Emulator"
   homepage "http://www.qemu.org"
   url "https://download.qemu.org/qemu-3.0.0.tar.xz"
   sha256 "8d7af64fe8bd5ea5c3bdf17131a8b858491bcce1ee3839425a6d91fb821b5713"
@@ -27,7 +27,6 @@ class Qemu < Formula
   depends_on "libusb" => :optional
 
   option "with-docs", "Install documentation for QEMU locally"
-  # option "with-docs", "Install QEMU documentation locally"
   option "with-hvf", "Install Hypervisor.framework hardware acceleration support"
   option "with-hax", "Instal Intel HAXM hardware acceleration support"
  
@@ -60,57 +59,54 @@ class Qemu < Formula
       --extra-cflags=-DNCURSES_WIDECHAR=1
       ]
 
-      # args << "--enable-docs" if build.with?("docs")
       args << (build.with?("docs") ? "--enable-docs" : "--disable-docs")
-      # args << "--enable-libusb" if build.with?("libusb")
       args << (build.with?("libusb") ? "--enable-libusb" : "--disable-libusb")
       args << (build.with?("hvf") ? "--enable-hvf" : "--diable-hvf")
-      # args << "--enable-hvf" if build.with?("hvf")
       args << (build.with?("hax") ? "--enable-hax" : "--disable-hax")
-      # args << "--enable-hax" if build.with?("hax")
+
+      # Get number of logical CPU's on the system
+      ncpus = `sysctl -n hw.ncpu`
+      ncpus_int = ncpus.to_i
+      # puts ncpus_int
 
       system "./configure", *args
       # system "make 'V=1 -j#{ncpus_int}'"
       system "make" "V=1"
       system "make install"
-    end
-    
-    # Get number of logical CPU's on the system
-    ncpus = `sysctl -n hw.ncpu`
-    ncpus_int = ncpus.to_i
-    # puts ncpus_int
-
-    args = %W[
-      --prefix=#{prefix}
-      --cc=#{ENV.cc}
-      --host-cc=#{ENV.cc}
-      --disable-bsd-user
-      --disable-guest-agent
-      --enable-curses
-      --extra-cflags=-DNCURSES_WIDECHAR=1
-    ]
-
-    args << "--enable-docs" if build.with?("docs")
-    args << "--enable-libusb" if build.with?("libusb")
-    args << "--enable-hvf" if build.with?("hvf")
-    args << "--enable-hax" if build.with?("hax")
-
-    # Cocoa and SDL2/GTK+ UIs cannot both be enabled at once.
-    if build.with?("sdl2") || build.with?("gtk+3")
-      args << "--disable-cocoa"
     else
-      args << "--enable-cocoa"
+      odie "This QEMU formula should only be built from HEAD, using --HEAD"
+    # args = %W[
+    #   --prefix=#{prefix}
+    #   --cc=#{ENV.cc}
+    #   --host-cc=#{ENV.cc}
+    #   --disable-bsd-user
+    #   --disable-guest-agent
+    #   --enable-curses
+    #   --extra-cflags=-DNCURSES_WIDECHAR=1
+    # ]
+
+    # args << "--enable-docs" if build.with?("docs")
+    # args << "--enable-libusb" if build.with?("libusb")
+    # args << "--enable-hvf" if build.with?("hvf")
+    # args << "--enable-hax" if build.with?("hax")
+
+    # # Cocoa and SDL2/GTK+ UIs cannot both be enabled at once.
+    # if build.with?("sdl2") || build.with?("gtk+3")
+    #   args << "--disable-cocoa"
+    # else
+    #   args << "--enable-cocoa"
+    # end
+
+    # args << (build.with?("vde") ? "--enable-vde" : "--disable-vde")
+    # args << (build.with?("sdl2") ? "--enable-sdl" : "--disable-sdl")
+    # args << (build.with?("gtk+3") ? "--enable-gtk" : "--disable-gtk")
+    # args << (build.with?("libssh2") ? "--enable-libssh2" : "--disable-libssh2")
+
+    # system "./configure", *args
+    # # system "make 'V=1 -j#{ncpus_int}'"
+    # system "make" "V=1"
+    # system "make install"
     end
-
-    args << (build.with?("vde") ? "--enable-vde" : "--disable-vde")
-    args << (build.with?("sdl2") ? "--enable-sdl" : "--disable-sdl")
-    args << (build.with?("gtk+3") ? "--enable-gtk" : "--disable-gtk")
-    args << (build.with?("libssh2") ? "--enable-libssh2" : "--disable-libssh2")
-
-    system "./configure", *args
-    # system "make 'V=1 -j#{ncpus_int}'"
-    system "make" "V=1"
-    system "make install"
   end
 
    test do
@@ -120,5 +116,3 @@ class Qemu < Formula
     assert_match "file format: raw", shell_output("#{bin}/qemu-img info FLOPPY.img")
   end
 end
-
-
