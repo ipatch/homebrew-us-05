@@ -28,7 +28,7 @@ brew install ipatch/homebrew-us-05/[name-of-formula] [--with-options]
 <strong>Example</strong>
 
 ```shell
-brew install ipatch/homebrew-us-05/openssh --with-libressl --verbose
+brew install ipatch/us-05/openssh --verbose --HEAD --with-ldns
 ```
 
 <a id="working-with-openssh"></a>
