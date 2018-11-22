@@ -75,37 +75,6 @@ class Qemu < Formula
       system "make install"
     else
       odie "This QEMU formula should only be built from HEAD, using --HEAD"
-    # args = %W[
-    #   --prefix=#{prefix}
-    #   --cc=#{ENV.cc}
-    #   --host-cc=#{ENV.cc}
-    #   --disable-bsd-user
-    #   --disable-guest-agent
-    #   --enable-curses
-    #   --extra-cflags=-DNCURSES_WIDECHAR=1
-    # ]
-
-    # args << "--enable-docs" if build.with?("docs")
-    # args << "--enable-libusb" if build.with?("libusb")
-    # args << "--enable-hvf" if build.with?("hvf")
-    # args << "--enable-hax" if build.with?("hax")
-
-    # # Cocoa and SDL2/GTK+ UIs cannot both be enabled at once.
-    # if build.with?("sdl2") || build.with?("gtk+3")
-    #   args << "--disable-cocoa"
-    # else
-    #   args << "--enable-cocoa"
-    # end
-
-    # args << (build.with?("vde") ? "--enable-vde" : "--disable-vde")
-    # args << (build.with?("sdl2") ? "--enable-sdl" : "--disable-sdl")
-    # args << (build.with?("gtk+3") ? "--enable-gtk" : "--disable-gtk")
-    # args << (build.with?("libssh2") ? "--enable-libssh2" : "--disable-libssh2")
-
-    # system "./configure", *args
-    # # system "make 'V=1 -j#{ncpus_int}'"
-    # system "make" "V=1"
-    # system "make install"
     end
   end
 
