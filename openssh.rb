@@ -1,38 +1,15 @@
 class Openssh < Formula
-  desc "OpenBSD freely-licensed SSH connectivity tools"
+  desc "OpenBSD freely-licensed SSH connectivity tools built with LibreSSL"
   homepage "https://www.openssh.com/"
-  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.8p1.tar.gz"
-  mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-7.8p1.tar.gz"
-  version "7.8p1"
+  # url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.8p1.tar.gz"
   sha256 "1a484bb15152c183bb2514e112aa30dd34138c3cfb032eee5490a66c507144ca"
+  head "https://anongit.mindrot.org/openssh.git"
 
-  bottle do
-    sha256 "98e44357dd21effa982aca7855eb3f383558e8f71d2788db2635f8e1f0f35d98" => :mojave
-    sha256 "062be6d245517da48f9977bd8773c4df34b346eceecf6ee710694014dfb546a0" => :high_sierra
-    sha256 "d41c0c0d627746f9c196d9257e9912d77e38907ca08db16d5b30683acbe1c3fe" => :sierra
-    sha256 "74a820270916e79b3885c171d87a562ddeb5f755f58fde2b80fa9eb63aa09d89" => :el_capitan
-  end
+  option "--with-lndns", "Build with ldns support"
 
-  head do
-    url "git://anongit.mindrot.org/openssh.git", :shallow => false
-
-    depends_on "openssl" => :optional
-    depends_on "openssl" => :build if build.with? "openssl"
-    depends_on "ldns" => :optional
-    depends_on "pkg-config" => :build if build.with? "ldns"
-    depends_on "libressl" => :optional
-    depends_on "libressl" => :build if build.with? "libressl"
-  end
-
-  # Please don't resubmit the keychain patch option. It will never be accepted.
-  # https://github.com/Homebrew/homebrew-dupes/pull/482#issuecomment-118994372
-
-  depends_on "openssl" => :optional
-  depends_on "openssl" => :build if build.with? "openssl"
+  depends_on "libressl"
   depends_on "ldns" => :optional
   depends_on "pkg-config" => :build if build.with? "ldns"
-  depends_on "libressl" => :optional
-  depends_on "libressl" => :build if build.with? "libressl"
 
   # Both these patches are applied by Apple.
   patch do
@@ -64,18 +41,12 @@ class Openssh < Formula
       --prefix=#{prefix}
       --sysconfdir=#{etc}/ssh
       --with-pam
-      --with-ssl-dir=#{Formula["openssl"].opt_prefix}
+      --with-ssl-dir=#{Formula["libressl"].opt_prefix}
       ]
 
       args << "--with-ldns" if build.with? "ldns"
-
-      if build.with? "libressl"
-        args << "--with-ssl-dir=#{Formula["libressl"].opt_prefix}"
-      else
-        args << "--with-ssl-dir=#{Formula["openssl"].opt_prefix}"
-      end
       
-      system "autoreconf"
+      # system "autoreconf"
       system "./configure", *args
       system "make"
       ENV.deparallelize
@@ -101,16 +72,10 @@ class Openssh < Formula
       --prefix=#{prefix}
       --sysconfdir=#{etc}/ssh
       --with-pam
-      --with-ssl-dir=#{Formula["openssl"].opt_prefix}
+      --with-ssl-dir=#{Formula["libressl"].opt_prefix}
       ]
 
       args << "--with-ldns" if build.with? "ldns"
-
-      if build.with? "libressl"
-        args << "--with-ssl-dir=#{Formula["libressl"].opt_prefix}"
-      else
-        args << "--with-ssl-dir=#{Formula["openssl"].opt_prefix}"
-      end
 
       system "./configure", *args
       system "make"

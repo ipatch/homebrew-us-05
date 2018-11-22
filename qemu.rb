@@ -5,9 +5,8 @@ class Qemu < Formula
   sha256 "8d7af64fe8bd5ea5c3bdf17131a8b858491bcce1ee3839425a6d91fb821b5713"
   head "https://git.qemu.org/git/qemu.git"
 
-  option "with-docs", "Install QEMU documentation locally"
-  option "with-hvf", "Install Hypervisor.framework hardware acceleration support"
-  option "with-hax", "Instal Intel HAXM hardware acceleration support"
+  deprecated_option "with-sdl" => "with-sdl2"
+  deprecated_option "with-gtk+" => "with-gtk+3"
 
   depends_on "pkg-config" => :build
   depends_on "libtool" => :build
@@ -27,9 +26,11 @@ class Qemu < Formula
   depends_on "libssh2" => :optional
   depends_on "libusb" => :optional
 
-  deprecated_option "with-sdl" => "with-sdl2"
-  deprecated_option "with-gtk+" => "with-gtk+3"
-
+  option "with-docs", "Install documentation for QEMU locally"
+  # option "with-docs", "Install QEMU documentation locally"
+  option "with-hvf", "Install Hypervisor.framework hardware acceleration support"
+  option "with-hax", "Instal Intel HAXM hardware acceleration support"
+ 
   fails_with :gcc_4_0 do
     cause "qemu requires a compiler with support for the __thread specifier"
   end
@@ -59,10 +60,14 @@ class Qemu < Formula
       --extra-cflags=-DNCURSES_WIDECHAR=1
       ]
 
-      args << "--enable-docs" if build.with?("docs")
-      args << "--enable-libusb" if build.with?("libusb")
-      args << "--enable-hvf" if build.with?("hvf")
-      args << "--enable-hax" if build.with?("hax")
+      # args << "--enable-docs" if build.with?("docs")
+      args << (build.with?("docs") ? "--enable-docs" : "--disable-docs")
+      # args << "--enable-libusb" if build.with?("libusb")
+      args << (build.with?("libusb") ? "--enable-libusb" : "--disable-libusb")
+      args << (build.with?("hvf") ? "--enable-hvf" : "--diable-hvf")
+      # args << "--enable-hvf" if build.with?("hvf")
+      args << (build.with?("hax") ? "--enable-hax" : "--disable-hax")
+      # args << "--enable-hax" if build.with?("hax")
 
       system "./configure", *args
       # system "make 'V=1 -j#{ncpus_int}'"

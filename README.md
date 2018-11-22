@@ -79,7 +79,7 @@ brew link fuse-ext2
 > When installing fuse-ext2 from my provided homebrew repo the installation will state that it failed even though it has successfully installed.
 
 <details>
-<summary>fuse-ext2.rb Installation Failure üì∏</summary>
+<summary>fuse-ext2.rb Installation Failure</summary>
 
 <img src="https://imgur.com/HHIDTg5.png">
 
@@ -117,8 +117,12 @@ brew update
 
 ### Development
 
-When working with formula locally for debugging purposes a path to a local formula can be specified.
+When working with formula locally for debugging purposes specify a path to a local formula so it can be tested locally.
 
 ```shell
 brew [re]install /path/to/some/local_formula.rb
 ```
+
+#### References
+
+- [**GitHub** > Homebrew Formula Cookbook](https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md)
