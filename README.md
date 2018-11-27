@@ -31,6 +31,12 @@ brew install ipatch/homebrew-us-05/[name-of-formula] [--with-options]
 brew install ipatch/us-05/openssh --verbose --HEAD --with-ldns
 ```
 
+To upgrade a formula that has been installed via this tap
+
+```shell
+brew reinstall ipatch/us-05/[name-of-formula] --verbose --build-from-source
+```
+
 <a id="working-with-openssh"></a>
 
 ### Working with OpenSSH _from this repo_
@@ -102,6 +108,10 @@ brew install ipatch/homebrew-us-05/qemu \
 --with-hax \
 --HEAD
 ```
+
+### Gotchas
+
+If a formula is installed from this repo ie. **qemu** with options, passed to the `install` command, ie. `--with-hax` homebrew has issues running the **reinstall** command even with the `--build-from-source` flag. To work around this, run `brew remove [name-of-formula]` to uninstall the package, and then reinstall the package with the flags provided form the previous install.
 
 <a id="maintenance"></a>
 
