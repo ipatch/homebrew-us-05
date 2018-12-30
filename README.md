@@ -82,17 +82,6 @@ To manually link **fuse-ext2**
 brew link fuse-ext2
 ```
 
-> When installing fuse-ext2 from my provided homebrew repo the installation will state that it failed even though it has successfully installed.
-
-<details>
-<summary>fuse-ext2.rb Installation Failure</summary>
-
-<img src="https://imgur.com/HHIDTg5.png">
-
-</details>
-<br>
-<br>
-
 <a id="working-with-qemu"></a>
 
 ### Working with Qemu
@@ -108,6 +97,8 @@ brew install ipatch/homebrew-us-05/qemu \
 --with-hax \
 --HEAD
 ```
+
+<a id="gotchas"></a>
 
 ### Gotchas
 
