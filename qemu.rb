@@ -1,8 +1,9 @@
 class Qemu < Formula
   desc "x86, x86_64, ARM, & PowerPC Emulator"
   homepage "http://www.qemu.org"
-  url "https://download.qemu.org/qemu-3.0.0.tar.xz"
+  url "https://download.qemu.org/qemu-3.1.0.tar.xz"
   sha256 "8d7af64fe8bd5ea5c3bdf17131a8b858491bcce1ee3839425a6d91fb821b5713"
+  revision 1
   head "https://git.qemu.org/git/qemu.git"
 
   deprecated_option "with-sdl" => "with-sdl2"
@@ -30,10 +31,6 @@ class Qemu < Formula
   option "with-hvf", "Install Hypervisor.framework hardware acceleration support"
   option "with-hax", "Instal Intel HAXM hardware acceleration support"
  
-  fails_with :gcc_4_0 do
-    cause "qemu requires a compiler with support for the __thread specifier"
-  end
-
   fails_with :gcc do
     cause "qemu requires a compiler with support for the __thread specifier"
   end
