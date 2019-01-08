@@ -3,7 +3,7 @@ class Qemu < Formula
   homepage "http://www.qemu.org"
   url "https://download.qemu.org/qemu-3.1.0.tar.xz"
   sha256 "8d7af64fe8bd5ea5c3bdf17131a8b858491bcce1ee3839425a6d91fb821b5713"
-  revision 1
+  # revision 1
   head "https://git.qemu.org/git/qemu.git"
 
   deprecated_option "with-sdl" => "with-sdl2"
