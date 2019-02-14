@@ -100,7 +100,7 @@ make
 make install
 ```
 
-The above steps will takes ~ 30 minutes on my 2013 late MBP 💻 to produce a binary that can launch a beta build from a CLI.
+The above steps will take ~ 30 minutes on my 2013 late MBP 💻 to produce a binary that can launch a beta build from a CLI.
 
 <a id="working-with-cmake-on-macos"></a>
 
