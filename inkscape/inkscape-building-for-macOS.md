@@ -12,11 +12,8 @@
 - [Building Inkscape from source](#build-inkscape-from-srouce)
 - [Building Inkscape from gitlab source using homebrew tooling](build-inkscape-from-gitlab-with-brew)
 - [Working with CMake on macOS](#working-with-cmake-on-macos)
-
 - [Useful Links](#useful-links)
-
 - [Working with `jhbuild`](#working-with-jhbuild)
-
 - [TODOs](#todos)
 
 > The hitchhikers guide to building Inkscape on macOS for macOS
