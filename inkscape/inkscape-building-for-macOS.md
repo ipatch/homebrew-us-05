@@ -16,6 +16,7 @@
 - [Working with CMake on macOS](#working-with-cmake-on-macos)
 - [Useful Links](#useful-links)
 - [Working with `jhbuild`](#working-with-jhbuild)
+  - [Building jhbuild](#building-jhbuild)
 - [TODOs](#todos)
 
 **Inkscape** is an open source vector editing app that pairs well with SVG graphics.
@@ -64,7 +65,7 @@ The following dependencies are required in order to build Inkscape, all of which
 - gsl
 - adwaita-icon-theme
 - gdl3
-- gtkmm3
+- [gtkmm3](https://www.gtkmm.org/en/)
 - libsoup
 
 A way to determine if one of the above packages has been installed is to run
@@ -100,7 +101,7 @@ make
 make install
 ```
 
-The above steps will take ~ 30 minutes on my 2013 late MBP 💻 to produce a binary that can launch a beta build from a CLI.
+The above steps will take ~ 30 minutes [img](#gnu-make-build-time) on my 2013 late MBP 💻 to produce a binary that can launch a beta build from a CLI.
 
 <a id="working-with-cmake-on-macos"></a>
 
@@ -155,6 +156,12 @@ To print a list of Developer IDs from a CLI
 
 ```shell
 security find-identity -v -p codesigning
+```
+
+To codesign a binary on macOS
+
+```shell
+codesign -s "certificate name" /path/to/MrFancy42.app/Contents/MacOS/*
 ```
 
 ### CMake > References
@@ -228,6 +235,7 @@ An **Info.plist** for an app bundle on macOS can contain the below key for speci
 - [**gitlab.com** > osx-build.sh](https://gitlab.com/inkscape/inkscape/blob/inkscape.dev_osx-packaging-update/packaging/macosx/osx-build.sh)
 - [**gitlab.com** > osx-app.sh](https://gitlab.com/inkscape/inkscape/blob/inkscape.dev_osx-packaging-update/packaging/macosx/osx-app.sh)
 - [**gitlab.com** > Inkscape source > macos packaging](https://gitlab.com/inkscape/inkscape/tree/inkscape.dev_osx-packaging-update/packaging/macosx)
+  - [**gitlab.com** > issue > macOS build](https://gitlab.com/inkscape/vectors/general/issues/49)
 
 ### GitHub
 
@@ -239,6 +247,7 @@ An **Info.plist** for an app bundle on macOS can contain the below key for speci
 ### The GTK+ Project
 
 - [**gtk.org** > Download for Mac OS X](https://www.gtk.org/download/macos.php)
+- [**wiki.gnome.org** > GTK > OSX Integration](https://wiki.gnome.org/Projects/GTK/OSX/Integration)
 
 <a id="working-with-jhbuild"></a>
 
@@ -248,6 +257,8 @@ An **Info.plist** for an app bundle on macOS can contain the below key for speci
 
 <details>
 <summary>Notes from working with jhbuild</summary>
+
+<a id="building-jhbuild"></a>
 
 #### Building `jhbuild`
 
@@ -328,11 +339,21 @@ jhbuild bootstrap
 
 </details>
 
-<a id=todos></a>
+<a id="todos"></a>
 
 ## TODOs [🔝](#contents)
 
 - [ ] build a visual dependency graph of Inkscape preferably using [GraphViz](https://graphviz.org/) _see arch wiki_
+- [ ] construct a feasible solution to run `make install` without ~~`sudo make install`~~
 
+<a id="references"></a>
 
+## References
+
+<details>
+<summary>Images 📸 👨‍💻</summary>
+
+<a id="gnu-make-build-time"></a>
+
+![gnu-make-build-time](https://i.imgur.com/v4zAENc.png "Inkscape build time on MBP 2013")
 
