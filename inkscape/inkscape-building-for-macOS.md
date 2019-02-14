@@ -345,15 +345,40 @@ jhbuild bootstrap
 
 - [ ] build a visual dependency graph of Inkscape preferably using [GraphViz](https://graphviz.org/) _see arch wiki_
 - [ ] construct a feasible solution to run `make install` without ~~`sudo make install`~~
+- [ ] Experiment and benchmark different build systems, ie. GNU Make, Xcode, and ninja
 
 <a id="references"></a>
 
 ## References
 
-<details>
-<summary>Images 📸 👨‍💻</summary>
-
 <a id="gnu-make-build-time"></a>
 
 ![gnu-make-build-time](https://i.imgur.com/v4zAENc.png "Inkscape build time on MBP 2013")
 
+<a id="my-custom-build-messages"></a>
+
+![my-custom-build-messages](https://i.imgur.com/z5qVFVU.png "🙋‍♂️ my custom build messages")
+
+<a id="app-bundling-messages"></a>
+
+![app-bundling-messages](https://i.imgur.com/MsfWxtR.png "CMake app bundling messages")
+
+<a id="cmake-permission-issues"></a>
+
+![cmake-permission-issues-macos](https://i.imgur.com/6SNMmG8.png "CMake permission issues on macOS")
+
+<a id="inkscape-1-gui-on-macos"></a>
+
+![inkscape-1.0.x-gui-on-macos](https://i.imgur.com/zX1yx5q.png)
+
+<a id="inkscape-1-gui-about-on-macos"></a>
+
+![inkscape 1 alpha about window on macOS](https://i.imgur.com/sRwjPEz.png "inkscape 1 alpha about window on macOS")
+
+<a id="launching-inkscape-from-cli"></a>
+
+![launching inkscape from a CLI on macos](https://i.imgur.com/nvuCBPn.png)
+
+<a id="macos-windowing-issues">
+
+![macos windowing issues](https://i.imgur.com/oAU0pND.png)
