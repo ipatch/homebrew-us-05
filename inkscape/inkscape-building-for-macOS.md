@@ -4,6 +4,8 @@
 
 </div>
 
+> The hitchhikers guide to building Inkscape on macOS for macOS
+
 <a id="contents"></a>
 
 ## Contents
@@ -15,8 +17,6 @@
 - [Useful Links](#useful-links)
 - [Working with `jhbuild`](#working-with-jhbuild)
 - [TODOs](#todos)
-
-> The hitchhikers guide to building Inkscape on macOS for macOS
 
 **Inkscape** is an open source vector editing app that pairs well with SVG graphics.
 
