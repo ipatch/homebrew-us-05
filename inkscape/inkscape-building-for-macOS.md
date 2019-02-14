@@ -73,6 +73,13 @@ A way to determine if one of the above packages has been installed is to run
 brew info [NAME_OF_PACKAGE]
 ```
 
+To install all dependencies required for Inkscape using brew
+
+```shell
+brew install cmake cairo boehmgc intltool libxslt lcms2 boost poppler gsl \
+adwaita-icon-theme gdl gtkmm3 libsoup
+```
+
 ```shell
 # set a env var where the build tools will look for required compile time libraries
 LIBPREFIX="/usr/local"
@@ -93,11 +100,54 @@ make
 make install
 ```
 
-The above steps will produce a binary that can launch a beta build from a CLI.
+The above steps will takes ~ 30 minutes on my 2013 late MBP 💻 to produce a binary that can launch a beta build from a CLI.
 
 <a id="working-with-cmake-on-macos"></a>
 
 ## Working with CMake on macOS
+
+> **CMake** is a build system generator, not a build system.
+
+### Unsorted
+
+Some useful **cmake** commands and flags
+
+To list all flags available to **cmake**
+
+```shell
+cmake -LAH
+```
+
+```shell
+-DCMAKE_BUILD_TYPE=Release
+```
+
+Some useful **cpack** commands
+
+```shell
+cpack --debug --verbose
+cpack -G productbuild -V
+```
+
+On macOS a dynamic library has a `.dylib` ext, and a static library has a `.a` or `.ib`.
+
+```shell
+CMAKE_LIBRARY_OUTPUT_DIRECTORY # shared library path for .dll and .so
+LIBRARY_OUTPUT_PATH            # shared library path for .dll and .so
+CMAKE_ARCHIVE_OUTPUT_DIRECTORY # static library path for .a and .lib
+ARCHIVE_OUTPUT_PATH # static library path for .a and .lib
+```
+
+
+Link library file after adding an executable when writing a **CMakeLists.tx** file.
+
+```
+add_library(cmake_shared_lib SHARED lib/shared/cmake_lib.cpp)
+add_executable(cmake_hello main.cpp)
+target_link_libraries(cmake_hello cmake_shared_lib)
+```
+
+### CMake > codesigning on macOS
 
 To code sign a macOS app build around CMake tooling first create a certificate using Xcode.  From my personal experience the easiest way to setup a Developer account that works with Xcode and Apple's code signing is create an account at [developer.apple.com](http://developer.apple.com)  After an account has been created then create a _dummy_ macOS application, and Xcode will generate a certificate on the local machine running Xcode asosciated with the account that was created at developer.apple.com.  Building the _dummy_ app may be required to complete the certificate generation process on macOS.
 
@@ -110,6 +160,44 @@ security find-identity -v -p codesigning
 ### CMake > References
 
 **Wireshark** build process for generating macOS **.app** bundles appears to not use the native CMake build tools for generating an **.app** bundle rather relying on custom shell scripts for contsructing the **.app** bundle
+
+### CMake > References > CLI
+
+To specify a **build** and **source** path for CMake from a CLI.
+
+```shell
+cmake -B/path/to/src/build -H/path/to/src
+```
+
+<a id="understanding-app-bundles"></a>
+
+## Understaning app bundles for macOS
+
+### An example of an app bundle
+
+```shell
+./MrFancy42.app
+./MrFancy42.app/Contents/ # everything is in the `Contents` dir
+./MrFancy42.app/Contents/Info.plist
+./MrFancy42.app/Contents/PkgInfo
+./MrFancy42.app/Contents/MacOS/
+./MrFancy42.app/Contents/MacOS/MrFancy42 # EXE
+./MrFancy42.app/Contents/MacOS/lib
+./MrFancy42.app/Contents/MacOS/lib/*.dylib
+./MrFancy42.app/Contents/icon.icns # app icon
+./MrFancy42.app/Contents/document.icns # file icon
+```
+
+### Known keys
+
+An **Info.plist** for an app bundle on macOS can contain the below key for specify the binary to launch.
+
+**CFBundleExecutable**
+
+```xml
+<key>CFBundleExecutable</key>
+<string>app-bunlde</string>
+```
 
 <a id="useful-links">
 
