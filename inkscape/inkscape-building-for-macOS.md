@@ -4,6 +4,21 @@
 
 </div>
 
+<a id="contents"></a>
+
+## Contents
+
+- [Installing Inkscape from prebuilt binaries](#install-inkscape-from-bins)
+- [Building Inkscape from source](#build-inkscape-from-srouce)
+- [Building Inkscape from gitlab source using homebrew tooling](build-inkscape-from-gitlab-with-brew)
+- [Working with CMake on macOS](#working-with-cmake-on-macos)
+
+- [Useful Links](#useful-links)
+
+- [Working with `jhbuild`](#working-with-jhbuild)
+
+- [TODOs](#todos)
+
 > The hitchhikers guide to building Inkscape on macOS for macOS
 
 **Inkscape** is an open source vector editing app that pairs well with SVG graphics.
@@ -11,6 +26,8 @@
 Inkscape is primarily [written](https://gitlab.com/inkscape/inkscape) in C++ ie. ~ 93% of the source code that comprises Inkscape is C++. 
 
 The Inkscape source does not supply any special macOS related files for building Inkscape on macOS, ie. Xcode project files etc, etc, so building Inkscape on macOS is tad bit more of an involved process than a typical GNU+Linux distro build.  That said, there are several options of installing Inkscape that do not require building the app from the above mentioned source.
+
+<a id="install-inkscape-from-bins"></a>
 
 ## Installing Inkscape from prebuilt binaries
 
@@ -21,7 +38,9 @@ The Inkscape source does not supply any special macOS related files for building
 3. There are instructions on the Inkscape website for installing Inkscape via one of the above listed package managers.
 > Homebrew cask installs Inkscape by downloading and copying the above mentioned DMG into the Applications folder.
 
-## Building Inkscape from source
+<a id="build-inkscape-from-srouce"></a>
+
+## Building Inkscape from source [🔝](#contents)
 
 The Inkscape website has various links for building / installing Inkscape from source for various systems, ie. macOS, Windows, and GNU+Linux.  That said, the instructions for installing Inkscape from source on macOS are scattered throughout the inkscape.com domain and an [accompying wiki](wiki.inkscape.org)
 
@@ -29,7 +48,9 @@ The Inkscape developers have migrated from GNU Autotools to [CMake](https://cmak
 
 I believe there are some legacy instructions floating around that detail steps for building Inkscape using Autotools, however there is no official support for building Inkscape with Autotools.
 
-### Building Inkscape from gitlab source using homebrew infrastructure
+<a id="build-inkscape-from-gitlab-with-brew"></a>
+
+### Building Inkscape from gitlab source using homebrew infrastructure [🔝](#contents)
 
 > This procedure uses the infrastructure provided by [homebrew](brew.sh) to construct a inkscape binary.
 
@@ -77,6 +98,8 @@ make install
 
 The above steps will produce a binary that can launch a beta build from a CLI.
 
+<a id="working-with-cmake-on-macos"></a>
+
 ## Working with CMake on macOS
 
 To code sign a macOS app build around CMake tooling first create a certificate using Xcode.  From my personal experience the easiest way to setup a Developer account that works with Xcode and Apple's code signing is create an account at [developer.apple.com](http://developer.apple.com)  After an account has been created then create a _dummy_ macOS application, and Xcode will generate a certificate on the local machine running Xcode asosciated with the account that was created at developer.apple.com.  Building the _dummy_ app may be required to complete the certificate generation process on macOS.
@@ -87,7 +110,13 @@ To print a list of Developer IDs from a CLI
 security find-identity -v -p codesigning
 ```
 
-## Useful Links
+### CMake > References
+
+**Wireshark** build process for generating macOS **.app** bundles appears to not use the native CMake build tools for generating an **.app** bundle rather relying on custom shell scripts for contsructing the **.app** bundle
+
+<a id="useful-links">
+
+## Useful Links [🔝](#contents)
 
 ### Inkscape > Source
 
@@ -126,8 +155,9 @@ security find-identity -v -p codesigning
 
 - [**gtk.org** > Download for Mac OS X](https://www.gtk.org/download/macos.php)
 
+<a id="working-with-jhbuild"></a>
 
-### Working with `jhbuild`
+## Working with `jhbuild` [🔝](#contents)
 
 > I went down a **jhbuild** rabbit 🐇 hole thinking it would be an ideal way for managing the build infrastructure on macOS ...I 🙅‍♂️ was wrong 
 
@@ -213,13 +243,9 @@ jhbuild bootstrap
 
 </details>
 
-## Working with CMake
+<a id=todos></a>
 
-### References > CMake
-
-**Wireshark** build process for generating macOS **.app** bundles appears to not use the native CMake build tools for generating an **.app** bundle rather relying on custom shell scripts for contsructing the **.app** bundle
-
-## TODOs
+## TODOs [🔝](#contents)
 
 - [ ] build a visual dependency graph of Inkscape preferably using [GraphViz](https://graphviz.org/) _see arch wiki_
 
