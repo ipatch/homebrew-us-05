@@ -18,6 +18,7 @@
 - [Working with `jhbuild`](#working-with-jhbuild)
   - [Building jhbuild](#building-jhbuild)
 - [TODOs](#todos)
+- [References](#references)
 
 **Inkscape** is an open source vector editing app that pairs well with SVG graphics.
 
@@ -101,7 +102,13 @@ make
 make install
 ```
 
-The above steps will take ~ 30 minutes [img](#gnu-make-build-time) on my 2013 late MBP 💻 to produce a binary that can launch a beta build from a CLI.
+The above steps will take ~ 30 minutes [📸](#gnu-make-build-time) on my 2013 late MBP 💻 to produce a binary that can launch a beta build from a CLI.
+
+<a id="limitations-of-the-build"></a>
+
+#### Limitations of the build
+
+Windowing on a homebrew build is jacked, ie. some of the windows that should spawn a dialog window, ie. **File** > **Open** are launched in a [📸](#macos-windowing-issues) tab instead of a independent application window.  However the **About** dialog / window appears to spawn [📸](inkscape-1-gui-about-on-macos) as it should
 
 <a id="working-with-cmake-on-macos"></a>
 
