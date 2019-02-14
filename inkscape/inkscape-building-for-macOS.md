@@ -4,7 +4,7 @@
 
 </div>
 
-> The hitchhikers guide to building Inkscape on macOS for macOS
+> The hitchhikers guide to building Inkscape for macOS by macOS
 
 <a id="contents"></a>
 
