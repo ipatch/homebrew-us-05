@@ -1,4 +1,8 @@
+<div align="center">
+
 # Building Inkscape for macOS ⌘
+
+</div>
 
 > The hitchhikers guide to building Inkscape on macOS for macOS
 
