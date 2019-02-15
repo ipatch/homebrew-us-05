@@ -351,7 +351,7 @@ jhbuild bootstrap
 ## TODOs [🔝](#contents)
 
 - [ ] build a visual dependency graph of Inkscape preferably using [GraphViz](https://graphviz.org/) _see arch wiki_
-- [ ] construct a feasible solution to run `make install` without ~~`sudo make install`~~
+- [ ] construct a feasible solution to run `make install` without ~~`sudo make install`~~ current issue [📸](#cmake-permission-issues)
 - [ ] Experiment and benchmark different build systems, ie. GNU Make, Xcode, and ninja
 
 <a id="references"></a>
