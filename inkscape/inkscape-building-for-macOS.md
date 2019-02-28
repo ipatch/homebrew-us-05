@@ -350,7 +350,7 @@ jhbuild bootstrap
 
 ## TODOs [🔝](#contents)
 
-- [ ] build a visual dependency graph of Inkscape preferably using [GraphViz](https://graphviz.org/) _see arch wiki_
+- [x] ~~build a visual dependency graph of Inkscape preferably using~~ [**see** 📸](#inkscape-dependency-graph-example)
 - [ ] construct a feasible solution to run `make install` without ~~`sudo make install`~~ current issue [📸](#cmake-permission-issues)
 - [ ] Experiment and benchmark different build systems, ie. GNU Make, Xcode, and ninja
 
@@ -389,3 +389,7 @@ jhbuild bootstrap
 <a id="macos-windowing-issues">
 
 ![macos windowing issues](https://i.imgur.com/oAU0pND.png)
+
+<a id="inkscape-dependency-graph-example">
+
+![inkscape dependency graph](https://i.imgur.com/tUfaYqu.png)
