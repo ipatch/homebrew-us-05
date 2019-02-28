@@ -41,7 +41,7 @@ The Inkscape source does not supply any special macOS related files for building
 
 ## Building Inkscape from source [🔝](#contents)
 
-The Inkscape website has various links for building / installing Inkscape from source for various systems, ie. macOS, Windows, and GNU+Linux.  That said, the instructions for installing Inkscape from source on macOS are scattered throughout the inkscape.com domain and an [accompying wiki](wiki.inkscape.org)
+The Inkscape website has various links for building / installing Inkscape from source for various systems, ie. macOS, Windows, and GNU+Linux.  That said, the instructions for installing Inkscape from source on macOS are scattered throughout the inkscape.com domain and an [accompying wiki](http://wiki.inkscape.org)
 
 The Inkscape developers have migrated from GNU Autotools to [CMake](https://cmake.org/) which can be used to aid in building process macOS.
 
