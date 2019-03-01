@@ -352,7 +352,7 @@ jhbuild bootstrap
 
 - [x] ~~build a visual dependency graph of Inkscape preferably using~~ [**see** 📸](#inkscape-dependency-graph-example)
 - [ ] construct a feasible solution to run `make install` without ~~`sudo make install`~~ current issue [📸](#cmake-permission-issues)
-- [ ] Experiment and benchmark different build systems, ie. ~~Xcode+CMake~~ [📸](#inkscape-release-build-time-feb28-native-tooling), and ninja
+- [x] Experiment and benchmark different build systems, ie. ~~Xcode+CMake~~ [📸](#inkscape-release-build-time-feb28-native-tooling), and ~~CMake+ninja~~ [📸](#inkscape-release-build-time-mar1-ninja-tooling)
 
 <a id="references"></a>
 
@@ -397,3 +397,7 @@ jhbuild bootstrap
 <a id="inkscape-release-build-time-feb28-native-tooling"></a>
 
 ![inkscape release build time feb28 native tooling](https://i.imgur.com/nfD307P.png)
+
+<a id="inkscape-release-build-time-mar1-ninja-tooling"></a>
+
+![inkscape release build time mar1 ninja tooling](https://i.imgur.com/MpBvUmR.png)
