@@ -83,24 +83,36 @@ adwaita-icon-theme gdl gtkmm3 libsoup
 ```
 
 ```shell
-# set a env var where the build tools will look for required compile time libraries
-LIBPREFIX="/usr/local"
-# append $LIBPREFIX to the front of the $PATH
-PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-# specify install directory for inkscape
-PREFIX="/opt/beta/inkscape"
-# construct a build directory for creating intermediate build files
-mkdir build; cd build;
-# configure CMake to build inkscape
+git clone --depth=1 --recurse-submodules https://gitlab.com/inkscape/inkscape.git  # clone inkscape source and submodules
+git co -b build-branch # create a new branch for building
+LIBPREFIX="/usr/local" # # set a env var where the build tools will look for required compile time libraries
+PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX to the front of the $PATH
+PREFIX="/opt/beta/inkscape" # specify install directory for inkscape
+mkdir build; cd build; # construct a build directory for creating intermediate build file
 cmake \
 -DCMAKE_PREFIX_PATH="$LIBPREFIX" \
 -DCMAKE_INSTALL_PREFIX="$PREFIX" \
 -DWITH_OPENMP=OFF \
-..
-# Compile / Build, then install inkscape into the prefix
-make
+.. # configure CMake to build inkscape
+make # Compile / Build with CMake+Xcode, then install inkscape into the prefix
 make install
 ```
+
+To build using ninja instead of the native clang tooling provided by Xcode
+
+```shell
+../po/generate_POTFILES.sh
+cmake \
+-DCMAKE_PREFIX_PATH="$LIBPREFIX" \
+-DCMAKE_INSTALL_PREFIX="$PREFIX" \
+-DWITH_OPENMP=OFF \
+-G Ninja \
+ninja inkscape_pot # required for building with ninja
+.. # configure CMake to build with ninja
+ninja # compile / build Inkscape source using ninja
+ninja install # install CMake into $PREFIX
+```
+
 
 The above steps will take ~ 30 minutes [📸](#gnu-make-build-time) on my 2013 late MBP 💻 to produce a binary that can launch a beta build from a CLI.
 
@@ -146,10 +158,9 @@ CMAKE_ARCHIVE_OUTPUT_DIRECTORY # static library path for .a and .lib
 ARCHIVE_OUTPUT_PATH # static library path for .a and .lib
 ```
 
-
 Link library file after adding an executable when writing a **CMakeLists.tx** file.
 
-```
+```conf
 add_library(cmake_shared_lib SHARED lib/shared/cmake_lib.cpp)
 add_executable(cmake_hello main.cpp)
 target_link_libraries(cmake_hello cmake_shared_lib)
@@ -206,7 +217,7 @@ cmake -B/path/to/src/build -H/path/to/src
 
 An **Info.plist** for an app bundle on macOS can contain the below key for specify the binary to launch.
 
-**CFBundleExecutable**
+<strong>CFBundleExecutable</strong>
 
 ```xml
 <key>CFBundleExecutable</key>
@@ -242,7 +253,7 @@ An **Info.plist** for an app bundle on macOS can contain the below key for speci
 - [**gitlab.com** > osx-build.sh](https://gitlab.com/inkscape/inkscape/blob/inkscape.dev_osx-packaging-update/packaging/macosx/osx-build.sh)
 - [**gitlab.com** > osx-app.sh](https://gitlab.com/inkscape/inkscape/blob/inkscape.dev_osx-packaging-update/packaging/macosx/osx-app.sh)
 - [**gitlab.com** > Inkscape source > macos packaging](https://gitlab.com/inkscape/inkscape/tree/inkscape.dev_osx-packaging-update/packaging/macosx)
-  - [**gitlab.com** > issue > macOS build](https://gitlab.com/inkscape/vectors/general/issues/49)
+- [**gitlab.com** > issue > macOS build](https://gitlab.com/inkscape/vectors/general/issues/49)
 
 ### GitHub
 
