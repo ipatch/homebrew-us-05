@@ -386,10 +386,14 @@ jhbuild bootstrap
 
 ![launching inkscape from a CLI on macos](https://i.imgur.com/nvuCBPn.png)
 
-<a id="macos-windowing-issues">
+<a id="macos-windowing-issues"></a>
 
 ![macos windowing issues](https://i.imgur.com/oAU0pND.png)
 
-<a id="inkscape-dependency-graph-example">
+<a id="inkscape-dependency-graph-example"></a>
 
 ![inkscape dependency graph](https://i.imgur.com/tUfaYqu.png)
+
+<a id="inkscape-release-build-time-feb28-native-tooling"></a>
+
+![inkscape release build time feb28 native tooling](https://i.imgur.com/nfD307P.png)
