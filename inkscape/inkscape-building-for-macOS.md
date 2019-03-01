@@ -113,8 +113,7 @@ ninja # compile / build Inkscape source using ninja
 ninja install # install CMake into $PREFIX
 ```
 
-
-The above steps will take ~ 30 minutes [📸](#gnu-make-build-time) on my 2013 late MBP 💻 to produce a binary that can launch a beta build from a CLI.
+The above steps will take ~ 30 minutes [📸](#gnu-make-build-time) using CMake+clang on my 2013 late MBP 💻 whereas CMake+ninja will take ~ 8 minutes to produce a binary that can launch a beta build from a CLI.
 
 <a id="limitations-of-the-build"></a>
 
