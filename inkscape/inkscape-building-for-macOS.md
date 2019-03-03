@@ -360,7 +360,17 @@ jhbuild bootstrap
 
 ## TODOs [🔝](#contents)
 
-- [x] ~~build a visual dependency graph of Inkscape preferably using~~ [**see** 📸](#inkscape-dependency-graph-example)
+- [ ] spend some time researching about file open dialog boxes
+
+  ### TODOS > file open dialogs > Useful Links
+
+  - [**stackoverflow** > gtk > native file dialog on macOS](https://stackoverflow.com/questions/33341914/gtk-file-chooser-non-native-look-on-osx)
+  - [**gitlab.com** > gedit > macOS related src > gedit-dirs.c](https://gitlab.gnome.org/GNOME/gedit/blob/master/gedit/gedit-dirs.c)
+
+- [ ] spend some time messing around with [GTKOSXApplication](https://wiki.gnome.org/Projects/GTK/OSX/Integration) menubar integration
+  - [ ] CMake > figure out how to add a build flag for CMake
+  - [ ] CMake > figure out how to add a build time dependency if a flag is passed to CMake
+- [x] ~~build a visual dependency graph of Inkscape~~ [**see** 📸](#inkscape-dependency-graph-example)
 - [ ] construct a feasible solution to run `make install` without ~~`sudo make install`~~ current issue [📸](#cmake-permission-issues)
 - [x] Experiment and benchmark different build systems, ie. ~~Xcode+CMake~~ [📸](#inkscape-release-build-time-feb28-native-tooling), and ~~CMake+ninja~~ [📸](#inkscape-release-build-time-mar1-ninja-tooling)
 
