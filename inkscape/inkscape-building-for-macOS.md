@@ -107,8 +107,8 @@ cmake \
 -DCMAKE_INSTALL_PREFIX="$PREFIX" \
 -DWITH_OPENMP=OFF \
 -G Ninja \
-ninja inkscape_pot # required for building with ninja
 .. # configure CMake to build with ninja
+ninja inkscape_pot # required for building with ninja
 ninja # compile / build Inkscape source using ninja
 ninja install # install CMake into $PREFIX
 ```
@@ -360,10 +360,18 @@ jhbuild bootstrap
 
 ## TODOs [🔝](#contents)
 
+- [ ] construct an **Inkscape.app** bundle using CMake and friends.
+  
+  ### TODOS > Useful Links > app bundling on macOS
+
+  - [gitlab.gnome.org](https://gitlab.gnome.org/GNOME/gedit/blob/master/osx/bundle/bundle)
+
 - [ ] spend some time researching about file open dialog boxes
 
-  ### TODOS > file open dialogs > Useful Links
+  ### TODOS > Useful Links > file open dialogs
 
+  - [**gitlab.gnome.org** > gtk-mac-integration](https://gitlab.gnome.org/GNOME/gtk-mac-integration/)
+  - [**github.io** > gtk-mac-integration > gtkosxapplication > documentation](https://jralls.github.io/gtk-mac-integration/index.html)
   - [**stackoverflow** > gtk > native file dialog on macOS](https://stackoverflow.com/questions/33341914/gtk-file-chooser-non-native-look-on-osx)
   - [**gitlab.com** > gedit > macOS related src > gedit-dirs.c](https://gitlab.gnome.org/GNOME/gedit/blob/master/gedit/gedit-dirs.c)
 
