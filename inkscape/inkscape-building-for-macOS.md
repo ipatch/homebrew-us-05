@@ -82,6 +82,14 @@ brew install cmake cairo boehmgc intltool libxslt lcms2 boost poppler gsl \
 adwaita-icon-theme gdl gtkmm3 libsoup
 ```
 
+#### Updates | March 10 2019
+
+> Building Inkscape from commit [50f63d05](https://gitlab.com/inkscape/inkscape/commit/50f63d05be34c63fad22b5c7ced9dae2b2611cca) required exporting **PKG_CONFIG_PATH** for `libffi` in order for CMake to properly configure the build.
+
+```shell
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+```
+
 ```shell
 git clone --depth=1 --recurse-submodules https://gitlab.com/inkscape/inkscape.git  # clone inkscape source and submodules
 git co -b build-branch # create a new branch for building
