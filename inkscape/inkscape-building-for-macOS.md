@@ -116,7 +116,7 @@ mkdir -p build/ninja && cd build/ninja
 
 export LIBPREFIX="/usr/local" # set a env var where the build tools will look for required compile time libraries
 export PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX to the front of the $PATH
-export PREFIX="/opt/beta/inkscape/cli/non-ninja" # specify install directory for inkscape
+export PREFIX="/opt/beta/inkscape/cli/ninja" # specify install directory for inkscape
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 
 cmake \
