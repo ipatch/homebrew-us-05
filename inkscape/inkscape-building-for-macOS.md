@@ -85,15 +85,15 @@ adwaita-icon-theme gdl gtkmm3 libsoup
 ```shell
 git clone --depth=1 --recurse-submodules https://gitlab.com/inkscape/inkscape.git  # clone inkscape source and submodules
 git co -b build-branch # create a new branch for building
-LIBPREFIX="/usr/local" # # set a env var where the build tools will look for required compile time libraries
-PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX to the front of the $PATH
-PREFIX="/opt/beta/inkscape" # specify install directory for inkscape
-mkdir build; cd build; # construct a build directory for creating intermediate build file
+export LIBPREFIX="/usr/local" # # set a env var where the build tools will look for required compile time libraries
+export PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX to the front of the $PATH
+export PREFIX="/opt/beta/inkscape/cli/non-ninja" # specify install directory for inkscape
+mkdir -p build/non-ninja; cd build/non-ninja; # construct a build directory for creating intermediate build file
 cmake \
 -DCMAKE_PREFIX_PATH="$LIBPREFIX" \
 -DCMAKE_INSTALL_PREFIX="$PREFIX" \
 -DWITH_OPENMP=OFF \
-.. # configure CMake to build inkscape
+../.. # configure CMake to build inkscape
 make # Compile / Build with CMake+Xcode, then install inkscape into the prefix
 make install
 ```
@@ -102,12 +102,13 @@ To build using ninja instead of the native clang tooling provided by Xcode
 
 ```shell
 ../po/generate_POTFILES.sh
+mkdir -p build/ninja && cd build/ninja
 cmake \
 -DCMAKE_PREFIX_PATH="$LIBPREFIX" \
 -DCMAKE_INSTALL_PREFIX="$PREFIX" \
 -DWITH_OPENMP=OFF \
 -G Ninja \
-.. # configure CMake to build with ninja
+../.. # configure CMake to build with ninja
 ninja inkscape_pot # required for building with ninja
 ninja # compile / build Inkscape source using ninja
 ninja install # install CMake into $PREFIX
