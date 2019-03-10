@@ -93,7 +93,7 @@ export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 ```shell
 git clone --depth=1 --recurse-submodules https://gitlab.com/inkscape/inkscape.git  # clone inkscape source and submodules
 git co -b build-branch # create a new branch for building
-export LIBPREFIX="/usr/local" # # set a env var where the build tools will look for required compile time libraries
+export LIBPREFIX="/usr/local" # set a env var where the build tools will look for required compile time libraries
 export PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX to the front of the $PATH
 export PREFIX="/opt/beta/inkscape/cli/non-ninja" # specify install directory for inkscape
 mkdir -p build/non-ninja; cd build/non-ninja; # construct a build directory for creating intermediate build file
@@ -112,7 +112,7 @@ To build using ninja instead of the native clang tooling provided by Xcode
 ```shell
 ../po/generate_POTFILES.sh
 mkdir -p build/ninja && cd build/ninja
-export LIBPREFIX="/usr/local" # # set a env var where the build tools will look for required compile time libraries
+export LIBPREFIX="/usr/local" # set a env var where the build tools will look for required compile time libraries
 export PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX to the front of the $PATH
 export PREFIX="/opt/beta/inkscape/cli/non-ninja" # specify install directory for inkscape
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
