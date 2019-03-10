@@ -123,7 +123,7 @@ cmake \
 -DWITH_OPENMP=OFF \
 -G Ninja \
 ../.. # configure CMake to build with ninja
-../po/generate_POTFILES.sh # generate po file required for building
+../../po/generate_POTFILES.sh # generate po file required for building
 ninja inkscape_pot # required for building with ninja
 ninja # compile / build Inkscape source using ninja
 ninja install # install CMake into $PREFIX
