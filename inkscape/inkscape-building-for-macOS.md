@@ -113,18 +113,22 @@ To build using ninja instead of the native clang tooling provided by Xcode
 
 ```shell
 mkdir -p build/ninja && cd build/ninja
+
 export LIBPREFIX="/usr/local" # set a env var where the build tools will look for required compile time libraries
 export PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX to the front of the $PATH
 export PREFIX="/opt/beta/inkscape/cli/non-ninja" # specify install directory for inkscape
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+
 cmake \
 -DCMAKE_PREFIX_PATH="$LIBPREFIX" \
 -DCMAKE_INSTALL_PREFIX="$PREFIX" \
 -DWITH_OPENMP=OFF \
 -G Ninja \
 ../.. # configure CMake to build with ninja
+
 ../../po/generate_POTFILES.sh # generate po file required for building
 ninja inkscape_pot # required for building with ninja
+
 ninja # compile / build Inkscape source using ninja
 ninja install # install CMake into $PREFIX
 ```
