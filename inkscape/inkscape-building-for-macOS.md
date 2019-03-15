@@ -12,7 +12,9 @@
 
 - [Installing Inkscape from prebuilt binaries](#install-inkscape-from-bins)
 - [Building Inkscape from source](#build-inkscape-from-srouce)
-- [Building Inkscape from gitlab source using homebrew tooling](build-inkscape-from-gitlab-with-brew)
+  - [Building Inkscape from gitlab source using homebrew tooling](build-inkscape-from-gitlab-with-brew)
+    - [**Updates** Inkscape Build Instructions](#updates-build-instructions)
+      - [🤺 🚀 Building Inkscape using Ninja on macOS](#build-inkscape-using-ninja-on-macos)
 - [Working with CMake on macOS](#working-with-cmake-on-macos)
 - [Useful Links](#useful-links)
 - [Working with `jhbuild`](#working-with-jhbuild)
@@ -22,7 +24,7 @@
 
 **Inkscape** is an open source vector editing app that pairs well with SVG graphics.
 
-Inkscape is primarily [written](https://gitlab.com/inkscape/inkscape) in C++ ie. ~ 93% of the source code that comprises Inkscape is C++. 
+Inkscape is primarily [written](https://gitlab.com/inkscape/inkscape) in C++ ie. ~ 93% of the source code that comprises Inkscape is C++.
 
 The Inkscape source does not supply any special macOS related files for building Inkscape on macOS, ie. Xcode project files etc, etc, so building Inkscape on macOS is tad bit more of an involved process than a typical GNU+Linux distro build.  That said, there are several options of installing Inkscape that do not require building the app from the above mentioned source.
 
@@ -32,8 +34,8 @@ The Inkscape source does not supply any special macOS related files for building
 
 1. There is a **DMG** that contains a **Inkscape.app** that can be easily dragged n dropped into the **/Applications** folder on macOS. The DMG can downloaded from [here](https://inkscape.org/release/inkscape-0.92.2/mac-os-x/107/dmg/dl/)
 2. Inkscape can be installed via a macOS package manager
-  - [macports](https://www.macports.org/)
-  - [Homebrew](https://brew.sh/)
+  a. [macports](https://www.macports.org/)
+  b. [Homebrew](https://brew.sh/)
 3. There are instructions on the Inkscape website for installing Inkscape via one of the above listed package managers.
 > Homebrew cask installs Inkscape by downloading and copying the above mentioned DMG into the Applications folder.
 
@@ -68,6 +70,7 @@ The following dependencies are required in order to build Inkscape, all of which
 - gdl3
 - [gtkmm3](https://www.gtkmm.org/en/)
 - libsoup
+- libwpg _Recent req as of March 15th 2019_
 
 A way to determine if one of the above packages has been installed is to run
 
@@ -82,7 +85,9 @@ brew install cmake cairo boehmgc intltool libxslt lcms2 boost poppler gsl \
 adwaita-icon-theme gdl gtkmm3 libsoup
 ```
 
-#### Updates | March 10 2019
+<a id="updates-build-instructions"></a>
+
+#### Updates | March 15 2019
 
 > Building Inkscape from commit [50f63d05](https://gitlab.com/inkscape/inkscape/commit/50f63d05be34c63fad22b5c7ced9dae2b2611cca) required exporting **PKG_CONFIG_PATH** for `libffi` in order for CMake to properly configure the build.
 
@@ -107,7 +112,9 @@ make # Compile / Build with CMake+Xcode, then install inkscape into the prefix
 make install
 ```
 
-#### Building Inkscape using Ninja on macOS
+<a id="build-inkscape-using-ninja-on-macos"></a>
+
+##### Building Inkscape using Ninja on macOS
 
 To build using ninja instead of the native clang tooling provided by Xcode
 
@@ -117,7 +124,7 @@ mkdir -p build/ninja && cd build/ninja
 export LIBPREFIX="/usr/local" # set a env var where the build tools will look for required compile time libraries
 export PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX to the front of the $PATH
 export PREFIX="/opt/beta/inkscape/cli/ninja" # specify install directory for inkscape
-export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig:/usr/local/opt/atk/lib/pkgconfig"
 
 cmake \
 -DCMAKE_PREFIX_PATH="$LIBPREFIX" \
