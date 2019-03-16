@@ -387,20 +387,22 @@ jhbuild bootstrap
 
 ## TODOs [🔝](#contents)
 
+**Update** | with recent packaging updates for GTK related packages, dialogs and windows appear to be opening a typical user would expect, and not with a _tab_ 👍
+
 - [ ] construct an **Inkscape.app** bundle using CMake and friends.
   
-  ### TODOS > Useful Links > app bundling on macOS
+### TODOS > Useful Links > app bundling on macOS
 
-  - [gitlab.gnome.org](https://gitlab.gnome.org/GNOME/gedit/blob/master/osx/bundle/bundle)
+- [gitlab.gnome.org](https://gitlab.gnome.org/GNOME/gedit/blob/master/osx/bundle/bundle)
 
 - [ ] spend some time researching about file open dialog boxes
 
-  ### TODOS > Useful Links > file open dialogs
+### TODOS > Useful Links > file open dialogs
 
-  - [**gitlab.gnome.org** > gtk-mac-integration](https://gitlab.gnome.org/GNOME/gtk-mac-integration/)
-  - [**github.io** > gtk-mac-integration > gtkosxapplication > documentation](https://jralls.github.io/gtk-mac-integration/index.html)
-  - [**stackoverflow** > gtk > native file dialog on macOS](https://stackoverflow.com/questions/33341914/gtk-file-chooser-non-native-look-on-osx)
-  - [**gitlab.com** > gedit > macOS related src > gedit-dirs.c](https://gitlab.gnome.org/GNOME/gedit/blob/master/gedit/gedit-dirs.c)
+- [**gitlab.gnome.org** > gtk-mac-integration](https://gitlab.gnome.org/GNOME/gtk-mac-integration/)
+- [**github.io** > gtk-mac-integration > gtkosxapplication > documentation](https://jralls.github.io/gtk-mac-integration/index.html)
+- [**stackoverflow** > gtk > native file dialog on macOS](https://stackoverflow.com/questions/33341914/gtk-file-chooser-non-native-look-on-osx)
+- [**gitlab.com** > gedit > macOS related src > gedit-dirs.c](https://gitlab.gnome.org/GNOME/gedit/blob/master/gedit/gedit-dirs.c)
 
 - [ ] spend some time messing around with [GTKOSXApplication](https://wiki.gnome.org/Projects/GTK/OSX/Integration) menubar integration
   - [ ] CMake > figure out how to add a build flag for CMake
