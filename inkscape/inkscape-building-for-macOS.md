@@ -224,6 +224,15 @@ cmake -B/path/to/src/build -H/path/to/src
 
 ## Understaning app bundles for macOS
 
+To put together a DMG
+
+```shell
+hdiutil create -format UDBZ -srcfolder [EXAMPLE.app] \
+-volname [EXAMPLE-osx-x64] [EXAMPLE-1.0.x-osx-x64.dmg]
+```
+
+[see](https://dev.deluge-torrent.org/wiki/Development/Packaging/OSX)
+
 ### An example of an app bundle
 
 ```shell
