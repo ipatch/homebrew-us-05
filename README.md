@@ -12,7 +12,7 @@
 
 ## ipatch/homebrew-us-05
 
-> A off beat repo for storing custom ales and lagers to make your life a little beat easier.
+> An off beat repo for storing custom ales and lagers to make your life a little beat easier.
 
 <a id="installing-a-formula"></a>
 
