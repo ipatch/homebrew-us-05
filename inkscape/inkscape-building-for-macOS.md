@@ -146,6 +146,10 @@ The above steps will take ~ 30 minutes [📸](#gnu-make-build-time) using CMake+
 
 #### Limitations of the build
 
+##### Updates > March 26, 2019
+
+It appears with recent GTK+ packages, that open, document, and application dialogs open as should, ie. within their independent window of the main application window. 👍
+
 Windowing on a homebrew build is jacked, ie. some of the windows that should spawn a dialog window, ie. **File** > **Open** are launched in a [📸](#macos-windowing-issues) tab instead of a independent application window.  However the **About** dialog / window appears to spawn [📸](inkscape-1-gui-about-on-macos) as it should
 
 <a id="working-with-cmake-on-macos"></a>
