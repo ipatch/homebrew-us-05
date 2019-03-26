@@ -7,6 +7,7 @@
 - [Working with QEMU](#working-with-qemu)
 - [Maintenance](#maintenance)
 - [Development](#development)
+  - [References](#references)
 
 <a id="ipatch-homebrew-us-05"></a>
 
@@ -125,6 +126,8 @@ brew [re]install /path/to/some/local_formula.rb
 ```
 
 > `brew reinstall` is problematic a majority of the time, so when experimenting with local formula when developing use **brew install** /path/to/formula.rb
+
+<a id="references"></a>
 
 #### References
 
