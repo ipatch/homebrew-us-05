@@ -5,20 +5,26 @@ class Inkscape < Formula
   sha256 "cd55cc6e789501e21260a2c323a162be15f2c6904c394cea191455cc42b7a8fc"
   head "https://gitlab.com/inkscape/inkscape.git"
 
+  # tools
   depends_on "cmake" => :build
+  depends_on "intltool" => :build
+  depends_on "libtool" => :build
   depends_on "pkg-config" => :build
+  # libraries
+  depends_on "boost" => :build
+  depends_on "gdl" => :build
+  depends_on "gsl" => :build
+  depends_on "gtkmm3" => :build
+  depends_on "gtkspell3" => :build
+  depends_on "libcdr" => :build
+  depends_on "libyaml" => :build
   depends_on "ninja" => :build
   depends_on "cairo" => :build
   depends_on "boehmgc" => :build
-  depends_on "intltool" => :build
   depends_on "libxslt" => :build
   depends_on "lcms2" => :build
-  depends_on "boost" => :build
   depends_on "poppler" => :build
-  depends_on "gsl" => :build
   depends_on "adwaita-icon-theme" => :build
-  depends_on "gdl" => :build
-  depends_on "gtkmm3" => :build
   depends_on "libsoup" => :build
   depends_on "libwpg" => :build
   depends_on "python3" => :build
