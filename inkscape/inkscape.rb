@@ -10,6 +10,8 @@ class Inkscape < Formula
   depends_on "intltool" => :build
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
+  # python3 lang req
+  depends_on "python3" => :build
   # libraries
   depends_on "boost" => :build
   depends_on "gdl" => :build
@@ -27,7 +29,10 @@ class Inkscape < Formula
   depends_on "adwaita-icon-theme" => :build
   depends_on "libsoup" => :build
   depends_on "libwpg" => :build
-  depends_on "python3" => :build
+  depends_on "graphicsmagick" => :build
+  # optional deps
+  depends_on "jemalloc" => :optional
+  depends_on "libvisio" => :optional
 
   def install
     ENV.prepend_path "LIBPREFIX", "/usr/local"
@@ -49,7 +54,8 @@ class Inkscape < Formula
   end
 
   test do
-    puts "hello"
+    # puts "hello"
     # prove that the formual successfully installed, and works as intended
+    system "#{bin}/inkscape", "-V"
   end
 end
