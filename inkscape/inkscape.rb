@@ -1,5 +1,5 @@
 class Inkscape < Formula
-  desc "A GUI SVG editor built with GTK+"
+  desc "Open-source vector graphics editor"
   homepage "https://inkscape.org/"
   url "https://gitlab.com/inkscape/inkscape/-/archive/master/inkscape-master.tar.bz2"
   sha256 "cd55cc6e789501e21260a2c323a162be15f2c6904c394cea191455cc42b7a8fc"
@@ -35,6 +35,7 @@ class Inkscape < Formula
   depends_on "libvisio" => :optional
 
   def install
+    # TODO: is `LIBPREFIX` req
     ENV.prepend_path "LIBPREFIX", "/usr/local"
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["atk"].opt_lib/"pkgconfig"
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["libffi"].opt_lib/"pkgconfig"
