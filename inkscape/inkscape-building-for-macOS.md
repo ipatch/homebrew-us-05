@@ -71,6 +71,7 @@ The following dependencies are required in order to build Inkscape, all of which
 - [gtkmm3](https://www.gtkmm.org/en/)
 - libsoup
 - libwpg _Recent req as of March 15th 2019_
+- double-conversion _Recent req as of April 11th 2019_
 
 A way to determine if one of the above packages has been installed is to run
 
