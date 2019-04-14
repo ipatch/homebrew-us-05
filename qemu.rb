@@ -48,11 +48,11 @@ class Qemu < Formula
       --enable-cocoa
       --disable-sdl
       --disable-gtk
-      --enable-docs
       --enable-libusb
       --enable-hax
       --enable-hvf
     ]
+      # --enable-docs
 
     # Get number of logical CPU's on the system
     ncpus = `sysctl -n hw.ncpu`
