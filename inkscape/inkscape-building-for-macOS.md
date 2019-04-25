@@ -1,6 +1,6 @@
 <div align="center">
 
-# Building Inkscape for macOS ⌘
+## Building Inkscape for macOS ⌘
 
 </div>
 
@@ -57,21 +57,22 @@ I believe there are some legacy instructions floating around that detail steps f
 
 The following dependencies are required in order to build Inkscape, all of which can be installed via Homebrew
 
-- cmake
-- cairo
-- boehmgc
-- intltool
-- libxslt
-- lcms2
-- boost
-- poppler
-- gsl
 - adwaita-icon-theme
+- boehmgc
+- boost
+- cairo
+- cmake
+- double-conversion _Recent req as of April 11th 2019_
 - gdl3
 - [gtkmm3](https://www.gtkmm.org/en/)
+- gsl
+- icu4c _Recent req as of April 25, 2019_
+- intltool
+- lcms2
 - libsoup
 - libwpg _Recent req as of March 15th 2019_
-- double-conversion _Recent req as of April 11th 2019_
+- libxslt
+- poppler
 
 A way to determine if one of the above packages has been installed is to run
 
@@ -83,7 +84,7 @@ To install all dependencies required for Inkscape using brew
 
 ```shell
 brew install cmake cairo boehmgc intltool libxslt lcms2 boost poppler gsl \
-adwaita-icon-theme gdl gtkmm3 libsoup
+adwaita-icon-theme gdl gtkmm3 libsoup icu4c
 ```
 
 <a id="updates-build-instructions"></a>
@@ -116,6 +117,17 @@ make install
 <a id="build-inkscape-using-ninja-on-macos"></a>
 
 ##### Building Inkscape using Ninja on macOS
+
+<a id="gotchas"></a>
+
+###### Gotchas
+
+- If any of the above Homebrew formula have been updated after inkscape has been compiled, then more than likely inkscape will require recompilation for the fact that it was built against a different version of a dependency.
+- If CMake whines about not finding Boost configuration files, than **gettext** may not be symlinked, thus making CMake unable to find required Boost libraries for building inkscape.
+
+```shell
+brew unlink gettext && brew link --force gettext
+```
 
 To build using ninja instead of the native clang tooling provided by Xcode
 
