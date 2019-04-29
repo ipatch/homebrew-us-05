@@ -155,6 +155,33 @@ ninja install # install CMake into $PREFIX
 
 The above steps will take ~ 30 minutes [📸](#gnu-make-build-time) using CMake+clang on my 2013 late MBP 💻 whereas CMake+ninja will take ~ 8 minutes to produce a binary that can launch a beta build from a CLI.
 
+<a id="inkscape-setting-up-extensions"></a>
+
+#### Inkscape > Setting Up Extensions
+
+A majority if not all builtin Inkscape extensions are python scripts that correspond with an accompying XML file that defines the context of the python script / extension.
+
+All that said, since the python scripts work in harmony with a corresponding XML file, it would behoove one to install an XML library that allows python to work with XML.  And doesn't hurt installing **numpy** as well. To get all that going and possibly get extensions running inside of Inkscape. [See](https://gitlab.com/inkscape/extensions/issues/71) gitlab issue for a recent discussion of getting python dependencies met.
+
+1. determine which python interpreter the `.py` script will reference.
+> for my particular use case I'm using python 3.7.x
+  a. exit out of python **REPL**
+  b. verify the python in the **PATH** matches the version in the **REPL**
+2. install **lxml** & **numpy** using **pip** for the python interpreter
+3. rerun plugin to determine if dependencies have been met. (inkscape may require a restart after installing dependencies).
+
+```shell
+echo "step #1"
+/usr/bin/env python
+echo "step #1.a | run below command within the python REPL"
+exit()
+echo "step #1.b"
+which python
+echo "step #2"
+python -m pip install lxml numpy
+echo "step 3 is performed within inkscape
+```
+
 <a id="limitations-of-the-build"></a>
 
 #### Limitations of the build
