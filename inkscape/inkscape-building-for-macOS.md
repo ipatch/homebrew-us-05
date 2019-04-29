@@ -182,6 +182,10 @@ python -m pip install lxml numpy
 echo "step 3 is performed within inkscape
 ```
 
+##### Inkscape > Setting Up Extensions > Useful Links
+
+[**wiki.inkscape.org** Extensions](http://wiki.inkscape.org/wiki/index.php/Extension_Interpreters)
+
 <a id="limitations-of-the-build"></a>
 
 #### Limitations of the build
