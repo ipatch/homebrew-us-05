@@ -194,9 +194,13 @@ echo "step 3 is performed within inkscape
 
 ##### Updates > March 26, 2019
 
-It appears with recent GTK+ packages, that open, document, and application dialogs open as should, ie. within their independent window of the main application window. 👍
+It appears with recent GTK+ packages, that open, document, and application dialogs open as should, ie. within their independent window of the main application window and **not** within a tab of the main application window. 👍
 
-Windowing on a homebrew build is jacked, ie. some of the windows that should spawn a dialog window, ie. **File** > **Open** are launched in a [📸](#macos-windowing-issues) tab instead of a independent application window.  However the **About** dialog / window appears to spawn [📸](inkscape-1-gui-about-on-macos) as it should
+~~ Windowing on a homebrew build is jacked, ie. some of the windows that should spawn a dialog window, ie. **File** > **Open** are launched in a [📸](#macos-windowing-issues) tab instead of a independent application window.  However the **About** dialog / window appears to spawn [📸](inkscape-1-gui-about-on-macos) as it should~~
+
+<a id="working-with-gtk-on-macos"></a>
+
+## Working with GTK on macOS
 
 <a id="working-with-cmake-on-macos"></a>
 
@@ -260,7 +264,7 @@ codesign -s "certificate name" /path/to/MrFancy42.app/Contents/MacOS/*
 
 ### CMake > References
 
-**Wireshark** build process for generating macOS **.app** bundles appears to not use the native CMake build tools for generating an **.app** bundle rather relying on custom shell scripts for contsructing the **.app** bundle
+**Wireshark** build process for generating macOS **.app** bundles appears to not use the native CMake build tools for generating an **.app** bundle but rather relying on custom shell scripts for constructing the **.app** bundle
 
 ### CMake > References > CLI
 
@@ -272,7 +276,7 @@ cmake -B/path/to/src/build -H/path/to/src
 
 <a id="understanding-app-bundles"></a>
 
-## Understaning app bundles for macOS
+## Understating app bundles for macOS
 
 To put together a DMG
 
@@ -328,7 +332,7 @@ An **Info.plist** for an app bundle on macOS can contain the below key for speci
 
 #### wiki.inkscape.org
 
-- [**wiki.inkscape.org** > Compiling MacOS X](http://wiki.inkscape.org/wiki/index.php/CompilingMacOsX)
+- [**wiki.inkscape.org** > Compiling macOS](http://wiki.inkscape.org/wiki/index.php/CompilingMacOsX)
 - [**wiki.inkscape.org** > Compiling Inkscape](http://wiki.inkscape.org/wiki/index.php/Compiling_Inkscape)
 - [**wiki.inkscape.org** > Creating Inkscape distributions](http://wiki.inkscape.org/wiki/index.php/Creating_Inkscape_distributions)
 - [**wiki.inkscape.org** > Tracking Dependencies](http://wiki.inkscape.org/wiki/index.php/Tracking_Dependencies)
@@ -492,7 +496,7 @@ jhbuild bootstrap
 
 <a id="inkscape-1-gui-on-macos"></a>
 
-![inkscape-1.0.x-gui-on-macos](https://i.imgur.com/zX1yx5q.png)
+![inkscape-1.0.x-gui-on-macOS](https://i.imgur.com/zX1yx5q.png)
 
 <a id="inkscape-1-gui-about-on-macos"></a>
 
@@ -500,7 +504,7 @@ jhbuild bootstrap
 
 <a id="launching-inkscape-from-cli"></a>
 
-![launching inkscape from a CLI on macos](https://i.imgur.com/nvuCBPn.png)
+![launching inkscape from a CLI on macOS](https://i.imgur.com/nvuCBPn.png)
 
 <a id="macos-windowing-issues"></a>
 
@@ -512,8 +516,8 @@ jhbuild bootstrap
 
 <a id="inkscape-release-build-time-feb28-native-tooling"></a>
 
-![inkscape release build time feb28 native tooling](https://i.imgur.com/nfD307P.png)
+![inkscape release build time Feb 28 2019 native tooling](https://i.imgur.com/nfD307P.png)
 
 <a id="inkscape-release-build-time-mar1-ninja-tooling"></a>
 
-![inkscape release build time mar1 ninja tooling](https://i.imgur.com/MpBvUmR.png)
+![inkscape release build time March 1, 2019 ninja tooling](https://i.imgur.com/MpBvUmR.png)
