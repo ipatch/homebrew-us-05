@@ -97,6 +97,8 @@ adwaita-icon-theme gdl gtkmm3 libsoup icu4c
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 ```
 
+> More than likely the above **PKG_CONFIG_PATH**  ☝️ var needs to be updated to compile
+
 ```shell
 git clone --depth=1 --recurse-submodules https://gitlab.com/inkscape/inkscape.git  # clone inkscape source and submodules
 git co -b build-branch # create a new branch for building
