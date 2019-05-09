@@ -1,0 +1,904 @@
+--- ./gdk/quartz/gdkevents-quartz.c	2019-05-09 18:47:00.000000000 -0500
++++ /opt/code/github/public/homebrew-us-05/gdkevents-quartz-algorithmus.c	2019-05-09 18:38:43.000000000 -0500
+@@ -35,7 +35,6 @@
+ #include "gdkquartzdisplay.h"
+ #include "gdkprivate-quartz.h"
+ #include "gdkquartzdevicemanager-core.h"
+-#include "gdkquartzkeys.h"
+ 
+ #define GRIP_WIDTH 15
+ #define GRIP_HEIGHT 15
+@@ -129,8 +128,27 @@
+ void
+ _gdk_quartz_events_break_all_grabs (guint32 time)
+ {
+-  GdkSeat *seat = gdk_display_get_default_seat (_gdk_display);
+-  gdk_seat_ungrab (seat);
++  GList *list, *l;
++  GdkDeviceManager *device_manager;
++
++  device_manager = gdk_display_get_device_manager (_gdk_display);
++  list = gdk_device_manager_list_devices (device_manager,
++                                          GDK_DEVICE_TYPE_MASTER);
++  for (l = list; l; l = l->next)
++    {
++      GdkDeviceGrabInfo *grab;
++
++      grab = _gdk_display_get_last_device_grab (_gdk_display, l->data);
++      if (grab)
++        {
++          grab->serial_end = 0;
++          grab->implicit_ungrab = TRUE;
++        }
++
++      _gdk_display_device_grab_update (_gdk_display, l->data, NULL, 0);
++    }
++
++  g_list_free (list);
+ }
+ 
+ static void
+@@ -165,7 +183,7 @@
+ {
+   GList *tmp_list;
+   GdkFilterReturn result;
+-  
++
+   tmp_list = *filters;
+ 
+   while (tmp_list)
+@@ -271,15 +289,15 @@
+ {
+   GdkModifierType modifiers = 0;
+ 
+-  if (nsflags & GDK_QUARTZ_ALPHA_SHIFT_KEY_MASK)
++  if (nsflags & NSAlphaShiftKeyMask)
+     modifiers |= GDK_LOCK_MASK;
+-  if (nsflags & GDK_QUARTZ_SHIFT_KEY_MASK)
++  if (nsflags & NSShiftKeyMask)
+     modifiers |= GDK_SHIFT_MASK;
+-  if (nsflags & GDK_QUARTZ_CONTROL_KEY_MASK)
++  if (nsflags & NSControlKeyMask)
+     modifiers |= GDK_CONTROL_MASK;
+-  if (nsflags & GDK_QUARTZ_ALTERNATE_KEY_MASK)
++  if (nsflags & NSAlternateKeyMask)
+     modifiers |= GDK_MOD1_MASK;
+-  if (nsflags & GDK_QUARTZ_COMMAND_KEY_MASK)
++  if (nsflags & NSCommandKeyMask)
+     modifiers |= GDK_MOD2_MASK;
+ 
+   return modifiers;
+@@ -297,31 +315,31 @@
+ {
+   switch ([nsevent type])
+     {
+-    case GDK_QUARTZ_LEFT_MOUSE_DOWN:
+-    case GDK_QUARTZ_RIGHT_MOUSE_DOWN:
+-    case GDK_QUARTZ_OTHER_MOUSE_DOWN:
++    case NSLeftMouseDown:
++    case NSRightMouseDown:
++    case NSOtherMouseDown:
+       return GDK_BUTTON_PRESS_MASK;
+-    case GDK_QUARTZ_LEFT_MOUSE_UP:
+-    case GDK_QUARTZ_RIGHT_MOUSE_UP:
+-    case GDK_QUARTZ_OTHER_MOUSE_UP:
++    case NSLeftMouseUp:
++    case NSRightMouseUp:
++    case NSOtherMouseUp:
+       return GDK_BUTTON_RELEASE_MASK;
+-    case GDK_QUARTZ_MOUSE_MOVED:
++    case NSMouseMoved:
+       return GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK;
+-    case GDK_QUARTZ_SCROLL_WHEEL:
++    case NSScrollWheel:
+       /* Since applications that want button press events can get
+        * scroll events on X11 (since scroll wheel events are really
+        * button press events there), we need to use GDK_BUTTON_PRESS_MASK too.
+        */
+       return GDK_SCROLL_MASK | GDK_BUTTON_PRESS_MASK;
+-    case GDK_QUARTZ_LEFT_MOUSE_DRAGGED:
++    case NSLeftMouseDragged:
+       return (GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
+-	      GDK_BUTTON_MOTION_MASK | GDK_BUTTON1_MOTION_MASK | 
++	      GDK_BUTTON_MOTION_MASK | GDK_BUTTON1_MOTION_MASK |
+ 	      GDK_BUTTON1_MASK);
+-    case GDK_QUARTZ_RIGHT_MOUSE_DRAGGED:
++    case NSRightMouseDragged:
+       return (GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
+-	      GDK_BUTTON_MOTION_MASK | GDK_BUTTON3_MOTION_MASK | 
++	      GDK_BUTTON_MOTION_MASK | GDK_BUTTON3_MOTION_MASK |
+ 	      GDK_BUTTON3_MASK);
+-    case GDK_QUARTZ_OTHER_MOUSE_DRAGGED:
++    case NSOtherMouseDragged:
+       {
+ 	GdkEventMask mask;
+ 
+@@ -330,7 +348,7 @@
+ 		GDK_BUTTON_MOTION_MASK);
+ 
+ 	if (get_mouse_button_from_ns_event (nsevent) == 2)
+-	  mask |= (GDK_BUTTON2_MOTION_MASK | GDK_BUTTON2_MOTION_MASK | 
++	  mask |= (GDK_BUTTON2_MOTION_MASK | GDK_BUTTON2_MOTION_MASK |
+ 		   GDK_BUTTON2_MASK);
+ 
+ 	return mask;
+@@ -338,9 +356,9 @@
+     case NSEventTypeMagnify:
+     case NSEventTypeRotate:
+       return GDK_TOUCHPAD_GESTURE_MASK;
+-    case GDK_QUARTZ_KEY_DOWN:
+-    case GDK_QUARTZ_KEY_UP:
+-    case GDK_QUARTZ_FLAGS_CHANGED:
++    case NSKeyDown:
++    case NSKeyUp:
++    case NSFlagsChanged:
+       {
+         switch (_gdk_quartz_keys_event_type (nsevent))
+ 	  {
+@@ -356,10 +374,10 @@
+       }
+       break;
+ 
+-    case GDK_QUARTZ_MOUSE_ENTERED:
++    case NSMouseEntered:
+       return GDK_ENTER_NOTIFY_MASK;
+ 
+-    case GDK_QUARTZ_MOUSE_EXITED:
++    case NSMouseExited:
+       return GDK_LEAVE_NOTIFY_MASK;
+ 
+     default:
+@@ -376,10 +394,12 @@
+                                     gint      *y)
+ {
+   NSPoint point;
+-  GdkQuartzNSWindow *nswindow;
++  NSWindow *nswindow;
++
++  nswindow = ((GdkWindowImplQuartz *)window->impl)->toplevel;
++
++  point = [nswindow convertScreenToBase:screen_point];
+ 
+-  nswindow = (GdkQuartzNSWindow*)(((GdkWindowImplQuartz *)window->impl)->toplevel);
+-  point = [nswindow convertPointFromScreen:screen_point];
+   *x = point.x;
+   *y = window->height - point.y;
+ }
+@@ -389,12 +409,10 @@
+ {
+   switch (type)
+     {
+-      case GDK_QUARTZ_LEFT_MOUSE_DOWN:
+-      case GDK_QUARTZ_RIGHT_MOUSE_DOWN:
+-      case GDK_QUARTZ_OTHER_MOUSE_DOWN:
++      case NSLeftMouseDown:
++      case NSRightMouseDown:
++      case NSOtherMouseDown:
+         return TRUE;
+-    default:
+-      return FALSE;
+     }
+ 
+   return FALSE;
+@@ -455,7 +473,8 @@
+         }
+       else
+         {
+-	  *screen_point = [(GdkQuartzNSWindow*)[nsevent window] convertPointToScreen:point];
++          *screen_point = [[nsevent window] convertBaseToScreen:point];
++
+           *x = point.x;
+           *y = toplevel->height - point.y;
+         }
+@@ -483,15 +502,15 @@
+ 		    gboolean   in)
+ {
+   GdkEvent *event;
+-  GdkDisplay *display = gdk_window_get_display (window);
+-  GdkSeat *seat = gdk_display_get_default_seat (display);
++  GdkQuartzDeviceManagerCore *device_manager;
+ 
+   event = gdk_event_new (GDK_FOCUS_CHANGE);
+   event->focus_change.window = window;
+   event->focus_change.in = in;
+ 
+-  gdk_event_set_device (event, gdk_seat_get_keyboard (seat));
+-  gdk_event_set_seat (event, seat);
++  device_manager = GDK_QUARTZ_DEVICE_MANAGER_CORE (_gdk_display->device_manager);
++  gdk_event_set_device (event, device_manager->core_keyboard);
++  gdk_event_set_seat (event, gdk_device_get_seat (device_manager->core_keyboard));
+ 
+   return event;
+ }
+@@ -503,8 +522,7 @@
+   NSPoint screen_point;
+   GdkEvent *event;
+   gint x, y, x_root, y_root;
+-  GdkDisplay *display = gdk_window_get_display (window);
+-  GdkSeat *seat = gdk_display_get_default_seat (display);
++  GdkQuartzDeviceManagerCore *device_manager;
+ 
+   event = gdk_event_new (GDK_MOTION_NOTIFY);
+   event->any.window = NULL;
+@@ -526,8 +544,9 @@
+   event->motion.state = _gdk_quartz_events_get_current_keyboard_modifiers () |
+                         _gdk_quartz_events_get_current_mouse_modifiers ();
+   event->motion.is_hint = FALSE;
+-  event->motion.device = gdk_seat_get_pointer (seat);
+-  gdk_event_set_seat (event, seat);
++  device_manager = GDK_QUARTZ_DEVICE_MANAGER_CORE (_gdk_display->device_manager);
++  event->motion.device = device_manager->core_pointer;
++  gdk_event_set_seat (event, gdk_device_get_seat (device_manager->core_pointer));
+ 
+   append_event (event, TRUE);
+ }
+@@ -545,7 +564,7 @@
+   /* FIXME: Don't do this when grabbed? Or make GdkQuartzNSWindow
+    * disallow it in the first place instead?
+    */
+-  
++
+   if (!got_focus && window == current_keyboard_window)
+     {
+       event = create_focus_event (current_keyboard_window, FALSE);
+@@ -563,7 +582,7 @@
+ 	  g_object_unref (current_keyboard_window);
+ 	  current_keyboard_window = NULL;
+ 	}
+-      
++
+       event = create_focus_event (window, TRUE);
+       append_event (event, FALSE);
+       current_keyboard_window = g_object_ref (window);
+@@ -591,7 +610,7 @@
+ 
+       event.any.type = GDK_MAP;
+       event.any.window = window;
+-  
++
+       gdk_event_put (&event);
+     }
+ }
+@@ -604,20 +623,14 @@
+ {
+   GdkWindow *toplevel;
+   GdkPointerWindowInfo *info;
+-  GdkSeat *seat = gdk_display_get_default_seat (display);
+ 
+-  info = _gdk_display_get_pointer_info (display, gdk_seat_get_pointer (seat));
++  info = _gdk_display_get_pointer_info (display, GDK_QUARTZ_DEVICE_MANAGER_CORE (display->device_manager)->core_pointer);
+   toplevel = info->toplevel_under_pointer;
+-  if (!(toplevel && WINDOW_IS_TOPLEVEL (toplevel)))
+-    {
+-      gint gdk_x = 0, gdk_y = 0;
+-      _gdk_quartz_window_nspoint_to_gdk_xy (screen_point, &gdk_x, &gdk_y);
+-      toplevel = _gdk_quartz_window_find_child (_gdk_root, gdk_x, gdk_y, TRUE);
+-      info->toplevel_under_pointer = g_object_ref (toplevel);
+-    }
++  if (toplevel && WINDOW_IS_TOPLEVEL (toplevel))
++    get_window_point_from_screen_point (toplevel, screen_point, x, y);
++
+   if (toplevel)
+     {
+-      get_window_point_from_screen_point (toplevel, screen_point, x, y);
+       /* If the coordinates are out of window bounds, this toplevel is not
+        * under the pointer and we thus return NULL. This can occur when
+        * toplevel under pointer has not yet been updated due to a very recent
+@@ -634,15 +647,37 @@
+ static GdkWindow *
+ find_toplevel_for_keyboard_event (NSEvent *nsevent)
+ {
+-  GdkQuartzView *view = (GdkQuartzView *)[[nsevent window] contentView];
+-  GdkWindow *window  = [view gdkWindow];
+-  GdkDisplay *display = gdk_window_get_display (window);
+-  GdkSeat *seat = gdk_display_get_default_seat (display);
+-  GdkDevice *device = gdk_seat_get_keyboard (seat);
+-  GdkDeviceGrabInfo *grab = _gdk_display_get_last_device_grab (display, device);
++  GList *list, *l;
++  GdkWindow *window;
++  GdkDisplay *display;
++  GdkQuartzView *view;
++  GdkDeviceManager *device_manager;
+ 
+-  if (grab && grab->window && !grab->owner_events)
+-    window = gdk_window_get_effective_toplevel (grab->window);
++  view = (GdkQuartzView *)[[nsevent window] contentView];
++  window = [view gdkWindow];
++
++  display = gdk_window_get_display (window);
++
++  device_manager = gdk_display_get_device_manager (display);
++  list = gdk_device_manager_list_devices (device_manager,
++                                          GDK_DEVICE_TYPE_MASTER);
++  for (l = list; l; l = l->next)
++    {
++      GdkDeviceGrabInfo *grab;
++      GdkDevice *device = l->data;
++
++      if (gdk_device_get_source(device) != GDK_SOURCE_KEYBOARD)
++        continue;
++
++      grab = _gdk_display_get_last_device_grab (display, device);
++      if (grab && grab->window && !grab->owner_events)
++        {
++          window = gdk_window_get_effective_toplevel (grab->window);
++          break;
++        }
++    }
++
++  g_list_free (list);
+ 
+   return window;
+ }
+@@ -657,13 +692,11 @@
+   GdkWindow *toplevel;
+   GdkDisplay *display;
+   GdkDeviceGrabInfo *grab;
+-  GdkSeat *seat;
+ 
+   toplevel = get_toplevel_from_ns_event (nsevent, &screen_point, x, y);
+ 
+   display = gdk_window_get_display (toplevel);
+-  seat = gdk_display_get_default_seat (_gdk_display);
+-  
++
+   event_type = [nsevent type];
+ 
+   /* From the docs for XGrabPointer:
+@@ -676,7 +709,7 @@
+    * events are discarded.
+    */
+   grab = _gdk_display_get_last_device_grab (display,
+-                                            gdk_seat_get_pointer (seat));
++                                            GDK_QUARTZ_DEVICE_MANAGER_CORE (display->device_manager)->core_pointer);
+   if (WINDOW_IS_TOPLEVEL (toplevel) && grab)
+     {
+       /* Implicit grabs do not go through XGrabPointer and thus the
+@@ -722,7 +755,7 @@
+ 
+       return NULL;
+     }
+-  else 
++  else
+     {
+       /* The non-grabbed case. */
+       GdkWindow *toplevel_under_pointer;
+@@ -733,7 +766,7 @@
+        * gdk gets confused about getting e.g. button presses with no
+        * window (the title bar is not known to it).
+        */
+-      if (event_type != GDK_QUARTZ_MOUSE_MOVED)
++      if (event_type != NSMouseMoved)
+         if (*y < 0)
+           return NULL;
+ 
+@@ -766,8 +799,8 @@
+  * into account grabs, event propagation, and event masks.
+  */
+ static GdkWindow *
+-find_window_for_ns_event (NSEvent *nsevent, 
+-                          gint    *x, 
++find_window_for_ns_event (NSEvent *nsevent,
++                          gint    *x,
+                           gint    *y,
+                           gint    *x_root,
+                           gint    *y_root)
+@@ -788,23 +821,23 @@
+ 
+   switch (event_type)
+     {
+-    case GDK_QUARTZ_LEFT_MOUSE_DOWN:
+-    case GDK_QUARTZ_RIGHT_MOUSE_DOWN:
+-    case GDK_QUARTZ_OTHER_MOUSE_DOWN:
+-    case GDK_QUARTZ_LEFT_MOUSE_UP:
+-    case GDK_QUARTZ_RIGHT_MOUSE_UP:
+-    case GDK_QUARTZ_OTHER_MOUSE_UP:
+-    case GDK_QUARTZ_MOUSE_MOVED:
+-    case GDK_QUARTZ_SCROLL_WHEEL:
+-    case GDK_QUARTZ_LEFT_MOUSE_DRAGGED:
+-    case GDK_QUARTZ_RIGHT_MOUSE_DRAGGED:
+-    case GDK_QUARTZ_OTHER_MOUSE_DRAGGED:
++    case NSLeftMouseDown:
++    case NSRightMouseDown:
++    case NSOtherMouseDown:
++    case NSLeftMouseUp:
++    case NSRightMouseUp:
++    case NSOtherMouseUp:
++    case NSMouseMoved:
++    case NSScrollWheel:
++    case NSLeftMouseDragged:
++    case NSRightMouseDragged:
++    case NSOtherMouseDragged:
+     case NSEventTypeMagnify:
+     case NSEventTypeRotate:
+       return find_toplevel_for_mouse_event (nsevent, x, y);
+ 
+-    case GDK_QUARTZ_MOUSE_ENTERED:
+-    case GDK_QUARTZ_MOUSE_EXITED:
++    case NSMouseEntered:
++    case NSMouseExited:
+       /* Only handle our own entered/exited events, not the ones for the
+        * titlebar buttons.
+        */
+@@ -813,9 +846,9 @@
+       else
+         return NULL;
+ 
+-    case GDK_QUARTZ_KEY_DOWN:
+-    case GDK_QUARTZ_KEY_UP:
+-    case GDK_QUARTZ_FLAGS_CHANGED:
++    case NSKeyDown:
++    case NSKeyUp:
++    case NSFlagsChanged:
+       return find_toplevel_for_keyboard_event (nsevent);
+ 
+     default:
+@@ -838,7 +871,7 @@
+                      GdkCrossingMode  mode,
+                      GdkNotifyType    detail)
+ {
+-  GdkSeat *seat = gdk_display_get_default_seat (_gdk_display);
++  GdkQuartzDeviceManagerCore *device_manager;
+ 
+   event->any.type = event_type;
+   event->crossing.window = toplevel;
+@@ -853,8 +886,9 @@
+   event->crossing.state = get_keyboard_modifiers_from_ns_event (nsevent) |
+                          _gdk_quartz_events_get_current_mouse_modifiers ();
+ 
+-  gdk_event_set_device (event, gdk_seat_get_pointer (seat));
+-  gdk_event_set_seat (event, seat);
++  device_manager = GDK_QUARTZ_DEVICE_MANAGER_CORE (_gdk_display->device_manager);
++  gdk_event_set_device (event, device_manager->core_pointer);
++  gdk_event_set_seat (event, gdk_device_get_seat (device_manager->core_pointer));
+ 
+   /* FIXME: Focus and button state? */
+ }
+@@ -887,7 +921,9 @@
+     FP_STATE_IDLE,
+     FP_STATE_UPDATE
+   } last_state = FP_STATE_IDLE;
+-  GdkSeat *seat = gdk_display_get_default_seat (_gdk_display);
++  GdkQuartzDeviceManagerCore *device_manager;
++
++  device_manager = GDK_QUARTZ_DEVICE_MANAGER_CORE (_gdk_display->device_manager);
+ 
+   event->any.type = GDK_TOUCHPAD_PINCH;
+   event->touchpad_pinch.window = window;
+@@ -900,7 +936,7 @@
+   event->touchpad_pinch.n_fingers = 2;
+   event->touchpad_pinch.dx = 0.0;
+   event->touchpad_pinch.dy = 0.0;
+-  gdk_event_set_device (event, gdk_seat_get_pointer (seat));
++  gdk_event_set_device (event, device_manager->core_pointer);
+ 
+   switch ([nsevent phase])
+     {
+@@ -978,24 +1014,26 @@
+                    gint       y_root)
+ {
+   GdkEventType type;
++  GdkDevice *event_device = NULL;
++  gdouble *axes = NULL;
+   gint state;
+-  GdkSeat *seat = gdk_display_get_default_seat (_gdk_display);
++  GdkQuartzDeviceManagerCore *device_manager;
+ 
+   state = get_keyboard_modifiers_from_ns_event (nsevent) |
+          _gdk_quartz_events_get_current_mouse_modifiers ();
+ 
+   switch ([nsevent type])
+     {
+-    case GDK_QUARTZ_LEFT_MOUSE_DOWN:
+-    case GDK_QUARTZ_RIGHT_MOUSE_DOWN:
+-    case GDK_QUARTZ_OTHER_MOUSE_DOWN:
++    case NSLeftMouseDown:
++    case NSRightMouseDown:
++    case NSOtherMouseDown:
+       type = GDK_BUTTON_PRESS;
+       state &= ~get_mouse_button_modifiers_from_ns_event (nsevent);
+       break;
+ 
+-    case GDK_QUARTZ_LEFT_MOUSE_UP:
+-    case GDK_QUARTZ_RIGHT_MOUSE_UP:
+-    case GDK_QUARTZ_OTHER_MOUSE_UP:
++    case NSLeftMouseUp:
++    case NSRightMouseUp:
++    case NSOtherMouseUp:
+       type = GDK_BUTTON_RELEASE;
+       state |= get_mouse_button_modifiers_from_ns_event (nsevent);
+       break;
+@@ -1004,6 +1042,25 @@
+       g_assert_not_reached ();
+     }
+ 
++  event_device = _gdk_quartz_device_manager_core_device_for_ns_event
++                   (
++                     gdk_display_get_device_manager (_gdk_display),
++                     nsevent
++                   );
++
++  device_manager = GDK_QUARTZ_DEVICE_MANAGER_CORE (_gdk_display->device_manager);
++
++  if (device_manager->core_pointer != event_device)
++  {
++    axes = g_malloc_n (5, sizeof (gdouble));
++
++    axes[0] = x;
++    axes[1] = y;
++    axes[2] = [nsevent pressure];
++    axes[3] = [nsevent tilt].x;
++    axes[4] = [nsevent tilt].y;
++  }
++
+   event->any.type = type;
+   event->button.window = window;
+   event->button.time = get_time_from_ns_event (nsevent);
+@@ -1011,12 +1068,12 @@
+   event->button.y = y;
+   event->button.x_root = x_root;
+   event->button.y_root = y_root;
+-  /* FIXME event->axes */
++  event->button.axes = axes;
+   event->button.state = state;
+   event->button.button = get_mouse_button_from_ns_event (nsevent);
+-
+-  event->button.device = gdk_seat_get_pointer (seat);
+-  gdk_event_set_seat (event, seat);
++  event->button.device = device_manager->core_pointer;
++  gdk_event_set_seat (event, gdk_device_get_seat (device_manager->core_pointer));
++  gdk_event_set_source_device(event, event_device);
+ }
+ 
+ static void
+@@ -1028,7 +1085,29 @@
+                    gint       x_root,
+                    gint       y_root)
+ {
+-  GdkSeat *seat = gdk_display_get_default_seat (_gdk_display);
++  GdkQuartzDeviceManagerCore *device_manager;
++
++  GdkDevice *event_device = NULL;
++  gdouble *axes = NULL;
++
++  event_device = _gdk_quartz_device_manager_core_device_for_ns_event
++  (
++    gdk_display_get_device_manager (_gdk_display),
++    nsevent
++  );
++
++  device_manager = GDK_QUARTZ_DEVICE_MANAGER_CORE (_gdk_display->device_manager);
++
++  if (device_manager->core_pointer != event_device)
++  {
++    axes = g_malloc_n (5, sizeof (gdouble));
++
++    axes[0] = x;
++    axes[1] = y;
++    axes[2] = [nsevent pressure];
++    axes[3] = [nsevent tilt].x;
++    axes[4] = [nsevent tilt].y;
++  }
+ 
+   event->any.type = GDK_MOTION_NOTIFY;
+   event->motion.window = window;
+@@ -1037,12 +1116,13 @@
+   event->motion.y = y;
+   event->motion.x_root = x_root;
+   event->motion.y_root = y_root;
+-  /* FIXME event->axes */
++  event->motion.axes = axes;
+   event->motion.state = get_keyboard_modifiers_from_ns_event (nsevent) |
+                         _gdk_quartz_events_get_current_mouse_modifiers ();
+   event->motion.is_hint = FALSE;
+-  event->motion.device = gdk_seat_get_pointer (seat);
+-  gdk_event_set_seat (event, seat);
++  event->button.device = device_manager->core_pointer;
++  gdk_event_set_seat (event, gdk_device_get_seat (device_manager->core_pointer));
++  gdk_event_set_source_device(event, event_device);
+ }
+ 
+ static void
+@@ -1057,10 +1137,11 @@
+                    gdouble             delta_y,
+                    GdkScrollDirection  direction)
+ {
+-  GdkSeat *seat = gdk_display_get_default_seat (_gdk_display);
++  GdkQuartzDeviceManagerCore *device_manager;
+   NSPoint point;
+ 
+   point = [nsevent locationInWindow];
++  device_manager = GDK_QUARTZ_DEVICE_MANAGER_CORE (_gdk_display->device_manager);
+ 
+   event->any.type = GDK_SCROLL;
+   event->scroll.window = window;
+@@ -1071,10 +1152,10 @@
+   event->scroll.y_root = y_root;
+   event->scroll.state = get_keyboard_modifiers_from_ns_event (nsevent);
+   event->scroll.direction = direction;
+-  event->scroll.device = gdk_seat_get_pointer (seat);
++  event->scroll.device = device_manager->core_pointer;
+   event->scroll.delta_x = delta_x;
+   event->scroll.delta_y = delta_y;
+-  gdk_event_set_seat (event, seat);
++  gdk_event_set_seat (event, gdk_device_get_seat (device_manager->core_pointer));
+ }
+ 
+ static void
+@@ -1084,7 +1165,7 @@
+                 GdkEventType  type)
+ {
+   GdkEventPrivate *priv;
+-  GdkSeat *seat = gdk_display_get_default_seat (_gdk_display);
++  GdkQuartzDeviceManagerCore *device_manager;
+   gchar buf[7];
+   gunichar c = 0;
+ 
+@@ -1096,12 +1177,12 @@
+   event->key.time = get_time_from_ns_event (nsevent);
+   event->key.state = get_keyboard_modifiers_from_ns_event (nsevent);
+   event->key.hardware_keycode = [nsevent keyCode];
+-  gdk_event_set_scancode (event, [nsevent keyCode]);
+-  event->key.group = ([nsevent modifierFlags] & GDK_QUARTZ_ALTERNATE_KEY_MASK) ? 1 : 0;
++  event->key.group = ([nsevent modifierFlags] & NSAlternateKeyMask) ? 1 : 0;
+   event->key.keyval = GDK_KEY_VoidSymbol;
+ 
+-  gdk_event_set_device (event, gdk_seat_get_keyboard (seat));
+-  gdk_event_set_seat (event, seat);
++  device_manager = GDK_QUARTZ_DEVICE_MANAGER_CORE (_gdk_display->device_manager);
++  gdk_event_set_device (event, device_manager->core_keyboard);
++  gdk_event_set_seat (event, gdk_device_get_seat (device_manager->core_keyboard));
+ 
+   gdk_keymap_translate_keyboard_state (gdk_keymap_get_for_display (_gdk_display),
+ 				       event->key.hardware_keycode,
+@@ -1173,7 +1254,7 @@
+ 
+       len = g_unichar_to_utf8 (c, buf);
+       buf[len] = '\0';
+-      
++
+       event->key.string = g_locale_from_utf8 (buf, len,
+ 					      NULL, &bytes_written,
+ 					      NULL);
+@@ -1217,7 +1298,7 @@
+ {
+   switch ([nsevent type])
+     {
+-    case GDK_QUARTZ_MOUSE_ENTERED:
++    case NSMouseEntered:
+       /* Enter events are considered always to be from another toplevel
+        * window, this shouldn't negatively affect any app or gtk code,
+        * and is the only way to make GtkMenu work. EEK EEK EEK.
+@@ -1233,7 +1314,7 @@
+                            GDK_NOTIFY_NONLINEAR);
+       return TRUE;
+ 
+-    case GDK_QUARTZ_MOUSE_EXITED:
++    case NSMouseExited:
+       /* See above */
+       if (!(window->event_mask & GDK_LEAVE_NOTIFY_MASK))
+         return FALSE;
+@@ -1257,7 +1338,7 @@
+ _gdk_quartz_synthesize_null_key_event (GdkWindow *window)
+ {
+   GdkEvent *event;
+-  GdkSeat *seat = gdk_display_get_default_seat (_gdk_display);
++  GdkQuartzDeviceManagerCore *device_manager;
+ 
+   event = gdk_event_new (GDK_KEY_PRESS);
+   event->any.type = GDK_KEY_PRESS;
+@@ -1266,9 +1347,9 @@
+   event->key.hardware_keycode = 0;
+   event->key.group = 0;
+   event->key.keyval = GDK_KEY_VoidSymbol;
+-
+-  gdk_event_set_device (event, gdk_seat_get_keyboard (seat));
+-  gdk_event_set_seat (event, seat);
++  device_manager = GDK_QUARTZ_DEVICE_MANAGER_CORE (_gdk_display->device_manager);
++  gdk_event_set_device (event, device_manager->core_keyboard);
++  gdk_event_set_seat (event, gdk_device_get_seat (device_manager->core_keyboard));
+   append_event(event, FALSE);
+ }
+ 
+@@ -1320,12 +1401,12 @@
+   GdkWindowImplQuartz *toplevel_impl;
+   gboolean lion;
+ 
+-  /* Resizing from the resize indicator only begins if an GDK_QUARTZ_LEFT_MOUSE_BUTTON
++  /* Resizing from the resize indicator only begins if an NSLeftMouseButton
+    * event is received in the resizing area.
+    */
+   toplevel_impl = (GdkWindowImplQuartz *)toplevel->impl;
+   if ([toplevel_impl->toplevel showsResizeIndicator])
+-  if ([event type] == GDK_QUARTZ_LEFT_MOUSE_DOWN &&
++  if ([event type] == NSLeftMouseDown &&
+       [toplevel_impl->toplevel showsResizeIndicator])
+     {
+       NSRect frame;
+@@ -1364,9 +1445,9 @@
+    */
+   lion = gdk_quartz_osx_version () >= GDK_OSX_LION;
+   if (lion &&
+-      ([event type] == GDK_QUARTZ_LEFT_MOUSE_DOWN ||
+-       [event type] == GDK_QUARTZ_RIGHT_MOUSE_DOWN ||
+-       [event type] == GDK_QUARTZ_OTHER_MOUSE_DOWN))
++      ([event type] == NSLeftMouseDown ||
++       [event type] == NSRightMouseDown ||
++       [event type] == NSOtherMouseDown))
+     {
+       if (x < GDK_LION_RESIZE ||
+           x > toplevel->width - GDK_LION_RESIZE ||
+@@ -1377,14 +1458,6 @@
+   return FALSE;
+ }
+ 
+-#if MAC_OS_X_VERSION_MIN_REQUIRED < 101200
+-#define GDK_QUARTZ_APP_KIT_DEFINED NSAppKitDefined
+-#define GDK_QUARTZ_APPLICATION_DEACTIVATED NSApplicationDeactivatedEventType
+-#else
+-#define GDK_QUARTZ_APP_KIT_DEFINED NSEventTypeAppKitDefined
+-#define GDK_QUARTZ_APPLICATION_DEACTIVATED NSEventSubtypeApplicationDeactivated
+-#endif
+-
+ static gboolean
+ gdk_event_translate (GdkEvent *event,
+                      NSEvent  *nsevent)
+@@ -1400,9 +1473,9 @@
+    * grabs when the application loses focus (gets deactivated).
+    */
+   event_type = [nsevent type];
+-  if (event_type == GDK_QUARTZ_APP_KIT_DEFINED)
++  if (event_type == NSAppKitDefined)
+     {
+-      if ([nsevent subtype] ==  GDK_QUARTZ_APPLICATION_DEACTIVATED)
++      if ([nsevent subtype] == NSApplicationDeactivatedEventType)
+         _gdk_quartz_events_break_all_grabs (get_time_from_ns_event (nsevent));
+ 
+       /* This could potentially be used to break grabs when clicking
+@@ -1438,7 +1511,7 @@
+     {
+       GdkWindow *toplevel = NULL;
+ 
+-      if (event_type == GDK_QUARTZ_MOUSE_MOVED)
++      if (event_type == NSMouseMoved)
+         {
+           /* Motion events received after clicking the menu bar do not have the
+            * window field set.  Instead of giving up on the event immediately,
+@@ -1509,9 +1582,9 @@
+    * native apps). If the app is active, we focus the window and then handle
+    * the event, also to match native apps.
+    */
+-  if ((event_type == GDK_QUARTZ_RIGHT_MOUSE_DOWN ||
+-       event_type == GDK_QUARTZ_OTHER_MOUSE_DOWN ||
+-       event_type == GDK_QUARTZ_LEFT_MOUSE_DOWN))
++  if ((event_type == NSRightMouseDown ||
++       event_type == NSOtherMouseDown ||
++       event_type == NSLeftMouseDown))
+     {
+       GdkWindowImplQuartz *impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
+ 
+@@ -1523,13 +1596,11 @@
+       else if (![impl->toplevel isKeyWindow])
+         {
+           GdkDeviceGrabInfo *grab;
+-          GdkSeat *seat = gdk_display_get_default_seat (_gdk_display);
+ 
+           grab = _gdk_display_get_last_device_grab (_gdk_display,
+-                                                    gdk_seat_get_pointer (seat));
++                                                    GDK_QUARTZ_DEVICE_MANAGER_CORE (_gdk_display->device_manager)->core_pointer);
+           if (!grab)
+             [impl->toplevel makeKeyWindow];
+-
+         }
+     }
+ 
+@@ -1537,23 +1608,23 @@
+ 
+   switch (event_type)
+     {
+-    case GDK_QUARTZ_LEFT_MOUSE_DOWN:
+-    case GDK_QUARTZ_RIGHT_MOUSE_DOWN:
+-    case GDK_QUARTZ_OTHER_MOUSE_DOWN:
+-    case GDK_QUARTZ_LEFT_MOUSE_UP:
+-    case GDK_QUARTZ_RIGHT_MOUSE_UP:
+-    case GDK_QUARTZ_OTHER_MOUSE_UP:
++    case NSLeftMouseDown:
++    case NSRightMouseDown:
++    case NSOtherMouseDown:
++    case NSLeftMouseUp:
++    case NSRightMouseUp:
++    case NSOtherMouseUp:
+       fill_button_event (window, event, nsevent, x, y, x_root, y_root);
+       break;
+ 
+-    case GDK_QUARTZ_LEFT_MOUSE_DRAGGED:
+-    case GDK_QUARTZ_RIGHT_MOUSE_DRAGGED:
+-    case GDK_QUARTZ_OTHER_MOUSE_DRAGGED:
+-    case GDK_QUARTZ_MOUSE_MOVED:
++    case NSLeftMouseDragged:
++    case NSRightMouseDragged:
++    case NSOtherMouseDragged:
++    case NSMouseMoved:
+       fill_motion_event (window, event, nsevent, x, y, x_root, y_root);
+       break;
+ 
+-    case GDK_QUARTZ_SCROLL_WHEEL:
++    case NSScrollWheel:
+       {
+         GdkScrollDirection direction;
+ 	float dx;
+@@ -1605,7 +1676,7 @@
+                 GdkEvent *emulated_event;
+ 
+                 emulated_event = gdk_event_new (GDK_SCROLL);
+-                gdk_event_set_pointer_emulated (emulated_event, TRUE);
++                _gdk_event_set_pointer_emulated (emulated_event, TRUE);
+                 fill_scroll_event (window, emulated_event, nsevent,
+                                    x, y, x_root, y_root,
+                                    dx, dy, direction);
+@@ -1630,17 +1701,17 @@
+         return_val = FALSE;
+       break;
+ #endif
+-    case GDK_QUARTZ_MOUSE_EXITED:
++    case NSMouseExited:
+       if (WINDOW_IS_TOPLEVEL (window))
+           [[NSCursor arrowCursor] set];
+       /* fall through */
+-    case GDK_QUARTZ_MOUSE_ENTERED:
++    case NSMouseEntered:
+       return_val = synthesize_crossing_event (window, event, nsevent, x, y, x_root, y_root);
+       break;
+ 
+-    case GDK_QUARTZ_KEY_DOWN:
+-    case GDK_QUARTZ_KEY_UP:
+-    case GDK_QUARTZ_FLAGS_CHANGED:
++    case NSKeyDown:
++    case NSKeyUp:
++    case NSFlagsChanged:
+       {
+         GdkEventType type;
+ 
+@@ -1652,6 +1723,15 @@
+       }
+       break;
+ 
++    case NSTabletProximity:
++      _gdk_quartz_device_manager_core_device_for_ns_event
++        (
++         gdk_display_get_device_manager (_gdk_display),
++         nsevent
++        );
++      return_val = FALSE;
++      break;
++
+     default:
+       /* Ignore everything elsee. */
+       return_val = FALSE;
+@@ -1680,7 +1760,7 @@
+ 
+ void
+ _gdk_quartz_display_queue_events (GdkDisplay *display)
+-{  
++{
+   NSEvent *nsevent;
+ 
+   nsevent = _gdk_quartz_event_loop_get_pending ();
+@@ -1738,7 +1818,7 @@
+       GDK_QUARTZ_ALLOC_POOL;
+ 
+       defaults = [NSUserDefaults standardUserDefaults];
+-            
++
+       t = [defaults floatForKey:@"com.apple.mouse.doubleClickThreshold"];
+       if (t == 0.0)
+ 	{
+@@ -1803,7 +1883,7 @@
+ 
+       return TRUE;
+     }
+-  
++
+   /* FIXME: Add more settings */
+ 
+   return FALSE;
