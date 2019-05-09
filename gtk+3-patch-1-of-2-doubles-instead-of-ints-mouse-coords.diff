@@ -1,0 +1,183 @@
+From c59f4dc55f6a6d9e09f985ca13c779066f8133a5 Mon Sep 17 00:00:00 2001
+From: Daniel Sabo <DanielSabo@gmail.com>
+Date: Tue, 26 Feb 2013 18:00:55 -0800
+Subject: [PATCH 1/2] Quartz: Use doubles rather than ints for mouse
+ coordinates.
+
+---
+ gdk/quartz/gdkevents-quartz.c |   55 +++++++++++++++++++++--------------------
+ 1 file changed, 28 insertions(+), 27 deletions(-)
+
+diff --git a/gdk/quartz/gdkevents-quartz.c b/gdk/quartz/gdkevents-quartz.c
+index 6bd6e63..51a2ad0 100644
+--- a/gdk/quartz/gdkevents-quartz.c
++++ b/gdk/quartz/gdkevents-quartz.c
+@@ -54,8 +54,8 @@ static void append_event                        (GdkEvent  *event,
+ 
+ static GdkWindow *find_toplevel_under_pointer   (GdkDisplay *display,
+                                                  NSPoint     screen_point,
+-                                                 gint       *x,
+-                                                 gint       *y);
++                                                 gdouble    *x,
++                                                 gdouble    *y);
+ 
+ 
+ static void
+@@ -387,8 +387,8 @@ get_event_mask_from_ns_event (NSEvent *nsevent)
+ static void
+ get_window_point_from_screen_point (GdkWindow *window,
+                                     NSPoint    screen_point,
+-                                    gint      *x,
+-                                    gint      *y)
++                                    gdouble   *x,
++                                    gdouble   *y)
+ {
+   NSPoint point;
+   NSWindow *nswindow;
+@@ -418,8 +418,8 @@ is_mouse_button_press_event (NSEventType type)
+ static GdkWindow *
+ get_toplevel_from_ns_event (NSEvent *nsevent,
+                             NSPoint *screen_point,
+-                            gint    *x,
+-                            gint    *y)
++                            gdouble *x,
++                            gdouble *y)
+ {
+   GdkWindow *toplevel = NULL;
+ 
+@@ -517,7 +517,8 @@ generate_motion_event (GdkWindow *window)
+ {
+   NSPoint screen_point;
+   GdkEvent *event;
+-  gint x, y, x_root, y_root;
++  gdouble x, y;
++  gint x_root, y_root;
+ 
+   event = gdk_event_new (GDK_MOTION_NOTIFY);
+   event->any.window = NULL;
+@@ -611,8 +612,8 @@ _gdk_quartz_events_send_map_event (GdkWindow *window)
+ static GdkWindow *
+ find_toplevel_under_pointer (GdkDisplay *display,
+                              NSPoint     screen_point,
+-                             gint       *x,
+-                             gint       *y)
++                             gdouble    *x,
++                             gdouble    *y)
+ {
+   GdkWindow *toplevel;
+   GdkPointerWindowInfo *info;
+@@ -677,8 +678,8 @@ find_toplevel_for_keyboard_event (NSEvent *nsevent)
+ 
+ static GdkWindow *
+ find_toplevel_for_mouse_event (NSEvent    *nsevent,
+-                               gint       *x,
+-                               gint       *y)
++                               gdouble    *x,
++                               gdouble    *y)
+ {
+   NSPoint screen_point;
+   NSEventType event_type;
+@@ -720,7 +721,7 @@ find_toplevel_for_mouse_event (NSEvent    *nsevent,
+            * wrong.
+            */
+           GdkWindow *toplevel_under_pointer;
+-          gint x_tmp, y_tmp;
++          gdouble x_tmp, y_tmp;
+ 
+           toplevel_under_pointer = find_toplevel_under_pointer (display,
+                                                                 screen_point,
+@@ -752,7 +753,7 @@ find_toplevel_for_mouse_event (NSEvent    *nsevent,
+     {
+       /* The non-grabbed case. */
+       GdkWindow *toplevel_under_pointer;
+-      gint x_tmp, y_tmp;
++      gdouble x_tmp, y_tmp;
+ 
+       /* Ignore all events but mouse moved that might be on the title
+        * bar (above the content view). The reason is that otherwise
+@@ -793,8 +794,8 @@ find_toplevel_for_mouse_event (NSEvent    *nsevent,
+  */
+ static GdkWindow *
+ find_window_for_ns_event (NSEvent *nsevent, 
+-                          gint    *x, 
+-                          gint    *y,
++                          gdouble *x, 
++                          gdouble *y,
+                           gint    *x_root,
+                           gint    *y_root)
+ {
+@@ -854,8 +855,8 @@ static void
+ fill_crossing_event (GdkWindow       *toplevel,
+                      GdkEvent        *event,
+                      NSEvent         *nsevent,
+-                     gint             x,
+-                     gint             y,
++                     gdouble          x,
++                     gdouble          y,
+                      gint             x_root,
+                      gint             y_root,
+                      GdkEventType     event_type,
+@@ -884,8 +885,8 @@ static void
+ fill_button_event (GdkWindow *window,
+                    GdkEvent  *event,
+                    NSEvent   *nsevent,
+-                   gint       x,
+-                   gint       y,
++                   gdouble    x,
++                   gdouble    y,
+                    gint       x_root,
+                    gint       y_root)
+ {
+@@ -932,8 +933,8 @@ static void
+ fill_motion_event (GdkWindow *window,
+                    GdkEvent  *event,
+                    NSEvent   *nsevent,
+-                   gint       x,
+-                   gint       y,
++                   gdouble    x,
++                   gdouble    y,
+                    gint       x_root,
+                    gint       y_root)
+ {
+@@ -955,8 +956,8 @@ static void
+ fill_scroll_event (GdkWindow          *window,
+                    GdkEvent           *event,
+                    NSEvent            *nsevent,
+-                   gint                x,
+-                   gint                y,
++                   gdouble             x,
++                   gdouble             y,
+                    gint                x_root,
+                    gint                y_root,
+                    gdouble             delta_x,
+@@ -1113,8 +1114,8 @@ static gboolean
+ synthesize_crossing_event (GdkWindow *window,
+                            GdkEvent  *event,
+                            NSEvent   *nsevent,
+-                           gint       x,
+-                           gint       y,
++                           gdouble    x,
++                           gdouble    y,
+                            gint       x_root,
+                            gint       y_root)
+ {
+@@ -1268,7 +1269,7 @@ gdk_event_translate (GdkEvent *event,
+   NSEventType event_type;
+   NSWindow *nswindow;
+   GdkWindow *window;
+-  int x, y;
++  gdouble x, y;
+   int x_root, y_root;
+   gboolean return_val;
+ 
+@@ -1321,7 +1322,7 @@ gdk_event_translate (GdkEvent *event,
+            * we first check whether this event is within our window bounds.
+            */
+           NSPoint screen_point = [NSEvent mouseLocation];
+-          gint x_tmp, y_tmp;
++          gdouble x_tmp, y_tmp;
+ 
+           toplevel = find_toplevel_under_pointer (_gdk_display,
+                                                   screen_point,
+-- 
+1.7.9.4
