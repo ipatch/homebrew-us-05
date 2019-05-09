@@ -20,18 +20,19 @@ class Gtkx3 < Formula
   depends_on "libepoxy"
   depends_on "pango"
 
-  # patch do
-  #   url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/master/gdkevents-quartz.patch"
-  #   sha256 "bd72f872567eef836722d59e6aced4079672dae42461982459d9fc5f2633de94"
-  # end
+  patch do
+    url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/master/gdkevents-quartz.patch"
+  sha256 "02cb26155256bbed6d8cd184acfd084a38a75297651213648de1999f992f3309"
+  end
 
   def install
+    # --enable-introspection=yes
     args = %W[
       --enable-debug=minimal
       --disable-dependency-tracking
       --prefix=#{prefix}
       --disable-glibtest
-      --enable-introspection=yes
+      --enable-introspection=no
       --disable-schemas-compile
       --enable-quartz-backend
       --disable-x11-backend
