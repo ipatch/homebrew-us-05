@@ -21,14 +21,19 @@ class Gtkx3 < Formula
   depends_on "pango"
 
   patch do
-    url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/master/gtk%2B3-patch-1-of-2-doubles-instead-of-ints-mouse-coords.diff"
-    sha256 "508023c30d32b7f70f17c77b2b64cf5536a20d6c2e0b835471b49a9b3cb348d7"
+    url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/master/gdkevents-quartz.patch"
+    sha256 "bd72f872567eef836722d59e6aced4079672dae42461982459d9fc5f2633de94"
   end
 
-  patch do
-    url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/master/gtk%2B3-patch-2-of-2-quartz-pen-pressue-proto.diff"
-    sha256 "c4510a46e6dc81258b88625830d49d685afad6cdfafd8e3d54c11d215a2ef9c1"
-  end
+  # patch do
+  #   url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/master/gtk%2B3-patch-1-of-2-doubles-instead-of-ints-mouse-coords.diff"
+  #   sha256 "508023c30d32b7f70f17c77b2b64cf5536a20d6c2e0b835471b49a9b3cb348d7"
+  # end
+
+  # patch do
+  #   url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/master/gtk%2B3-patch-2-of-2-quartz-pen-pressue-proto.diff"
+  #   sha256 "c4510a46e6dc81258b88625830d49d685afad6cdfafd8e3d54c11d215a2ef9c1"
+  # end
 
   def install
     args = %W[
