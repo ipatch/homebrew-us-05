@@ -27,10 +27,10 @@ class Glib < Formula
   end
 
   # patch to add pressure sensitive pen support for drawing tablets
-  patch do
-    url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/master/glib-pen-pressue.diff"
-    sha256 "cc3494c4ddf90bf0d6c1a4744bd0aed50b03c05fa7fe7159b948539a34689949"
-  end
+  # patch do
+  #   url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/master/glib-pen-pressue.diff"
+  #   sha256 "cc3494c4ddf90bf0d6c1a4744bd0aed50b03c05fa7fe7159b948539a34689949"
+  # end
 
   def install
     inreplace %w[gio/gdbusprivate.c gio/xdgmime/xdgmime.c glib/gutils.c],
