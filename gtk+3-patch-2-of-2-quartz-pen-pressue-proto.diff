@@ -1,0 +1,462 @@
+From 7faada3af1d3c3986adc288c73ebb0b864ceb19f Mon Sep 17 00:00:00 2001
+From: Daniel Sabo <DanielSabo@gmail.com>
+Date: Thu, 28 Feb 2013 13:49:17 -0800
+Subject: [PATCH] Quartz: Tablet pressure support, draft 2
+
+This is a functional prototype of pressure support for GTK3.
+---
+ gdk/quartz/gdkdevice-core-quartz.c        |   41 ++++++++
+ gdk/quartz/gdkdevicemanager-core-quartz.c |  164 ++++++++++++++++++++++++++++-
+ gdk/quartz/gdkdevicemanager-core-quartz.h |    7 ++
+ gdk/quartz/gdkevents-quartz.c             |   56 +++++++++-
+ gdk/quartz/gdkquartzdevice-core.h         |    9 ++
+ 5 files changed, 271 insertions(+), 6 deletions(-)
+
+diff --git a/gdk/quartz/gdkdevice-core-quartz.c b/gdk/quartz/gdkdevice-core-quartz.c
+index 8598cf6..6058ed5 100644
+--- a/gdk/quartz/gdkdevice-core-quartz.c
++++ b/gdk/quartz/gdkdevice-core-quartz.c
+@@ -30,6 +30,10 @@
+ struct _GdkQuartzDeviceCore
+ {
+   GdkDevice parent_instance;
++  
++  gboolean active;
++  NSUInteger device_id;
++  unsigned long long unique_id;
+ };
+ 
+ struct _GdkQuartzDeviceCoreClass
+@@ -37,6 +41,7 @@ struct _GdkQuartzDeviceCoreClass
+   GdkDeviceClass parent_class;
+ };
+ 
++
+ static gboolean gdk_quartz_device_core_get_history (GdkDevice      *device,
+                                                     GdkWindow      *window,
+                                                     guint32         start,
+@@ -88,6 +93,7 @@ static void
+ gdk_quartz_device_core_class_init (GdkQuartzDeviceCoreClass *klass)
+ {
+   GdkDeviceClass *device_class = GDK_DEVICE_CLASS (klass);
++  //GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+ 
+   device_class->get_history = gdk_quartz_device_core_get_history;
+   device_class->get_state = gdk_quartz_device_core_get_state;
+@@ -363,3 +369,38 @@ gdk_quartz_device_core_select_window_events (GdkDevice    *device,
+ {
+   /* The mask is set in the common code. */
+ }
++
++void
++gdk_quartz_device_core_set_active(GdkDevice *device,
++                                  gboolean   active,
++                                  NSUInteger device_id)
++{
++  GDK_QUARTZ_DEVICE_CORE(device)->active = active;
++  GDK_QUARTZ_DEVICE_CORE(device)->device_id = device_id;
++}
++
++gboolean
++gdk_quartz_device_core_is_active(GdkDevice *device,
++                                 NSUInteger device_id)
++{
++  if ((GDK_QUARTZ_DEVICE_CORE(device)->active) &&
++      (GDK_QUARTZ_DEVICE_CORE(device)->device_id == device_id))
++    {
++      return TRUE;
++    }
++  return FALSE;
++}
++
++void
++gdk_quartz_device_core_set_unique(GdkDevice *device,
++                                  unsigned long long unique_id)
++{
++  GDK_QUARTZ_DEVICE_CORE(device)->unique_id = unique_id;
++}
++
++
++unsigned long long
++gdk_quartz_device_core_get_unique(GdkDevice *device)
++{
++  return GDK_QUARTZ_DEVICE_CORE(device)->unique_id;
++}
+\ No newline at end of file
+diff --git a/gdk/quartz/gdkdevicemanager-core-quartz.c b/gdk/quartz/gdkdevicemanager-core-quartz.c
+index 95d9f4f..fa2a769 100644
+--- a/gdk/quartz/gdkdevicemanager-core-quartz.c
++++ b/gdk/quartz/gdkdevicemanager-core-quartz.c
+@@ -55,7 +55,7 @@ static GdkDevice *
+ create_core_pointer (GdkDeviceManager *device_manager,
+                      GdkDisplay       *display)
+ {
+-  return g_object_new (GDK_TYPE_QUARTZ_DEVICE_CORE,
++  GdkDevice *device = g_object_new (GDK_TYPE_QUARTZ_DEVICE_CORE,
+                        "name", "Core Pointer",
+                        "type", GDK_DEVICE_TYPE_MASTER,
+                        "input-source", GDK_SOURCE_MOUSE,
+@@ -64,6 +64,11 @@ create_core_pointer (GdkDeviceManager *device_manager,
+                        "display", display,
+                        "device-manager", device_manager,
+                        NULL);
++  _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_PRESSURE, 0.0, 1.0, 0.001);
++  _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_XTILT, -1.0, 1.0, 0.001);
++  _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_YTILT, -1.0, 1.0, 0.001);
++  
++  return device;
+ }
+ 
+ static GdkDevice *
+@@ -84,6 +89,7 @@ create_core_keyboard (GdkDeviceManager *device_manager,
+ static void
+ gdk_quartz_device_manager_core_init (GdkQuartzDeviceManagerCore *device_manager)
+ {
++  device_manager->known_devices = NULL;
+ }
+ 
+ static void
+@@ -95,6 +101,8 @@ gdk_quartz_device_manager_core_finalize (GObject *object)
+ 
+   g_object_unref (quartz_device_manager_core->core_pointer);
+   g_object_unref (quartz_device_manager_core->core_keyboard);
++  
++  g_list_free_full(quartz_device_manager_core->known_devices, g_object_unref);
+ 
+   G_OBJECT_CLASS (gdk_quartz_device_manager_core_parent_class)->finalize (object);
+ }
+@@ -118,15 +126,22 @@ static GList *
+ gdk_quartz_device_manager_core_list_devices (GdkDeviceManager *device_manager,
+                                              GdkDeviceType     type)
+ {
+-  GdkQuartzDeviceManagerCore *quartz_device_manager_core;
++  GdkQuartzDeviceManagerCore *quartz_device_manager_core = GDK_QUARTZ_DEVICE_MANAGER_CORE(device_manager);
+   GList *devices = NULL;
+ 
+   if (type == GDK_DEVICE_TYPE_MASTER)
+     {
+-      quartz_device_manager_core = (GdkQuartzDeviceManagerCore *) device_manager;
+       devices = g_list_prepend (devices, quartz_device_manager_core->core_keyboard);
+       devices = g_list_prepend (devices, quartz_device_manager_core->core_pointer);
+     }
++    
++  GList *devices_iter;
++  for(devices_iter = quartz_device_manager_core->known_devices;
++      devices_iter;
++      devices_iter = g_list_next(devices_iter))
++  {
++    devices = g_list_append (devices, GDK_DEVICE(devices_iter->data));
++  }
+ 
+   return devices;
+ }
+@@ -139,3 +154,146 @@ gdk_quartz_device_manager_core_get_client_pointer (GdkDeviceManager *device_mana
+   quartz_device_manager_core = (GdkQuartzDeviceManagerCore *) device_manager;
+   return quartz_device_manager_core->core_pointer;
+ }
++
++GdkDevice *_gdk_quartz_device_manager_core_device_for_ns_event(GdkDeviceManager *device_manager,
++                                                               NSEvent *nsevent)
++{ 
++  GdkQuartzDeviceManagerCore *quartz_device_manager_core = GDK_QUARTZ_DEVICE_MANAGER_CORE (device_manager);
++  GdkDisplay *display = gdk_device_manager_get_display (device_manager);;
++  GdkDevice *device = NULL;
++
++  if (([nsevent type] == NSTabletProximity) ||
++      ([nsevent subtype] == NSTabletProximityEventSubtype))
++    {
++      GList *devices_iter = NULL;
++      GdkInputSource input_source = GDK_SOURCE_MOUSE;
++      if ([nsevent pointingDeviceType] == NSPenPointingDevice)
++        input_source = GDK_SOURCE_PEN;
++      else if ([nsevent pointingDeviceType] == NSCursorPointingDevice)
++        input_source = GDK_SOURCE_CURSOR;
++      else if ([nsevent pointingDeviceType] == NSEraserPointingDevice)
++        input_source = GDK_SOURCE_ERASER;
++      
++      for(devices_iter = quartz_device_manager_core->known_devices;
++          devices_iter;
++          devices_iter = g_list_next(devices_iter))
++        {
++          GdkDevice *device_to_check = GDK_DEVICE(devices_iter->data);
++          
++          if((input_source == gdk_device_get_source (device_to_check)) && 
++             ([nsevent uniqueID] == gdk_quartz_device_core_get_unique (device_to_check)))
++            {
++              device = device_to_check;
++              if ([nsevent isEnteringProximity])
++                {
++                  /* FIXME: These should check that we actualy changed the device state
++                            before setting num_active_devices */
++                  gdk_quartz_device_core_set_active(device, TRUE, [nsevent deviceID]);
++                  quartz_device_manager_core->num_active_devices++;
++                }
++              else
++                {
++                  gdk_quartz_device_core_set_active(device, FALSE, [nsevent deviceID]);
++                  quartz_device_manager_core->num_active_devices--;
++                }
++            }
++        }
++      
++      /* If we haven't seen this devie before, add it */
++      if (!device)
++        {
++          if (input_source == GDK_SOURCE_PEN)
++            {
++              device = g_object_new (GDK_TYPE_QUARTZ_DEVICE_CORE,
++                                     "name", "Quartz Pen",
++                                     "type", GDK_DEVICE_TYPE_SLAVE,
++                                     "input-source", GDK_SOURCE_PEN,
++                                     "input-mode", GDK_MODE_SCREEN,
++                                     "has-cursor", TRUE,
++                                     "display", display,
++                                     "device-manager", device_manager,
++                                     /* "cocoa-unique-id", [nsevent uniqueID], */
++                                     NULL);
++                                     
++              _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_PRESSURE, 0.0, 1.0, 0.001);
++              _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_XTILT, -1.0, 1.0, 0.001);
++              _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_YTILT, -1.0, 1.0, 0.001);
++            }
++          else if (input_source == GDK_SOURCE_CURSOR)
++            {
++              device = g_object_new (GDK_TYPE_QUARTZ_DEVICE_CORE,
++                                     "name", "Quartz Cursor",
++                                     "type", GDK_DEVICE_TYPE_SLAVE,
++                                     "input-source", GDK_SOURCE_CURSOR,
++                                     "input-mode", GDK_MODE_SCREEN,
++                                     "has-cursor", TRUE,
++                                     "display", display,
++                                     "device-manager", device_manager,
++                                     /* "cocoa-unique-id", [nsevent uniqueID], */
++                                     NULL);
++                                     
++              _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_PRESSURE, 0.0, 1.0, 0.001);
++              _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_XTILT, -1.0, 1.0, 0.001);
++              _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_YTILT, -1.0, 1.0, 0.001);
++            }
++          else if (input_source == GDK_SOURCE_ERASER)
++            {
++              device = g_object_new (GDK_TYPE_QUARTZ_DEVICE_CORE,
++                                     "name", "Quartz Eraser",
++                                     "type", GDK_DEVICE_TYPE_SLAVE,
++                                     "input-source", GDK_SOURCE_ERASER,
++                                     "input-mode", GDK_MODE_SCREEN,
++                                     "has-cursor", TRUE,
++                                     "display", display,
++                                     "device-manager", device_manager,
++                                     /* "cocoa-unique-id", [nsevent uniqueID], */
++                                     NULL);
++                                     
++              _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_PRESSURE, 0.0, 1.0, 0.001);
++              _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_XTILT, -1.0, 1.0, 0.001);
++              _gdk_device_add_axis (device, GDK_NONE, GDK_AXIS_YTILT, -1.0, 1.0, 0.001);
++            }
++
++          _gdk_device_set_associated_device (GDK_DEVICE (device), quartz_device_manager_core->core_pointer);
++          _gdk_device_add_slave (quartz_device_manager_core->core_pointer, GDK_DEVICE (device));
++
++          gdk_quartz_device_core_set_unique(device, [nsevent uniqueID]);
++          gdk_quartz_device_core_set_active(device, TRUE, [nsevent deviceID]);
++            
++          quartz_device_manager_core->known_devices = g_list_append(quartz_device_manager_core->known_devices,
++                                                                   device);
++
++          if ([nsevent isEnteringProximity])
++            {
++              gdk_quartz_device_core_set_active(device, TRUE, [nsevent deviceID]);
++              quartz_device_manager_core->num_active_devices++;
++            }
++        }
++
++      if (quartz_device_manager_core->num_active_devices)
++        [NSEvent setMouseCoalescingEnabled: FALSE];
++      else
++        [NSEvent setMouseCoalescingEnabled: TRUE];
++    }
++  else if ([nsevent subtype] == NSTabletPointEventSubtype)
++    {
++      /* Find the device based on deviceID */
++      GList *devices_iter = NULL;
++      for(devices_iter = quartz_device_manager_core->known_devices;
++          devices_iter && !device;
++          devices_iter = g_list_next(devices_iter))
++        {
++          GdkDevice *device_to_check = GDK_DEVICE(devices_iter->data);
++          
++          if (gdk_quartz_device_core_is_active(device_to_check, [nsevent deviceID]))
++            {
++              device = device_to_check;
++            }
++        }
++    }
++  
++  if (!device)
++    device = quartz_device_manager_core->core_pointer;
++
++  return device;
++}
+diff --git a/gdk/quartz/gdkdevicemanager-core-quartz.h b/gdk/quartz/gdkdevicemanager-core-quartz.h
+index 8455b40..7ef7819 100644
+--- a/gdk/quartz/gdkdevicemanager-core-quartz.h
++++ b/gdk/quartz/gdkdevicemanager-core-quartz.h
+@@ -23,6 +23,8 @@
+ #include <gdkdevicemanagerprivate.h>
+ #include <gdkquartzdevicemanager-core.h>
+ 
++#import <Cocoa/Cocoa.h>
++
+ G_BEGIN_DECLS
+ 
+ struct _GdkQuartzDeviceManagerCore
+@@ -30,6 +32,8 @@ struct _GdkQuartzDeviceManagerCore
+   GdkDeviceManager parent_object;
+   GdkDevice *core_pointer;
+   GdkDevice *core_keyboard;
++  GList *known_devices;
++  guint num_active_devices;
+ };
+ 
+ struct _GdkQuartzDeviceManagerCoreClass
+@@ -37,6 +41,9 @@ struct _GdkQuartzDeviceManagerCoreClass
+   GdkDeviceManagerClass parent_class;
+ };
+ 
++GdkDevice *_gdk_quartz_device_manager_core_device_for_ns_event(GdkDeviceManager *device_manager,
++                                                               NSEvent *ns_event);
++
+ G_END_DECLS
+ 
+ #endif /* __GDK_QUARTZ_DEVICE_MANAGER__ */
+diff --git a/gdk/quartz/gdkevents-quartz.c b/gdk/quartz/gdkevents-quartz.c
+index 51a2ad0..c7ddd04 100644
+--- a/gdk/quartz/gdkevents-quartz.c
++++ b/gdk/quartz/gdkevents-quartz.c
+@@ -891,6 +891,8 @@ fill_button_event (GdkWindow *window,
+                    gint       y_root)
+ {
+   GdkEventType type;
++  GdkDevice *event_device = NULL;
++  gdouble *axes = NULL;
+   gint state;
+ 
+   state = get_keyboard_modifiers_from_ns_event (nsevent) |
+@@ -916,6 +918,23 @@ fill_button_event (GdkWindow *window,
+       g_assert_not_reached ();
+     }
+ 
++  event_device = _gdk_quartz_device_manager_core_device_for_ns_event
++                   (
++                     gdk_display_get_device_manager (_gdk_display),
++                     nsevent
++                   );
++  
++  if (_gdk_display->core_pointer != event_device)
++  {
++    axes = g_malloc_n (5, sizeof (gdouble));
++    
++    axes[0] = x;
++    axes[1] = y;
++    axes[2] = [nsevent pressure];
++    axes[3] = [nsevent tilt].x;
++    axes[4] = [nsevent tilt].y;
++  }
++
+   event->any.type = type;
+   event->button.window = window;
+   event->button.time = get_time_from_ns_event (nsevent);
+@@ -923,10 +942,11 @@ fill_button_event (GdkWindow *window,
+   event->button.y = y;
+   event->button.x_root = x_root;
+   event->button.y_root = y_root;
+-  /* FIXME event->axes */
++  event->button.axes = axes;
+   event->button.state = state;
+   event->button.button = get_mouse_button_from_ns_event (nsevent);
+   event->button.device = _gdk_display->core_pointer;
++  gdk_event_set_source_device(event, event_device);
+ }
+ 
+ static void
+@@ -938,6 +958,26 @@ fill_motion_event (GdkWindow *window,
+                    gint       x_root,
+                    gint       y_root)
+ {
++  GdkDevice *event_device = NULL;
++  gdouble *axes = NULL;
++
++  event_device = _gdk_quartz_device_manager_core_device_for_ns_event
++                   (
++                     gdk_display_get_device_manager (_gdk_display),
++                     nsevent
++                   );
++  
++  if (_gdk_display->core_pointer != event_device)
++  {
++    axes = g_malloc_n (5, sizeof (gdouble));
++    
++    axes[0] = x;
++    axes[1] = y;
++    axes[2] = [nsevent pressure];
++    axes[3] = [nsevent tilt].x;
++    axes[4] = [nsevent tilt].y;
++  }
++
+   event->any.type = GDK_MOTION_NOTIFY;
+   event->motion.window = window;
+   event->motion.time = get_time_from_ns_event (nsevent);
+@@ -945,11 +985,12 @@ fill_motion_event (GdkWindow *window,
+   event->motion.y = y;
+   event->motion.x_root = x_root;
+   event->motion.y_root = y_root;
+-  /* FIXME event->axes */
++  event->motion.axes = axes;
+   event->motion.state = get_keyboard_modifiers_from_ns_event (nsevent) |
+                         _gdk_quartz_events_get_current_mouse_modifiers ();
+   event->motion.is_hint = FALSE;
+-  event->motion.device = _gdk_display->core_pointer;
++  event->button.device = _gdk_display->core_pointer;
++  gdk_event_set_source_device(event, event_device);
+ }
+ 
+ static void
+@@ -1518,6 +1559,15 @@ gdk_event_translate (GdkEvent *event,
+       }
+       break;
+ 
++    case NSTabletProximity:
++      _gdk_quartz_device_manager_core_device_for_ns_event
++        (
++         gdk_display_get_device_manager (_gdk_display),
++         nsevent
++        );
++      return_val = FALSE;
++      break;
++
+     default:
+       /* Ignore everything elsee. */
+       return_val = FALSE;
+diff --git a/gdk/quartz/gdkquartzdevice-core.h b/gdk/quartz/gdkquartzdevice-core.h
+index 753e130..d4c27fe 100644
+--- a/gdk/quartz/gdkquartzdevice-core.h
++++ b/gdk/quartz/gdkquartzdevice-core.h
+@@ -38,6 +38,15 @@ typedef struct _GdkQuartzDeviceCoreClass GdkQuartzDeviceCoreClass;
+ 
+ GType gdk_quartz_device_core_get_type (void) G_GNUC_CONST;
+ 
++void gdk_quartz_device_core_set_active (GdkDevice *device,
++                                        gboolean   active,
++                                        NSUInteger device_id);
++gboolean gdk_quartz_device_core_is_active (GdkDevice *device,
++                                           NSUInteger device_id);
++void gdk_quartz_device_core_set_unique (GdkDevice *device,
++                                        unsigned long long unique_id);
++unsigned long long gdk_quartz_device_core_get_unique (GdkDevice *device);
++
+ G_END_DECLS
+ 
+ #endif /* __GDK_QUARTZ_DEVICE_CORE_H__ */
+-- 
+1.7.9.4
+
