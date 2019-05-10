@@ -32,7 +32,7 @@ class Gtkx3 < Formula
       --disable-dependency-tracking
       --prefix=#{prefix}
       --disable-glibtest
-      --enable-introspection=no
+      --enable-introspection=yes
       --disable-schemas-compile
       --enable-quartz-backend
       --disable-x11-backend
