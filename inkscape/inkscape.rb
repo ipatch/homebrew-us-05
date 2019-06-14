@@ -2,7 +2,7 @@ class Inkscape < Formula
   desc "Open-source vector graphics editor"
   homepage "https://inkscape.org/"
   url "https://gitlab.com/inkscape/inkscape/-/archive/master/inkscape-master.tar.bz2"
-  sha256 "cd55cc6e789501e21260a2c323a162be15f2c6904c394cea191455cc42b7a8fc"
+  sha256 "56306accbcd3c626c0a4a3c12929722355751bd009584fa2f4397bc502413443"
   head "https://gitlab.com/inkscape/inkscape.git"
 
   # tools
@@ -30,6 +30,8 @@ class Inkscape < Formula
   depends_on "libsoup" => :build
   depends_on "libwpg" => :build
   depends_on "graphicsmagick" => :build
+  depends_on "double-conversion" => :build
+  depends_on "gettext" => :build
   # optional deps
   depends_on "jemalloc" => :optional
   depends_on "libvisio" => :optional
