@@ -48,7 +48,6 @@ class Inkscape < Formula
     system "../po/generate_POTFILES.sh"
     system "ninja", "inkscape_pot"
     system "ninja"
-    system "mkdir", "/usr/local/share/inkscape"
     system "ninja", "install"
   end
 
