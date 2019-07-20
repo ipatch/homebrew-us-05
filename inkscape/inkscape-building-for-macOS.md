@@ -148,6 +148,8 @@ export PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX t
 export PREFIX="/opt/beta/inkscape/cli/ninja" # specify install directory for inkscape
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig:/usr/local/opt/atk/lib/pkgconfig:/usr/local/opt/icu4c/lib/pkgconfig:/usr/local/opt/gtk-mac-integration"
 
+echo "❗️ before running the below command be sure to remove all files within the `$INKSCAPE_SRC/build/ninja`, having files within that directory can cause complications with future builds"
+
 cmake \
 -DCMAKE_PREFIX_PATH="$LIBPREFIX" \
 -DCMAKE_INSTALL_PREFIX="$PREFIX" \
