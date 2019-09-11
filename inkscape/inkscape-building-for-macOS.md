@@ -125,6 +125,8 @@ make install
 
 ###### Gotchas
 
+- ❗️ **September 11, 2019** not exactly sure if this still an ongoing issue
+
 - ❗️ **June 1, 2019** there are some current issues with generating the **pot** files using _ninja_, a work around is to manually checkout the **pot** file using git after pulling in the latest upstream changes. Also since commit [d66a11f1](https://gitlab.com/inkscape/inkscape/commit/d66a11f144601d1bb2fb0007e3e4463a393b6bd3) **gtk-mac-integration** has been merged into master thus, **gtk-mac-integration** is required to complete the build process.
 
 ```shell
@@ -146,7 +148,7 @@ mkdir -p build/ninja && cd build/ninja
 export LIBPREFIX="/usr/local" # set a env var where the build tools will look for required compile time libraries
 export PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX to the front of the $PATH
 export PREFIX="/opt/beta/inkscape/cli/ninja" # specify install directory for inkscape
-export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig:/usr/local/opt/atk/lib/pkgconfig:/usr/local/opt/icu4c/lib/pkgconfig:/usr/local/opt/gtk-mac-integration"
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig:/usr/local/opt/atk/lib/pkgconfig:/usr/local/opt/icu4c/lib/pkgconfig:/usr/local/opt/libsigc++@2/lib/pkgconfig"
 
 echo "❗️ before running the below command be sure to remove all files within the `$INKSCAPE_SRC/build/ninja`, having files within that directory can cause complications with future builds"
 
