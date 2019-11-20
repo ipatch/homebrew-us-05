@@ -66,6 +66,7 @@ The following dependencies are required in order to build Inkscape, all of which
 - gdl3
 - [gtkmm3](https://www.gtkmm.org/en/)
 - gsl
+- gtk-mac-integration
 - icu4c _Recent req as of April 25, 2019_
 - intltool
 - lcms2
@@ -73,8 +74,7 @@ The following dependencies are required in order to build Inkscape, all of which
 - libwpg _Recent req as of March 15th 2019_
 - libxslt
 - poppler
-- gtk-mac-integration
-- potrace
+- potrace _converts raster images into vector_
 
 A way to determine if one of the above packages has been installed is to run
 
@@ -85,8 +85,7 @@ brew info [NAME_OF_PACKAGE]
 To install all dependencies required for Inkscape using brew
 
 ```shell
-brew install cmake cairo boehmgc intltool libxslt lcms2 boost poppler gsl \
-adwaita-icon-theme gdl gtkmm3 libsoup icu4c gtk-mac-integration
+brew install adwaita-icon-them boehmgc boost cairo cmake gsl gdl gtkmm3 gtk-mac-integration icu4c intltool lcms2 libxslt poppler potrace libsoup 
 ```
 
 <a id="updates-build-instructions"></a>
