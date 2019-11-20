@@ -74,6 +74,7 @@ The following dependencies are required in order to build Inkscape, all of which
 - libxslt
 - poppler
 - gtk-mac-integration
+- potrace
 
 A way to determine if one of the above packages has been installed is to run
 
