@@ -22,6 +22,8 @@
 - [TODOs](#todos)
 - [References](#references)
 
+##
+
 **Inkscape** is an open source vector editing app that pairs well with SVG graphics.
 
 Inkscape is primarily [written](https://gitlab.com/inkscape/inkscape) in C++ ie. ~ 93% of the source code that comprises Inkscape is C++.
@@ -119,19 +121,11 @@ make install
 
 <a id="build-inkscape-using-ninja-on-macos"></a>
 
-##### Building Inkscape using Ninja on macOS
+##### 🤺 🚀 Building Inkscape using Ninja on macOS
 
 <a id="gotchas"></a>
 
 ###### Gotchas
-
-- ❗️ **September 11, 2019** not exactly sure if this still an ongoing issue
-
-- ❗️ **June 1, 2019** there are some current issues with generating the **pot** files using _ninja_, a work around is to manually checkout the **pot** file using git after pulling in the latest upstream changes. Also since commit [d66a11f1](https://gitlab.com/inkscape/inkscape/commit/d66a11f144601d1bb2fb0007e3e4463a393b6bd3) **gtk-mac-integration** has been merged into master thus, **gtk-mac-integration** is required to complete the build process.
-
-```shell
-git checkout -- po/inkscape.pot
-```
 
 - If any of the above Homebrew formula have been updated after inkscape has been compiled, then more than likely inkscape will require recompilation for the fact that it was built against a different version of a dependency.
 - If CMake whines about not finding Boost configuration files, than **gettext** may not be symlinked, thus making CMake unable to find required Boost libraries for building inkscape.
@@ -166,7 +160,7 @@ ninja # compile / build Inkscape source using ninja
 ninja install # install CMake into $PREFIX
 ```
 
-The above steps will take ~ 30 minutes [📸](#gnu-make-build-time) using CMake+clang on my 2013 late MBP 💻 whereas CMake+ninja will take ~ 8 minutes to produce a binary that can launch a beta build from a CLI.
+The above steps will take ~ 30 minutes [📸](#gnu-make-build-time) using CMake+clang on my 2013 late MBP 💻 whereas CMake+ninja will take ~ 8 minutes to produce a binary that can launch a build from the master branch via a CLI.
 
 <a id="inkscape-setting-up-extensions"></a>
 
