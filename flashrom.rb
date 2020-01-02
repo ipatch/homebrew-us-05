@@ -2,9 +2,9 @@ class Flashrom < Formula
   desc "Identify, read, write, verify, and erase flash chips"
   homepage "https://flashrom.org/"
   # url "https://download.flashrom.org/releases/flashrom-v1.1.tar.bz2"
-  # url "https://download.flashrom.org/releases/flashrom-0.9.9.tar.bz2"
-  url "https://download.flashrom.org/releases/flashrom-1.0.tar.bz2"
   url "https://download.flashrom.org/releases/flashrom-v1.0.1.tar.bz2"
+  # url "https://download.flashrom.org/releases/flashrom-1.0.tar.bz2"
+  # url "https://download.flashrom.org/releases/flashrom-0.9.9.tar.bz2"
   # sha256 "aeada9c70c22421217c669356180c0deddd0b60876e63d2224e3260b90c14e19"
   head "https://review.coreboot.org/flashrom.git"
 
@@ -17,7 +17,8 @@ class Flashrom < Formula
   end
 
   depends_on "pkg-config" => :build
-  depends_on "libftdi0"
+  # depends_on "libftdi0" # older libftdi library based on v0.2
+  depends_on "libftdi" # newer libftdi lib based on v.14
   depends_on "libusb-compat"
 
   def install
