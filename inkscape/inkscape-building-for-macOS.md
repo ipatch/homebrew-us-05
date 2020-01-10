@@ -87,7 +87,7 @@ brew info [NAME_OF_PACKAGE]
 To install all dependencies required for Inkscape using brew
 
 ```shell
-brew install adwaita-icon-them boehmgc boost cairo cmake gsl gdl gtkmm3 gtk-mac-integration icu4c intltool lcms2 libxslt poppler potrace libsoup
+brew install adwaita-icon-theme boehmgc boost cairo cmake gsl gdl gtkmm3 gtk-mac-integration icu4c intltool lcms2 libxslt poppler potrace libsoup
 ```
 
 <a id="updates-build-instructions"></a>
