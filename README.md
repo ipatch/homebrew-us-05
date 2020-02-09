@@ -6,6 +6,7 @@
 - [Working with fuse-ext2](#working-with-fuse-ext2)
 - [Working with QEMU](#working-with-qemu)
 - [Maintenance](#maintenance)
+- [Miscellanous](#misc)
 - [Development](#development)
   - [References](#references)
 
@@ -114,6 +115,12 @@ To pull down updates from this tap from time to time or when an upstream change 
 ```shell
 brew update
 ```
+
+<a id="misc"></a>
+
+### Miscellanous
+
+Installing [universal ctags](ctags.io) requires its own work around, [learn more](https://github.com/universal-ctags/homebrew-universal-ctags/issues/23#issuecomment-583781848)
 
 <a id="development"></a>
 
