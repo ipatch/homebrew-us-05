@@ -120,7 +120,7 @@ brew update
 
 ### Miscellanous
 
-Installing [universal ctags](ctags.io) requires its own work around, [learn more](https://github.com/universal-ctags/homebrew-universal-ctags/issues/23#issuecomment-583781848)
+Installing [universal ctags](http://ctags.io) requires its own work around, [learn more](https://github.com/universal-ctags/homebrew-universal-ctags/issues/23#issuecomment-583781848)
 
 <a id="development"></a>
 
