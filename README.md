@@ -14,7 +14,7 @@
 
 ## ipatch/homebrew-us-05
 
-> An off beat repo for storing custom ales and lagers to make your life a little beat easier.
+> An off beat repo for storing custom ↑ ales and lagers ↓ to make your life a little b1t easier.
 
 <a id="installing-a-formula"></a>
 
@@ -132,7 +132,7 @@ When working with formula locally for debugging purposes specify a path to a loc
 brew [re]install /path/to/some/local_formula.rb
 ```
 
-> `brew reinstall` is problematic a majority of the time, so when experimenting with local formula when developing use **brew install** /path/to/formula.rb
+> ❗️`brew reinstall` is problematic a majority of the time, so when experimenting with local formula when developing use **brew install** /path/to/formula.rb
 
 <a id="references"></a>
 
