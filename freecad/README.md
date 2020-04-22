@@ -5,13 +5,13 @@
 
 **TL;R** 
 
-I was using FreeCAD _fc_ the other day and was distracted / annoyed by the title bar containing the window decorators / decorations on macOS. (yes, yes I know can use a different _wm_ that does display window decorators, but I'm not that advantageous at the moment)  I always look at these bars and think what a waste of space, and have noticed certain apps, Alacritty let me disable it altogether, and other apps, VS Code & Vilvaldi integrate title bar with other UI components quite seemlessly a la how Xcode does it.
+I was using FreeCAD _fc_ the other day and was distracted / annoyed by the title bar containing the window decorators / decorations on macOS. (yes, yes I know I can use a different _wm_ that does not display window decorators, but I'm not that advantageous at the moment)  I always look at these bars and think what a waste of space (ideally the window decorators and menu bar (the bar containing the workbench drop down menu could coexist within the same bar)). I have noticed certain apps, _Alacritty_ lets me disable it _the title bar containing window decorators_ altogether, and other apps, _VS Code_ & _Vilvaldi_ integrate title bar with other UI components quite seemlessly a la how Xcode does it. I have since learned these custom "bars" are commonly referred to as _client side decorators_ from my understanding.
 
 Compiling FreeCAD from source has been on the back of my mind a little while now, and since I've been messing around with it more often than not lately (3d printing).  I mean how difficult could it be to compile _fc_ from source on macOS 🐇🕳 .  
 
 1. see what instructions are available in the github README TODO:add link
 2. find link to external _fc_ wiki
-3. work through instructions TODO:add link
+3. work through macOS build instructions on _fc_ wiki TODO:add link
 4. discover a homebrew tap for installing _fc_ using brew ADDLINK
 5. realize the tap hasn't been updated in a while, browse the formula files to see how their building _fc_
 6. install all the deps from the tap
@@ -25,7 +25,7 @@ Compiling FreeCAD from source has been on the back of my mind a little while now
 14. get to about 89% of compile process of freecad, and end up with an error.
 15. get annoyed with freecad cmake system placing cmake build artifacts in _fc_ src directory, GG
 
-to quickly revert a git branch to it's original state, ie. if running cmake pollutes a the src directory of a project with a shit load of build artifacts that you no longer want.
+to quickly revert a git branch to it's original state, ie. if running cmake pollutes the src directory of a project with a shit load of build artifacts that you no longer want.
 
 ```shell
 git stash save --keep-index --include-untracked; git stash drop;
@@ -33,7 +33,7 @@ git stash save --keep-index --include-untracked; git stash drop;
 
 the above two commands should revert the _CWB_ to it's original state
 
-16. figure out, refresh my brain _hello old friend™️_ to do a out of source build, ie. put polluants in a _build_ directory that can be quickly wiped out to start the entire cmake process from scratch. _no hate for the above git cmd though_
+16. figure out, refresh my brain, _hello old friend™️_, how to do an _out of source build_, ie. put polluants in a _build_ directory for quickly wiping out, and begining the build process from scratch. _no hate for the above git cmd though_
 
 ```shell
 mkdir -p build; cd build;
@@ -52,8 +52,8 @@ cmake \
 - realize that some of the dependencies from the above mentioned homebrew tap ie. py2side can be installed via pip as opposed to using brew
 - realize that specifying a path for python _library_ and _include_ directories are required.
 - realize _fc_ depends on _netgen_ to perform all of its _structural analysis_ and what not, ie. the _FEM_ in _fc_ if i understand correctly.
-- clone the netgen source _no not the sourceforge project_ but the github project
-- begin to build _netgen_ so i can get past 89% of the _fc_ build process. 🤞
+- clone the netgen source _no not the sourceforge project_ but the github project, from what i understand.
+- begin to build _netgen_ so i can hopefully get past 89% of the _fc_ build process. 🤞
 
 ## TODOs
 
