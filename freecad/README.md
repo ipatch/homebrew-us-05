@@ -1,7 +1,11 @@
 
 ## Building FreeCAD for macOS by macOS
 
-My OCD, ADD, whateverD got the best of meD 🙄.  **TL;DR** I was using FreeCAD _fc_ the other day and was distracted / annoyed by the title bar containing the window decorators / decorations on macOS. (yes, yes I know can use a different _wm_ that does display window decorators, but I'm not that advantageous at the moment)  I always look at these bars and think what a waste of space, and have noticed certain apps, Alacritty let me disable it altogether, and other apps, VS Code & Vilvaldi integrate title bar with other UI components quite seemlessly a la how Xcode does it.
+> My OCD, ADD, whateverD got the best of meD 🙄.  
+
+**TL;R** 
+
+I was using FreeCAD _fc_ the other day and was distracted / annoyed by the title bar containing the window decorators / decorations on macOS. (yes, yes I know can use a different _wm_ that does display window decorators, but I'm not that advantageous at the moment)  I always look at these bars and think what a waste of space, and have noticed certain apps, Alacritty let me disable it altogether, and other apps, VS Code & Vilvaldi integrate title bar with other UI components quite seemlessly a la how Xcode does it.
 
 Compiling FreeCAD from source has been on the back of my mind a little while now, and since I've been messing around with it more often than not lately (3d printing).  I mean how difficult could it be to compile _fc_ from source on macOS 🐇🕳 .  
 
