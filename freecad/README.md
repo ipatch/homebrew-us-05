@@ -61,6 +61,6 @@ cmake \
 - [ ] see if _ninja_ can speed up the build process
 - [ ] see if i can build and link against qt 5.15
 - [ ] try and build the _development_ version of _freecad_
-- [ ] see if it's even possible to adjust the titlebar, and possible conjure up a client side window decorator scheme for _fc_ ADDLINK
+- [ ] see if it's even possible to adjust the titlebar, and possibly conjure up a client side window decorator scheme for _fc_ ADDLINK
 - [ ] remember what it was i was trying to model in freecad before i got distracted.
 
