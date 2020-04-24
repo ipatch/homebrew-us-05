@@ -1,7 +1,36 @@
 
 ## Building FreeCAD for macOS by macOS
 
-> My OCD, ADD, whateverD got the best of meD 🙄.  
+> My OCD, ADD, whateverD got the best of meD 🙄.
+
+**Update** April 24, 2020
+
+It looks FreeCAD build / links against a very old version of SMesh which is part of the SALOME suite of applications, and in order to build a new (recent) version of SMesh the Skernel is required to built **first** before anything else can be built.  The Skernel has quite a list of dependencies in order to be built.
+
+In no particular order
+
+- omniorb _brew_
+- ominorbpy _pip_ build from source _sourceforge_
+- numpy _pip_
+- scipy _pip_
+- cppunit _brew_
+
+The below command I've been using to attempt to build the SALOME kernel
+
+```shell
+cmake \ 
+-DCMAKE_BUILD_TYPE=RELEASE \
+-DCONFIGURATION_ROOT_DIR="/opt/code/git/salome/configuration" \
+-DCMAKE_INSTALL_PREFIX="/opt/beta/salome" \
+-DSALOME_BUILD_DOC=OFF \
+-DSALOME_CMAKE_DEBUG=ON \
+-B(PWD) \
+-S..
+```
+
+The above command is attempting to build the SALOME kernel from the git source, and requires the SALOME _configuration_ git repo be cloned as well.
+
+Basically, as of April 24, 2020 I'm still running into configuration issues presently due to _swig_.
 
 **TL;R** 
 
@@ -54,6 +83,11 @@ cmake \
 - realize _fc_ depends on _netgen_ to perform all of its _structural analysis_ and what not, ie. the _FEM_ in _fc_ if i understand correctly.
 - clone the netgen source _no not the sourceforge project_ but the github project, from what i understand.
 - begin to build _netgen_ so i can hopefully get past 89% of the _fc_ build process. 🤞
+- installed _matplotlib_ using pip
+
+    ```shell
+    pip install matplotlib
+    ```
 
 ## TODOs
 
@@ -64,3 +98,8 @@ cmake \
 - [ ] see if it's even possible to adjust the titlebar, and possibly conjure up a client side window decorator scheme for _fc_ ADDLINK
 - [ ] remember what it was i was trying to model in freecad before i got distracted.
 
+## Useful Links
+
+- [building ngsolve / netgen from source](https://ngsolve.org/docu/latest/install/installmacnative.html)
+- [stackoverflow > cmake out of source build answer](https://stackoverflow.com/a/24435795/708807)
+- [github > freecad > conda _build.sh_ script](https://github.com/FreeCAD/FreeCAD/blob/0.19_pre/package/conda/build.sh)
