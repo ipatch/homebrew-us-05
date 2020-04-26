@@ -5,12 +5,12 @@
 
 **Update** April 24, 2020
 
-It looks FreeCAD build / links against a very old version of SMesh which is part of the SALOME suite of applications, and in order to build a new (recent) version of SMesh the Skernel is required to built **first** before anything else can be built.  The Skernel has quite a list of dependencies in order to be built.
+It looks FreeCAD build / links, includes a very old version of SMesh which is part of the SALOME suite of applications, and in order to build a new (recent) version of SMesh the Skernel is required to built **first** before anything else can be built.  The Skernel has quite a list of dependencies in order to be built. [salome gitweb](https://git.salome-platform.org/gitweb/)
 
 In no particular order
 
 - omniorb _brew_
-- ominorbpy _pip_ build from source _sourceforge_
+- ominorbpy _pip_ build from source [_sourceforge_](https://sourceforge.net/projects/omniorb/files/omniORBpy/omniORBpy-4.2.4/)
 - numpy _pip_
 - scipy _pip_
 - cppunit _brew_
