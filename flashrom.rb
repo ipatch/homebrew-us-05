@@ -18,7 +18,7 @@ class Flashrom < Formula
 
   depends_on "pkg-config" => :build
   # depends_on "libftdi0" # older libftdi library based on v0.2
-  depends_on "libftdi" # newer libftdi lib based on v.14
+  depends_on "libftdi" # newer libftdi lib based on v1.4
   depends_on "libusb-compat"
 
   def install
