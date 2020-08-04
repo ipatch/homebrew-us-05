@@ -67,11 +67,11 @@ the above two commands should revert the _CWB_ to it's original state
 ```shell
 mkdir -p build; cd build;
 cmake \
--B(PWD)
+-B(pwd)
 -H..
 ```
 
-> i don't use BASH, i use fish
+> i use fish shell
 
 17. start sorting through the cmake output from the above command, and begin installing / updating _paths_ cmake flags to find libraries that the cmake build scripts would not otherwise find.
 

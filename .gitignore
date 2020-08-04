@@ -1,2 +1,8 @@
 ignore/*
 !.gitkeep
+
+################### 
+# FreeCAD
+##
+# freecad/freecad.media/**
+# freecad/freecad-media/**
