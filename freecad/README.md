@@ -1,3 +1,9 @@
+# A rough collection of related to FreeCAD
+
+## Possible Improvements
+
+The right click RMB menu while within the **viewport** could be more robust, ie. put the workbench specific menus within the RMB context menu for quickly accessing workbench specific features.
+
 
 ## Building FreeCAD for macOS by macOS
 
