@@ -4,6 +4,12 @@
 
 The right click RMB menu while within the **viewport** could be more robust, ie. put the workbench specific menus within the RMB context menu for quickly accessing workbench specific features.
 
+## Compare Contrasting FreeCAD with fusion 360
+
+Fusion 360 **f3d** can import a file, ie. a **iges** that is constructed of a bunch of different surfaces to create a _part_ however each surface / face is it's own unique body, thus **f3d** provides a feature to stich all surfaces together to create a solid body.
+
+- [ ] **Q** does freecad provide a _stich_ like feature?
+- **reference** [**f3d** editing non native geometry](https://help.autodesk.com/view/fusion360/ENU/courses/AP-EDITING-NON-NATIVE-IMPORTED-GEOMETRY)
 
 ## Building FreeCAD for macOS by macOS
 
@@ -104,6 +110,10 @@ cmake \
 - [ ] try and build the _development_ version of _freecad_
 - [ ] see if it's even possible to adjust the titlebar, and possibly conjure up a client side window decorator scheme for _fc_ ADDLINK
 - [ ] _remember what it was i was trying to model in freecad before i got distracted._
+
+### TODOs / possible improvments
+
+- [ ] when the <kbd>w</kbd> key binding is pressed bring up a list of workbenches, ie. how the context menu works.
 
 
 ## Useful Links
