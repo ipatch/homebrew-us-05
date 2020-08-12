@@ -1,8 +1,8 @@
-# A rough collection of related to FreeCAD
+<a id="doc-start"></a>
 
-## Possible Improvements
+# A rough collection of notes related to FreeCAD
 
-The right click RMB menu while within the **viewport** could be more robust, ie. put the workbench specific menus within the RMB context menu for quickly accessing workbench specific features.
+
 
 ## Compare Contrasting FreeCAD with fusion 360
 
@@ -101,6 +101,12 @@ cmake \
     pip install matplotlib
     ```
 
+## working with freecad
+
+there is a known issue with displaying the grid within the **part design** workbench, to work around this issue switch to the **draft workbench** and use the key binding <kbd>g</kbd> then <kbd>r</kbd> to toggle the display of the grid, and once visible switch back to the part design workbench and the grid should be visible. [freecad forum exp](https://forum.freecadweb.org/viewtopic.php?t=5889#p176145)
+
+<a id="todos"></a>
+
 ## TODOs
 
 - [ ] generate a _gitdiff_ for the medfile project, I was able to get med-file to compile after changes several source files to use the updated API provided by HD5F
@@ -111,10 +117,14 @@ cmake \
 - [ ] see if it's even possible to adjust the titlebar, and possibly conjure up a client side window decorator scheme for _fc_ ADDLINK
 - [ ] _remember what it was i was trying to model in freecad before i got distracted._
 
+<a id="todos-improvments"></a>
+
 ### TODOs / possible improvments
 
 - [ ] when the <kbd>w</kbd> key binding is pressed bring up a list of workbenches, ie. how the context menu works.
+- [ ] The right click RMB menu while within the **viewport** could be more robust, ie. put the workbench specific menus within the RMB context menu for quickly accessing workbench specific features.
 
+<a id="useful links"></a>
 
 ## Useful Links
 
