@@ -4,16 +4,18 @@
 
 
 
-## Compare Contrasting FreeCAD with fusion 360
+## Compare Contrast FreeCAD with fusion 360
 
 Fusion 360 **f3d** can import a file, ie. a **iges** that is constructed of a bunch of different surfaces to create a _part_ however each surface / face is it's own unique body, thus **f3d** provides a feature to stich all surfaces together to create a solid body.
 
 - [ ] **Q** does freecad provide a _stich_ like feature?
 - **reference** [**f3d** editing non native geometry](https://help.autodesk.com/view/fusion360/ENU/courses/AP-EDITING-NON-NATIVE-IMPORTED-GEOMETRY)
+- [ ] **Q** does freecad support a **heal** feature _a la_ fusion similiar to how a _rib_ can be removed from a model without construction history
+    [**reference**](https://help.autodesk.com/view/fusion360/ENU/courses/AP-MAKING-CHANGES-TO-HISTORY-FREE-MODELS-USING-DIRECT-EDITING)
 
 ## Building FreeCAD for macOS by macOS
 
-> My OCD, ADD, whateverD got the best of meD 🙄.
+> My OCD, ADD, whateverD got the best of matey ⛵️☠️.
 
 **Update** April 24, 2020
 
@@ -121,6 +123,7 @@ there is a known issue with displaying the grid within the **part design** workb
 
 ### TODOs / possible improvments
 
+- [ ] when using a keybinding such as <kbd>v</kbd> followed by <kbd>1</kbd> or <kbd>3</kbd> display a modal menu around mouse letting the user know what types of views can be selected, ie. solid shaded, wireframe, etc etc, while the <kbd>v</kbd> key is being held down.  If the key is let go then allow for traditional viewing switching.
 - [ ] when the <kbd>w</kbd> key binding is pressed bring up a list of workbenches, ie. how the context menu works.
 - [ ] The right click RMB menu while within the **viewport** could be more robust, ie. put the workbench specific menus within the RMB context menu for quickly accessing workbench specific features.
 
