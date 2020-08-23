@@ -2,7 +2,7 @@
 
 # A rough collection of notes related to FreeCAD
 
-
+## Contents
 
 ## Compare Contrast FreeCAD with fusion 360
 
@@ -123,9 +123,12 @@ there is a known issue with displaying the grid within the **part design** workb
 
 ### TODOs / possible improvments / gripes
 
+- [ ] possible to have _vim_ style key bindings for moving up down the _model hiearchy_ ie. <kbd>j</kbd> down & and <kbd>k</kbd> up.
+- [ ] would much prefer to see a transform gizmo similar if not exactly the same as the one rendered in prusa slicer.
+- [ ] should be able to create a _new_ group from a selection of bodies, instead of RMB on the document name then click _create group_ and have the focus in the _combo box_ change to the name of the group, for easier initial naming of the group.
 - [ ] when switching from the draft workbench back to the part design workbench the **combo view** always defaults to the **tasks** tab, and i'd much prefer to default to the **model** tab 
-- [ ] when using a keybinding such as <kbd>v</kbd> followed by <kbd>1</kbd> or <kbd>3</kbd> display a modal menu around mouse letting the user know what types of views can be selected, ie. solid shaded, wireframe, etc etc, while the <kbd>v</kbd> key is being held down.  If the key is let go then allow for traditional viewing switching.
-- [ ] when the <kbd>w</kbd> key binding is pressed bring up a list of workbenches, ie. how the context menu works.
+- [ ] when using a keybinding such as <kbd>v</kbd> followed by <kbd>1</kbd> or <kbd>3</kbd> display a modal menu around mouse letting the user know what types of views can be selected, ie. solid shaded, wireframe, etc etc, while the <kbd>v</kbd> key is being held down.  If the key is let go then allow for traditional switching of the views.
+- [ ] when the <kbd>w</kbd> key binding is pressed bring up a list of workbenches, ie. how the _context menu addon_ works.
 - [ ] The right click RMB menu while within the **viewport** could be more robust, ie. put the workbench specific menus within the RMB context menu for quickly accessing workbench specific features.
 
 <a id="useful links"></a>
