@@ -4,6 +4,17 @@
 
 ## Contents
 
+
+## General 3D terms / Notes
+
+- **CSG** constructive solid geometry _modeling_
+
+## Issues / Questions
+
+- [ ] **Question** does freecad have a quick way to convert / display mm to inches
+- **techdraw** workbench, ❗️ _no default template found_
+ - **A** more than likely the path to svg graphics that comprise the templates has been altered or the **FreeCAD.app** in not within the default **/Applications/** directory so just create a symlink to work around this.
+
 ## Compare Contrast FreeCAD with fusion 360
 
 Fusion 360 **f3d** can import a file, ie. a **iges** that is constructed of a bunch of different surfaces to create a _part_ however each surface / face is it's own unique body, thus **f3d** provides a feature to stich all surfaces together to create a solid body.
@@ -89,7 +100,7 @@ cmake \
 
 17. start sorting through the cmake output from the above command, and begin installing / updating _paths_ cmake flags to find libraries that the cmake build scripts would not otherwise find.
 
-### side quests _in no particular order_
+### side quests _no particular order_
 
 - realize the brew build system / pipeline has been kindof deperecated in favor of using a conda esque build system, thus how the weekly snapshots of freecad are produced for macOS.
 - realize that some of the dependencies from the above mentioned homebrew tap ie. py2side can be installed via pip as opposed to using brew
@@ -111,6 +122,7 @@ there is a known issue with displaying the grid within the **part design** workb
 
 ## TODOs
 
+- [ ] be able to reaarange groups within the model stack.
 - [ ] generate a _gitdiff_ for the medfile project, I was able to get med-file to compile after changes several source files to use the updated API provided by HD5F
 - [ ] build freecad using brew infrastructure
 - [ ] see if _ninja_ can speed up the build process
@@ -123,6 +135,7 @@ there is a known issue with displaying the grid within the **part design** workb
 
 ### TODOs / possible improvments / gripes
 
+- [ ] **Q** why is there a _move_ & _rotate_ gimble within the _transform_ context, but not a scale, from watching [this video](https://www.youtube.com/watch?v=ZxR_LnM0S1s) the author, Mark uses the _placement_ property within the _combo view_.
 - [ ] possible to have _vim_ style key bindings for moving up down the _model hiearchy_ ie. <kbd>j</kbd> down & and <kbd>k</kbd> up.
 - [ ] would much prefer to see a transform gizmo similar if not exactly the same as the one rendered in prusa slicer.
 - [ ] should be able to create a _new_ group from a selection of bodies, instead of RMB on the document name then click _create group_ and have the focus in the _combo box_ change to the name of the group, for easier initial naming of the group.
