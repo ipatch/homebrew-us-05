@@ -2,15 +2,22 @@
 
 # A rough collection of notes related to FreeCAD
 
+<a id="contents"></a>
+
 ## Contents
 
+
+<a id="general"></a>
 
 ## General 3D terms / Notes
 
 - **CSG** constructive solid geometry _modeling_
 
+<a id="issues"></a>
+
 ## Issues / Questions
 
+- [ ] **gripe** pasting a sketch from one _body_ to a different _body_ does **not** place the sketch within the selected _body_
 - [ ] **Question** does freecad have a quick way to convert / display mm to inches
 - **techdraw** workbench, ❗️ _no default template found_
  - **A** more than likely the path to svg graphics that comprise the templates has been altered or the **FreeCAD.app** in not within the default **/Applications/** directory so just create a symlink to work around this.
@@ -122,6 +129,8 @@ there is a known issue with displaying the grid within the **part design** workb
 
 ## TODOs
 
+- [ ] the the _tools_ > _customize..._ floating window retain its size and position an subsequent relaunches
+- [ ] have freecad change the granularity of the scroll when different _meta_ keys are held down in the viewport
 - [ ] be able to reaarange groups within the model stack.
 - [ ] generate a _gitdiff_ for the medfile project, I was able to get med-file to compile after changes several source files to use the updated API provided by HD5F
 - [ ] build freecad using brew infrastructure
