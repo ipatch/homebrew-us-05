@@ -1,11 +1,15 @@
 <a id="doc-start"></a>
 
-# A rough collection of notes related to FreeCAD
+# A rough collection of FreeCAD related Notes
 
 <a id="contents"></a>
 
 ## Contents
 
+- [General 3D terms](#general)
+- [Issues / Questions](#issues)
+- [TODOs](#todos)
+- [Useful Links](#useful-links)
 
 <a id="general"></a>
 
@@ -129,6 +133,9 @@ there is a known issue with displaying the grid within the **part design** workb
 
 ## TODOs
 
+- [ ] **Q** does FreeCAD support storing different profiles for different users, ie. settings based on a profile?
+- [ ] when opening a file with freecad using the dialog box always have the **All Files** selected as opposed to having a specific filetype selected in the dialog box dropdown
+- [ ] it'd be helpful interesting if certain **parts** / **bodies** contained a _transform history_ if that is even possible
 - [ ] the the _tools_ > _customize..._ floating window retain its size and position an subsequent relaunches
 - [ ] have freecad change the granularity of the scroll when different _meta_ keys are held down in the viewport
 - [ ] be able to reaarange groups within the model stack.
