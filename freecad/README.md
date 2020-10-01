@@ -21,6 +21,7 @@
 
 ## Issues / Questions
 
+- [ ] **BUG** _possibly_, open a document, the view hotkeys appear to work in the **part design** workbench but when switching to the **part** workbench they appear to **not** work
 - [ ] **gripe** pasting a sketch from one _body_ to a different _body_ does **not** place the sketch within the selected _body_
 - [ ] **Question** does freecad have a quick way to convert / display mm to inches
 - **techdraw** workbench, ❗️ _no default template found_
@@ -28,12 +29,12 @@
 
 ## Compare Contrast FreeCAD with fusion 360
 
-Fusion 360 **f3d** can import a file, ie. a **iges** that is constructed of a bunch of different surfaces to create a _part_ however each surface / face is it's own unique body, thus **f3d** provides a feature to stich all surfaces together to create a solid body.
+Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of different surfaces to create a _part_ however each surface / face is it's own unique body, thus **f3d** provides a feature to stich all surfaces together to create a solid body.
 
 - [ ] **Q** does freecad provide a _stich_ like feature?
 - **reference** [**f3d** editing non native geometry &#8599;](https://help.autodesk.com/view/fusion360/ENU/courses/AP-EDITING-NON-NATIVE-IMPORTED-GEOMETRY)
 - [ ] **Q** does freecad support a **heal** feature _a la_ fusion similiar to how a _rib_ can be removed from a model without construction history
-    [**reference**](https://help.autodesk.com/view/fusion360/ENU/courses/AP-MAKING-CHANGES-TO-HISTORY-FREE-MODELS-USING-DIRECT-EDITING)
+    [**reference** &#8599;](https://help.autodesk.com/view/fusion360/ENU/courses/AP-MAKING-CHANGES-TO-HISTORY-FREE-MODELS-USING-DIRECT-EDITING)
 
 ## Building FreeCAD for macOS by macOS
 
@@ -41,7 +42,7 @@ Fusion 360 **f3d** can import a file, ie. a **iges** that is constructed of a bu
 
 **Update** April 24, 2020
 
-It looks FreeCAD build / links, includes a very old version of SMesh which is part of the SALOME suite of applications, and in order to build a new (recent) version of SMesh the Skernel is required to built **first** before anything else can be built.  The Skernel has quite a list of dependencies in order to be built. [salome gitweb](https://git.salome-platform.org/gitweb/)
+It looks FreeCAD builds & links, against a very old version of SMesh which is part of the SALOME suite of applications, and in order to build a new_er_ or recent version of SMesh the _Skernel_ is required to be built **first** before anything else builds.  The Skernel has quite a list of dependencies in order to be built. [salome gitweb](https://git.salome-platform.org/gitweb/)
 
 In no particular order
 
@@ -51,7 +52,7 @@ In no particular order
 - scipy _pip_
 - cppunit _brew_
 
-The below command I've been using to attempt to build the SALOME kernel
+The below command_s_ I've been using to attempt to build the SALOME kernel
 
 ```shell
 cmake \ 
@@ -70,9 +71,9 @@ Basically, as of April 24, 2020 I'm still running into configuration issues pres
 
 **TL;R** 
 
-I was using FreeCAD _fc_ the other day and was distracted / annoyed by the title bar containing the window decorators / decorations on macOS. (yes, yes I know I can use a different _wm_ that does not display window decorators, but I'm not that advantageous at the moment)  I always look at these bars and think what a waste of space (ideally the window decorators and menu bar (the bar containing the workbench drop down menu could coexist within the same bar)). I have noticed certain apps, _Alacritty_ lets me disable it _the title bar containing window decorators_ altogether, and other apps, _VS Code_ & _Vilvaldi_ integrate title bar with other UI components quite seemlessly a la how Xcode does it. I have since learned these custom "bars" are commonly referred to as _client side decorators_ from my understanding.
+I was using FreeCAD _fc_ the other day and was distracted / annoyed by the title bar containing the window decorators / decorations on macOS. (yes, yes I know I can use a different _wm_ that does not display window decorators, but I'm not that advantageous at the moment)  I always look at these bars and think what a waste of space (ideally the window decorators and menu bar (the bar containing the workbench drop down menu could coexist within the same bar)). I have noticed certain apps, _Alacritty_ lets me disable it _the title bar containing window decorators_ altogether, and other apps, _VS Code_ & _Vilvaldi_ integrate title bar with other UI components quite seemlessly a la how Xcode does it. I have since learned these custom "bars" are commonly referred to as _client side decorators_. 
 
-Compiling FreeCAD from source has been on the back of my mind a little while now, and since I've been messing around with it more often than not lately (3d printing).  I mean how difficult could it be to compile _fc_ from source on macOS 🐇🕳 .  
+Compiling FreeCAD from source has been on the back of my mind a little while now, and since I've been messing around with it more often than not lately (3d printing).  _I mean how difficult could it be to compile _fc_ from source on macOS_ 🐇🕳 .
 
 1. see what instructions are available in the github README TODO:add link
 2. find link to external _fc_ wiki
@@ -81,13 +82,13 @@ Compiling FreeCAD from source has been on the back of my mind a little while now
 5. realize the tap hasn't been updated in a while, browse the formula files to see how their building _fc_
 6. install all the deps from the tap
 7. all deps install except med-file (what the hell is that?)
-8. discover med-file / medfile (i'm not sure how their naming this thing) is part the salome project
+8. discover med-file / medfile (i'm not sure how their naming this thing) is part of the salome project
 9. is it pronouced salome? like the lunch meat?
 10. realize med-file builds against some library _HD5F_ or something of that name
 11. realize i have hd5f 1.12.x installed via brew and med-file calls functions that were written when HD5F was at 1.10.x
-12. update all calling functions to use the latest 1.12.x API _super hacky way of patching med-file_ to try and just get it to compile. _spoiler_ ...i did.
+12. update all calling functions to use the latest 1.12.x API _super hacky way of patching med-file_ to _make run_. _spoiler_ ...i did.
 13. try and recompile freecad now that med-file library is in my path
-14. get to about 89% of compile process of freecad, and end up with an error.
+14. get to about 89% of freecad compile process, and end up with an error.
 15. get annoyed with freecad cmake system placing cmake build artifacts in _fc_ src directory, GG
 
 to quickly revert a git branch to it's original state, ie. if running cmake pollutes the src directory of a project with a shit load of build artifacts that you no longer want.
@@ -113,7 +114,7 @@ cmake \
 
 ### side quests _no particular order_
 
-- realize the brew build system / pipeline has been kindof deperecated in favor of using a conda esque build system, thus how the weekly snapshots of freecad are produced for macOS.
+- realize the brew build system / pipeline has been ~~kindof~~ **deperecated** in favor of using a conda esque build system, thus how the weekly snapshots of freecad are produced for macOS.
 - realize that some of the dependencies from the above mentioned homebrew tap ie. py2side can be installed via pip as opposed to using brew
 - realize that specifying a path for python _library_ and _include_ directories are required.
 - realize _fc_ depends on _netgen_ to perform all of its _structural analysis_ and what not, ie. the _FEM_ in _fc_ if i understand correctly.
@@ -151,6 +152,8 @@ there is a known issue with displaying the grid within the **part design** workb
 
 ### TODOs / possible improvments / gripes
 
+- [ ] option to control the filetypes in the recently opened files, ie. only show display **fcstd** files in the recent files list, no ~~stl~~ files listed
+- [ ] possible to collapse / expand groups of toolbar icons within a toolbar for a workbench?
 - [ ] **Q** why is there a _move_ & _rotate_ gimble within the _transform_ context, but not a scale, from watching [this video](https://www.youtube.com/watch?v=ZxR_LnM0S1s) the author, Mark uses the _placement_ property within the _combo view_.
 - [ ] possible to have _vim_ style key bindings for moving up down the _model hiearchy_ ie. <kbd>j</kbd> down & and <kbd>k</kbd> up.
 - [ ] would much prefer to see a transform gizmo similar if not exactly the same as the one rendered in prusa slicer.
@@ -162,7 +165,7 @@ there is a known issue with displaying the grid within the **part design** workb
 
 <a id="useful links"></a>
 
-## Useful Links
+## / Useful Links / Building FreeCAD
 
 - [building ngsolve / netgen from source](https://ngsolve.org/docu/latest/install/installmacnative.html)
 - [stackoverflow > cmake out of source build answer](https://stackoverflow.com/a/24435795/708807)
