@@ -8,6 +8,10 @@
 
 - [General 3D terms](#general)
 - [Issues / Questions](#issues)
+- [Compare Contrast FreeCAD with fusion 360]()
+- [Building FreeCAD for macOS by macOS]()
+  - [side quests _no particular order_]()
+- [working with freecad](#working-with-freecad)
 - [TODOs](#todos)
 - [Useful Links](#useful-links)
 
@@ -126,7 +130,15 @@ cmake \
     pip install matplotlib
     ```
 
+<a id="working-with-freecad"></a>
+
 ## working with freecad
+
+- the **gui** of freecad can be styled using a stylesheet, on my particular system (macOS) the stylesheet directory for storing custom freecad stylesheets is located below, and a youtube explaining the process can be found [here](https://www.youtube.com/watch?v=ZdG2y1-aOas) 
+
+```shell
+$HOME/Library/Preferences/FreeCAD/Gui/Stylesheets
+```
 
 there is a known issue with displaying the grid within the **part design** workbench, to work around this issue switch to the **draft workbench** and use the key binding <kbd>g</kbd> then <kbd>r</kbd> to toggle the display of the grid, and once visible switch back to the part design workbench and the grid should be visible. [freecad forum exp](https://forum.freecadweb.org/viewtopic.php?t=5889#p176145)
 
@@ -152,6 +164,8 @@ there is a known issue with displaying the grid within the **part design** workb
 
 ### TODOs / possible improvments / gripes
 
+- [ ] **note** the mesh remodel icons do not appear to have an alpha channel present within the icon files.
+- [ ] **note** with the mesh remodel workbench active only the preferences for that workbench become active
 - [ ] option to control the filetypes in the recently opened files, ie. only show display **fcstd** files in the recent files list, no ~~stl~~ files listed
 - [ ] possible to collapse / expand groups of toolbar icons within a toolbar for a workbench?
 - [ ] **Q** why is there a _move_ & _rotate_ gimble within the _transform_ context, but not a scale, from watching [this video](https://www.youtube.com/watch?v=ZxR_LnM0S1s) the author, Mark uses the _placement_ property within the _combo view_.
