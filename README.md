@@ -1,6 +1,6 @@
-<a id="contents"></a>
-
 ## Contents 📖
+
+<a id="contents"></a>
 
 - [Installing a formula](#installing-a-formula)
 - [Working with fuse-ext2](#working-with-fuse-ext2)
@@ -10,15 +10,16 @@
 - [Development](#development)
   - [References](#references)
 
-<a id="ipatch-homebrew-us-05"></a>
 
 ## ipatch/homebrew-us-05
 
+<a id="ipatch-homebrew-us-05"></a>
+
 > An off beat repo for storing custom ↑ ales and lagers ↓ to make your life a little b1t easier.
 
-<a id="installing-a-formula"></a>
-
 ### Installing a formula
+
+<a id="installing-a-formula"></a>
 
 To install formula from this repo
 
@@ -39,9 +40,10 @@ To upgrade a formula that has been installed via this tap
 brew reinstall ipatch/us-05/[name-of-formula] --verbose --build-from-source
 ```
 
-<a id="working-with-openssh"></a>
 
 ### Working with OpenSSH _from this repo_
+
+<a id="working-with-openssh"></a>
 
 When upgrading or install OpenSSH from this repo, a few files will need to have their permissions changed.
 
@@ -53,13 +55,16 @@ sudo chmod 600 *_key
 
 #### TODOs
 
+<a id="todos"></a>
+
 - [ ] change permissions, owner, and group of above mentioned files when installing formula.
 
 > If LibreSSL has been updated from mainline Homebrew, ie. upgrading from v2.7.x to v2.8.x then this version of OpenSSH will need to be reinstalled from this tap.
 
-<a id="working-with-fuse-ext2"></a>
 
 ### Working with fuse-ext2
+
+<a id="working-with-fuse-ext2"></a>
 
 - **fuse-ext2** is a program that allows working with ext-{2,3,4} file systems on macOS, and provides both **read** and **write** support.
 
@@ -84,9 +89,9 @@ To manually link **fuse-ext2**
 brew link fuse-ext2
 ```
 
-<a id="working-with-qemu"></a>
-
 ### Working with Qemu
+
+<a id="working-with-qemu"></a>
 
 To install Qemu from this homebrew 🍺 repo
 
@@ -100,15 +105,17 @@ brew install ipatch/homebrew-us-05/qemu \
 --HEAD
 ```
 
-<a id="gotchas"></a>
 
 ### Gotchas
 
+<a id="gotchas"></a>
+
 If a formula is installed from this repo ie. **qemu** with options, passed to the `install` command, ie. `--with-hax` homebrew has issues running the **reinstall** command even with the `--build-from-source` flag. To work around this, run `brew remove [name-of-formula]` to uninstall the package, and then reinstall the package with the flags provided form the previous install.
 
-<a id="maintenance"></a>
 
 ### Maintenance
+
+<a id="maintenance"></a>
 
 To pull down updates from this tap from time to time or when an upstream change has been made
 
@@ -116,15 +123,17 @@ To pull down updates from this tap from time to time or when an upstream change 
 brew update
 ```
 
-<a id="misc"></a>
 
 ### Miscellanous
 
+<a id="misc"></a>
+
 Installing [universal ctags](http://ctags.io) requires its own work around, [learn more](https://github.com/universal-ctags/homebrew-universal-ctags/issues/23#issuecomment-583781848)
 
-<a id="development"></a>
 
 ### Development
+
+<a id="development"></a>
 
 When working with formula locally for debugging purposes specify a path to a local formula so it can be tested locally.
 
@@ -134,8 +143,32 @@ brew [re]install /path/to/some/local_formula.rb
 
 > ❗️`brew reinstall` is problematic a majority of the time, so when experimenting with local formula when developing use **brew install** /path/to/formula.rb
 
-<a id="references"></a>
+#### Development / cask
+
+<a id="development-casks"></a>
+
+- development of cask(s) formula files will live within, `/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask`, path may vary depending upon how homebrew is installed and the current OS that homebrew is running on.
+- development of cask(s) formula files that represent app bundles that are considered development, beta, or unstable releases live within `/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask-versions`
+
+Before submitting a PR for a cask run through the below check
+
+```shell
+brew cask audit --download {{cask_file}}
+brew cask style --fix {{cask_file}}
+brew cask (re)install {{cask_file}}
+brew cask uninstall {{cask_file}}
+```
+
+
+##### Development / cask / freecad
+
+- github / @kapcake created a cask.formula for freecad pre release, but appears to not have been updated in ~ a year. [learn more](https://github.com/Homebrew/homebrew-cask/blob/e141c13bfdb4818c1833afb6522b61b1f1897a25/Casks/freecad.rb)
 
 #### References
 
-- [**GitHub** > Homebrew Formula Cookbook](https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md)
+<a id="references"></a>
+
+- [**GitHub** / Homebrew Formula Cookbook](https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md)
+- [**github** / homebrew-tiny-scripts **tap**](https://github.com/vitorgalvao/homebrew-tiny-scripts)
+  > within the above repo there is a shell script, `cask-repair` that should do the bulk of the work updating a cask that is often updated frequently, as opposed to manually editing the cask file
+- [**github** / repo for actual tiny scripts **NOT** the tap repo](https://github.com/vitorgalvao/tiny-scripts)
