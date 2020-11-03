@@ -159,6 +159,9 @@ brew cask (re)install {{cask_file}}
 brew cask uninstall {{cask_file}}
 ```
 
+- [github.com ## Getting set up to contribute](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#getting-set-up-to-contribute)
+- [homebrew-cask / docs / adding_a_cask.md](https://github.com/Homebrew/homebrew-cask/blob/master/doc/development/adding_a_cask.md)
+
 
 ##### Development / cask / freecad
 
