@@ -1,34 +1,14 @@
-class FormulaName < Formula
-  desc ''
-  homepage ''
-  url 'https://github.com/user/app/archive/version-of-app.tar.gz'
-  sha256 '6500000000000000000000000000000000000000000000000000000000000000'
-  head 'https://github.com/user/app/app-repo.git'
+cask "freecad-dev" do
+  version "0.19-22894"
+  sha256 "bf2195381b58272dac246c7dbbe89fdec7d378f853ed79bc41b3aae4f757fa04"
 
-  depends_on '' => :build
+  url "https://github.com/FreeCAD/FreeCAD/releases/download/0.19_pre/FreeCAD_#{version}-macOS-x86_64-conda.dmg"
+  # appcast "https://www.sweetscape.com/download/010editor/"
+  appcast "https://github.com/freecad/freecad/releases"
+  name "FreeCAD 0.19_pre"
+  homepage "https://freecadweb.org"
 
-  conflicts_with 'formula-name'
+  depends_on macos: ">= :sierra"
 
-  def install
-    ENV.append "", "-configure-flag"
-    ENV.append "CFLAGS", ""
-    ENV.append "CFLAGS", "--std=gnu89" if ENV.compiler == :clang
-    
-    # GNU autotools
-    system "./autogen.sh"
-    system "./configure", "--prefix=#{prefix}", "--disable-debug"
-    system "make"
-    system sudo make install
-
-    def caveats; <<~EOS
-      This formula requires blahblah, but can't have blahblah installed.
-    
-    EOS
-    end
-
-    test do
-      # prove that the formual successfully installed, and works as intended
-      system 'false'
-    end
-  end
+  app "FreeCAD_#{version}.app"
 end
