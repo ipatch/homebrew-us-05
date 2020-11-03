@@ -10,5 +10,11 @@ cask "freecad-dev" do
 
   depends_on macos: ">= :sierra"
 
-  app "FreeCAD_#{version}.app"
+  # TODO: why is `app "FreeCAD_#{version}.app` causing install issues
+  #
+  # it appears the below `app` argument is causing issues
+  # app "FreeCAD_#{version}.app"
+
+  app "FreeCAD.app"
+
 end
