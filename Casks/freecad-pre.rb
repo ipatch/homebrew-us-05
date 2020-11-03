@@ -5,6 +5,7 @@ cask "freecad-pre" do
   url "https://github.com/FreeCAD/FreeCAD/releases/download/0.19_pre/FreeCAD_#{version}-macOS-x86_64-conda.dmg"
   appcast "https://github.com/freecad/freecad/releases.atom"
   name "FreeCAD 0.19_pre"
+  desc "3D parametric modeler"
   homepage "https://freecadweb.org"
 
   depends_on macos: ">= :sierra"
