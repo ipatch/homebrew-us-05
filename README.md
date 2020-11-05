@@ -176,7 +176,7 @@ brew cask uninstall {{cask_file}}
 
 - github / @kapcake created a cask.formula for freecad pre release, but appears to not have been updated in ~ a year. [learn more](https://github.com/Homebrew/homebrew-cask/blob/e141c13bfdb4818c1833afb6522b61b1f1897a25/Casks/freecad.rb)
 
-#### References
+## References
 
 <a id="references"></a>
 
