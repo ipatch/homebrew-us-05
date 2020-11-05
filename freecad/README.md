@@ -2,28 +2,30 @@
 
 # A rough collection of FreeCAD related Notes
 
-<a id="contents"></a>
-
 ## Contents
 
+<a id="contents"></a>
+
 - [General 3D terms](#general)
-- [Issues / Questions](#issues)
-- [Compare Contrast FreeCAD with fusion 360]()
-- [Building FreeCAD for macOS by macOS]()
+- [freecad / Issues / Questions](#issues)
+- [Compare Contrast FreeCAD with fusion 360](#compare-contrast-freecad-with-fusion360)
+- [Building FreeCAD for macOS by macOS](#building-freecad-on-macos)
   - [side quests _no particular order_]()
 - [working with freecad](#working-with-freecad)
+  - [working with freecad / gui / stylesheets](#working-with-freecad-stylesheets)
 - [TODOs](#todos)
 - [Useful Links](#useful-links)
 
-<a id="general"></a>
-
 ## General 3D terms / Notes
+
+<a id="general"></a>
 
 - **CSG** constructive solid geometry _modeling_
 
-<a id="issues"></a>
 
-## Issues / Questions
+## freecad / Issues / Questions
+
+<a id="issues"></a>
 
 - [ ] **BUG** _possibly_, open a document, the view hotkeys appear to work in the **part design** workbench but when switching to the **part** workbench they appear to **not** work
 - [ ] **gripe** pasting a sketch from one _body_ to a different _body_ does **not** place the sketch within the selected _body_
@@ -33,6 +35,8 @@
 
 ## Compare Contrast FreeCAD with fusion 360
 
+<a id="compare-contrast-freecad-with-fusion360"></a>
+
 Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of different surfaces to create a _part_ however each surface / face is it's own unique body, thus **f3d** provides a feature to stich all surfaces together to create a solid body.
 
 - [ ] **Q** does freecad provide a _stich_ like feature?
@@ -41,6 +45,8 @@ Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of
     [**reference** &#8599;](https://help.autodesk.com/view/fusion360/ENU/courses/AP-MAKING-CHANGES-TO-HISTORY-FREE-MODELS-USING-DIRECT-EDITING)
 
 ## Building FreeCAD for macOS by macOS
+
+<a id="freecad-building-on-macos"></a>
 
 > My OCD, ADD, whateverD got the best of matey ⛵️☠️.
 
@@ -130,9 +136,10 @@ cmake \
     pip install matplotlib
     ```
 
-<a id="working-with-freecad"></a>
 
 ## working with freecad
+
+<a id="working-with-freecad"></a>
 
 - the **gui** of freecad can be styled using a stylesheet, on my particular system (macOS) the stylesheet directory for storing custom freecad stylesheets is located below, and a youtube explaining the process can be found [here](https://www.youtube.com/watch?v=ZdG2y1-aOas) 
 
@@ -142,9 +149,16 @@ $HOME/Library/Preferences/FreeCAD/Gui/Stylesheets
 
 there is a known issue with displaying the grid within the **part design** workbench, to work around this issue switch to the **draft workbench** and use the key binding <kbd>g</kbd> then <kbd>r</kbd> to toggle the display of the grid, and once visible switch back to the part design workbench and the grid should be visible. [freecad forum exp](https://forum.freecadweb.org/viewtopic.php?t=5889#p176145)
 
-<a id="todos"></a>
+### working with freecad / gui / stylesheets
+
+<a id="working-with-freecad-stylesheets"></a>
+
+it appears the name of the stylesheet presented in the preferences pane conforms to the actual name of the file on disk minus the `.qss` extension
+
 
 ## TODOs
+
+<a id="todos"></a>
 
 - [ ] **Q** does FreeCAD support storing different profiles for different users, ie. settings based on a profile?
 - [ ] when opening a file with freecad using the dialog box always have the **All Files** selected as opposed to having a specific filetype selected in the dialog box dropdown
@@ -160,9 +174,10 @@ there is a known issue with displaying the grid within the **part design** workb
 - [ ] see if it's even possible to adjust the titlebar, and possibly conjure up a client side window decorator scheme for _fc_ ADDLINK
 - [ ] _remember what it was i was trying to model in freecad before i got distracted._
 
-<a id="todos-improvments"></a>
 
 ### TODOs / possible improvments / gripes
+
+<a id="todos-improvments"></a>
 
 - [ ] **note** the mesh remodel icons do not appear to have an alpha channel present within the icon files.
 - [ ] **note** with the mesh remodel workbench active only the preferences for that workbench become active
@@ -177,9 +192,11 @@ there is a known issue with displaying the grid within the **part design** workb
 - [ ] when the <kbd>w</kbd> key binding is pressed bring up a list of workbenches, ie. how the _context menu addon_ works.
 - [ ] The right click RMB menu while within the **viewport** could be more robust, ie. put the workbench specific menus within the RMB context menu for quickly accessing workbench specific features.
 
-<a id="useful links"></a>
 
 ## / Useful Links / Building FreeCAD
+
+<a id="useful links"></a>
+
 
 - [building ngsolve / netgen from source](https://ngsolve.org/docu/latest/install/installmacnative.html)
 - [stackoverflow > cmake out of source build answer](https://stackoverflow.com/a/24435795/708807)

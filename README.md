@@ -178,6 +178,8 @@ brew cask uninstall {{cask_file}}
 
 ## References
 
+<!-- fwr this heading is rendering as an h4 element on the github -->
+
 <a id="references"></a>
 
 - [**GitHub** / Homebrew Formula Cookbook](https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md)
