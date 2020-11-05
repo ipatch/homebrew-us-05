@@ -3,11 +3,16 @@
 <a id="contents"></a>
 
 - [Installing a formula](#installing-a-formula)
+- [Working with OpenSSH _from this tap_](#working-with-openssh)
+  - [working with openssh / todos](#working-with-openssh-todos)
 - [Working with fuse-ext2](#working-with-fuse-ext2)
 - [Working with QEMU](#working-with-qemu)
+- [Gotchas](#gotchas)
 - [Maintenance](#maintenance)
 - [Miscellanous](#misc)
 - [Development](#development)
+  - [development / casks](#development-casks)
+    - [development / cask / freecad](#development-cask-freecad)
   - [References](#references)
 
 
@@ -55,7 +60,7 @@ sudo chmod 600 *_key
 
 #### TODOs
 
-<a id="todos"></a>
+<a id="working-with-openssh-todos"></a>
 
 - [ ] change permissions, owner, and group of above mentioned files when installing formula.
 
@@ -164,6 +169,10 @@ brew cask uninstall {{cask_file}}
 
 
 ##### Development / cask / freecad
+
+<a id="development-cask-freecad"></a>
+
+- renamed the freecad cask within this repo / homebrew tap to not conflict with either the hombrew-cask-versions, `freecad-pre`, and rather the cask specific to this tap is `freecad-ipre`, ie. i prepending an `i` to the cask name in reference to my github username.
 
 - github / @kapcake created a cask.formula for freecad pre release, but appears to not have been updated in ~ a year. [learn more](https://github.com/Homebrew/homebrew-cask/blob/e141c13bfdb4818c1833afb6522b61b1f1897a25/Casks/freecad.rb)
 
