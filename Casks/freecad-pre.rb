@@ -1,4 +1,4 @@
-cask "freecad-pre" do
+cask "freecad-ipre" do
   version "0.19_pre,22894"
   sha256 "a31643b9816e11ec30d36536ad7ac12cef26d92ed87a9823adeb256cd8a09173"
 
@@ -11,6 +11,6 @@ cask "freecad-pre" do
 
   depends_on macos: ">= :sierra"
 
-  # Renamed to avoid conflict with other FreeCAD.app
-  app "FreeCAD.app", target: "FreeCAD_pre.app"
+  # Renamed to avoid conflict with other FreeCAD.app, and the hb-cask-versions
+  app "FreeCAD.app", target: "FreeCAD_ipre.app"
 end
