@@ -172,7 +172,7 @@ brew cask uninstall {{cask_file}}
 
 <a id="development-cask-freecad"></a>
 
-- renamed the freecad cask within this repo / homebrew tap to not conflict with either the hombrew-cask-versions, `freecad-pre`, and rather the cask specific to this tap is `freecad-ipre`, ie. i prepending an `i` to the cask name in reference to my github username.
+- renamed the freecad cask within this repo / homebrew tap to not conflict with either the hombrew-cask-versions, `freecad-pre`, to have a cask specific to this tap, `freecad-ipre`, prepended an `i` to the cask name in reference to my github username.
 
 - github / @kapcake created a cask.formula for freecad pre release, but appears to not have been updated in ~ a year. [learn more](https://github.com/Homebrew/homebrew-cask/blob/e141c13bfdb4818c1833afb6522b61b1f1897a25/Casks/freecad.rb)
 
