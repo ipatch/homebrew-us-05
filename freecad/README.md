@@ -10,6 +10,7 @@
 - [freecad / Issues / Questions](#issues)
 - [Compare Contrast FreeCAD with fusion 360](#compare-contrast-freecad-with-fusion360)
 - [Building FreeCAD for macOS by macOS](#building-freecad-on-macos)
+  - [.. / building freecad for macos by macos, nov 2020](#building-freecad-macos-nov-2020)
   - [side quests _no particular order_]()
 - [working with freecad](#working-with-freecad)
   - [working with freecad / gui / stylesheets](#working-with-freecad-stylesheets)
@@ -47,6 +48,18 @@ Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of
 ## Building FreeCAD for macOS by macOS
 
 <a id="freecad-building-on-macos"></a>
+
+### .. / Building FreeCAD for macos by macos, circa november 2020
+
+<a id="building-freecad-macos-nov-2020"></a>
+
+presently I'm using similar if not same step to build freecad as the travis formula, as that is the one that generates the app asset on the freecad releases page. the current build steps i modeled my formula file after are [here](https://travis-ci.org/github/FreeCAD/FreeCAD/jobs/741952720)
+
+
+
+### .. / building freecad on macos circa april 2020
+
+<a id="buidling-freecad-macos-april-2020"></a>
 
 > My OCD, ADD, whateverD got the best of matey ⛵️☠️.
 
