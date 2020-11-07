@@ -53,9 +53,22 @@ Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of
 
 <a id="building-freecad-macos-nov-2020"></a>
 
-presently I'm using similar if not same step to build freecad as the travis formula, as that is the one that generates the app asset on the freecad releases page. the current build steps i modeled my formula file after are [here ](https://travis-ci.org/github/FreeCAD/FreeCAD/jobs/741952720)<img src="https://raw.githubusercontent.com/wiki/ipatch/dotfiles/lib/nearr.svg">
+presently I'm using similar if not same steps to build freecad as the travis formula, as that is the one that generates the app asset on the freecad releases page. the current build steps i modeled my formula file after are [here ](https://travis-ci.org/github/FreeCAD/FreeCAD/jobs/741952720)<img src="https://raw.githubusercontent.com/wiki/ipatch/dotfiles/lib/nearr.svg">
 
+<!-- - [ ] TODO: come up with more constructive way to incorporate svg gfx with markdown syntax, ie. md and html dont play well together -->
 
+#### .. / .. / todos
+
+<a id="building-freecad-todos"></a>
+
+- [ ] construct a bottle for the freecad formula contained within this repo [learn more](https://github.com/ladislas/homebrew-greetings)<img src="https://raw.githubusercontent.com/wiki/ipatch/dotfiles/lib/nearr.svg">
+
+#### .. / .. / useful links
+
+<a id="useful-links-freecad"></a>
+
+- [github / freecad / homebrew-freecad](https://github.com/FreeCAD/homebrew-freecad)
+- [github / homebrew-cad, the commit the current formula is to build against](https://github.com/FreeCAD/FreeCAD/commit/34a083b15) _november 6, 2020_
 
 ### .. / building freecad on macos circa april 2020
 
@@ -153,6 +166,8 @@ cmake \
 ## working with freecad
 
 <a id="working-with-freecad"></a>
+
+- creating a parametric draft dimension is **still** ongoing issue [learn more](https://forum.freecadweb.org/viewtopic.php?f=8&t=31507) [and even more](https://forum.freecadweb.org/viewtopic.php?t=17044)
 
 - the **gui** of freecad can be styled using a stylesheet, on my particular system (macOS) the stylesheet directory for storing custom freecad stylesheets is located below, and a youtube explaining the process can be found [here](https://www.youtube.com/watch?v=ZdG2y1-aOas) 
 
