@@ -53,7 +53,7 @@ Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of
 
 <a id="building-freecad-macos-nov-2020"></a>
 
-presently I'm using similar if not same step to build freecad as the travis formula, as that is the one that generates the app asset on the freecad releases page. the current build steps i modeled my formula file after are [here](https://travis-ci.org/github/FreeCAD/FreeCAD/jobs/741952720)
+presently I'm using similar if not same step to build freecad as the travis formula, as that is the one that generates the app asset on the freecad releases page. the current build steps i modeled my formula file after are [here](https://travis-ci.org/github/FreeCAD/FreeCAD/jobs/741952720)<img src="https://raw.githubusercontent.com/wiki/ipatch/dotfiles/lib/nearr.svg">
 
 
 
