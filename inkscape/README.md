@@ -8,6 +8,8 @@ For comprehensive instructions for building inkscape on macOS<br /> 👉 [click 
 
 > below are an old set of todo items i never completed, and might never will, migrating here from macOS Reminders.app _trying to make things as vendor neutral as possible_
 
+- [ ] **Q** how does the unit system work in inkscape, ie. can it work with mm + std, or does it use its own internal unit system
+  - **A**
 - [ ]	inkscape uses [?] when rendering an emoji in a filename for a directory on macOS
 - [ ]	how do fonts work in inkscape
 - [ ]	INKSCAPE > building in a nutshell >>
