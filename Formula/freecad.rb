@@ -3,7 +3,10 @@ class Freecad < Formula
   homepage "http://www.freecadweb.org"
   url "https://github.com/freecad/FreeCAD.git", :using => :git, :commit => "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
   version "0.19pre"
-  head "https://github.com/freecad/FreeCAD.git", :commit => "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
+
+  # head "https://github.com/freecad/FreeCAD.git", :commit => "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
+
+  head "https://github.com/freecad/FreeCAD.git", shallow: false
 
   # Debugging Support
   option "with-debug", "Enable debug build"
@@ -116,7 +119,7 @@ class Freecad < Formula
     # ]
 
     args_travis = std_cmake_args
-    args_travis << "-DBUILD_QT5=ON -DUSE_PYTHON3=1 -DCMAKE_CXX_FLAGS='-Wno-deprecated-declarations' -DBUILD_FEM_NETGEN=1 -DBUILD_FEM=1 -DBUILD_TECHDRAW=0 -DCMAKE_PREFIX_PATH='/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources' -DBUILD_FEM_NETGEN:BOOL=ON -DFREECAD_USE_EXTERNAL_KDL=ON -DCMAKE_BUILD_TYPE=Release -DFREECAD_CREATE_MAC_APP=OFF -DFREECAD_USE_EXTERNAL_KDL=ON -DINSTALL_PREFIX='/opt/beta/brew/freecad"
+    args_travis << "-DBUILD_QT5=ON -DUSE_PYTHON3=1 -DCMAKE_CXX_FLAGS='-Wno-deprecated-declarations' -DBUILD_FEM_NETGEN=1 -DBUILD_FEM=1 -DBUILD_TECHDRAW=0 -DCMAKE_PREFIX_PATH='/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources' -DBUILD_FEM_NETGEN:BOOL=ON -DFREECAD_USE_EXTERNAL_KDL=ON -DCMAKE_BUILD_TYPE=Release -DFREECAD_CREATE_MAC_APP=OFF -DFREECAD_USE_EXTERNAL_KDL=ON -DCMAKE_INSTALL_PREFIX='/opt/beta/brew/freecad"
 
     mkdir "Build" do
       system "cmake", *args_travis, ".."
