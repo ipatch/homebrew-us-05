@@ -1,12 +1,21 @@
 class Freecad < Formula
   desc "Parametric 3D modeler"
   homepage "http://www.freecadweb.org"
-  url "https://github.com/freecad/FreeCAD.git", :using => :git, :commit => "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
-  version "0.19pre"
+  # url "https://github.com/freecad/FreeCAD.git", :using => :git, :commit => "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
+  url "https://github.com/freecad/FreeCAD.git", 
+    tag: "0.19_pre",
+    revisision: "9eb080488d970d313c538473e7272117ea0a7cd1"
+  license "GPL-2.0"
+  
+  # url "https://github.com/dlang-community/dfmt.git",
+  #     tag:      "v0.13.2",
+  #     revision: "7659b1ae1aaaeda6b787ec60a2ed1e902326d5a0"
+  # license "BSL-1.0"
+  # head "https://github.com/dlang-community/dfmt.git", branch: "v0.x.x", shallow: false
+
 
   # head "https://github.com/freecad/FreeCAD.git", :commit => "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
-
-  head "https://github.com/freecad/FreeCAD.git", shallow: false
+  head "https://github.com/freecad/FreeCAD.git", branch: "master", shallow: false
 
   # Debugging Support
   option "with-debug", "Enable debug build"
