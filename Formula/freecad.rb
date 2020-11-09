@@ -4,7 +4,7 @@ class Freecad < Formula
   # url "https://github.com/freecad/FreeCAD.git", :using => :git, :commit => "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
   url "https://github.com/freecad/FreeCAD.git", 
     tag: "0.19_pre",
-    revisision: "9eb080488d970d313c538473e7272117ea0a7cd1"
+    revisision: "9eb080488d970d313c538473e7272117ea0a7cd1",
     shallow: false
   license "GPL-2.0"
   
