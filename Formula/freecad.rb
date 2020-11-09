@@ -6,7 +6,7 @@ class Freecad < Formula
     tag: "0.19_pre",
     revisision: "9eb080488d970d313c538473e7272117ea0a7cd1",
     shallow: false
-  license "GPL-2.0"
+  license "GPL"
   
   # url "https://github.com/dlang-community/dfmt.git",
   #     tag:      "v0.13.2",
