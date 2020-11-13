@@ -14,6 +14,7 @@
   - [development / casks](#development-casks)
     - [development / cask / freecad](#development-cask-freecad)
   - [References](#references)
+- [TODOs](#todos)
 
 
 ## ipatch/homebrew-us-05
@@ -58,7 +59,7 @@ sudo chown root:wheel *_key
 sudo chmod 600 *_key
 ```
 
-#### TODOs
+#### TODOs / openssh
 
 <a id="working-with-openssh-todos"></a>
 
@@ -186,3 +187,9 @@ brew cask uninstall {{cask_file}}
 - [**github** / homebrew-tiny-scripts **tap**](https://github.com/vitorgalvao/homebrew-tiny-scripts)
   > within the above repo there is a shell script, `cask-repair` that should do the bulk of the work updating a cask that is often updated frequently, as opposed to manually editing the cask file
 - [**github** / repo for actual tiny scripts **NOT** the tap repo](https://github.com/vitorgalvao/tiny-scripts)
+
+## TODOs
+
+<a id="todos"></a>
+
+- [ ] experiment with [brew.vim](https://github.com/xu-cheng/brew.vim) sytnax & filetype files
