@@ -109,17 +109,25 @@ class Freecad < Formula
 
     args_travis = std_cmake_args
     args_travis << "-DBUILD_QT5=ON -DUSE_PYTHON3=1 -DCMAKE_CXX_FLAGS='-Wno-deprecated-declarations' -DBUILD_FEM_NETGEN=1 -DBUILD_FEM=1 -DBUILD_TECHDRAW=0 -DCMAKE_PREFIX_PATH='/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources' -DBUILD_FEM_NETGEN:BOOL=ON -DFREECAD_USE_EXTERNAL_KDL=ON -DCMAKE_BUILD_TYPE=Release -DFREECAD_CREATE_MAC_APP=OFF -DFREECAD_USE_EXTERNAL_KDL=ON -DCMAKE_INSTALL_PREFIX='/opt/beta/brew/freecad"
+    # args_travis << ".."
 
-    if build.with?("ninja")
-      args_travis << '-G "Ninja"'
-    end
+    ####3
+    # args << "-DLLVM_EXTERNAL_PROJECTS=\"clang;libcxx;libcxxabi\""
+    # args << "-DLLVM_EXTERNAL_LIBCXX_SOURCE_DIR=\"#{buildpath/"projects/libcxx"}\""
+    # args << "-DCMAKE_BUILD_TYPE=Release"
+    # args << ".."
+    # system "ninja", "clang-format"
+    # end
+    #####
 
     mkdir "Build" do
-      system "cmake", *args_travis, ".."
-
       if build.with?("ninja")
-        system "", "-j#{ENV.make_jobs}", install
-      else  
+        system "cmake", "-G", "Ninja", *args_travis, ".."
+        system "ninja"
+        # system "", "-j#{ENV.make_jobs}", install
+        system "ninja install"
+      else
+        system "cmake", *args_travis, ".."
         system "make", "-j#{ENV.make_jobs}", "install"
       end
       bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
