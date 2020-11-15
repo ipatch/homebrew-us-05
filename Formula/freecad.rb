@@ -128,7 +128,7 @@ class Freecad < Formula
         # system "", "-j#{ENV.make_jobs}", install
         # system "ninja install"
 
-        system "cmake" "--build"
+        system "cmake", "--build"
       else
         system "cmake", *args_travis, ".."
         system "make", "-j#{ENV.make_jobs}", "install"
