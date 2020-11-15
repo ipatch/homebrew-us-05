@@ -123,12 +123,7 @@ class Freecad < Formula
     mkdir "Build" do
       if build.with?("ninja")
         system "cmake", "-G", "Ninja", *args_travis, ".."
-
-        # system "ninja"
-        # system "", "-j#{ENV.make_jobs}", install
-        # system "ninja install"
-
-        system "cmake", "--build", "."
+        system "cmake", "-j#{ENV.make_jobs}", "--build", "."
         system "cmake", "--install", "."
       else
         system "cmake", *args_travis, ".."
