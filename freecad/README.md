@@ -62,7 +62,7 @@ A demo of what a QML based freecad UI can be found [youtube](https://www.youtube
 
 There is a rather old (qt 4.8) doc about integrating a QML based ui within an existing widget based ui. [here][1]
 
-[1]: https://doc.qt.io/archives/qt-4.8/qml-integration.html(↗ qt.io / Integrating QML Code with Existing Qt UI Code)
+[1]: <https://doc.qt.io/archives/qt-4.8/qml-integration.html> "↗ qt.io / Integrating QML Code with Existing Qt UI Code"
 
 
 ### ../Building FreeCAD for macos by macos, circa november 2020
