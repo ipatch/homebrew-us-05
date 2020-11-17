@@ -9,7 +9,8 @@
 - [General 3D terms](#general)
 - [freecad / Issues / Questions](#issues)
 - [Compare Contrast FreeCAD with fusion 360](#compare-contrast-freecad-with-fusion360)
-- [Building FreeCAD for macOS by macOS](#building-freecad-on-macos)
+- [Building FreeCAD for macOS by macOS](#freecad-building-on-macos)
+  - [**Progressively updating UI/UX of freecad 💪**](#freecad-building-better-ui-ux)
   - [.. / building freecad for macos by macos, nov 2020](#building-freecad-macos-nov-2020)
   - [side quests _no particular order_]()
 - [working with freecad](#working-with-freecad)
@@ -32,7 +33,7 @@
 - [ ] **gripe** pasting a sketch from one _body_ to a different _body_ does **not** place the sketch within the selected _body_
 - [ ] **Question** does freecad have a quick way to convert / display mm to inches
 - **techdraw** workbench, ❗️ _no default template found_
- - **A** more than likely the path to svg graphics that comprise the templates has been altered or the **FreeCAD.app** in not within the default **/Applications/** directory so just create a symlink to work around this.
+  - **Answer** more than likely the path to svg graphics that comprise the templates has been altered or the **FreeCAD.app** in not within the default **/Applications/** directory so just create a symlink to work around this.
 
 ## Compare Contrast FreeCAD with fusion 360
 
@@ -49,28 +50,43 @@ Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of
 
 <a id="freecad-building-on-macos"></a>
 
-### .. / Building FreeCAD for macos by macos, circa november 2020
+### Progressively updating UI/UX of freecad 💪
+
+<a id="freecad-building-better-ui-ux"></a>
+
+FreeCAD presently relies on QT to manage the GUI, and uses QT widgets, which is an imperative way to declare UI elements within the freecad gui.  QT has released QML in recent years as is a declaritive way to design UIs, similar to how HTML/CSS/JS interact to build web apps. QML is far from perfect, but IMHO it should be used for future UI design / improvements as QT is introducing less and less features the QT widget based system.
+
+My thoughts on upgrading the UI/UX is to simply incorporate QML into the freecad ui, but **do not** try and replace everything at once, ie. keep / use both the widget based system while slowing experimenting with QML, and slowly migrating the easier to understand based widgets to QML if at all possible. 
+
+A demo of what a QML based freecad UI can be found [youtube](https://www.youtube.com/watch?v=wrOP7sLqwiM) the QML experimental ui was designed around QT 4.x and not QT 5.x There is also rather lengthy discussion on the freecad forums about adopting / integrating a QML based UI [here](https://forum.freecadweb.org/viewtopic.php?f=34&t=23053)
+
+There is a rather old (qt 4.8) doc about integrating a QML based ui within an existing widget based ui. [here][1]
+
+[1]: https://doc.qt.io/archives/qt-4.8/qml-integration.html(↗ qt.io / Integrating QML Code with Existing Qt UI Code)
+
+
+### ../Building FreeCAD for macos by macos, circa november 2020
 
 <a id="building-freecad-macos-nov-2020"></a>
 
-presently I'm using similar if not same steps to build freecad as the travis formula, as that is the one that generates the app asset on the freecad releases page. the current build steps i modeled my formula file after are [here ](https://travis-ci.org/github/FreeCAD/FreeCAD/jobs/741952720)<img src="https://raw.githubusercontent.com/wiki/ipatch/dotfiles/lib/nearr.svg">
+presently I'm using similar if not same steps to build freecad as the travis formula, as that is the one that generates the app asset on the freecad releases page. the current build steps i modeled my formula file after are [here &#8599;](https://travis-ci.org/github/FreeCAD/FreeCAD/jobs/741952720) 
 
 <!-- - [ ] TODO: come up with more constructive way to incorporate svg gfx with markdown syntax, ie. md and html dont play well together -->
 
-#### .. / .. / todos
+#### ../../todos
 
 <a id="building-freecad-todos"></a>
 
 - [ ] construct a bottle for the freecad formula contained within this repo [learn more](https://github.com/ladislas/homebrew-greetings)<img src="https://raw.githubusercontent.com/wiki/ipatch/dotfiles/lib/nearr.svg">
 
-#### .. / .. / useful links
+#### ../../useful links
 
 <a id="useful-links-freecad"></a>
 
 - [github / freecad / homebrew-freecad](https://github.com/FreeCAD/homebrew-freecad)
 - [github / homebrew-cad, the commit the current formula is to build against](https://github.com/FreeCAD/FreeCAD/commit/34a083b15) _november 6, 2020_
 
-### .. / building freecad on macos circa april 2020
+### ../building freecad on macos circa april 2020
 
 <a id="buidling-freecad-macos-april-2020"></a>
 
