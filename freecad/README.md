@@ -56,13 +56,27 @@ Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of
 
 FreeCAD presently relies on QT to manage the GUI, and uses QT widgets, which is an imperative way to declare UI elements within the freecad gui.  QT has released QML in recent years as is a declaritive way to design UIs, similar to how HTML/CSS/JS interact to build web apps. QML is far from perfect, but IMHO it should be used for future UI design / improvements as QT is introducing less and less features the QT widget based system.
 
-My thoughts on upgrading the UI/UX is to simply incorporate QML into the freecad ui, but **do not** try and replace everything at once, ie. keep / use both the widget based system while slowing experimenting with QML, and slowly migrating the easier to understand based widgets to QML if at all possible. 
+My thoughts on upgrading the UI/UX is to simply incorporate QML into the freecad ui, but **do not** try and replace everything at once, ie. keep / use both the widget based system while slowly experimenting with QML, and migrating the easier to understand widgets to QML if at all possible. From my understanding updating a QML file, `.qml` will not require an entire rebuild whereas updating a `.ui` based widget file will trigger an entire rebuild of the app.  Presently it takes ~ 40 minutes on a late 2013 MBP to build the latest FreeCAD. 
 
 A demo of what a QML based freecad UI can be found [youtube](https://www.youtube.com/watch?v=wrOP7sLqwiM) the QML experimental ui was designed around QT 4.x and not QT 5.x There is also rather lengthy discussion on the freecad forums about adopting / integrating a QML based UI [here](https://forum.freecadweb.org/viewtopic.php?f=34&t=23053)
 
 There is a rather old (qt 4.8) doc about integrating a QML based ui within an existing widget based ui. [here][1]
 
+Some other useful links can be found below
+
+- [github/kdab/declartivewidgets][2]
+- [cleanqt.io/blog/crash course in qt, part 6 ↗][3]
+- [wikipedia/**qt version history**][4]
+
 [1]: <https://doc.qt.io/archives/qt-4.8/qml-integration.html> "↗ qt.io / Integrating QML Code with Existing Qt UI Code"
+[2]: <https://github.com/KDAB/DeclarativeWidgets>
+[3]: <https://www.cleanqt.io/blog/crash-course-in-qt-for-c%2B%2B-developers,-part-6> "choosing widgets or qtquick+qml"
+[4]: <https://en.wikipedia.org/wiki/Qt_version_history>
+
+#### Questions / TODOs
+
+- [x] **Q** what version of qt introduced QML?
+  - **Answer** according to the wikipedia article QML Qt Quick were introduced in version 4.7
 
 
 ### ../Building FreeCAD for macos by macos, circa november 2020
