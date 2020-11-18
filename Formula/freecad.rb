@@ -108,9 +108,9 @@ class Freecad < Formula
     #   -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
     # ]
 
-    args_travis = std_cmake_args
+    # args_travis = std_cmake_args
 
-    args_travis %W[
+    args_travis = %W[
     -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
     -DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations
