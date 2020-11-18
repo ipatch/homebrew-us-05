@@ -111,11 +111,11 @@ class Freecad < Formula
     args_travis = std_cmake_args
     args_travis << '-DBUILD_QT5=ON'\
     '-DUSE_PYTHON3=1'\
-    '-DCMAKE_CXX_FLAGS="-Wno-deprecated-declarations"'\
+    '-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations'\
     '-DBUILD_FEM_NETGEN=1'\
     '-DBUILD_FEM=1'\ 
     '-DBUILD_TECHDRAW=0'\ 
-    '-DCMAKE_PREFIX_PATH="/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources"'\
+    '-DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources'\
     '-DBUILD_FEM_NETGEN:BOOL=ON'\
     '-DFREECAD_USE_EXTERNAL_KDL=ON'\
     '-DFREECAD_CREATE_MAC_APP=OFF'\
