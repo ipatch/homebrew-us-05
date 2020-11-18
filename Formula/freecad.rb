@@ -108,12 +108,14 @@ class Freecad < Formula
     #   -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
     # ]
 
-    args_travis = std_cmake_args
-    args_travis %q(-DBUILD_QT5=ON
+    # args_travis = std_cmake_args
+
+    args_travis %W[
+    -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
     -DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations
     -DBUILD_FEM_NETGEN=1
-    )
+    ]
     # '-DBUILD_FEM=1'\ 
     # '-DBUILD_TECHDRAW=0'\ 
     # '-DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources'\
