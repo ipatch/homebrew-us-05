@@ -114,6 +114,7 @@ class Freecad < Formula
     -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
     -DPYTHON_EXECUTABLE=/usr/local/bin/python3
+    -DPYTHON_LIBRARY=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/libpython3.9.dylib
     -DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations
     -DBUILD_FEM_NETGEN=1
     -DBUILD_FEM=1
