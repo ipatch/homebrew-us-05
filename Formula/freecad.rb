@@ -84,6 +84,7 @@ class Freecad < Formula
     if (!File.exist?('/usr/local/lib/python3.9/site-packages/six.py'))
       system "pip3", "install", "six"
     end
+
     # Set up required cmake args
     # args = std_cmake_args
     # args << "-DBUILD_QT5=ON"
@@ -108,17 +109,17 @@ class Freecad < Formula
     # ]
 
     args_travis = std_cmake_args
-    args_travis << "-DBUILD_QT5=ON -DUSE_PYTHON3=1 -DCMAKE_CXX_FLAGS='-Wno-deprecated-declarations' -DBUILD_FEM_NETGEN=1 -DBUILD_FEM=1 -DBUILD_TECHDRAW=0 -DCMAKE_PREFIX_PATH='/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources' -DBUILD_FEM_NETGEN:BOOL=ON -DFREECAD_USE_EXTERNAL_KDL=ON -DCMAKE_BUILD_TYPE=Release -DFREECAD_CREATE_MAC_APP=OFF -DFREECAD_USE_EXTERNAL_KDL=ON" 
-    # args_travis << ".."
-
-    ####3
-    # args << "-DLLVM_EXTERNAL_PROJECTS=\"clang;libcxx;libcxxabi\""
-    # args << "-DLLVM_EXTERNAL_LIBCXX_SOURCE_DIR=\"#{buildpath/"projects/libcxx"}\""
-    # args << "-DCMAKE_BUILD_TYPE=Release"
-    # args << ".."
-    # system "ninja", "clang-format"
-    # end
-    #####
+    args_travis << "-DBUILD_QT5=ON
+    -DUSE_PYTHON3=1 
+    -DCMAKE_CXX_FLAGS='-Wno-deprecated-declarations' 
+    -DBUILD_FEM_NETGEN=1 
+    -DBUILD_FEM=1 
+    -DBUILD_TECHDRAW=0 
+    -DCMAKE_PREFIX_PATH='/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources' 
+    -DBUILD_FEM_NETGEN:BOOL=ON 
+    -DFREECAD_USE_EXTERNAL_KDL=ON 
+    -DFREECAD_CREATE_MAC_APP=OFF 
+    -DCMAKE_BUILD_TYPE=Release" 
 
     mkdir "Build" do
       if build.with?("ninja")
