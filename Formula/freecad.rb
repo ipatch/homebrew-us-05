@@ -137,7 +137,8 @@ class Freecad < Formula
         system "cmake", "--install", "."
       else
         system "cmake", *args_travis, ".."
-        system "make", "-j#{ENV.make_jobs}", "install"
+        system "cmake", "-j#{ENV.make_jobs}", "--build", "."
+        system "cmake", "--install", "."
       end
       bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
       bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
