@@ -111,17 +111,19 @@ class Freecad < Formula
     # args_travis = std_cmake_args
 
     args_travis = %W[
+    -Wno-dev
+    -DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations
+    -DBUILD_ENABLE_CXX_STD=C++11
     -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
     -DPYTHON_EXECUTABLE=/usr/local/bin/python3
     -DPYTHON_LIBRARY=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/libpython3.9.dylib
     -DPYTHON_INCLUDE_DIRS=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/libpython3.9.dylib
-    -DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations
     -DBUILD_FEM_NETGEN=1
     -DBUILD_FEM=1
     -DBUILD_TECHDRAW=0
     -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources
-    -DBUILD_FEM_NETGEN:BOOL=ON
+    -DBUILD_FEM_NETGEN:BOOL=OFF
     -DFREECAD_USE_EXTERNAL_KDL=ON
     -DFREECAD_CREATE_MAC_APP=OFF
     -DCMAKE_VERBOSE_MAKEFILE=OFF
