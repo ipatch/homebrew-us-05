@@ -120,10 +120,10 @@ class Freecad < Formula
     -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources
     -DBUILD_FEM_NETGEN:BOOL=ON
     -DFREECAD_USE_EXTERNAL_KDL=ON
+    -DFREECAD_CREATE_MAC_APP=OFF
+    -DCMAKE_VERBOSE_MAKEFILE=OFF
+    -DCMAKE_BUILD_TYPE=Release
     ]
-    # '-DFREECAD_CREATE_MAC_APP=OFF'\
-    # '-DCMAKE_VERBOSE_MAKEFILE=OFF'\
-    # '-DCMAKE_BUILD_TYPE=Release' 
 
     mkdir "Build" do
       if build.with?("ninja")
