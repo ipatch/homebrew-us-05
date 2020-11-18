@@ -113,6 +113,7 @@ class Freecad < Formula
     args_travis = %W[
     -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
+    -DPYTHON_EXECUTABLE=/usr/local/bin/python3
     -DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations
     -DBUILD_FEM_NETGEN=1
     -DBUILD_FEM=1
