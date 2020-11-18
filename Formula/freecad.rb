@@ -119,6 +119,7 @@ class Freecad < Formula
     -DBUILD_FEM_NETGEN:BOOL=ON 
     -DFREECAD_USE_EXTERNAL_KDL=ON 
     -DFREECAD_CREATE_MAC_APP=OFF 
+    -DCMAKE_VERBOSE_MAKEFILE=OFF
     -DCMAKE_BUILD_TYPE=Release" 
 
     mkdir "Build" do
