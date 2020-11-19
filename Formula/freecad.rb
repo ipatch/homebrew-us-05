@@ -21,7 +21,7 @@ class Freecad < Formula
   depends_on "ccache"  => :build
 
   # Required dependencies
-  depends_on :macos => :catalina
+  depends_on :macos => :high_sierra
   depends_on "freetype"
   depends_on "python@3.9"
   depends_on "boost"
