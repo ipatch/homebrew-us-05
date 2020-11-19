@@ -19,7 +19,7 @@ class Freecad < Formula
   option "with-unsecured-cloud", "Build with self signed certificate support CLOUD module"
 
   # Build dependencies
-  depends_on "cmake@3.18.4"   => :build
+  depends_on "cmake"   => :build
   depends_on "ccache"  => :build
 
   # Required dependencies

@@ -183,6 +183,7 @@ brew cask uninstall {{cask_file}}
 
 <a id="references"></a>
 
+- [**docs.brew.sh** / formual cookbook](https://docs.brew.sh/Formula-Cookbook)
 - [**GitHub** / Homebrew Formula Cookbook](https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md)
 - [**github** / homebrew-tiny-scripts **tap**](https://github.com/vitorgalvao/homebrew-tiny-scripts)
   > within the above repo there is a shell script, `cask-repair` that should do the bulk of the work updating a cask that is often updated frequently, as opposed to manually editing the cask file

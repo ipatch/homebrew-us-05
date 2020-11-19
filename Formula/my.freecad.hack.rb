@@ -7,6 +7,7 @@ class Freecad < Formula
     revisision: "9eb080488d970d313c538473e7272117ea0a7cd1",
     shallow: false
   license "GPL-2.0-only"
+  revision 1
   head "https://github.com/freecad/FreeCAD.git", branch: "master", shallow: false
 
   bottle do
