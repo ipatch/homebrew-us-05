@@ -6,7 +6,7 @@ class Freecad < Formula
     tag: "0.19_pre",
     revisision: "9eb080488d970d313c538473e7272117ea0a7cd1",
     shallow: false
-  license "GPL"
+  license "GPL-2.0-only"
   head "https://github.com/freecad/FreeCAD.git", branch: "master", shallow: false
 
   bottle do
@@ -42,7 +42,7 @@ class Freecad < Formula
   depends_on "freecad/freecad/nglib"
   depends_on "freecad/freecad/med-file"
   depends_on "freecad/freecad/opencamlib"
-  # depends_on "freecad/freecad/shiboken2"
+  depends_on "freecad/freecad/shiboken2"
   depends_on "freecad/freecad/pyside2"
   depends_on "freecad/freecad/pyside2-tools"
   depends_on "freecad/freecad/pivy"
