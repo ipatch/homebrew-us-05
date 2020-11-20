@@ -1,15 +1,17 @@
 class FreecadDev < Formula
   desc "Parametric 3D modeler"
   homepage "http://www.freecadweb.org"
-  # TODO: possible to set depth of clone ???
-  url "https://github.com/freecad/FreeCAD.git", 
-    commit: "f35d30bc58cc2000754d4f30cf29d063416cfb9e",
-    shallow: false
-  version "0.19pre"
   license "GPL-2.0-only"
   revision 1
   head "https://github.com/freecad/FreeCAD.git", branch: "master", shallow: false
 
+  stable do
+    # the latest commit on the stable branch
+    url "https://github.com/freecad/freecad.git",
+      revision: "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
+    version "0.19pre-dev"
+  end
+  
   bottle do
     root_url "https://dl.bintray.com/vejmarie/freecad"
     sha256 "97a95f3f19632160766730b394f70def97e0df7b33d8806979a0f6abca96105f" => :catalina
@@ -72,6 +74,9 @@ class FreecadDev < Formula
     #   -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
     # ]
 
+    ENV["CC"] = Formula["llvm"].opt_bin/"clang"
+    ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
+
     args_travis = std_cmake_args
     args_travis = %W[
     -Wno-dev
@@ -99,7 +104,7 @@ class FreecadDev < Formula
     mkdir "Build" do
       if build.with?("ninja")
         system "cmake", "-G", "Ninja", *args_travis, ".."
-        system "cmake" "--build"
+        # system "cmake" "--build"
       else
         system "cmake", *args_travis, ".."
         system "make", "-j#{ENV.make_jobs}", "install"
