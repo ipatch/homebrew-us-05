@@ -1,4 +1,4 @@
-class Freecad-dev < Formula
+class Freecad < Formula
   desc "Parametric 3D modeler"
   homepage "http://www.freecadweb.org"
   # TODO: possible to set depth of clone ???
