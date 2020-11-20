@@ -82,10 +82,9 @@ class FreecadDev < Formula
     -DPYTHON_LIBRARY=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/Current/Python
     -DPYTHON_INCLUDE_DIR=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/Current/include/python3.9
     -DBUILD_FEM=1
-    -DBUILD_FEM_NETGEN=1
+    -DBUILD_FEM_NETGEN=ON
     -DBUILD_TECHDRAW=0
     -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources;/usr/local/opt/hdf5@1.10;/usr/local/opt/vtk@8.2
-    -DBUILD_FEM_NETGEN:BOOL=ON
     -DFREECAD_USE_EXTERNAL_KDL=ON
     -DCMAKE_BUILD_TYPE=Release 
     -DFREECAD_CREATE_MAC_APP=OFF 
