@@ -182,8 +182,26 @@ brew cask uninstall {{cask_file}}
 
 <a id="development-freecad"></a>
 
+**TL;DR** 
+
+i was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum](), and ran into some issues with incrementing the build revisison which i later found out is related to shallow clones. at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if they could be the culpret on why current brew builds are failing.
+
+and i have been unsucessful in building freecad on high sierra using the git source and not using a formula file to build, but still using dependencies on mac homebrew.
+
+#### cmake related
+
+<a id="cmake-related"></a>
+
+to show a list of configuration settings
+
+```shell
+cd ./build; cmake -L ..
+```
+
+apparently explicitly setting `CC` and `CXX` env vars with `.cmake` files can lead to [complications](), the preferred way to set a specific `CC` & `CXX` compiler is to use env vars `export CC=/path/to/c-compiler` before running `cd ./build; cmake ..`
 
 
+<!-- insert inline markdown links below -->
 
 ## /devolpment/References
 
