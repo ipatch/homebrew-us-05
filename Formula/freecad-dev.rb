@@ -50,11 +50,11 @@ class FreecadDev < Formula
 
   if #{Formula["boost"].version}?("1.73.0")
     if (File.exist?('/usr/local/opt/boost/include/boost/geometry/index/detail/rtree/visitors/insert.hpp'))
-     md5 = `md5 -q #{Formula["boost"].prefix}/include/boost/geometry/index/detail/rtree/visitors/insert.hpp` ; result=$?.success?
-     if "#{md5}"=="bdffae5aee2ac909fe503f9afaae3ad9\n"
-       # The include file needs to be patched
-       # https://github.com/boostorg/geometry/commit/a74a2b5814a8753013a8966606b8472178fffd14
-       patch = "--- a/include/boost/geometry/index/detail/rtree/visitors/insert.hpp
+      md5 = `md5 -q #{Formula["boost"].prefix}/include/boost/geometry/index/detail/rtree/visitors/insert.hpp` ; result=$?.success?
+      if "#{md5}"=="bdffae5aee2ac909fe503f9afaae3ad9\n"
+        # The include file needs to be patched
+        # https://github.com/boostorg/geometry/commit/a74a2b5814a8753013a8966606b8472178fffd14
+        patch = "--- a/include/boost/geometry/index/detail/rtree/visitors/insert.hpp
 +++ b/include/boost/geometry/index/detail/rtree/visitors/insert.hpp
 @@ -265,7 +265,7 @@ struct insert_traverse_data
  // Default insert visitor
@@ -66,18 +66,18 @@ class FreecadDev < Formula
  protected:
      typedef typename MembersHolder::box_type box_type;\n"
 
-      File.open("/tmp/include_insert_boost1.73.0.patch", "w") { |f| f.write "#{patch}\n" }
-      system "patch", "-p1", "/usr/local/Cellar/boost/1.73.0/include/boost/geometry/index/detail/rtree/visitors/insert.hpp" , "/tmp/include_insert_boost1.73.0.patch"
-      system "rm", "/tmp/include_insert_boost1.73.0.patch"
-     end
-   end
+        File.open("/tmp/include_insert_boost1.73.0.patch", "w") { |f| f.write "#{patch}\n" }
+        system "patch", "-p1", "/usr/local/Cellar/boost/1.73.0/include/boost/geometry/index/detail/rtree/visitors/insert.hpp" , "/tmp/include_insert_boost1.73.0.patch"
+        system "rm", "/tmp/include_insert_boost1.73.0.patch"
+      end
+    end
   end
-  
+
   if build.with?("packaging-utils")
     depends_on "node"
     depends_on "jq"
   end
- 
+
   def install
     if build.with?("packaging-utils")
       system "node", "install", "-g", "app_dmg"
@@ -128,7 +128,7 @@ class FreecadDev < Formula
     -DFREECAD_USE_EXTERNAL_KDL=ON
     ]
 
-    ####3
+    #### 3
     # args << "-DLLVM_EXTERNAL_PROJECTS=\"clang;libcxx;libcxxabi\""
     # args << "-DLLVM_EXTERNAL_LIBCXX_SOURCE_DIR=\"#{buildpath/"projects/libcxx"}\""
     # args << "-DCMAKE_BUILD_TYPE=Release"
