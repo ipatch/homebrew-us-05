@@ -13,6 +13,7 @@
 - [Development](#development)
   - [development / casks](#development-casks)
     - [development / cask / freecad](#development-cask-freecad)
+  - [development / freecad](#development-freecad)
   - [References](#references)
 - [TODOs](#todos)
 
@@ -23,7 +24,7 @@
 
 > An off beat repo for storing custom ↑ ales and lagers ↓ to make your life a little b1t easier.
 
-### Installing a formula
+## Installing a formula
 
 <a id="installing-a-formula"></a>
 
@@ -47,7 +48,7 @@ brew reinstall ipatch/us-05/[name-of-formula] --verbose --build-from-source
 ```
 
 
-### Working with OpenSSH _from this repo_
+## Working with OpenSSH _from this repo_
 
 <a id="working-with-openssh"></a>
 
@@ -59,7 +60,7 @@ sudo chown root:wheel *_key
 sudo chmod 600 *_key
 ```
 
-#### TODOs / openssh
+### TODOs / openssh
 
 <a id="working-with-openssh-todos"></a>
 
@@ -68,7 +69,7 @@ sudo chmod 600 *_key
 > If LibreSSL has been updated from mainline Homebrew, ie. upgrading from v2.7.x to v2.8.x then this version of OpenSSH will need to be reinstalled from this tap.
 
 
-### Working with fuse-ext2
+## Working with fuse-ext2
 
 <a id="working-with-fuse-ext2"></a>
 
@@ -95,7 +96,7 @@ To manually link **fuse-ext2**
 brew link fuse-ext2
 ```
 
-### Working with Qemu
+## Working with Qemu
 
 <a id="working-with-qemu"></a>
 
@@ -112,14 +113,14 @@ brew install ipatch/homebrew-us-05/qemu \
 ```
 
 
-### Gotchas
+## Gotchas
 
 <a id="gotchas"></a>
 
 If a formula is installed from this repo ie. **qemu** with options, passed to the `install` command, ie. `--with-hax` homebrew has issues running the **reinstall** command even with the `--build-from-source` flag. To work around this, run `brew remove [name-of-formula]` to uninstall the package, and then reinstall the package with the flags provided form the previous install.
 
 
-### Maintenance
+## Maintenance
 
 <a id="maintenance"></a>
 
@@ -130,14 +131,14 @@ brew update
 ```
 
 
-### Miscellanous
+## Miscellanous
 
 <a id="misc"></a>
 
 Installing [universal ctags](http://ctags.io) requires its own work around, [learn more](https://github.com/universal-ctags/homebrew-universal-ctags/issues/23#issuecomment-583781848)
 
 
-### Development
+## Development
 
 <a id="development"></a>
 
@@ -149,7 +150,7 @@ brew [re]install /path/to/some/local_formula.rb
 
 > ❗️`brew reinstall` is problematic a majority of the time, so when experimenting with local formula when developing use **brew install** /path/to/formula.rb
 
-#### Development / cask
+### Development / cask
 
 <a id="development-casks"></a>
 
@@ -169,7 +170,7 @@ brew cask uninstall {{cask_file}}
 - [homebrew-cask / docs / adding_a_cask.md](https://github.com/Homebrew/homebrew-cask/blob/master/doc/development/adding_a_cask.md)
 
 
-##### Development / cask / freecad
+#### Development / cask / freecad
 
 <a id="development-cask-freecad"></a>
 
@@ -177,7 +178,14 @@ brew cask uninstall {{cask_file}}
 
 - github / @kapcake created a cask.formula for freecad pre release, but appears to not have been updated in ~ a year. [learn more](https://github.com/Homebrew/homebrew-cask/blob/e141c13bfdb4818c1833afb6522b61b1f1897a25/Casks/freecad.rb)
 
-## References
+### development / freecad
+
+<a id="development-freecad"></a>
+
+
+
+
+## /devolpment/References
 
 <!-- fwr this heading is rendering as an h4 element on the github -->
 
