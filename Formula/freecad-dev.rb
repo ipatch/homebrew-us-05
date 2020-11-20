@@ -76,7 +76,7 @@ class FreecadDev < Formula
     args_travis = %W[
     -Wno-dev
     -Wno-deprecated-declarations
-    -DCMAKE_CXX_FLAGS='-std=c++17'
+    -DBUILD_ENABLE_CXX_STD='C++17'
     -DBUILD_QT5=ON
     -DPYTHON_EXECUTABLE=/usr/local/bin/python3
     -DPYTHON_LIBRARY=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/Current/Python
@@ -84,10 +84,9 @@ class FreecadDev < Formula
     -DBUILD_FEM=1
     -DBUILD_FEM_NETGEN=ON
     -DBUILD_TECHDRAW=0
-    -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources;/usr/local/opt/hdf5@1.10;/usr/local/opt/vtk@8.2
+    -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources;/usr/local/opt/hdf5@1.10;/usr/local/opt/vtk@8.2/lib
     -DFREECAD_USE_EXTERNAL_KDL=ON
     -DCMAKE_BUILD_TYPE=Release 
-    -DFREECAD_CREATE_MAC_APP=OFF 
     ]
 
     mkdir "Build" do
