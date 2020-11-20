@@ -109,6 +109,7 @@ class Freecad < Formula
 
     args_travis = std_cmake_args
     args_travis = %W[
+    -Wno-dev
     -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
     -DPYTHON_EXECUTABLE=/usr/local/bin/python3"
