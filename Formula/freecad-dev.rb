@@ -42,7 +42,7 @@ class FreecadDev < Formula
   depends_on "freecad/freecad/nglib"
   depends_on "freecad/freecad/med-file"
   depends_on "freecad/freecad/opencamlib"
-  depends_on "freecad/freecad/shiboken2" # TODO: does the travis.yml use this
+  depends_on "freecad/freecad/shiboken2"
   depends_on "freecad/freecad/pyside2"
   depends_on "freecad/freecad/pyside2-tools"
   depends_on "FreeCAD/freecad/pivy"
