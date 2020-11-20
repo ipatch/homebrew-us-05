@@ -42,7 +42,7 @@ class FreecadDev < Formula
   depends_on "freecad/freecad/nglib"
   depends_on "freecad/freecad/med-file"
   depends_on "freecad/freecad/opencamlib"
-  depends_on "freecad/freecad/shiboken2"
+  depends_on "freecad/freecad/shiboken2" # TODO: does the travis.yml use this
   depends_on "freecad/freecad/pyside2"
   depends_on "freecad/freecad/pyside2-tools"
   depends_on "FreeCAD/freecad/pivy"
@@ -60,16 +60,6 @@ class FreecadDev < Formula
     if (!File.exist?('/usr/local/lib/python3.9/site-packages/six.py'))
       system "pip3", "install", "six"
     end
-    # Set up required cmake args
-    # args = std_cmake_args
-    # args << "-DBUILD_QT5=ON"
-    # args << "-DUSE_PYTHON3=1"
-    # args << "-DPYTHON_EXECUTABLE=/usr/local/bin/python3"
-    # # args << "-DCMAKE_CXX_FLAGS='-std=c++14'"
-    # args << "-Wno-deprecated-declarations"
-    # args << "-DBUILD_FEM_NETGEN=1"
-    # args << "-DBUILD_FEM=1"
-    # # args << "-DFREECAD_USE_EXTERNAL_KDL=1"
     # if build.with?("cloud")
     #  args << "-DBUILD_CLOUD=1"
     # end
@@ -79,50 +69,34 @@ class FreecadDev < Formula
     # args << '-DCMAKE_PREFIX_PATH="' + Formula["qt"].opt_prefix + "/lib/cmake;" + Formula["nglib"].opt_prefix + "/Contents/Resources;" + Formula["vtk@8.2"].opt_prefix + "/lib/cmake;"
     # args << %W[
     #   -DBUILD_FEM_NETGEN:BOOL=ON
-    #   -DFREECAD_USE_EXTERNAL_KDL=ON
     #   -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
     # ]
 
     args_travis = std_cmake_args
     args_travis = %W[
     -Wno-dev
+    -Wno-deprecated-declarations
+    -DCMAKE_CXX_FLAGS='-std=c++17'
     -DBUILD_QT5=ON
-    -DUSE_PYTHON3=1
-    -DPYTHON_EXECUTABLE=/usr/local/bin/python3"
-    -DPYTHON_LIBRARY=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/libpython3.9.dylib
-    -DPYTHON_INCLUDE_DIRS=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/libpython3.9.dylib
-    -DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations
-    -DBUILD_FEM_NETGEN=1
+    -DPYTHON_EXECUTABLE=/usr/local/bin/python3
+    -DPYTHON_LIBRARY=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/Current/Python
+    -DPYTHON_INCLUDE_DIR=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/Current/include/python3.9
     -DBUILD_FEM=1
+    -DBUILD_FEM_NETGEN=1
     -DBUILD_TECHDRAW=0
-    -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources;/usr/local/opt/hdf5@1.10;/usr/local/opt/vtk@8.2;/usr/local/opt/python@3.9
+    -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources;/usr/local/opt/hdf5@1.10;/usr/local/opt/vtk@8.2
     -DBUILD_FEM_NETGEN:BOOL=ON
     -DFREECAD_USE_EXTERNAL_KDL=ON
     -DCMAKE_BUILD_TYPE=Release 
     -DFREECAD_CREATE_MAC_APP=OFF 
-    -DFREECAD_USE_EXTERNAL_KDL=ON
     ]
-
-    #### 3
-    # args << "-DLLVM_EXTERNAL_PROJECTS=\"clang;libcxx;libcxxabi\""
-    # args << "-DLLVM_EXTERNAL_LIBCXX_SOURCE_DIR=\"#{buildpath/"projects/libcxx"}\""
-    # args << "-DCMAKE_BUILD_TYPE=Release"
-    # args << ".."
-    # system "ninja", "clang-format"
-    # end
-    #####
 
     mkdir "Build" do
       if build.with?("ninja")
         system "cmake", "-G", "Ninja", *args_travis, ".."
-
-        # system "ninja"
-        # system "", "-j#{ENV.make_jobs}", install
-        # system "ninja install"
-
         system "cmake" "--build"
       else
-        system "cmake", *args_travis, ".."
+        system "cmake", "-G", "Unix Makefiles", *args_travis, ".."
         system "make", "-j#{ENV.make_jobs}", "install"
       end
       bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
