@@ -3,9 +3,9 @@ class FreecadDev < Formula
   homepage "http://www.freecadweb.org"
   # TODO: possible to set depth of clone ???
   url "https://github.com/freecad/FreeCAD.git", 
-    tag: "0.19_pre",
-    revisision: "9eb080488d970d313c538473e7272117ea0a7cd1",
+    commit: "f35d30bc58cc2000754d4f30cf29d063416cfb9e",
     shallow: false
+  version "0.19pre"
   license "GPL-2.0-only"
   revision 1
   head "https://github.com/freecad/FreeCAD.git", branch: "master", shallow: false
@@ -76,7 +76,7 @@ class FreecadDev < Formula
     args_travis = %W[
     -Wno-dev
     -Wno-deprecated-declarations
-    -DBUILD_ENABLE_CXX_STD='C++17'
+    -DBUILD_ENABLE_CXX_STD='C++11'
     -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
 
