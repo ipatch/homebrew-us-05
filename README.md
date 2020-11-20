@@ -183,6 +183,7 @@ brew cask uninstall {{cask_file}}
 
 <a id="references"></a>
 
+- [**stackoverflow** / git checkout a specific commit for a formula](https://stackoverflow.com/a/4158763/708807)
 - [**docs.brew.sh** / formual cookbook](https://docs.brew.sh/Formula-Cookbook)
 - [**GitHub** / Homebrew Formula Cookbook](https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md)
 - [**github** / homebrew-tiny-scripts **tap**](https://github.com/vitorgalvao/homebrew-tiny-scripts)
