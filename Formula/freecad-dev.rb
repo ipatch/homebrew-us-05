@@ -6,7 +6,8 @@ class FreecadDev < Formula
     tag: "0.19_pre",
     revisision: "9eb080488d970d313c538473e7272117ea0a7cd1",
     shallow: false
-  license "GPL"
+  license "GPL-2.0-only"
+  revision 1
   head "https://github.com/freecad/FreeCAD.git", branch: "master", shallow: false
 
   bottle do
@@ -113,6 +114,8 @@ class FreecadDev < Formula
     -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
     -DPYTHON_EXECUTABLE=/usr/local/bin/python3"
+    -DPYTHON_LIBRARY=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/libpython3.9.dylib
+    -DPYTHON_INCLUDE_DIRS=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/libpython3.9.dylib
     -DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations
     -DBUILD_FEM_NETGEN=1
     -DBUILD_FEM=1
