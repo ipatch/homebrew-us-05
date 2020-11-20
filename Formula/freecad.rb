@@ -1,35 +1,51 @@
 class Freecad < Formula
   desc "Parametric 3D modeler"
   homepage "http://www.freecadweb.org"
-  url "https://github.com/freecad/FreeCAD.git", :using => :git, :commit => "34a083b15997a2694bb29328c440225cad976bd9"
-  version "0.19pre"
-  # head "https://github.com/freecad/FreeCAD.git", :commit => "34a083b15997a2694bb29328c440225cad976bd9"
+  # TODO: possible to set depth of clone ???
+  url "https://github.com/freecad/FreeCAD.git", 
+    tag: "0.19_pre",
+    revisision: "9eb080488d970d313c538473e7272117ea0a7cd1",
+    shallow: false
+  license "GPL"
   head "https://github.com/freecad/FreeCAD.git", branch: "master", shallow: false
 
+  bottle do
+    root_url "https://dl.bintray.com/vejmarie/freecad"
+    sha256 "97a95f3f19632160766730b394f70def97e0df7b33d8806979a0f6abca96105f" => :catalina
+  end
 
-  # Debugging Support
   option "with-debug", "Enable debug build"
-  
-  # Build MacOS App
-  option "with-macos-app"
-
-  # Optionally install packaging dependencies
-  option "with-packaging-utils"
+  option "with-packaging-utils", "install packaging dependencies"
   option "with-cloud", "Build with CLOUD module"
   option "with-unsecured-cloud", "Build with self signed certificate support CLOUD module"
+  option "with-ninja", "Build using ninja"
 
-  # Build dependencies
-  depends_on "cmake"   => :build
-  depends_on "ccache"  => :build
-
-  # Required dependencies
-  depends_on :macos => :high_sierra
+  depends_on macos: :high_sierra # do not have a sierra box to test formula with
+  depends_on "cmake" => :build
+  depends_on "ccache" => :build
+  depends_on "swig" => :build
   depends_on "freetype"
   depends_on "python@3.9"
   depends_on "boost"
   depends_on "open-mpi"
   depends_on "openblas"
   depends_on "pkg-config"
+  depends_on "boost-python3"
+  depends_on "vtk@8.2"
+  depends_on "xerces-c"
+  depends_on "qt"
+  depends_on "webp"
+  depends_on "opencascade"
+  depends_on "orocos-kdl"
+  depends_on "freecad/freecad/coin"
+  depends_on "freecad/freecad/nglib"
+  depends_on "freecad/freecad/med-file"
+  depends_on "freecad/freecad/opencamlib"
+  depends_on "freecad/freecad/shiboken2"
+  depends_on "freecad/freecad/pyside2"
+  depends_on "freecad/freecad/pyside2-tools"
+  depends_on "FreeCAD/freecad/pivy"
+  depends_on "freecad/freecad/matplotlib"
 
   if #{Formula["boost"].version}?("1.73.0")
     if (File.exist?('/usr/local/opt/boost/include/boost/geometry/index/detail/rtree/visitors/insert.hpp'))
@@ -55,36 +71,12 @@ class Freecad < Formula
      end
    end
   end
-
-  depends_on "boost-python3"
-  depends_on "xerces-c"
-  depends_on "qt"
-  depends_on "freecad/freecad/pyside2"
-  depends_on "FreeCAD/freecad/pyside2-tools"
-  depends_on "webp"
-  depends_on "opencascade"
-  depends_on "freecad/freecad/opencamlib"
-  depends_on "freecad/freecad/shiboken2"
-  depends_on "orocos-kdl"
-  depends_on "freecad/freecad/matplotlib"
-  depends_on "freecad/freecad/med-file"
-  depends_on "vtk@8.2"
-  depends_on "FreeCAD/freecad/nglib"
-  depends_on "FreeCAD/freecad/coin"
-  depends_on "FreeCAD/freecad/pivy"
-  depends_on "swig" => :build
-
+  
   if build.with?("packaging-utils")
     depends_on "node"
     depends_on "jq"
   end
  
-  bottle do
-    root_url "https://dl.bintray.com/vejmarie/freecad"
-    sha256 "97a95f3f19632160766730b394f70def97e0df7b33d8806979a0f6abca96105f" => :catalina
-    sha256 "804bb741de90e59a701053b22a8be04105ebe07fd29bc8d83245c3d013768536" => :big_sur
-  end
-
   def install
     if build.with?("packaging-utils")
       system "node", "install", "-g", "app_dmg"
@@ -92,37 +84,59 @@ class Freecad < Formula
     if (!File.exist?('/usr/local/lib/python3.9/site-packages/six.py'))
       system "pip3", "install", "six"
     end
-    # Set up needed cmake args
-    args = std_cmake_args
-    args << "-DBUILD_QT5=ON"
-    args << "-DUSE_PYTHON3=1"
-    args << "-DPYTHON_EXECUTABLE=/usr/local/bin/python3"
-    args << "-DCMAKE_CXX_FLAGS='-std=c++14'"
-    args << "-DBUILD_FEM_NETGEN=1"
-    args << "-DBUILD_FEM=1"
-    if build.with?("macos-app")
-      args << "-DFREECAD_CREATE_MAC_APP=1"
-    end
-    if build.with?("cloud")
-     args << "-DBUILD_CLOUD=1"
-    end
-    if build.with?("unsecured-cloud")
-     args << "-DALLOW_SELF_SIGNED_CERTIFICATE=1"
-    end
-    args << '-DCMAKE_PREFIX_PATH="' + Formula["qt"].opt_prefix + "/lib/cmake;" + Formula["nglib"].opt_prefix + "/Contents/Resources;" + Formula["vtk@8.2"].opt_prefix + "/lib/cmake;"
-    args << %W[
-      -DBUILD_FEM_NETGEN:BOOL=ON
-      -DFREECAD_USE_EXTERNAL_KDL=ON
-      -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
-    ]
+    # Set up required cmake args
+    # args = std_cmake_args
+    # args << "-DBUILD_QT5=ON"
+    # args << "-DUSE_PYTHON3=1"
+    # args << "-DPYTHON_EXECUTABLE=/usr/local/bin/python3"
+    # # args << "-DCMAKE_CXX_FLAGS='-std=c++14'"
+    # args << "-Wno-deprecated-declarations"
+    # args << "-DBUILD_FEM_NETGEN=1"
+    # args << "-DBUILD_FEM=1"
+    # # args << "-DFREECAD_USE_EXTERNAL_KDL=1"
+    # if build.with?("cloud")
+    #  args << "-DBUILD_CLOUD=1"
+    # end
+    # if build.with?("unsecured-cloud")
+    #  args << "-DALLOW_SELF_SIGNED_CERTIFICATE=1"
+    # end
+    # args << '-DCMAKE_PREFIX_PATH="' + Formula["qt"].opt_prefix + "/lib/cmake;" + Formula["nglib"].opt_prefix + "/Contents/Resources;" + Formula["vtk@8.2"].opt_prefix + "/lib/cmake;"
+    # args << %W[
+    #   -DBUILD_FEM_NETGEN:BOOL=ON
+    #   -DFREECAD_USE_EXTERNAL_KDL=ON
+    #   -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
+    # ]
+
+    args_travis = std_cmake_args
+    args_travis << "-DBUILD_QT5=ON -DUSE_PYTHON3=1 -DCMAKE_CXX_FLAGS='-Wno-deprecated-declarations' -DBUILD_FEM_NETGEN=1 -DBUILD_FEM=1 -DBUILD_TECHDRAW=0 -DCMAKE_PREFIX_PATH='/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources' -DBUILD_FEM_NETGEN:BOOL=ON -DFREECAD_USE_EXTERNAL_KDL=ON -DCMAKE_BUILD_TYPE=Release -DFREECAD_CREATE_MAC_APP=OFF -DFREECAD_USE_EXTERNAL_KDL=ON" 
+    # args_travis << ".."
+
+    ####3
+    # args << "-DLLVM_EXTERNAL_PROJECTS=\"clang;libcxx;libcxxabi\""
+    # args << "-DLLVM_EXTERNAL_LIBCXX_SOURCE_DIR=\"#{buildpath/"projects/libcxx"}\""
+    # args << "-DCMAKE_BUILD_TYPE=Release"
+    # args << ".."
+    # system "ninja", "clang-format"
+    # end
+    #####
 
     mkdir "Build" do
-      system "cmake", *args, ".."
-      system "make", "-j#{ENV.make_jobs}", "install"
-    end
+      if build.with?("ninja")
+        system "cmake", "-G", "Ninja", *args_travis, ".."
+
+        # system "ninja"
+        # system "", "-j#{ENV.make_jobs}", install
+        # system "ninja install"
+
+        system "cmake" "--build"
+      else
+        system "cmake", *args_travis, ".."
+        system "make", "-j#{ENV.make_jobs}", "install"
+      end
       bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
       bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
       (lib/"python3.9/site-packages/homebrew-freecad-bundle.pth").write "#{prefix}/MacOS/\n"
+    end
   end
 
   def caveats; <<-EOS
