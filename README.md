@@ -202,10 +202,11 @@ to show a list of configuration settings
 cd ./build; cmake -L ..
 ```
 
-apparently explicitly setting `CC` and `CXX` env vars with `.cmake` files can lead to [complications](), the preferred way to set a specific `CC` & `CXX` compiler is to use env vars `export CC=/path/to/c-compiler` before running `cd ./build; cmake ..`
-
+apparently explicitly setting `CC` and `CXX` env vars with `.cmake` files can lead to [complications][so1], the preferred way to set a specific `CC` & `CXX` compiler is to use env vars `export CC=/path/to/c-compiler` before running `cd ./build; cmake ..`
 
 <!-- insert inline markdown links below -->
+
+[so1]: <https://stackoverflow.com/a/17275650/708807>
 
 
 ### development / freecad / **non** formula build & install
