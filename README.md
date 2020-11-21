@@ -182,11 +182,15 @@ brew cask uninstall {{cask_file}}
 
 <a id="development-freecad"></a>
 
+to see notes pertaining to updating/adding QML + qt quick to to freecad ui/ux, [learn more]()
+
 **TL;DR** 
 
-i was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum](), and ran into some issues with incrementing the build revisison which i later found out is related to shallow clones. at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if they could be the culpret on why current brew builds are failing.
+i was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum][mythread], and ran into some issues with incrementing the build revisison which i later found out is related to shallow clones. at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if they could be the culpret on why current brew builds are failing.
 
 and i have been unsucessful in building freecad on high sierra using the git source and not using a formula file to build, but still using dependencies on mac homebrew.
+
+[mythread]: <https://forum.freecadweb.org/viewtopic.php?f=4&t=51981>
 
 #### cmake related
 
