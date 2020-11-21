@@ -81,19 +81,17 @@ class FreecadDev < Formula
     args_travis = %W[
     -Wno-dev
     -Wno-deprecated-declarations
-    -DBUILD_ENABLE_CXX_STD='C++11'
+    -DBUILD_ENABLE_CXX_STD='C++17'
     -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
 
     -DBUILD_FEM_NETGEN=1
     -DBUILD_FEM=1
-
     -DBUILD_TECHDRAW=0
 
     -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources;
 
     -DBUILD_FEM_NETGEN:BOOL=ON
-
     -DFREECAD_USE_EXTERNAL_KDL=ON
 
     -DFREECAD_CREATE_MAC_APP=OFF
