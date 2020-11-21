@@ -6,7 +6,7 @@ class FreecadDev < Formula
   head "https://github.com/freecad/FreeCAD.git", branch: "master", shallow: false
 
   stable do
-    # the latest commit on the stable branch
+    # a tested commit that builds on macos high sierra
     url "https://github.com/freecad/freecad.git",
       revision: "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
     version "0.19pre-dev"
@@ -62,22 +62,24 @@ class FreecadDev < Formula
     if (!File.exist?('/usr/local/lib/python3.9/site-packages/six.py'))
       system "pip3", "install", "six"
     end
-    # if build.with?("cloud")
-    #  args << "-DBUILD_CLOUD=1"
-    # end
-    # if build.with?("unsecured-cloud")
-    #  args << "-DALLOW_SELF_SIGNED_CERTIFICATE=1"
-    # end
+    if build.with?("cloud")
+     args << "-DBUILD_CLOUD=1"
+    end
+    if build.with?("unsecured-cloud")
+     args << "-DALLOW_SELF_SIGNED_CERTIFICATE=1"
+    end
     # args << '-DCMAKE_PREFIX_PATH="' + Formula["qt"].opt_prefix + "/lib/cmake;" + Formula["nglib"].opt_prefix + "/Contents/Resources;" + Formula["vtk@8.2"].opt_prefix + "/lib/cmake;"
-    # args << %W[
-    #   -DBUILD_FEM_NETGEN:BOOL=ON
-    #   -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
-    # ]
 
+    # NOTE: use the latest clang compilers from brew, not Xcode
     ENV["CC"] = Formula["llvm"].opt_bin/"clang"
     ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
+
+    # NOTE: Xcode 10.2 will not work with high sierra
+    #
     # ENV["CC"] = '/Applications/Xcode.10.2.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
     # ENV["CXX"] = '/Applications/Xcode.10.2.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
+    
+    # TODO; TEST 'C++14' with high sierra
 
     args_travis = std_cmake_args
     args_travis = %W[
@@ -86,30 +88,29 @@ class FreecadDev < Formula
     -DBUILD_ENABLE_CXX_STD='C++11'
     -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
-
     -DBUILD_FEM_NETGEN=1
+    -DBUILD_FEM_NETGEN:BOOL=ON
     -DBUILD_FEM=1
     -DBUILD_TECHDRAW=0
-
     -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources;
-
-    -DBUILD_FEM_NETGEN:BOOL=ON
     -DFREECAD_USE_EXTERNAL_KDL=ON
-
     -DFREECAD_CREATE_MAC_APP=OFF
-
-    -DCMAKE_BUILD_TYPE=Release 
+    -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
     ]
 
     mkdir "Build" do
       if build.with?("ninja")
         system "cmake", "-G", "Ninja", *args_travis, ".."
-        # system "cmake" "--build"
+        system "make", "-j#{ENV.make_jobs}", "--build", "."
+        system "make", "--install", "."
       else
         system "cmake", *args_travis, ".."
-        # system "make", "-j#{ENV.make_jobs}"
-        system "make"
 
+        system "make", "-j#{ENV.make_jobs}", "--build", "."
+        system "make", "--install", "."
+
+        # system "make", "-j#{ENV.make_jobs}"
+        # system "make"
       end
       bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
       bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
