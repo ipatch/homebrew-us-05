@@ -81,7 +81,7 @@ class FreecadDev < Formula
     args_travis = %W[
     -Wno-dev
     -Wno-deprecated-declarations
-    -DBUILD_ENABLE_CXX_STD='C++17'
+    -DBUILD_ENABLE_CXX_STD='C++11'
     -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
 
