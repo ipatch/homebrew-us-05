@@ -182,7 +182,11 @@ brew cask uninstall {{cask_file}}
 
 <a id="development-freecad"></a>
 
-to see notes pertaining to updating/adding QML + qt quick to to freecad ui/ux, [learn more]()
+to see notes pertaining to updating/adding QML + qt quick to to freecad ui/ux, [learn more][freecadux1]
+
+[freecadux1]: <https://github.com/ipatch/homebrew-us-05/tree/dev/freecad#freecad-building-better-ui-ux>
+
+
 
 **TL;DR** 
 
