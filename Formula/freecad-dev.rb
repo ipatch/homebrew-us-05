@@ -105,7 +105,9 @@ class FreecadDev < Formula
         # system "cmake" "--build"
       else
         system "cmake", *args_travis, ".."
-        system "make", "-j#{ENV.make_jobs}", "install"
+        # system "make", "-j#{ENV.make_jobs}"
+        system "make"
+
       end
       bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
       bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
