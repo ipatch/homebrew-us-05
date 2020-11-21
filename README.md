@@ -203,6 +203,35 @@ apparently explicitly setting `CC` and `CXX` env vars with `.cmake` files can le
 
 <!-- insert inline markdown links below -->
 
+
+### development / freecad / **non** formula build & install
+
+- cmake args **incomplete**, args have **not** been fully tested
+
+```shell
+-Wno-dev 
+-DBUILD_ENABLE_CXX_STD='C++11' 
+-DCMAKE_VERBOSE_MAKEFILE=OFF 
+-DCMAKE_CXX_FLAGS='-Wno-deprecated-declarations' 
+-DBUILD_QT5=ON 
+-DBUILD_FEM_NETGEN=1 
+-DBUILD_FEM=1 
+-DBUILD_FEM_NETGEN:BOOL=ON
+-DBUILD_TECHDRAW=0 
+-DCMAKE_PREFIX_PATH='/usr/local/opt/qt/lib/cmake;\
+/usr/local/opt/nglib/Contents/Resources;\
+/usr/local/opt/hdf5@1.10' 
+-DFREECAD_USE_EXTERNAL_KDL=ON 
+-DFREECAD_CREATE_MAC_APP=OFF 
+-DPYTHON_EXECUTABLE=/usr/local/bin/python3 
+-DPYTHON_LIBRARY=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/libpython3.9.dylib 
+-DPYTHON_INCLUDE_DIRS=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/include/python3.9/
+
+-DCMAKE_INSTALL_PREFIX='/opt/beta/freecad' 
+-DCMAKE_BUILD_TYPE=Release 
+```
+
+
 ## /devolpment/References
 
 <!-- fwr this heading is rendering as an h4 element on the github -->
