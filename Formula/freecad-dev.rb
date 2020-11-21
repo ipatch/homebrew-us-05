@@ -74,8 +74,11 @@ class FreecadDev < Formula
     #   -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
     # ]
 
-    ENV["CC"] = Formula["llvm"].opt_bin/"clang"
-    ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
+    # ENV["CC"] = Formula["llvm"].opt_bin/"clang"
+    # ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
+    ENV["CC"] = /Applications/Xcode.10.2.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+    ENV["CXX"] = /Applications/Xcode.10.2.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+
 
     args_travis = std_cmake_args
     args_travis = %W[
