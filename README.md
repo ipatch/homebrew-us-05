@@ -47,7 +47,6 @@ To upgrade a formula that has been installed via this tap
 brew reinstall ipatch/us-05/[name-of-formula] --verbose --build-from-source
 ```
 
-
 ## Working with OpenSSH _from this repo_
 
 <a id="working-with-openssh"></a>
@@ -185,8 +184,6 @@ brew cask uninstall {{cask_file}}
 to see notes pertaining to updating/adding QML + qt quick to to freecad ui/ux, [learn more][freecadux1]
 
 [freecadux1]: <https://github.com/ipatch/homebrew-us-05/tree/dev/freecad#freecad-building-better-ui-ux>
-
-
 
 **TL;DR** 
 
