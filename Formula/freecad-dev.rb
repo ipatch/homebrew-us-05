@@ -23,20 +23,19 @@ class FreecadDev < Formula
   option "with-unsecured-cloud", "Build with self signed certificate support CLOUD module"
   option "with-ninja", "Build using ninja"
 
-  depends_on "cmake" => :build
   depends_on "ccache" => :build
+  depends_on "cmake" => :build
   depends_on "swig" => :build
   depends_on "freetype"
-  depends_on macos: :high_sierra # do not have a sierra box to test formula with
   depends_on "boost"
+  depends_on macos: :high_sierra # do not have a sierra box to test formula with
   depends_on "open-mpi"
   depends_on "openblas"
   depends_on "pkg-config"
   depends_on "boost-python3"
   depends_on "python@3.9"
-  depends_on "vtk@8.2"
   depends_on "qt"
-  depends_on "webp"
+  depends_on "vtk@8.2"
   depends_on "opencascade"
   depends_on "orocos-kdl"
   depends_on "freecad/freecad/coin"
@@ -48,6 +47,7 @@ class FreecadDev < Formula
   depends_on "freecad/freecad/pyside2-tools"
   depends_on "FreeCAD/freecad/pivy"
   depends_on "freecad/freecad/matplotlib"
+  depends_on "webp"
   depends_on "xerces-c"
 
   if build.with?("packaging-utils")
@@ -59,7 +59,7 @@ class FreecadDev < Formula
     if build.with?("packaging-utils")
       system "node", "install", "-g", "app_dmg"
     end
-    unless (!File.exist?("/usr/local/lib/python3.9/site-packages/six.py"))
+    if (!File.exist?("/usr/local/lib/python3.9/site-packages/six.py"))
       system "pip3", "install", "six"
     end
     if build.with?("cloud")
@@ -86,19 +86,19 @@ class FreecadDev < Formula
     # -DBUILD_ENABLE_CXX_STD='C++11'
 
     args = %W[
-    -Wno-dev
-    -Wno-deprecated-declarations
-    -DBUILD_ENABLE_CXX_STD='C++17'
-    -DBUILD_QT5=ON
-    -DUSE_PYTHON3=1
-    -DBUILD_FEM_NETGEN=1
-    -DBUILD_FEM_NETGEN:BOOL=ON
-    -DBUILD_FEM=1
-    -DBUILD_TECHDRAW=0
-    -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources;
-    -DFREECAD_USE_EXTERNAL_KDL=ON
-    -DFREECAD_CREATE_MAC_APP=OFF
-    -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
+      -Wno-dev
+      -Wno-deprecated-declarations
+      -DBUILD_ENABLE_CXX_STD='C++17'
+      -DBUILD_QT5=ON
+      -DUSE_PYTHON3=1
+      -DBUILD_FEM_NETGEN=1
+      -DBUILD_FEM_NETGEN:BOOL=ON
+      -DBUILD_FEM=1
+      -DBUILD_TECHDRAW=0
+      -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources;
+      -DFREECAD_USE_EXTERNAL_KDL=ON
+      -DFREECAD_CREATE_MAC_APP=OFF
+      -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
     ]
 
     mkdir "Build" do
@@ -123,7 +123,7 @@ class FreecadDev < Formula
     end
   end
 
-  def caveats;
+  def caveats
     <<-EOS
     After installing FreeCAD you may want to do the following:
 
