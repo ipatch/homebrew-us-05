@@ -70,22 +70,25 @@ class FreecadDev < Formula
     end
     # args << '-DCMAKE_PREFIX_PATH="' + Formula["qt"].opt_prefix + "/lib/cmake;" + Formula["nglib"].opt_prefix + "/Contents/Resources;" + Formula["vtk@8.2"].opt_prefix + "/lib/cmake;"
 
-    # NOTE: use the latest clang compilers from brew, not Xcode
+    # NOTE: use the latest clang compilers from brew, not Xcode if macOS 10.13, or 10.14
     ENV["CC"] = Formula["llvm"].opt_bin/"clang"
     ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
 
-    # NOTE: Xcode 10.2 will not work with high sierra
+    # NOTE: freecad will not build using Xcode 10.2 on high sierra
     #
     # ENV["CC"] = '/Applications/Xcode.10.2.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
     # ENV["CXX"] = '/Applications/Xcode.10.2.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
     
-    # TODO; TEST 'C++14' with high sierra
+    # TODO: TEST 'C++14' with high sierra
+    # TODO: fix installation path 
+    #
+    # TODO: make condition for high sierra
+    # -DBUILD_ENABLE_CXX_STD='C++11'
 
-    args_travis = std_cmake_args
-    args_travis = %W[
+    args = %W[
     -Wno-dev
     -Wno-deprecated-declarations
-    -DBUILD_ENABLE_CXX_STD='C++11'
+    -DBUILD_ENABLE_CXX_STD='C++17'
     -DBUILD_QT5=ON
     -DUSE_PYTHON3=1
     -DBUILD_FEM_NETGEN=1
@@ -101,20 +104,22 @@ class FreecadDev < Formula
     mkdir "Build" do
       if build.with?("ninja")
         system "cmake", "-G", "Ninja", *args_travis, ".."
+
+        # TODO: test below make cmd, with `--build` and `.`
         system "make", "-j#{ENV.make_jobs}", "--build", "."
         system "make", "--install", "."
       else
-        system "cmake", *args_travis, ".."
+        system "cmake", "." *std_cmake_args, *args 
 
-        system "make", "-j#{ENV.make_jobs}", "--build", "."
-        system "make", "--install", "."
-
-        # system "make", "-j#{ENV.make_jobs}"
-        # system "make"
+        # NOTE: standard `make install` will fail on 10.14, err, `/usr/local/MacOS/PySide
+        # system "make", "--install", "."
+        # system "make", "install"
+        system "make", "-j#{ENV.make_jobs}"
+        system "make", "install"
       end
-      bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
-      bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
-      (lib/"python3.9/site-packages/homebrew-freecad-bundle.pth").write "#{prefix}/MacOS/\n"
+      # bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
+      # bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
+      # (lib/"python3.9/site-packages/homebrew-freecad-bundle.pth").write "#{prefix}/MacOS/\n"
     end
   end
 
@@ -126,14 +131,14 @@ class FreecadDev < Formula
          export PYTHONPATH=#{bin}:$PYTHONPATH
     EOS
   end
-  def post_install
-    if (!File.exist?('/usr/local/lib/python3.9/site-packages/six.py'))
-      system "pip3", "install", "six"
-    end
-    bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
-    bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
-    if (!File.exist?('/usr/local/Cellar/freecad/0.19pre/lib/python3.9/site-packages/homebrew-freecad-bundle.pth'))
-     (lib/"python3.9/site-packages/homebrew-freecad-bundle.pth").write "#{prefix}/MacOS/\n"
-    end
-  end
+  # def post_install
+  #   if (!File.exist?('/usr/local/lib/python3.9/site-packages/six.py'))
+  #     system "pip3", "install", "six"
+  #   end
+  #   bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
+  #   bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
+  #   if (!File.exist?('/usr/local/Cellar/freecad/0.19pre/lib/python3.9/site-packages/homebrew-freecad-bundle.pth'))
+  #    (lib/"python3.9/site-packages/homebrew-freecad-bundle.pth").write "#{prefix}/MacOS/\n"
+  #   end
+  # end
 end

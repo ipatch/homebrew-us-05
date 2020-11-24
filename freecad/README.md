@@ -54,6 +54,18 @@ Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of
 
 <a id="freecad-building-better-ui-ux"></a>
 
+_nov 24, 2020_
+
+VLC is an app that uses QT for it's gui, and once use QT widgets, but has migrated some of the ui elements to qml using QT Quick. [there was][2vlc] a GSoC (google summer of code) 2019 about updating the UI for desktop instances of VLC
+
+- [vlc src mirror **github** gui dir][1vlc]
+
+[1vlc]: <https://github.com/videolan/vlc/tree/master/modules/gui>
+[2vlc]: <https://wiki.videolan.org/SoC_2019/#VLC_Qt_interface_redesign>
+
+
+---
+
 FreeCAD presently relies on QT to manage the GUI, and uses QT widgets, which is an imperative way to declare UI elements within the freecad gui.  QT has released QML in recent years as is a declaritive way to design UIs, similar to how HTML/CSS/JS interact to build web apps. QML is far from perfect, but IMHO it should be used for future UI design / improvements as QT is introducing less and less features the QT widget based system.
 
 My thoughts on upgrading the UI/UX is to simply incorporate QML into the freecad ui, but **do not** try and replace everything at once, ie. keep / use both the widget based system while slowly experimenting with QML, and migrating the easier to understand widgets to QML if at all possible. From my understanding updating a QML file, `.qml` will not require an entire rebuild whereas updating a `.ui` based widget file will trigger an entire rebuild of the app.  Presently it takes ~ 40 minutes on a late 2013 MBP to build the latest FreeCAD. 
