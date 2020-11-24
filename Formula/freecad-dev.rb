@@ -11,7 +11,7 @@ class FreecadDev < Formula
       revision: "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
     version "0.19pre-dev"
   end
-  
+
   bottle do
     root_url "https://dl.bintray.com/vejmarie/freecad"
     sha256 "97a95f3f19632160766730b394f70def97e0df7b33d8806979a0f6abca96105f" => :catalina
@@ -23,19 +23,18 @@ class FreecadDev < Formula
   option "with-unsecured-cloud", "Build with self signed certificate support CLOUD module"
   option "with-ninja", "Build using ninja"
 
-  depends_on macos: :high_sierra # do not have a sierra box to test formula with
   depends_on "cmake" => :build
   depends_on "ccache" => :build
   depends_on "swig" => :build
   depends_on "freetype"
-  depends_on "python@3.9"
+  depends_on macos: :high_sierra # do not have a sierra box to test formula with
   depends_on "boost"
   depends_on "open-mpi"
   depends_on "openblas"
   depends_on "pkg-config"
   depends_on "boost-python3"
+  depends_on "python@3.9"
   depends_on "vtk@8.2"
-  depends_on "xerces-c"
   depends_on "qt"
   depends_on "webp"
   depends_on "opencascade"
@@ -49,6 +48,7 @@ class FreecadDev < Formula
   depends_on "freecad/freecad/pyside2-tools"
   depends_on "FreeCAD/freecad/pivy"
   depends_on "freecad/freecad/matplotlib"
+  depends_on "xerces-c"
 
   if build.with?("packaging-utils")
     depends_on "node"
@@ -59,14 +59,14 @@ class FreecadDev < Formula
     if build.with?("packaging-utils")
       system "node", "install", "-g", "app_dmg"
     end
-    if (!File.exist?('/usr/local/lib/python3.9/site-packages/six.py'))
+    unless (!File.exist?("/usr/local/lib/python3.9/site-packages/six.py"))
       system "pip3", "install", "six"
     end
     if build.with?("cloud")
-     args << "-DBUILD_CLOUD=1"
+      args << "-DBUILD_CLOUD=1"
     end
     if build.with?("unsecured-cloud")
-     args << "-DALLOW_SELF_SIGNED_CERTIFICATE=1"
+      args << "-DALLOW_SELF_SIGNED_CERTIFICATE=1"
     end
     # args << '-DCMAKE_PREFIX_PATH="' + Formula["qt"].opt_prefix + "/lib/cmake;" + Formula["nglib"].opt_prefix + "/Contents/Resources;" + Formula["vtk@8.2"].opt_prefix + "/lib/cmake;"
 
@@ -78,7 +78,7 @@ class FreecadDev < Formula
     #
     # ENV["CC"] = '/Applications/Xcode.10.2.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
     # ENV["CXX"] = '/Applications/Xcode.10.2.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
-    
+
     # TODO: TEST 'C++14' with high sierra
     # TODO: fix installation path 
     #
@@ -109,7 +109,7 @@ class FreecadDev < Formula
         system "make", "-j#{ENV.make_jobs}", "--build", "."
         system "make", "--install", "."
       else
-        system "cmake", "." *std_cmake_args, *args 
+        system "cmake", "." *std_cmake_args, *args
 
         # NOTE: standard `make install` will fail on 10.14, err, `/usr/local/MacOS/PySide
         # system "make", "--install", "."
@@ -123,7 +123,8 @@ class FreecadDev < Formula
     end
   end
 
-  def caveats; <<-EOS
+  def caveats;
+    <<-EOS
     After installing FreeCAD you may want to do the following:
 
     1. Amend your PYTHONPATH environmental variable to point to
