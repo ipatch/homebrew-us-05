@@ -28,7 +28,7 @@ class FreecadDev < Formula
   depends_on "cmake" => :build
   depends_on "swig" => :build
   depends_on "freetype"
-  depends_on macos: :high_sierra # no sierra box to test
+  depends_on macos: :high_sierra # no access to sierra test box
   depends_on "open-mpi"
   depends_on "openblas"
   depends_on "pkg-config"
@@ -55,24 +55,28 @@ class FreecadDev < Formula
     depends_on "jq"
   end
 
+  # TODO: check to see if any other formula ref six this way
   def install
     if (!File.exist?("/usr/local/lib/python3.9/site-packages/six.py"))
       system "pip3", "install", "six"
     end
 
-    # NOTE: latest clang compilers req,Xcode nowork on macOS 10.1{3,4}
-    # ENV["CC"] = Formula["llvm"].opt_bin/"clang"
-    # ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
+    # NOTE: brew clang compilers req, Xcode nowork on macOS 10.1{3,4}
+    ENV["CC"] = Formula["llvm"].opt_bin/"clang"
+    ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
 
     # NOTE: freecad will not build using Xcode 10.2 on high sierra
-    # TODO: fix installation path 
     # TODO: make condition for high sierra
+    # TODO: test C++14 with std xcode and brew clang & clang++
     # -DBUILD_ENABLE_CXX_STD='C++11'
+    # -DBUILD_ENABLE_CXX_STD='C++11'
+    #
+    # TODO: fix installation path 
 
     args = std_cmake_args + %W[
       -Wno-dev
+      -std=c++11
       -Wno-deprecated-declarations
-      -DBUILD_ENABLE_CXX_STD='C++17'
       -DBUILD_QT5=ON
       -DUSE_PYTHON3=1
       -DBUILD_FEM_NETGEN=1
@@ -89,9 +93,7 @@ class FreecadDev < Formula
     args << "-DALLOW_SELF_SIGNED_CERTIFICATE=1" if build.with? "unsecured-cloud"
     args << "-DBUILD_CLOUD=1" if build.with? "cloud"
 
-    if build.with?("packaging-utils")
-      system "node", "install", "-g", "app_dmg"
-    end
+    system "node", "install", "-g", "app_dmg" if build.with? "packaging-utils"
 
     mkdir "Build" do
       if build.with?("ninja")
@@ -104,7 +106,6 @@ class FreecadDev < Formula
         system "cmake", *args, ".."
 
         # NOTE: standard `make install` will fail on 10.14, err, `/usr/local/MacOS/PySide
-        # system "make", "--install", "."
         # system "make", "install"
         system "make", "-j#{ENV.make_jobs}"
         system "make", "install"
