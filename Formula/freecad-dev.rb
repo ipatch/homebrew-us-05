@@ -74,7 +74,7 @@ class FreecadDev < Formula
 
     args = std_cmake_args + %W[
       -Wno-dev
-      -std=c++11
+      -std=c++14
       -Wno-deprecated-declarations
       -DBUILD_QT5=ON
       -DUSE_PYTHON3=1
