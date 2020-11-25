@@ -23,29 +23,29 @@ class FreecadDev < Formula
   option "with-unsecured-cloud", "Build with self signed certificate support CLOUD module"
   option "with-ninja", "Build using ninja"
 
-  depends_on "boost"
   depends_on "ccache" => :build
   depends_on "cmake" => :build
   depends_on "swig" => :build
+  depends_on "boost"
+  depends_on "boost-python3"
+  depends_on "freecad/freecad/coin"
+  depends_on "freecad/freecad/matplotlib"
+  depends_on "freecad/freecad/med-file"
+  depends_on "freecad/freecad/nglib"
+  depends_on "freecad/freecad/opencamlib"
+  depends_on "freecad/freecad/pivy"
+  depends_on "freecad/freecad/pyside2"
+  depends_on "freecad/freecad/pyside2-tools"
+  depends_on "freecad/freecad/shiboken2"
   depends_on "freetype"
   depends_on macos: :high_sierra # no access to sierra test box
   depends_on "open-mpi"
   depends_on "openblas"
-  depends_on "pkg-config"
-  depends_on "boost-python3"
   depends_on "opencascade"
   depends_on "orocos-kdl"
+  depends_on "pkg-config"
   depends_on "python@3.9"
   depends_on "qt"
-  depends_on "freecad/freecad/coin"
-  depends_on "freecad/freecad/nglib"
-  depends_on "freecad/freecad/matplotlib"
-  depends_on "freecad/freecad/med-file"
-  depends_on "freecad/freecad/opencamlib"
-  depends_on "FreeCAD/freecad/pivy"
-  depends_on "freecad/freecad/pyside2"
-  depends_on "freecad/freecad/pyside2-tools"
-  depends_on "freecad/freecad/shiboken2"
   depends_on "vtk@8.2"
   depends_on "webp"
   depends_on "xerces-c"
@@ -57,7 +57,7 @@ class FreecadDev < Formula
 
   # TODO: check to see if any other formula ref six this way
   def install
-    if (!File.exist?("/usr/local/lib/python3.9/site-packages/six.py"))
+    if !File.exist? "/usr/local/lib/python3.9/site-packages/six.py"
       system "pip3", "install", "six"
     end
 
@@ -71,7 +71,7 @@ class FreecadDev < Formula
     # -DBUILD_ENABLE_CXX_STD='C++11'
     # -DBUILD_ENABLE_CXX_STD='C++11'
     #
-    # TODO: fix installation path 
+    # TODO: fix installation path
 
     args = std_cmake_args + %W[
       -Wno-dev
