@@ -109,8 +109,8 @@ class FreecadDev < Formula
         system "make", "-j#{ENV.make_jobs}"
         system "make", "install"
       end
-      # bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
-      # bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
+      bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
+      bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
       # (lib/"python3.9/site-packages/homebrew-freecad-bundle.pth").write "#{prefix}/MacOS/\n"
     end
   end
