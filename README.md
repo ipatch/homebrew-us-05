@@ -258,7 +258,8 @@ apparently explicitly setting `CC` and `CXX` env vars with `.cmake` files can le
 
 <a id="todos"></a>
 
-- [] [review git repo for developing homebrew bottle][todo1]
+- [ ] **update homepage URLs for certain freecad dependencies**, _pivy bb URL,_
+- [ ] [review git repo for developing homebrew bottle][todo1]
 - [ ] experiment with [brew.vim](https://github.com/xu-cheng/brew.vim) sytnax & filetype files
 
 [todo1]: <https://github.com/ladislas/homebrew-greetings>
