@@ -186,15 +186,15 @@ brew cask uninstall {{cask_file}}
 
 <a id="development-freecad"></a>
 
-to see notes pertaining to updating/adding QML + qt quick to to freecad ui/ux, [learn more][freecadux1]
+to see notes about adding QML & qt quick to to freecad ui/ux, [learn more][freecadux1]
 
 [freecadux1]: <https://github.com/ipatch/homebrew-us-05/tree/dev/freecad#freecad-building-better-ui-ux>
 
 **TL;DR** 
 
-i was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum][mythread], and ran into some issues with incrementing the build revisison which i later found out is related to shallow clones. at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if they could be the culpret on why current brew builds are failing.
+I was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum][mythread], and ran into some issues with incrementing the build revisison which i later found out is related to shallow clones. at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if the upgrade is the culpret for my failing brew builds.
 
-and i have been unsucessful in building freecad on high sierra using the git source and not using a formula file to build, but still using dependencies on mac homebrew.
+And i have been unsucessful in building freecad on high sierra using the git source and not using a formula file to build, but still using mac homebrew dependencies.
 
 [mythread]: <https://forum.freecadweb.org/viewtopic.php?f=4&t=51981>
 
@@ -208,16 +208,13 @@ to show a list of configuration settings
 cd ./build; cmake -L ..
 ```
 
-apparently explicitly setting `CC` and `CXX` env vars with `.cmake` files can lead to [complications][so1], the preferred way to set a specific `CC` & `CXX` compiler is to use env vars `export CC=/path/to/c-compiler` before running `cd ./build; cmake ..`
-
-<!-- insert inline markdown links below -->
+apparently explicitly setting `CC` and `CXX` env vars in `.cmake` files can lead to [complications][so1], the preferred way to set a specific `CC` & `CXX` compiler is to use env vars `export CC=/path/to/c-compiler` before running `cd ./build; cmake ..`
 
 [so1]: <https://stackoverflow.com/a/17275650/708807>
 
-
 ### development / freecad / **non** formula build & install
 
-- cmake args **incomplete**, args have **not** been fully tested
+- 🚨 **incomplete** cmake args have **not** been fully tested
 
 ```shell
 -Wno-dev 
@@ -242,19 +239,24 @@ apparently explicitly setting `CC` and `CXX` env vars with `.cmake` files can le
 -DCMAKE_BUILD_TYPE=Release 
 ```
 
-
 ## /devolpment/References
 
 <!-- fwr this heading is rendering as an h4 element on the github -->
 
 <a id="references"></a>
 
-- [**stackoverflow** / git checkout a specific commit for a formula](https://stackoverflow.com/a/4158763/708807)
-- [**docs.brew.sh** / formual cookbook](https://docs.brew.sh/Formula-Cookbook)
-- [**GitHub** / Homebrew Formula Cookbook](https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md)
-- [**github** / homebrew-tiny-scripts **tap**](https://github.com/vitorgalvao/homebrew-tiny-scripts)
+- [**stackoverflow** / git checkout a specific commit for a formula][ref1]
+- [**docs.brew.sh** / formual cookbook][ref2]
+- [**GitHub** / Homebrew Formula Cookbook][ref3]
+- [**github** / homebrew-tiny-scripts **tap**][ref4]
   > within the above repo there is a shell script, `cask-repair` that should do the bulk of the work updating a cask that is often updated frequently, as opposed to manually editing the cask file
-- [**github** / repo for actual tiny scripts **NOT** the tap repo](https://github.com/vitorgalvao/tiny-scripts)
+- [**github** / repo for actual tiny scripts **NOT** the tap repo][ref5]
+
+[ref1]: <https://stackoverflow.com/a/4158763/708807>
+[ref2]: <https://docs.brew.sh/Formula-Cookbook>
+[ref3]: <https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md>
+[ref4]: <https://github.com/vitorgalvao/homebrew-tiny-scripts>
+[ref5]: <https://github.com/vitorgalvao/tiny-scripts>
 
 ## TODOs
 
