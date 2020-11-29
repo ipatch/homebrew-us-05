@@ -5,7 +5,7 @@ class FreecadDev < Formula
   head "https://github.com/freecad/FreeCAD.git", branch: "master", shallow: false
 
   stable do
-    # a tested commit that builds on macos high sierra
+    # a tested commit that builds on macos high sierra 10.13
     url "https://github.com/freecad/freecad.git",
       revision: "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
     version "0.19pre-dev"
@@ -91,6 +91,7 @@ class FreecadDev < Formula
 
     args << "-DALLOW_SELF_SIGNED_CERTIFICATE=1" if build.with? "unsecured-cloud"
     args << "-DBUILD_CLOUD=1" if build.with? "cloud"
+    args << "-DCMAKE_INSTALL_PREFIX=#{prefix}/debug" if build.with? "debug"
 
     system "node", "install", "-g", "app_dmg" if build.with? "packaging-utils"
 
