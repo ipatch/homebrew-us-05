@@ -61,16 +61,15 @@ class FreecadDev < Formula
     end
 
     # NOTE: brew clang compilers req, Xcode nowork on macOS 10.13 or 10.14
-    ENV["CC"] = Formula["llvm"].opt_bin/"clang"
-    ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
+    if MacOS.version <= :mojave
+      ENV["CC"] = Formula["llvm"].opt_bin/"clang"
+      ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
+    end
 
     # NOTE: freecad will not build using Xcode 10.2 on high sierra
-    # TODO: make condition for high sierra
     # TODO: test C++14 with std xcode and brew clang & clang++
     # -DBUILD_ENABLE_CXX_STD='C++11'
     # -DBUILD_ENABLE_CXX_STD='C++11'
-    #
-    # TODO: fix installation path
 
     args = std_cmake_args + %W[
       -Wno-dev
