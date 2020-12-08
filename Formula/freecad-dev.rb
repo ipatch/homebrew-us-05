@@ -60,7 +60,7 @@ class FreecadDev < Formula
       system "pip3", "install", "six"
     end
 
-    # NOTE: brew clang compilers req, Xcode nowork on macOS 10.1{3,4}
+    # NOTE: brew clang compilers req, Xcode nowork on macOS 10.13 or 10.14
     ENV["CC"] = Formula["llvm"].opt_bin/"clang"
     ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
 
