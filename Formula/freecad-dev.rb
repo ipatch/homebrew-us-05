@@ -5,7 +5,7 @@ class FreecadDev < Formula
   head "https://github.com/freecad/FreeCAD.git", branch: "master", shallow: false
 
   stable do
-    # a tested commit that builds on macos high sierra 10.13
+    # a tested commit that builds on macos high sierra 10.13 & mojave 10.14
     url "https://github.com/freecad/freecad.git",
       revision: "f35d30bc58cc2000754d4f30cf29d063416cfb9e"
     version "0.19pre-dev"
