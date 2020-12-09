@@ -1,4 +1,4 @@
-class Coin < Formula
+class CoinDev < Formula
   desc "Retained-mode toolkit for 3D graphics development"
   homepage "https://bitbucket.org/Coin3D/coin/wiki/Home"
   url "https://github.com/coin3d/coin", :using => :git, :tag => "Coin-4.0.0", shallow: false
