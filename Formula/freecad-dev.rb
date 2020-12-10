@@ -77,6 +77,7 @@ class FreecadDev < Formula
       -Wno-deprecated-declarations
       -DBUILD_QT5=ON
       -DUSE_PYTHON3=1
+      -DPYTHON_EXECUTABLE=/usr/local/bin/python3
       -DBUILD_FEM_NETGEN=1
       -DBUILD_FEM_NETGEN:BOOL=ON
       -DBUILD_FEM=1
