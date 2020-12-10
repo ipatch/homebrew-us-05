@@ -61,10 +61,10 @@ class FreecadDev < Formula
     end
 
     # NOTE: brew clang compilers req, Xcode nowork on macOS 10.13 or 10.14
-    if MacOS.version <= :mojave
+    # if MacOS.version <= :mojave
       ENV["CC"] = Formula["llvm"].opt_bin/"clang"
       ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
-    end
+    # end
 
     # NOTE: freecad will not build using Xcode 10.2 on high sierra
     # TODO: test C++14 with std xcode and brew clang & clang++
