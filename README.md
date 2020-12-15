@@ -146,12 +146,12 @@ When working with formula locally for debugging purposes specify a path to a loc
 brew [re]install /path/to/some/local_formula.rb
 ```
 
-- 💡 set the following **$HOMEBREW_NO_AUTO_UPDATE** env var will prevent mac homebrew from auto updating everytime a `brew install` cmd is run, thus greatly speeding up the process of local formula development.
-
+> 💡 set the following **$HOMEBREW_NO_AUTO_UPDATE** env var will prevent mac homebrew from auto updating everytime a `brew install` cmd is run, thus greatly speeding up the process of local formula development.
+>
 > ❗️`brew reinstall` is problematic a majority of the time, so when experimenting with local formula when developing use **brew install** /path/to/formula.rb
-
+>
 > 🚨 recently i've had difficulty installing a formula that has a similar name with that of a formula from a installed tap, ie. installing `freecad.rb` locally was resulting in conflicts of sorts, so created a unique name, ie. `freecad-dev.rb` and am able to install  & test formula file locally without have to go through the git add, commit, push brew update, brew install routine.  the above mentioned brew cmd is all that is required
-
+>
 > 🚨 if there are any sytnax errors within the formula file the brew cmd will fail with a shitty error message, ie. not letting the user know the formula file contains a error mesage but rather brew complains it cannot find the specified formula.
 
 ### Development / cask
