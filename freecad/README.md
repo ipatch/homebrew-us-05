@@ -32,8 +32,8 @@
 - [ ] **BUG** _possibly_, open a document, the view hotkeys appear to work in the **part design** workbench but when switching to the **part** workbench they appear to **not** work
 - [ ] **gripe** pasting a sketch from one _body_ to a different _body_ does **not** place the sketch within the selected _body_
 - [ ] **Question** does freecad have a quick way to convert / display mm to inches
-- **techdraw** workbench, ❗️ _no default template found_
-  - **Answer** more than likely the path to svg graphics that comprise the templates has been altered or the **FreeCAD.app** in not within the default **/Applications/** directory so just create a symlink to work around this.
+- [x] **techdraw** workbench, ❗️ _no default template found_
+  - ✅ **Answer** more than likely the path to svg graphics that comprise the templates has been altered or the **FreeCAD.app** is not within the default `/Applications/` directory create a symlink to resolve.
 
 ## Compare Contrast FreeCAD with fusion 360
 
@@ -56,7 +56,7 @@ Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of
 
 _nov 24, 2020_
 
-VLC is an app that uses QT for it's gui, and once use QT widgets, but has migrated some of the ui elements to qml using QT Quick. [there was][2vlc] a GSoC (google summer of code) 2019 about updating the UI for desktop instances of VLC
+VLC is an app that uses QT for it's gui, and once used QT widgets, but has migrated some of the ui elements to qml using QT Quick. [there was][2vlc] a GSoC (google summer of code) 2019 about updating the UI for desktop instances of VLC
 
 - [vlc src mirror **github** gui dir][1vlc]
 
@@ -66,11 +66,11 @@ VLC is an app that uses QT for it's gui, and once use QT widgets, but has migrat
 
 ---
 
-FreeCAD presently relies on QT to manage the GUI, and uses QT widgets, which is an imperative way to declare UI elements within the freecad gui.  QT has released QML in recent years as is a declaritive way to design UIs, similar to how HTML/CSS/JS interact to build web apps. QML is far from perfect, but IMHO it should be used for future UI design / improvements as QT is introducing less and less features the QT widget based system.
+FreeCAD presently relies on QT to manage the GUI, and uses QT widgets, which is an imperative way to declare UI elements within the freecad gui.  QT has released QML in recent years as a declaritive alternative way to design UIs, similar to how HTML/CSS/JS interact to build web apps. QML is far from perfect, but IMHO it should be used for future UI design / improvements as QT is introducing less and less features for the QT widget based system.
 
 My thoughts on upgrading the UI/UX is to simply incorporate QML into the freecad ui, but **do not** try and replace everything at once, ie. keep / use both the widget based system while slowly experimenting with QML, and migrating the easier to understand widgets to QML if at all possible. From my understanding updating a QML file, `.qml` will not require an entire rebuild whereas updating a `.ui` based widget file will trigger an entire rebuild of the app.  Presently it takes ~ 40 minutes on a late 2013 MBP to build the latest FreeCAD. 
 
-A demo of what a QML based freecad UI can be found [youtube](https://www.youtube.com/watch?v=wrOP7sLqwiM) the QML experimental ui was designed around QT 4.x and not QT 5.x There is also rather lengthy discussion on the freecad forums about adopting / integrating a QML based UI [here](https://forum.freecadweb.org/viewtopic.php?f=34&t=23053)
+A demo of what a QML based freecad UI can be found on [youtube](https://www.youtube.com/watch?v=wrOP7sLqwiM), the QML experimental ui was designed around QT 4.x and not QT 5.x There is also rather lengthy discussion on the freecad forums about adopting / integrating a QML based UI [here](https://forum.freecadweb.org/viewtopic.php?f=34&t=23053)
 
 There is a rather old (qt 4.8) doc about integrating a QML based ui within an existing widget based ui. [here][1]
 
@@ -238,12 +238,12 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 - [ ] be able to reaarange groups within the model stack.
 - [ ] generate a _gitdiff_ for the medfile project, I was able to get med-file to compile after changes several source files to use the updated API provided by HD5F
 - [ ] build freecad using brew infrastructure
-- [ ] see if _ninja_ can speed up the build process
+- [x] see if _ninja_ can speed up the build process
+  - ✅ **quicker build times are negligible, ie. ~ 5 minutes or less**
 - [ ] see if i can build and link against **qt 5.15** _provides support for client side window decorators_
 - [ ] try and build the _development_ version of _freecad_
 - [ ] see if it's even possible to adjust the titlebar, and possibly conjure up a client side window decorator scheme for _fc_ ADDLINK
 - [ ] _remember what it was i was trying to model in freecad before i got distracted._
-
 
 ### TODOs / possible improvments / gripes
 
@@ -255,7 +255,7 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 - [ ] possible to collapse / expand groups of toolbar icons within a toolbar for a workbench?
 - [ ] **Q** why is there a _move_ & _rotate_ gimble within the _transform_ context, but not a scale, from watching [this video](https://www.youtube.com/watch?v=ZxR_LnM0S1s) the author, Mark uses the _placement_ property within the _combo view_.
 - [ ] possible to have _vim_ style key bindings for moving up down the _model hiearchy_ ie. <kbd>j</kbd> down & and <kbd>k</kbd> up.
-- [ ] would much prefer to see a transform gizmo similar if not exactly the same as the one rendered in prusa slicer.
+- [ ] would much prefer to see a transform gizmo similar to, if not exactly the same as the one used within prusa slicer.
 - [ ] should be able to create a _new_ group from a selection of bodies, instead of RMB on the document name then click _create group_ and have the focus in the _combo box_ change to the name of the group, for easier initial naming of the group.
 - [ ] when switching from the draft workbench back to the part design workbench the **combo view** always defaults to the **tasks** tab, and i'd much prefer to default to the **model** tab 
 - [ ] when using a keybinding such as <kbd>v</kbd> followed by <kbd>1</kbd> or <kbd>3</kbd> display a modal menu around mouse letting the user know what types of views can be selected, ie. solid shaded, wireframe, etc etc, while the <kbd>v</kbd> key is being held down.  If the key is let go then allow for traditional switching of the views.

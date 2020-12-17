@@ -194,9 +194,11 @@ to see notes about adding QML & qt quick to to freecad ui/ux, [learn more][freec
 
 **TL;DR** 
 
-I was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum][mythread], and ran into some issues with incrementing the build revisison which i later found out is related to shallow clones. at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if the upgrade is the culpret for my failing brew builds.
+> the **freecad-dev** formula file successfully installs on my local 10.14 mojave box
 
-And i have been unsucessful in building freecad on high sierra using the git source and not using a formula file to build, but still using mac homebrew dependencies.
+I was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum][mythread], and ran into some issues with incrementing the build revisison which i later found out is related to shallow clones. ~~at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if the upgrade is the culpret for my failing brew builds.~~
+
+And i have been unsucessful in building freecad on high sierra using the git source without using the formula file, but still using mac homebrew dependencies.
 
 [mythread]: <https://forum.freecadweb.org/viewtopic.php?f=4&t=51981>
 
