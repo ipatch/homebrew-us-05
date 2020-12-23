@@ -216,11 +216,18 @@ to see notes about adding QML & qt quick to to freecad ui/ux, [learn more][freec
 
 > the **freecad-dev** formula file successfully installs on my local 10.14 mojave box
 
-I was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum][mythread], and ran into some issues with incrementing the build revisison which i later found out is related to shallow clones. ~~at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if the upgrade is the culpret for my failing brew builds.~~
+I was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum][mythread], and ran into some issues with incrementing the _build revisison number_ which i later found out is related to shallow clones. ~~at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if the upgrade is the culpret for my failing brew builds.~~
 
 And i have been unsucessful in building freecad on high sierra using the git source without using the formula file, but still using mac homebrew dependencies.
 
 [mythread]: <https://forum.freecadweb.org/viewtopic.php?f=4&t=51981>
+
+#### development / freecad / troubleshooting
+
+recently i've run into the below issue when launching freecad [**issue**][myfcgist.issue.pyside] where i can use / switch to a workbench such as the draft workbench.  The output seems to be related to **pyside**, and note there are multiple brew packages related to **pyside**, there's an official **pyside** pkg, and then the official freecad brew tap has two other pyside pkgs that freecad depends on.  It appears the _shiboken2_ directly relates to the **pyside** pkg as well, FWIW.
+
+
+[myfcgist.issue.pyside]: <https://gist.github.com/ipatch/6116824ab1f2a99b526cb07e43317b91#gistcomment-3571401>
 
 #### cmake related
 
@@ -265,7 +272,7 @@ apparently explicitly setting `CC` and `CXX` env vars in `.cmake` files can lead
 
 ## /devolpment/References
 
-<!-- fwr this heading is rendering as an h4 element on the github -->
+<!-- FWR (for whatever reason) this heading is rendering as an h4 element on the github -->
 
 <a id="references"></a>
 
