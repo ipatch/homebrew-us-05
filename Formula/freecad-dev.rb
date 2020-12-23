@@ -75,6 +75,8 @@ class FreecadDev < Formula
     args = std_cmake_args + %W[
       -Wno-dev
       -std=c++14
+      -DCMAKE_CXX_STANDARD=14
+      -DBUILD_ENABLE_CXX_STD:STRING=C++14
       -Wno-deprecated-declarations
       -DBUILD_QT5=ON
       -DUSE_PYTHON3=1
@@ -83,12 +85,13 @@ class FreecadDev < Formula
       -DBUILD_FEM_NETGEN:BOOL=ON
       -DBUILD_FEM=1
       -DBUILD_TECHDRAW=0
-      -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources;
       -DFREECAD_USE_EXTERNAL_KDL=ON
       -DFREECAD_CREATE_MAC_APP=OFF
       -DCMAKE_INSTALL_PREFIX=#{prefix}
       -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
     ]
+
+    args << '-DCMAKE_PREFIX_PATH="' + Formula["qt"].opt_prefix + "/lib/cmake;" + Formula["nglib"].opt_prefix + "/Contents/Resources;" + Formula["vtk@8.2"].opt_prefix + "/lib/cmake;"
 
     args << "-DALLOW_SELF_SIGNED_CERTIFICATE=1" if build.with? "unsecured-cloud"
     args << "-DBUILD_CLOUD=1" if build.with? "cloud"
@@ -113,7 +116,8 @@ class FreecadDev < Formula
 
         # NOTE: standard `make install` will fail on 10.14, err, `/usr/local/MacOS/PySide
         # system "make", "install"
-        system "make", "-j#{ENV.make_jobs}"
+        # system "make",
+        # system "make", "-j#{ENV.make_jobs}"
         system "make", "install"
       end
       bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"

@@ -246,6 +246,10 @@ recently i've run into the below issue when launching freecad [**issue**][myfcgi
 
 [myfcgist.issue.pyside]: <https://gist.github.com/ipatch/6116824ab1f2a99b526cb07e43317b91#gistcomment-3571401>
 
+##### solution, pyside issue with importing deps
+
+long story short, i've been running into issues launching freecad from an arbitrary directory, ie. running `FreeCAD` from within my `$HOME` dir and the above issuses will be printed out to the terminal. i believe this issue is related to the way FreeCAD is setting up it's `PATH`. so in the interm launch `FreeCAD` within `/usr/local/opt/freecad/bin`
+
 #### cmake related
 
 <a id="cmake-related"></a>
