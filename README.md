@@ -146,13 +146,13 @@ When working with formula locally for debugging purposes specify a path to a loc
 brew [re]install /path/to/some/local_formula.rb
 ```
 
-- 💡 set the following **$HOMEBREW_NO_AUTO_UPDATE** env var will prevent mac homebrew from auto updating everytime a `brew install` cmd is run, thus greatly speeding up the process of local formula development.
-
-> ❗️`brew reinstall` is problematic a majority of the time, so when experimenting with local formula when developing use **brew install** /path/to/formula.rb
-
-> 🚨 recently i've had difficulty installing a formula that has a similar name with that of a formula from a installed tap, ie. installing `freecad.rb` locally was resulting in conflicts of sorts, so created a unique name, ie. `freecad-dev.rb` and am able to install  & test formula file locally without have to go through the git add, commit, push brew update, brew install routine.  the above mentioned brew cmd is all that is required
-
-> 🚨 if there are any sytnax errors within the formula file the brew cmd will fail with a shitty error message, ie. not letting the user know the formula file contains a error mesage but rather brew complains it cannot find the specified formula.
+> 💡 set the following env var **$HOMEBREW_NO_AUTO_UPDATE** to **1** preventing mac homebrew from auto updating everytime a `brew install` cmd is run, thus greatly speeding up the process of local formula development.
+>
+> ❗️`brew reinstall` is problematic a majority of the time, so when experimenting with local formula when developing use `brew install [/path/to/formula.rb]`
+>
+> 🚨 recently i've had difficulty installing a formula that has a similar name with that of a formula from a installed tap, ie. installing `freecad.rb` locally was resulting in conflicts of sorts, so created a unique name, ie. `freecad-dev.rb` and am able to install  & test formula file locally without doing the, _git add, commit, push brew update, brew install routine_.  the above mentioned _brew [re]install_ cmd is all that is required
+>
+> 🚨 if there are any sytnax errors within the formula file the brew cmd will fail with a shitty error message, ie. not letting the user (developer) know the formula file contains a error mesage (more than likely a _syntax error_) but rather complains it cannot find the specified formula.
 
 ### Development / cask
 
@@ -161,7 +161,7 @@ brew [re]install /path/to/some/local_formula.rb
 - development of cask(s) formula files will live within, `/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask`, path may vary depending upon how homebrew is installed and the current OS that homebrew is running on.
 - development of cask(s) formula files that represent app bundles that are considered development, beta, or unstable releases live within `/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask-versions`
 
-Before submitting a PR for a cask run through the below check
+Before submitting a PR for a cask _upstream_ run through the below check
 
 ```shell
 brew cask audit --download {{cask_file}}
@@ -170,9 +170,11 @@ brew cask (re)install {{cask_file}}
 brew cask uninstall {{cask_file}}
 ```
 
-- [github.com ## Getting set up to contribute](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#getting-set-up-to-contribute)
-- [homebrew-cask / docs / adding_a_cask.md](https://github.com/Homebrew/homebrew-cask/blob/master/doc/development/adding_a_cask.md)
+- [github.com ## Getting set up to contribute][cl1]
+- [homebrew-cask / docs / adding_a_cask.md][cl2]
 
+[cl1]: <https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#getting-set-up-to-contribute>
+[cl2]: <https://github.com/Homebrew/homebrew-cask/blob/master/doc/development/adding_a_cask.md>
 
 #### Development / cask / freecad
 
@@ -192,9 +194,11 @@ to see notes about adding QML & qt quick to to freecad ui/ux, [learn more][freec
 
 **TL;DR** 
 
-I was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum][mythread], and ran into some issues with incrementing the build revisison which i later found out is related to shallow clones. at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if the upgrade is the culpret for my failing brew builds.
+> the **freecad-dev** formula file successfully installs on my local 10.14 mojave box
 
-And i have been unsucessful in building freecad on high sierra using the git source and not using a formula file to build, but still using mac homebrew dependencies.
+I was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum][mythread], and ran into some issues with incrementing the build revisison which i later found out is related to shallow clones. ~~at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if the upgrade is the culpret for my failing brew builds.~~
+
+And i have been unsucessful in building freecad on high sierra using the git source without using the formula file, but still using mac homebrew dependencies.
 
 [mythread]: <https://forum.freecadweb.org/viewtopic.php?f=4&t=51981>
 

@@ -17,6 +17,7 @@ class FreecadDev < Formula
   end
 
   option "with-debug", "Enable debug build"
+  option "with-macos-app", "Build MacOS App bundle"
   option "with-packaging-utils", "install packaging dependencies"
   option "with-cloud", "Build with CLOUD module"
   option "with-unsecured-cloud", "Build with self signed certificate support CLOUD module"
@@ -93,7 +94,12 @@ class FreecadDev < Formula
     args << "-DBUILD_CLOUD=1" if build.with? "cloud"
     args << "-DCMAKE_INSTALL_PREFIX=#{prefix}/debug" if build.with? "debug"
 
-    system "node", "install", "-g", "app_dmg" if build.with? "packaging-utils"
+    args << "-DFREECAD_CREATE_MAC_APP=1" if build.with? "macos-app"
+
+    # system "node", "install", "-g", "app_dmg" if build.with? "packaging-utils"
+    if build.with?("packaging-utils")
+      system "node", "install", "-g", "app_dmg"
+    end
 
     mkdir "Build" do
       if build.with?("ninja")
