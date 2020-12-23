@@ -15,6 +15,7 @@
   - [development / casks](#development-casks)
     - [development / cask / freecad](#development-cask-freecad)
   - [development / freecad](#development-freecad)
+  - [development / freecad / tshoot](#development-freecad-troubleshooting)
   - [References](#references)
 - [TODOs](#todos)
 
@@ -222,7 +223,9 @@ And i have been unsucessful in building freecad on high sierra using the git sou
 
 [mythread]: <https://forum.freecadweb.org/viewtopic.php?f=4&t=51981>
 
-#### development / freecad / troubleshooting
+### development / freecad / troubleshooting
+
+<a id="development-freecad-troubleshooting"></a>
 
 recently i've run into the below issue when launching freecad [**issue**][myfcgist.issue.pyside] where i can use / switch to a workbench such as the draft workbench.  The output seems to be related to **pyside**, and note there are multiple brew packages related to **pyside**, there's an official **pyside** pkg, and then the official freecad brew tap has two other pyside pkgs that freecad depends on.  It appears the _shiboken2_ directly relates to the **pyside** pkg as well, FWIW.
 
