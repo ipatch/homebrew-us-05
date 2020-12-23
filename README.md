@@ -5,6 +5,7 @@
 - [Installing a formula](#installing-a-formula)
 - [Working with OpenSSH _from this tap_](#working-with-openssh)
   - [working with openssh / todos](#working-with-openssh-todos)
+- [Working with osxfuse](#working-with-osxfuse)
 - [Working with fuse-ext2](#working-with-fuse-ext2)
 - [Working with QEMU](#working-with-qemu)
 - [Gotchas](#gotchas)
@@ -66,6 +67,25 @@ sudo chmod 600 *_key
 - [ ] change permissions, owner, and group of above mentioned files when installing formula.
 
 > If LibreSSL has been updated from mainline Homebrew, ie. upgrading from v2.7.x to v2.8.x then this version of OpenSSH will need to be reinstalled from this tap.
+
+## Working with osxfuse
+
+<a id="working-with-osxfuse">
+
+The last version of osxfuse that has a completely open source license and is not a prebuilt binary without accompanying source i believe is version 3.8.3, per [this github issue][fl1]
+
+
+I recently reinstalled **osxfuse** so i could have write support for NTFS file systems without having to spin up a virtual machine for write purposes. I created a cask based formula file within this repo to store the last open source version of **osxfuse** as mentioned above.
+
+For getting write support to NTFS file systems after installing `ntfs-3g` using brew, [**reference**][fl2]
+
+```shell
+sudo mv /sbin/mount_ntfs /sbin/mount_ntfs.apl
+sudo ln -s /usr/local/sbin/mount_ntfs /sbin/mount_ntfs
+```
+
+[fl1]: <https://github.com/osxfuse/osxfuse/issues/616>
+[fl2]: <https://medium.com/macoclock/enabling-ntfs-write-in-macos-10-15-catalina-the-open-source-way-a5fd0d1cb32e>
 
 
 ## Working with fuse-ext2
