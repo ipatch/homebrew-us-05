@@ -57,9 +57,9 @@ class FreecadDev < Formula
 
   # TODO: check to see if any other formula ref six this way
   def install
-    if !File.exist? "/usr/local/lib/python3.9/site-packages/six.py"
-      system "pip3", "install", "six"
-    end
+    # if !File.exist? "/usr/local/lib/python3.9/site-packages/six.py"
+    #   system "pip3", "install", "six"
+    # end
 
     # NOTE: brew clang compilers req, Xcode nowork on macOS 10.13 or 10.14
     # if MacOS.version <= :mojave
@@ -80,28 +80,52 @@ class FreecadDev < Formula
       -Wno-deprecated-declarations
       -DBUILD_QT5=ON
       -DUSE_PYTHON3=1
-      -DPYTHON_EXECUTABLE=/usr/local/bin/python3
+      -DPYTHON_EXECUTABLE=#{Formula["python@3.9"].opt_bin}/python3
       -DBUILD_FEM_NETGEN=1
       -DBUILD_FEM_NETGEN:BOOL=ON
       -DBUILD_FEM=1
       -DBUILD_TECHDRAW=0
       -DFREECAD_USE_EXTERNAL_KDL=ON
-      -DFREECAD_CREATE_MAC_APP=OFF
       -DCMAKE_INSTALL_PREFIX=#{prefix}
       -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
+
     ]
+      # -DPYTHON_EXECUTABLE=/usr/local/bin/python3
 
-    args << '-DCMAKE_PREFIX_PATH="' + Formula["qt"].opt_prefix + "/lib/cmake;" + Formula["nglib"].opt_prefix + "/Contents/Resources;" + Formula["vtk@8.2"].opt_prefix + "/lib/cmake;"
+    # TODO: spread argument across multiple lines
+        args << '-DCMAKE_PREFIX_PATH="' + Formula["qt"].opt_prefix + "/lib/cmake;" + Formula["nglib"].opt_prefix + "/Contents/Resources;" + Formula["vtk@8.2"].opt_prefix + "/lib/cmake;"
 
+        # args << '-DCMAKE_PREFIX_PATH="' + Formula["qt"].opt_prefix + "/lib/cmake;" + Formula["nglib"].opt_prefix + "/Contents/Resources;" + Formula["vtk@8.2"].opt_prefix + "/lib/cmake;"
+      
+      # -DCMAKE_PREFIX_PATH= #{Formula["qt"].opt_prefix/lib/cmake};
+        #{Formula["nglib"].opt_prefix/Contents/Resources};
+        #{Formula["vtk@8.2"].opt_prefix/lib/cmake};
+      #-DCMAKE_PREFIX_PATH=#{Formula["qt"].opt_prefix}+/lib/cmake; +
+      #  #{Formula["nglib"].opt_prefix}+"Contents/Resources; +
+      #  #{Formula["vtk@8.2"].opt_prefix}+/lib/cmake;
+
+    # args << "-DCMAKE_PREFIX_PATH = ('#{Formula["qt"].opt_prefix}/lib/cmake;', " \
+    #   "'#{Formula["nglib"].opt_prefix}/Contents/Resources;', " \
+    #   "'#{Formula["vtk@8.2"].opt_prefix}/lib/cmake;')"
+
+    # # "JPEG_ROOT = ('#{Formula["jpeg"].opt_prefix}/lib', " \
+    # #                          "'#{Formula["jpeg"].opt_prefix}/include')"
+    # args << "-DCMAKE_PREFIX_PATH=#{Formula["qt"].opt_prefix}+/lib/cmake;#{Formula["nglib"].opt_prefix}+"/Contents/Resources;" + Formula["vtk@8.2"].opt_prefix + "/lib/cmake;""
+    # -DCMAKE_PREFIX_PATH=#{Formula["qt"].opt_lib}
+    # -DCMAKE_PREFIX_PATH=#{Formula["llvm"].opt_lib}
+
+
+    args << "-DFREECAD_CREATE_MAC_APP=1" if build.with? "macos-app"
     args << "-DALLOW_SELF_SIGNED_CERTIFICATE=1" if build.with? "unsecured-cloud"
     args << "-DBUILD_CLOUD=1" if build.with? "cloud"
     args << "-DCMAKE_INSTALL_PREFIX=#{prefix}/debug" if build.with? "debug"
 
-    args << "-DFREECAD_CREATE_MAC_APP=1" if build.with? "macos-app"
 
+    # TODO: the `packagin-tuils` arg is broken, correct node pkg name `appdmg`
+    # REF: https://github.com/LinusU/node-appdmg
     # system "node", "install", "-g", "app_dmg" if build.with? "packaging-utils"
     if build.with?("packaging-utils")
-      system "node", "install", "-g", "app_dmg"
+      system "npm", "install", "-g", "appdmg"
     end
 
     mkdir "Build" do
@@ -112,17 +136,16 @@ class FreecadDev < Formula
         system "make", "-j#{ENV.make_jobs}", "--build", "."
         system "make", "--install", "."
       else
-        system "cmake", *args, ".."
-
         # NOTE: standard `make install` will fail on 10.14, err, `/usr/local/MacOS/PySide
-        # system "make", "install"
         # system "make",
-        # system "make", "-j#{ENV.make_jobs}"
-        system "make", "install"
+        # system "make", "install"
+        system "cmake", *args, ".."
+        system "make", "-j#{ENV.make_jobs}", "install"
+        # system "make", "install"
       end
       bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
       bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
-      # (lib/"python3.9/site-packages/homebrew-freecad-bundle.pth").write "#{prefix}/MacOS/\n"
+      (lib/"python3.9/site-packages/homebrew-freecad-bundle.pth").write "#{prefix}/MacOS/\n"
     end
   end
 
@@ -135,14 +158,14 @@ class FreecadDev < Formula
          export PYTHONPATH=#{bin}:$PYTHONPATH
     EOS
   end
-  # def post_install
-  #   if (!File.exist?('/usr/local/lib/python3.9/site-packages/six.py'))
-  #     system "pip3", "install", "six"
-  #   end
-  #   bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
-  #   bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
-  #   if (!File.exist?('/usr/local/Cellar/freecad/0.19pre/lib/python3.9/site-packages/homebrew-freecad-bundle.pth'))
-  #    (lib/"python3.9/site-packages/homebrew-freecad-bundle.pth").write "#{prefix}/MacOS/\n"
-  #   end
-  # end
+  def post_install
+    # if (!File.exist?('/usr/local/lib/python3.9/site-packages/six.py'))
+    #   system "pip3", "install", "six"
+    # end
+    # bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
+    # bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
+    # if (!File.exist?("#{prefix}/lib/python3.9/site-packages/homebrew-freecad-bundle.pth"))
+    #   (lib/"python3.9/site-packages/homebrew-freecad-bundle.pth").write "#{prefix}/MacOS/\n"
+    # end
+  end
 end
