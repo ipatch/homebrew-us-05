@@ -22,6 +22,7 @@ class FreecadDev < Formula
   option "with-cloud", "Build with CLOUD module"
   option "with-unsecured-cloud", "Build with self signed certificate support CLOUD module"
   option "with-ninja", "Build using ninja"
+  option "with-ccache", "Build using ccache compilers"
 
   depends_on "ccache" => :build
   depends_on "cmake" => :build
@@ -66,11 +67,17 @@ class FreecadDev < Formula
     #   system "pip3", "install", "six"
     # end
 
-    # NOTE: brew clang compilers req, Xcode nowork on macOS 10.13 or 10.14
-    # if MacOS.version <= :mojave
-      ENV["CC"] = Formula["llvm"].opt_bin/"clang"
-      ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
-    # end
+    if build.with?("ccache")
+      ENV["CC"] = Formula["ccache"].libexec/"cc"
+      ENV["CXX"] = Formula["ccache"].libexec/"c++"
+      ENV["CCACHE_DIR"] = "/usr/local/var/cache/.ccache/homebrew/freecad"
+    else
+      # NOTE: brew clang compilers req, Xcode nowork on macOS 10.13 or 10.14
+      if MacOS.version <= :mojave
+        ENV["CC"] = Formula["llvm"].opt_bin/"clang"
+        ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
+      end
+    end
 
     # NOTE: freecad will not build using Xcode 10.2 on high sierra
     # TODO: test C++14 with std xcode and brew clang & clang++
