@@ -61,11 +61,8 @@ class FreecadDev < Formula
     depends_on "jq"
   end
 
-  # TODO: check to see if any other formula ref six this way
   def install
-    # if !File.exist? "/usr/local/lib/python3.9/site-packages/six.py"
-    #   system "pip3", "install", "six"
-    # end
+    resource("six").stage { system "python", *Language::Python.setup_install_args(libexec/"vendor") }
 
     if build.with?("ccache")
       ENV["CC"] = Formula["ccache"].libexec/"cc"
