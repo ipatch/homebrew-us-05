@@ -6,9 +6,10 @@
 
 > The hitchhikers guide to building Inkscape for macOS by macOS
 
-<a id="contents"></a>
 
 ## Contents
+
+<a id="contents"></a>
 
 - [Installing Inkscape from prebuilt binaries](#install-inkscape-from-bins)
 - [Building Inkscape from source](#build-inkscape-from-srouce)
@@ -59,6 +60,9 @@ I believe there are some legacy instructions floating around that detail steps f
 
 The following dependencies are required in order to build Inkscape, all of which can be installed via Homebrew
 
+<details>
+<summary><strong>dependencies</strong></summary>
+
 - adwaita-icon-theme
 - boehmgc
 - boost
@@ -78,38 +82,79 @@ The following dependencies are required in order to build Inkscape, all of which
 - poppler
 - potrace _converts raster images into vector_
 
+</details>
+
 A way to determine if one of the above packages has been installed is to run
 
 ```shell
 brew info [NAME_OF_PACKAGE]
 ```
 
-To install all dependencies required for Inkscape using brew
+To install all dependencies required for Inkscape using brew,
+
+<details>
+<summary><code>brew install [PACKAGES]</code></summary>
 
 ```shell
-brew install adwaita-icon-theme boehmgc boost cairo cmake gsl gdl gtkmm3 gtk-mac-integration icu4c intltool lcms2 libxslt poppler potrace libsoup
+brew install \
+adwaita-icon-theme \
+boehmgc \
+boost \
+cairo \
+cmake \
+gsl \
+gdl \
+gtkmm3 \
+gtk-mac-integration \
+icu4c \
+intltool \
+lcms2 \
+libxslt \
+poppler \
+potrace \
+libsoup
 ```
+
+</details>
+
+#### Updates | January 2020
 
 <a id="updates-build-instructions"></a>
 
-#### Updates | March 15 2019
+<details>
+<summary>💡 <strong>speeding up build process</strong></summary>
 
-> Building Inkscape from commit [50f63d05](https://gitlab.com/inkscape/inkscape/commit/50f63d05be34c63fad22b5c7ced9dae2b2611cca) required exporting **PKG_CONFIG_PATH** for `libffi` in order for CMake to properly configure the build.
+**ccache** is an alternate compiler that can be used to speed up subsequent rebuilds without having to rebuild the entire source of the project. Quickest way to get started with **ccache** is set the `CC` and `CXX` environment variables
 
 ```shell
-export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+export CC="/usr/local/opt/ccache/libexec/cc"
+export CXX="/usr/local/opt/ccache/libexec/c++"
 ```
 
-> More than likely the above **PKG_CONFIG_PATH**  ☝️ var needs to be updated to compile
+</details>
+
+```shell
+export PKG_CONFIG_PATH=\
+"/usr/local/opt/libffi/lib/pkgconfig;\
+/usr/local/opt/atk/lib/pkgconfig;\
+/usr/local/opt/icu4c/lib/pkgconfig;\
+/usr/local/opt/cairomm/lib/pkgconfig;\
+/usr/local/opt/poppler/lib/pkgconfig;\
+/usr/local/opt/cairomm@1.14/lib/pkgconfig;\
+/usr/local/opt/pangomm/lib/pkgconfig;\
+/usr/local/opt/pangomm@2.42/lib/pkgconfig;\
+/usr/local/opt/atkmm/lib/pkgconfig;\
+/usr/local/opt/atkmm@2.28/lib/pkgconfig;"
+```
 
 ```shell
 git clone --depth=1 --recurse-submodules https://gitlab.com/inkscape/inkscape.git  # clone inkscape source and submodules
 git co -b build-branch # create a new branch for building
 export LIBPREFIX="/usr/local" # set a env var where the build tools will look for required compile time libraries
+export LIBRARY_PATH="/usr/local/opt/gsl/lib" # linking will fail without being set
 export PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX to the front of the $PATH
 export PREFIX="/opt/beta/inkscape/cli/non-ninja" # specify install directory for inkscape
 mkdir -p build/non-ninja; cd build/non-ninja; # construct a build directory for creating intermediate build file
-export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 cmake \
 -DCMAKE_PREFIX_PATH="$LIBPREFIX" \
 -DCMAKE_INSTALL_PREFIX="$PREFIX" \
@@ -118,6 +163,8 @@ cmake \
 make # Compile / Build with CMake+Xcode, then install inkscape into the prefix
 make install
 ```
+
+[lnk1]: <https://gitlab.com/inkscape/inkscape/commit/50f63d05be34c63fad22b5c7ced9dae2b2611cca>
 
 <a id="build-inkscape-using-ninja-on-macos"></a>
 
