@@ -168,7 +168,9 @@ make install
 
 <a id="build-inkscape-using-ninja-on-macos"></a>
 
-##### 🤺 🚀 Building Inkscape using Ninja on macOS
+##### 🚨 _OUTDATED_ 🤺 🚀 Building Inkscape using Ninja on macOS
+
+> see above autotools installation for updated build instructions
 
 <a id="gotchas"></a>
 
