@@ -219,6 +219,25 @@ $HOME/Library/Preferences/FreeCAD/Gui/Stylesheets
 
 there is a known issue with displaying the grid within the **part design** workbench, to work around this issue switch to the **draft workbench** and use the key binding <kbd>g</kbd> then <kbd>r</kbd> to toggle the display of the grid, and once visible switch back to the part design workbench and the grid should be visible. [freecad forum exp](https://forum.freecadweb.org/viewtopic.php?t=5889#p176145)
 
+### working with freecad / post install setup
+
+when using freecad from a console it helps to load startup file to make working with the console a tad bit more functional IMHO.
+
+```py
+from pystartup import *
+```
+
+> the above startup symlink / file must have a `.py` extension in order for freecad to load the file.
+
+if the file import any modules that aren't accessible to freecad ie. _fancycompleter_ a quick solution is to install the python package into freecad's _site-packages_ directory
+
+```shell
+cd /opt/beta/freecad/lib/python3.9/site-packages/
+pip install fancycompleter -t $PWD
+```
+
+> the `-t` flag allows pip to specify a path to install the package
+
 ### working with freecad / gui / stylesheets
 
 <a id="working-with-freecad-stylesheets"></a>
