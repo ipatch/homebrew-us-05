@@ -131,6 +131,12 @@ export CC="/usr/local/opt/ccache/libexec/cc"
 export CXX="/usr/local/opt/ccache/libexec/c++"
 ```
 
+> **optional** set the `CCACHE_DIR` to a specific path to isolate cache files specific to inkscape
+
+```shell
+export CCACHE_DIR="$HOME/.ccache/inkscape"
+```
+
 </details>
 
 ```shell
@@ -168,7 +174,9 @@ make install
 
 <a id="build-inkscape-using-ninja-on-macos"></a>
 
-##### 🤺 🚀 Building Inkscape using Ninja on macOS
+##### 🚨 _OUTDATED_ 🤺 🚀 Building Inkscape using Ninja on macOS
+
+> see above autotools installation for updated build instructions
 
 <a id="gotchas"></a>
 
