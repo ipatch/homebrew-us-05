@@ -305,12 +305,16 @@ apparently explicitly setting `CC` and `CXX` env vars in `.cmake` files can lead
 - [**github** / homebrew-tiny-scripts **tap**][ref4]
   > within the above repo there is a shell script, `cask-repair` that should do the bulk of the work updating a cask that is often updated frequently, as opposed to manually editing the cask file
 - [**github** / repo for actual tiny scripts **NOT** the tap repo][ref5]
+- [**medium**, creating relocatable linux exe by setting RPATH][ref6]
+- [**macports.org**, clang does not respect `-syslibroot` when linking][ref7]
 
 [ref1]: <https://stackoverflow.com/a/4158763/708807>
 [ref2]: <https://docs.brew.sh/Formula-Cookbook>
 [ref3]: <https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md>
 [ref4]: <https://github.com/vitorgalvao/homebrew-tiny-scripts>
 [ref5]: <https://github.com/vitorgalvao/tiny-scripts>
+[ref6]: <https://nehckl0.medium.com/creating-relocatable-linux-executables-by-setting-rpath-with-origin-45de573a2e98>
+[ref7]: <https://trac.macports.org/ticket/57612>
 
 ## TODOs
 

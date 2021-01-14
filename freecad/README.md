@@ -1,10 +1,10 @@
 <a id="doc-start"></a>
 
-# A rough collection of FreeCAD related Notes
+# A ⚒ 💎 rough collection of FreeCAD related Notes
 
 ## Contents
 
-<a id="contents"></a>
+<a name="contents"></a>
 
 - [General 3D terms](#general)
 - [freecad / Issues / Questions](#issues)
@@ -52,6 +52,8 @@ Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of
 
 ### Progressively updating UI/UX of freecad 💪
 
+> migrating from QT widgets to QML QT quick
+
 <a id="freecad-building-better-ui-ux"></a>
 
 _nov 24, 2020_
@@ -79,11 +81,13 @@ Some other useful links can be found below
 - [github/kdab/declartivewidgets][2]
 - [cleanqt.io/blog/crash course in qt, part 6 ↗][3]
 - [wikipedia/**qt version history**][4]
+- [youtube, QtDD14 from qtwidgets legacy to QtQuick Kevin Ottens][lnk1qt]
 
 [1]: <https://doc.qt.io/archives/qt-4.8/qml-integration.html> "↗ qt.io / Integrating QML Code with Existing Qt UI Code"
 [2]: <https://github.com/KDAB/DeclarativeWidgets>
 [3]: <https://www.cleanqt.io/blog/crash-course-in-qt-for-c%2B%2B-developers,-part-6> "choosing widgets or qtquick+qml"
 [4]: <https://en.wikipedia.org/wiki/Qt_version_history>
+[lnk1qt]: <https://www.youtube.com/watch?v=mjTcRp1bgDs&feature=emb_title>
 
 #### Questions / TODOs
 
@@ -219,6 +223,12 @@ $HOME/Library/Preferences/FreeCAD/Gui/Stylesheets
 
 there is a known issue with displaying the grid within the **part design** workbench, to work around this issue switch to the **draft workbench** and use the key binding <kbd>g</kbd> then <kbd>r</kbd> to toggle the display of the grid, and once visible switch back to the part design workbench and the grid should be visible. [freecad forum exp](https://forum.freecadweb.org/viewtopic.php?t=5889#p176145)
 
+### working with freecad / defeaturing
+
+- [**opencascade.org**, 3d model defeaturing][ref8]
+
+[ref8]: <https://dev.opencascade.org/index.php?q=node/1211>
+
 ### working with freecad / post install setup
 
 when using freecad from a console it helps to load startup file to make working with the console a tad bit more functional IMHO.
@@ -282,11 +292,23 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 - [ ] The right click RMB menu while within the **viewport** could be more robust, ie. put the workbench specific menus within the RMB context menu for quickly accessing workbench specific features.
 
 
-## / Useful Links / Building FreeCAD
+## freecad / Useful Links
 
 <a id="useful links"></a>
 
-
+- [**pdf**, adding qtquick base windows to an existing qwidgets app][lnkul6]
+- [forum.qt.io, qquickwidget and qwidget integration][lnkul5]
+- [kdab.com declartive widgets support to qt QML][lnkul4]
+- [using helgrind to debug multithreaded qt apps][lnkul3]
+- [github.com/coin3d, coin INSTALL][lnkul1]
+- [github.com/coin3d, building from CLI][lnkul2]
 - [building ngsolve / netgen from source](https://ngsolve.org/docu/latest/install/installmacnative.html)
 - [stackoverflow > cmake out of source build answer](https://stackoverflow.com/a/24435795/708807)
 - [github > freecad > conda _build.sh_ script](https://github.com/FreeCAD/FreeCAD/blob/0.19_pre/package/conda/build.sh)
+
+[lnkul1]: <https://github.com/coin3d/coin/blob/master/INSTALL>
+[lnkul2]: <https://github.com/coin3d/coin/wiki/Building-from-the-command-line>
+[lnkul3]: <https://www.kdab.com/~dfaure/helgrind.html>
+[lnkul4]: <https://www.kdab.com/declarative-widgets/>
+[lnkul5]: <https://forum.qt.io/topic/95290/qquickwidget-and-qwidget-integration>
+[lnkul6]: <https://www.qtdeveloperdays.com/sites/default/files/Adding%20QtQuick%20base%20windows%20to%20an%20existing%20QWidgets%20Application-dark.pdf>
