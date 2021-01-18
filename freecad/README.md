@@ -296,6 +296,10 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 
 <a id="useful links"></a>
 
+- [wiki.videolan.org, QtIntfMockups][lnkul10]
+- [**legacy** doc.qt.io qwidget example][lnkul9]
+- [doc.qt.io, qquickwidget documentation][lnkul8]
+- [youtube, qt developer days 2011 qtquick best practices & design patterns][lnkul7]
 - [**pdf**, adding qtquick base windows to an existing qwidgets app][lnkul6]
 - [forum.qt.io, qquickwidget and qwidget integration][lnkul5]
 - [kdab.com declartive widgets support to qt QML][lnkul4]
@@ -312,3 +316,7 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 [lnkul4]: <https://www.kdab.com/declarative-widgets/>
 [lnkul5]: <https://forum.qt.io/topic/95290/qquickwidget-and-qwidget-integration>
 [lnkul6]: <https://www.qtdeveloperdays.com/sites/default/files/Adding%20QtQuick%20base%20windows%20to%20an%20existing%20QWidgets%20Application-dark.pdf>
+[lnkul7]: <https://www.youtube.com/watch?v=HN9mwHWH9DU>
+[lnkul8]: <https://doc.qt.io/qt-5/qquickwidget.html>
+[lnkul9]: <https://doc.qt.io/archives/qt-4.7/declarative-cppextensions-qwidgets.html>
+[lnkul10]: <https://wiki.videolan.org/QtIntfMockups/>
