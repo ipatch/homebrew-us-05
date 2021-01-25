@@ -278,6 +278,7 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 
 <a id="todos-improvments"></a>
 
+- [ ] **sketcher wb**, dynamically update the size of text when zooming in on a sketch, ie. make the text of a dimension/length label larger when zooming in.
 - [ ] **note** the mesh remodel icons do not appear to have an alpha channel present within the icon files.
 - [ ] **note** with the mesh remodel workbench active only the preferences for that workbench become active
 - [ ] option to control the filetypes in the recently opened files, ie. only show display **fcstd** files in the recent files list, no ~~stl~~ files listed
