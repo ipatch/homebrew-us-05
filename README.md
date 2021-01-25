@@ -244,7 +244,7 @@ brew unlink boost-python3 && brew link boost-python3
 
 ✅ **Solved** Both the homebrew-freecad tap and the homebrew-core version of pyside can not be installed at the same time or else the **Draft** and or **Arch** workbench will not load as described below. The work around is make sure the version of pyside provided by homebrew-core is not installed.
 
-recently i've run into the below issue when launching freecad [**issue**][myfcgist.issue.pyside] where i can use / switch to a workbench such as the draft workbench.  The output seems to be related to **pyside**, and note there are multiple brew packages related to **pyside**, there's an official **pyside** pkg, and then the official freecad brew tap has two other pyside pkgs that freecad depends on.  It appears the _shiboken2_ directly relates to the **pyside** pkg as well, FWIW.
+recently i've run into the below [**issue**][myfcgist.issue.pyside] when launching freecad where i **can not** use / switch to a workbench such as the _draft workbench_.  The output seems to be related to **pyside**, and note there are multiple brew packages related to **pyside**, there's an official **pyside** pkg, and then the official freecad brew tap has two other pyside pkgs that freecad depends on.  It appears the _shiboken2_ directly relates to the **pyside** pkg as well, FWIW.
 
 [myfcgist.issue.pyside]: <https://gist.github.com/ipatch/6116824ab1f2a99b526cb07e43317b91#gistcomment-3571401>
 
@@ -266,34 +266,64 @@ apparently explicitly setting `CC` and `CXX` env vars in `.cmake` files can lead
 
 [so1]: <https://stackoverflow.com/a/17275650/708807>
 
-### development / freecad / **non** formula build & install
+### / development / freecad / **non** formula build & install
 
-- 🚨 **incomplete** cmake args have **not** been fully tested
+**TL;DR**
 
 ```shell
--Wno-dev 
--DBUILD_ENABLE_CXX_STD='C++11' 
--DCMAKE_VERBOSE_MAKEFILE=OFF 
--DCMAKE_CXX_FLAGS='-Wno-deprecated-declarations' 
--DBUILD_QT5=ON 
--DBUILD_FEM_NETGEN=1 
--DBUILD_FEM=1 
--DBUILD_FEM_NETGEN:BOOL=ON
--DBUILD_TECHDRAW=0 
--DCMAKE_PREFIX_PATH='/usr/local/opt/qt/lib/cmake;\
-/usr/local/opt/nglib/Contents/Resources;\
-/usr/local/opt/hdf5@1.10' 
--DFREECAD_USE_EXTERNAL_KDL=ON 
--DFREECAD_CREATE_MAC_APP=OFF 
--DPYTHON_EXECUTABLE=/usr/local/bin/python3 
--DPYTHON_LIBRARY=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/libpython3.9.dylib 
--DPYTHON_INCLUDE_DIRS=/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/include/python3.9/
-
--DCMAKE_INSTALL_PREFIX='/opt/beta/freecad' 
--DCMAKE_BUILD_TYPE=Release 
+cd /some/fs/path/
+mkdir freecad-git
+git clone https://github.com/freecad/freecad freecad-src
+mkdir freecad-build
+cd freecad-build
 ```
 
-## /devolpment/References
+> 💡 mileage will improve when building freecad out of source in a **peer** build directory
+
+> **optional** set `CC`, `CXX` and `CCACHE_DIR` env vars to build using ccache compilers
+
+```shell
+export CC="/usr/local/opt/ccache/libexec/cc"
+export CXX="/usr/local/opt/ccache/libexec/c++"
+export CCACHE_DIR="$HOME/.ccache/freecad"
+```
+
+- ✅ **complete** cmake args have been tested
+
+```shell
+cmake \                                                                    -DCMAKE_C_FLAGS_RELEASE=-DNDEBUG\
+-DCMAKE_CXX_FLAGS_RELEASE=-DNDEBUG\
+-DCMAKE_INSTALL_LIBDIR=lib\
+-DCMAKE_FIND_FRAMEWORK=LAST \
+-DCMAKE_VERBOSE_MAKEFILE=ON \
+-Wno-dev \
+-DCMAKE_OSX_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk \
+-std=c++14 \
+-DCMAKE_CXX_STANDARD=14 \
+-DBUILD_ENABLE_CXX_STD:STRING=C++14 \
+-Wno-deprecated-declarations \
+-DBUILD_QT5=ON \
+-DUSE_PYTHON3=1\
+-DPYTHON_EXECUTABLE="/usr/local/bin/python3" \
+-DBUILD_FEM_NETGEN=1 \
+-DBUILD_FEM=1 \
+-DBUILD_TECHDRAW=0 \
+-DFREECAD_USE_EXTERNAL_KDL=ON \
+-DCMAKE_PREFIX_PATH="/usr/local/opt/qt/lib/cmake;\
+/usr/local/opt/nglib/Contents/Resources;\
+/usr/local/opt/vtk@8.2/lib/cmake;\
+/usr/local/opt/icu4c/lib;\
+/usr/local;"\
+-DCMAKE_BUILD_TYPE=Release \
+-DFREECAD_CREATE_MAC_APP=OFF \
+-DCMAKE_INSTALL_PREFIX=/opt/beta/freecad ../freecad-src
+```
+
+```shell
+make; make install
+```
+
+## / devolpment / References
 
 <!-- FWR (for whatever reason) this heading is rendering as an h4 element on the github -->
 
