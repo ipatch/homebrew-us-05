@@ -40,7 +40,7 @@ brew install ipatch/homebrew-us-05/[name-of-formula] [--with-options]
 <strong>Example</strong>
 
 ```shell
-brew install ipatch/us-05/openssh --verbose --HEAD --with-ldns
+brew install ipatch/us-05/openssh --verbose --build-from-source --with-ldns
 ```
 
 To upgrade a formula that has been installed via this tap
@@ -52,6 +52,8 @@ brew reinstall ipatch/us-05/[name-of-formula] --verbose --build-from-source
 ## Working with OpenSSH _from this repo_
 
 <a id="working-with-openssh"></a>
+
+When installing OpenSSH from this repo _LibreSSL_ install from **tarball** and not git source ~~**head**~~
 
 When upgrading or install OpenSSH from this repo, a few files will need to have their permissions changed.
 
@@ -132,13 +134,11 @@ brew install ipatch/homebrew-us-05/qemu \
 --HEAD
 ```
 
-
 ## Gotchas
 
 <a id="gotchas"></a>
 
 If a formula is installed from this repo ie. **qemu** with options, passed to the `install` command, ie. `--with-hax` homebrew has issues running the **reinstall** command even with the `--build-from-source` flag. To work around this, run `brew remove [name-of-formula]` to uninstall the package, and then reinstall the package with the flags provided form the previous install.
-
 
 ## Maintenance
 
