@@ -119,7 +119,7 @@ libsoup
 
 #### Updates | January 2020
 
-<a id="updates-build-instructions"></a>
+<a name="updates-build-instructions"></a>
 
 <details>
 <summary>💡 <strong>speeding up build process</strong></summary>
@@ -154,20 +154,23 @@ export PKG_CONFIG_PATH=\
 ```
 
 ```shell
-git clone --depth=1 --recurse-submodules https://gitlab.com/inkscape/inkscape.git  # clone inkscape source and submodules
-git co -b build-branch # create a new branch for building
-export LIBPREFIX="/usr/local" # set a env var where the build tools will look for required compile time libraries
-export LIBRARY_PATH="/usr/local/opt/gsl/lib" # linking will fail without being set
-export PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin" # append $LIBPREFIX to the front of the $PATH
-export PREFIX="/opt/beta/inkscape/cli/non-ninja" # specify install directory for inkscape
-mkdir -p build/non-ninja; cd build/non-ninja; # construct a build directory for creating intermediate build file
+git clone --depth=1 --recurse-submodules https://gitlab.com/inkscape/inkscape.git;  # clone inkscape source and submodules
+git co -b build-branch; # create a new branch for building
+export LIBPREFIX="/usr/local"; # set a env var where the build tools will look for required compile time libraries
+export LIBRARY_PATH="/usr/local/opt/gsl/lib"; # linking will fail without being set
+export PATH="$LIBPREFIX/bin:/usr/bin:/bin:/usr/sbin:/sbin"; # append $LIBPREFIX to the front of the $PATH
+export PREFIX="/opt/beta/inkscape/autotools"; # specify install directory for inkscape
+mkdir -p build/autotools; cd build/autotools; # construct a build directory for creating intermediate build file
 cmake \
 -DCMAKE_PREFIX_PATH="$LIBPREFIX" \
 -DCMAKE_INSTALL_PREFIX="$PREFIX" \
 -DWITH_OPENMP=OFF \
-../.. # configure CMake to build inkscape
-make # Compile / Build with CMake+Xcode, then install inkscape into the prefix
-make install
+../..; # configure CMake to build inkscape
+
+../../po/generate_POTFILES.sh; # update potfiles
+
+make; # Compile / Build with CMake+Xcode, then install inkscape into the prefix
+make install;
 ```
 
 [lnk1]: <https://gitlab.com/inkscape/inkscape/commit/50f63d05be34c63fad22b5c7ced9dae2b2611cca>
@@ -540,7 +543,9 @@ jhbuild bootstrap
 
 <a id="gnu-make-build-time"></a>
 
-![gnu-make-build-time](https://i.imgur.com/v4zAENc.png "Inkscape build time on MBP 2013")
+![gnu-make-build-time][reflnk1]
+
+[reflnk1]: <https://i.imgur.com/v4zAENc.png> "Inkscape build time on MBP 2013">
 
 <a id="my-custom-build-messages"></a>
 
@@ -581,3 +586,28 @@ jhbuild bootstrap
 <a id="inkscape-release-build-time-mar1-ninja-tooling"></a>
 
 ![inkscape release build time March 1, 2019 ninja tooling](https://i.imgur.com/MpBvUmR.png)
+
+## / troubleshooting/tshoot / build/runtime errors
+
+<a name="tshoot-build-run-errors"></a>
+
+- **error**
+
+```
+ld: library not found for gc
+```
+
+- **answer**, remove all the cmake build cache files within the `build` dir
+
+---
+
+- **error**
+
+```
+Unable to revert mtime: /Library/Fonts  
+```
+
+- **answer**, open and close inkscape after successful build/install, error should go away after a relaunch of app
+
+
+##
