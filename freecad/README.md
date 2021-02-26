@@ -52,6 +52,11 @@ Fusion 360 aka **f3d**, can import a file, ie. a **iges** that is constructed of
 
 ### Progressively updating UI/UX of freecad 💪
 
+#### alternatives to coin/coin3d
+
+- diligent graphics
+- bgfx
+
 > migrating from QT widgets to QML QT quick
 
 <a id="freecad-building-better-ui-ux"></a>
