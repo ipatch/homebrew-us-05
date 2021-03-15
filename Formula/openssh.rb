@@ -8,6 +8,7 @@ class Openssh < Formula
   license "SSH-OpenSSH"
 
   # NOTE: do not install from head, but rather from from source tarball
+  #
 
   # head "https://github.com/openssh/openssh-portable.git"#  , branch: #"master", shallow: false
   # head "https://github.com/openssh/openssh-portable.git", branch: "master", shallow: false
