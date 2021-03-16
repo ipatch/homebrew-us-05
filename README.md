@@ -291,7 +291,8 @@ export CCACHE_DIR="$HOME/.ccache/freecad"
 - ✅ **complete** cmake args have been tested
 
 ```shell
-cmake \                                                                    -DCMAKE_C_FLAGS_RELEASE=-DNDEBUG\
+cmake \
+-DCMAKE_C_FLAGS_RELEASE=-DNDEBUG\
 -DCMAKE_CXX_FLAGS_RELEASE=-DNDEBUG\
 -DCMAKE_INSTALL_LIBDIR=lib\
 -DCMAKE_FIND_FRAMEWORK=LAST \
