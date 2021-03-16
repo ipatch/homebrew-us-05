@@ -8,7 +8,9 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        # default
+        # os: [ubuntu-latest, macos-latest]
+        os: [macos-mojave]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Homebrew
