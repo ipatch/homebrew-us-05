@@ -310,7 +310,7 @@ cmake \
 -DBUILD_FEM=1 \
 -DBUILD_TECHDRAW=0 \
 -DFREECAD_USE_EXTERNAL_KDL=ON \
--DCMAKE_PREFIX_PATH="/usr/local/opt/qt/lib/cmake;\
+-DCMAKE_PREFIX_PATH="/usr/local/opt/qt@5/lib/cmake;\
 /usr/local/opt/nglib/Contents/Resources;\
 /usr/local/opt/vtk@8.2/lib/cmake;\
 /usr/local/opt/icu4c/lib;\
