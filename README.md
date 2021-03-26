@@ -299,7 +299,6 @@ cmake \
 -DCMAKE_VERBOSE_MAKEFILE=ON \
 -Wno-dev \
 -DCMAKE_OSX_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk \
--std=c++14 \
 -DCMAKE_CXX_STANDARD=14 \
 -DBUILD_ENABLE_CXX_STD:STRING=C++14 \
 -Wno-deprecated-declarations \
