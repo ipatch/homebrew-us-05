@@ -29,6 +29,7 @@
 
 <a id="issues"></a>
 
+- [ ] **possibile improvment**, auto expand width of _combo box_ on mouse hover, but when mouse is out of area restore to previous size, ie. expand the width of the combo box so all text is readable, and **not** truncated.
 - [ ] **BUG** _possibly_, open a document, the view hotkeys appear to work in the **part design** workbench but when switching to the **part** workbench they appear to **not** work
 - [ ] **gripe** pasting a sketch from one _body_ to a different _body_ does **not** place the sketch within the selected _body_
 - [ ] **Question** does freecad have a quick way to convert / display mm to inches
