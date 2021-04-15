@@ -302,7 +302,7 @@ cmake \
 -DCMAKE_CXX_FLAGS_RELEASE=-DNDEBUG\
 -DCMAKE_INSTALL_LIBDIR=lib\
 -DCMAKE_FIND_FRAMEWORK=LAST \
--DCMAKE_VERBOSE_MAKEFILE=ON \
+-DCMAKE_VERBOSE_MAKEFILE=OFF \
 -Wno-dev \
 -DCMAKE_OSX_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk \
 -DCMAKE_CXX_STANDARD=14 \
@@ -316,11 +316,9 @@ cmake \
 -DBUILD_FEM=1 \
 -DBUILD_TECHDRAW=0 \
 -DFREECAD_USE_EXTERNAL_KDL=ON \
--DCMAKE_PREFIX_PATH="/usr/local/opt/qt@5/lib/cmake;\
+-DCMAKE_PREFIX_PATH="/usr/local/opt/qt5152/lib/cmake;\
 /usr/local/opt/nglib/Contents/Resources;\
-/usr/local/opt/vtk@8.2/lib/cmake;\
-/usr/local/opt/icu4c/lib;\
-/usr/local;"\
+/usr/local/opt/vtk@8.2.0/lib/cmake;"\
 -DCMAKE_BUILD_TYPE=Release \
 -DFREECAD_CREATE_MAC_APP=OFF \
 -DCMAKE_INSTALL_PREFIX=/opt/beta/freecad ../freecad-src
