@@ -305,6 +305,7 @@ cmake \
 -DBUILD_QT5=ON \
 -DUSE_PYTHON3=1\
 -DPYTHON_EXECUTABLE="/usr/local/bin/python3" \
+-DPYTHON_INCLUDE_DIR="/usr/local/opt/python3.9/Frameworks/Python.framework/Headers" \
 -DBUILD_FEM_NETGEN=1 \
 -DBUILD_FEM=1 \
 -DBUILD_TECHDRAW=0 \
