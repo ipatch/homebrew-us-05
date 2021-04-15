@@ -288,6 +288,10 @@ export CXX="/usr/local/opt/ccache/libexec/c++"
 export CCACHE_DIR="$HOME/.ccache/freecad"
 ```
 
+> required, or link errors will happen related to `-licudata -licui18n -licuuc` [learn more][ul10]
+
+export LIBRARY_PATH="/usr/local/opt/icu4c/lib"
+
 - ✅ **complete** cmake args have been tested
 
 ```shell
@@ -323,6 +327,8 @@ cmake \
 ```shell
 make; make install
 ```
+
+[ul10]: <https://github.com/Homebrew/homebrew-core/issues/67427#issuecomment-754187345>
 
 ## / devolpment / References
 
