@@ -14,8 +14,7 @@
 - [Development](#development)
   - [development / casks](#development-casks)
     - [development / cask / freecad](#development-cask-freecad)
-  - [development / freecad](#development-freecad)
-  - [development / freecad / tshoot](#development-freecad-troubleshooting)
+- [development / freecad](#freecad)
   - [References](#references)
 - [TODOs](#todos)
 
@@ -75,10 +74,9 @@ sudo chmod 600 *_key
 
 <a id="working-with-osxfuse">
 
-The last version of osxfuse that has a completely open source license and is not a prebuilt binary without accompanying source i believe is version 3.8.3, per [this github issue][fl1]
+The last version of osxfuse to have a open source license without using a prebuild binary is version 3.8.3, per [this github issue][fl1]
 
-
-I recently reinstalled **osxfuse** so i could have write support for NTFS file systems without having to spin up a virtual machine for write purposes. I created a cask based formula file within this repo to store the last open source version of **osxfuse** as mentioned above.
+I recently reinstalled **osxfuse** so i could have write support for NTFS filesystems without having to spin up a virtual machine for write purposes. I created a cask based formula file within this repo to store the last open source version of **osxfuse** as mentioned above.
 
 For getting write support to NTFS file systems after installing `ntfs-3g` using brew, [**reference**][fl2]
 
@@ -138,7 +136,9 @@ brew install ipatch/homebrew-us-05/qemu \
 
 <a id="gotchas"></a>
 
-If a formula is installed from this repo ie. **qemu** with options, passed to the `install` command, ie. `--with-hax` homebrew has issues running the **reinstall** command even with the `--build-from-source` flag. To work around this, run `brew remove [name-of-formula]` to uninstall the package, and then reinstall the package with the flags provided form the previous install.
+If a formula is installed from this repo ie. **qemu** with options, passed to the `install` command, ie. `--with-hax` homebrew has issues running the **reinstall** command even with the `--build-from-source` flag. To work around this, ~~run `brew remove [name-of-formula]` to uninstall the package, and then reinstall the package with the flags provided form the previous install.~~ [see my Q/A][ul11]
+
+[ul11]: <https://github.com/Homebrew/discussions/discussions/1058#discussioncomment-490034>
 
 ## Maintenance
 
@@ -154,14 +154,15 @@ brew update
 
 <a id="misc"></a>
 
-Installing [universal ctags](http://ctags.io) requires its own work around, [learn more](https://github.com/universal-ctags/homebrew-universal-ctags/issues/23#issuecomment-583781848)
+Installing [universal ctags](http://ctags.io) requires its own work around, [learn more][lm1]
 
+[lm1]: <https://github.com/universal-ctags/homebrew-universal-ctags/issues/23#issuecomment-583781848>
 
 ## Development
 
 <a id="development"></a>
 
-When working with formula locally for debugging purposes specify a path to a local formula so it can be tested locally.
+When working with formula locally for debugging purposes specify a local filesystem path, make sure to add **.rb**
 
 ```shell
 brew [re]install /path/to/some/local_formula.rb
@@ -197,7 +198,7 @@ brew cask uninstall {{cask_file}}
 [cl1]: <https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#getting-set-up-to-contribute>
 [cl2]: <https://github.com/Homebrew/homebrew-cask/blob/master/doc/development/adding_a_cask.md>
 
-#### Development / cask / freecad
+#### Development / cask / naming example
 
 <a id="development-cask-freecad"></a>
 
@@ -205,52 +206,14 @@ brew cask uninstall {{cask_file}}
 
 - github / @kapcake created a cask.formula for freecad pre release, but appears to not have been updated in ~ a year. [learn more](https://github.com/Homebrew/homebrew-cask/blob/e141c13bfdb4818c1833afb6522b61b1f1897a25/Casks/freecad.rb)
 
-### development / freecad
+## freecad
 
-<a id="development-freecad"></a>
+<a name="freecad"></a>
 
-to see notes about adding QML & qt quick to to freecad ui/ux, [learn more][freecadux1]
+i moved all freecad related notes their own [README][ulfc]
 
-[freecadux1]: <https://github.com/ipatch/homebrew-us-05/tree/dev/freecad#freecad-building-better-ui-ux>
+[ulfc]: <https://github.com/ipatch/homebrew-us-05/tree/dev/freecad>
 
-**TL;DR** 
-
-> the **freecad-dev** formula file successfully installs on my local 10.14 mojave box
-
-I was able to build freecad from commit f35d30bc on the master branch using brew and a hacked together formula, and posted it about on the freecad [forum][mythread], and ran into some issues with incrementing the _build revisison number_ which i later found out is related to shallow clones. ~~at some point, something changed on my system, ie. macos 10.13.6 (17G14042), i did perform the 10.13 upgrades a few days ago from writing this, so not sure if the upgrade is the culpret for my failing brew builds.~~
-
-I've also been sucessful in building freecad on mojave using the git source without using a formula file while still using mac homebrew dependencies.
-
-[mythread]: <https://forum.freecadweb.org/viewtopic.php?f=4&t=51981>
-
-### development / freecad / troubleshooting
-
-<a id="development-freecad-troubleshooting"></a>
-
-#### issues related to finding boost header files
-
-```
-shared_ptr.hpp
-```
-
-try the following homebrew commands
-
-```
-brew unlink boost && brew link boost
-brew unlink boost-python3 && brew link boost-python3
-```
-
----
-
-✅ **Solved** Both the homebrew-freecad tap and the homebrew-core version of pyside can not be installed at the same time or else the **Draft** and or **Arch** workbench will not load as described below. The work around is make sure the version of pyside provided by homebrew-core is not installed.
-
-recently i've run into the below [**issue**][myfcgist.issue.pyside] when launching freecad where i **can not** use / switch to a workbench such as the _draft workbench_.  The output seems to be related to **pyside**, and note there are multiple brew packages related to **pyside**, there's an official **pyside** pkg, and then the official freecad brew tap has two other pyside pkgs that freecad depends on.  It appears the _shiboken2_ directly relates to the **pyside** pkg as well, FWIW.
-
-[myfcgist.issue.pyside]: <https://gist.github.com/ipatch/6116824ab1f2a99b526cb07e43317b91#gistcomment-3571401>
-
-##### solution, pyside issue with importing deps
-
-long story short, i've been running into issues launching freecad from an arbitrary directory, ie. running `FreeCAD` from within my `$HOME` dir and the above issuses will be printed out to the terminal. i believe this issue is related to the way FreeCAD is setting up it's `PATH`. so in the interm launch `FreeCAD` within `/usr/local/opt/freecad/bin`
 
 #### cmake related
 
@@ -266,71 +229,7 @@ apparently explicitly setting `CC` and `CXX` env vars in `.cmake` files can lead
 
 [so1]: <https://stackoverflow.com/a/17275650/708807>
 
-### / development / freecad / **non** formula build & install
-
-**TL;DR**
-
-```shell
-cd /some/fs/path/
-mkdir freecad-git
-git clone https://github.com/freecad/freecad freecad-src
-mkdir freecad-build
-cd freecad-build
-```
-
-> 💡 mileage will improve when building freecad out of source in a **peer** build directory
-
-> **optional** set `CC`, `CXX` and `CCACHE_DIR` env vars to build using ccache compilers
-
-```shell
-export CC="/usr/local/opt/ccache/libexec/cc"
-export CXX="/usr/local/opt/ccache/libexec/c++"
-export CCACHE_DIR="$HOME/.ccache/freecad"
-```
-
-> required, or link errors will happen related to `-licudata -licui18n -licuuc` [learn more][ul10]
-
-```
-export LIBRARY_PATH="/usr/local/opt/icu4c/lib"
-```
-
-- ✅ **complete** cmake args have been tested
-
-```shell
-cmake \
--DCMAKE_C_FLAGS_RELEASE=-DNDEBUG\
--DCMAKE_CXX_FLAGS_RELEASE=-DNDEBUG\
--DCMAKE_CXX_STANDARD=14 \
--DBUILD_ENABLE_CXX_STD:STRING=C++14 \
--Wno-deprecated-declarations \
--DCMAKE_INSTALL_LIBDIR=lib\
--DCMAKE_FIND_FRAMEWORK=LAST \
--DCMAKE_VERBOSE_MAKEFILE=OFF \
--Wno-dev \
--DCMAKE_OSX_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk \
--DBUILD_QT5=ON \
--DUSE_PYTHON3=1\
--DPYTHON_EXECUTABLE="/usr/local/bin/python3" \
--DPYTHON_INCLUDE_DIR="/usr/local/opt/python3.9/Frameworks/Python.framework/Headers" \
--DBUILD_FEM_NETGEN=1 \
--DBUILD_FEM=1 \
--DBUILD_TECHDRAW=0 \
--DFREECAD_USE_EXTERNAL_KDL=ON \
--DCMAKE_PREFIX_PATH="/usr/local/opt/qt5152/lib/cmake;\
-/usr/local/opt/nglib/Contents/Resources;\
-/usr/local/opt/vtk@8.2.0/lib/cmake;"\
--DCMAKE_BUILD_TYPE=Release \
--DFREECAD_CREATE_MAC_APP=OFF \
--DCMAKE_INSTALL_PREFIX=/opt/beta/freecad ../freecad-src
-```
-
-```shell
-make; make install
-```
-
-[ul10]: <https://github.com/Homebrew/homebrew-core/issues/67427#issuecomment-754187345>
-
-## / devolpment / References
+## / devolpment / homebrew / References
 
 <!-- FWR (for whatever reason) this heading is rendering as an h4 element on the github -->
 
