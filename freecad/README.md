@@ -115,6 +115,18 @@ make; make install
 
 [ul10]: <https://github.com/Homebrew/homebrew-core/issues/67427#issuecomment-754187345>
 
+
+#### ../../../troubleshooting
+
+<a name="freecad-building-tshoot">
+
+- **issue**, `macos Failed to find "gl.h" in "/System/Library/Frameworks/OpenGL.framework/Headers;/System/Library/Frameworks/AGL.framework/Headers".`
+  - **solution**, install CLI tools on macos
+
+  ```shell
+  xcode-select --install
+  ```
+
 ### development / freecad
 
 <a id="development-freecad"></a>
@@ -251,7 +263,7 @@ In no particular order
 - scipy _pip_
 - cppunit _brew_
 
-The below command_s_ I've been using to attempt to build the SALOME kernel
+The below commands I've been using to attempt to build the SALOME kernel
 
 ```shell
 cmake \ 
