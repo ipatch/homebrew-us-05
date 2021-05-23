@@ -210,7 +210,7 @@ brew cask uninstall {{cask_file}}
 
 <a name="freecad"></a>
 
-i moved all freecad related notes their own [README][ulfc]
+i moved all freecad related notes within its own [README][ulfc]
 
 [ulfc]: <https://github.com/ipatch/homebrew-us-05/tree/dev/freecad>
 
