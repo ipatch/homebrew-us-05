@@ -79,7 +79,7 @@ export CCACHE_DIR="$HOME/.ccache/freecad"
 export LIBRARY_PATH="/usr/local/opt/icu4c/lib"
 ```
 
-- ‚úÖ **complete** cmake args have been tested
+- ✅ **complete** cmake args have been tested
 
 ```shell
 cmake \
