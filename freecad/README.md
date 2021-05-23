@@ -73,7 +73,7 @@ export CXX="/usr/local/opt/ccache/libexec/c++"
 export CCACHE_DIR="$HOME/.ccache/freecad"
 ```
 
-> required, or link errors will happen related to `-licudata -licui18n -licuuc` [learn more][ul10]
+> link errors will happen related to `-licudata -licui18n -licuuc` [learn more][ul10], if `LIBRARY_PATH` env var isn't set
 
 ```
 export LIBRARY_PATH="/usr/local/opt/icu4c/lib"
