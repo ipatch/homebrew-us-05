@@ -65,7 +65,7 @@ cd freecad-build
 
 > 🚗 mileage will improve when building freecad _out of source_ in a **peer** build directory
 
-> **optional** set `CC`, `CXX` and `CCACHE_DIR` env vars to build using ccache compilers
+> **optional**, set `CC`, `CXX` and `CCACHE_DIR` env vars to build using ccache compilers
 
 ```shell
 export CC="/usr/local/opt/ccache/libexec/cc"
