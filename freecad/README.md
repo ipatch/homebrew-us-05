@@ -63,7 +63,7 @@ mkdir freecad-build
 cd freecad-build
 ```
 
-> 🚗 mileage will improve when building freecad out of source in a **peer** build directory
+> 🚗 mileage will improve when building freecad _out of source_ in a **peer** build directory
 
 > **optional** set `CC`, `CXX` and `CCACHE_DIR` env vars to build using ccache compilers
 
