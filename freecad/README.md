@@ -101,9 +101,18 @@ cmake \
 -DBUILD_FEM=1 \
 -DBUILD_TECHDRAW=0 \
 -DFREECAD_USE_EXTERNAL_KDL=ON \
--DCMAKE_PREFIX_PATH="/usr/local/opt/qt5152/lib/cmake;\
-/usr/local/opt/nglib/Contents/Resources;\
-/usr/local/opt/vtk@8.2.0/lib/cmake;"\
+-DCMAKE_PREFIX_PATH= \
+"/usr/local/opt/qt5152/lib/cmake; \
+/usr/local/opt/nglib/Contents/Resources; \
+/usr/local/opt/vtk@8.2.0/lib/cmake; \
+/usr/local/Cellar/llvm/12.0.0/lib/cmake; \
+/usr/local/opt/opencascade@7.5.0/lib/cmake; \
+/usr/local/opt/med-file/share/cmake; \
+/usr/local/opt/shiboken2/lib/cmake; \
+/usr/local/opt/pyside2/lib/cmake; \
+/usr/local/opt/coin@4.0.0/lib/cmake; \
+/usr/local/opt/boost@1.75.0/lib/cmake; \
+/usr/local/opt/boost-python3@1.75.0/lib/cmake;" \
 -DCMAKE_BUILD_TYPE=Release \
 -DFREECAD_CREATE_MAC_APP=OFF \
 -DCMAKE_INSTALL_PREFIX=/opt/beta/freecad ../freecad-src
