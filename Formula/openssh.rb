@@ -7,6 +7,7 @@ class Openssh < Formula
   sha256 "5a01d22e407eb1c05ba8a8f7c654d388a13e9f226e4ed33bd38748dafa1d2b24"
   license "SSH-OpenSSH"
 
+
   # NOTE: do not install from head, but rather from from source tarball
 
   # head "https://github.com/openssh/openssh-portable.git"#  , branch: #"master", shallow: false
