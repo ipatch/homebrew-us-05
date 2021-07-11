@@ -136,6 +136,27 @@ make; make install
   xcode-select --install
   ```
 
+### dev / freecad / deps / building bottles
+
+```shell
+echo "note the pkg must be removed before building the bottle"
+brew install --build-bottle --verbose freecad/freecad/icu4c@67.1; echo "~ built in 4 minutes 1 second"
+
+echo "opencascade@7.5.0/7.5.0: 9,454 files, 165.0MB, built in 36 minutes 20 seconds"
+
+echo "/usr/local/Cellar/boost@1.75.0/1.75.0: 15,058 files, 601.5MB, built in 24 minutes 57 seconds"
+
+echo "🍺  /usr/local/Cellar/coin@4.0.0/4.0.0: 921 files, 9.6MB, built in 3 minutes 53 seconds"
+```
+
+#### dev / freecad / deps / buidling bottles / errors
+
+```
+curl: (22) The requested URL returned error: 403 Forbidden
+Error: Failed to download resource "boost@1.75.0"
+Download failed: https://dl.bintray.com/homebrew/mirror/boost_1_75_0.tar.bz2
+```
+
 ### development / freecad
 
 <a id="development-freecad"></a>
