@@ -15,6 +15,7 @@
   - [side quests _no particular order_]()
 - [working with freecad](#working-with-freecad)
   - [working with freecad / gui / stylesheets](#working-with-freecad-stylesheets)
+- [homebrew / bottling with github actions / ci/cd](#homebrew-bottle-gha)
 - [TODOs](#todos)
 - [Useful Links](#useful-links)
 
@@ -141,12 +142,24 @@ make; make install
 ```shell
 echo "note the pkg must be removed before building the bottle"
 brew install --build-bottle --verbose freecad/freecad/icu4c@67.1; echo "~ built in 4 minutes 1 second"
-
 echo "opencascade@7.5.0/7.5.0: 9,454 files, 165.0MB, built in 36 minutes 20 seconds"
 
-echo "/usr/local/Cellar/boost@1.75.0/1.75.0: 15,058 files, 601.5MB, built in 24 minutes 57 seconds"
-
-echo "🍺  /usr/local/Cellar/coin@4.0.0/4.0.0: 921 files, 9.6MB, built in 3 minutes 53 seconds"
+🍺  /usr/local/Cellar/boost@1.75.0/1.75.0: 15,058 files, 601.5MB, built in 24 minutes 57 seconds"
+🍺  /usr/local/Cellar/coin@4.0.0/4.0.0: 921 files, 9.6MB, built in 3 minutes 53 seconds"
+🍺  /usr/local/Cellar/boost-python3@1.75.0/1.75.0: 472 files, 20.0MB, built in 4 minutes 50 seconds
+🍺  /usr/local/Cellar/tbb@2020_u3/2020_U3_1: 150 files, 3MB, built in 20 seconds
+🍺  /usr/local/Cellar/sip@4.19.24/4.19.24_1: 17 files, 1MB, built in 7 seconds
+🍺  /usr/local/Cellar/opencamlib/0.0.1: 52 files, 2MB, built in 56 seconds
+🍺  /usr/local/Cellar/opencascade@7.5.0/7.5.0: 9,453 files, 165.0MB, built in 44 minutes 1 second
+🍺 " NO GO!!!  /usr/local/Cellar/swig@4.0.2/4.0.2: 727 files, 5.5MB, built in 58 seconds
+🍺  /usr/local/Cellar/matplotlib/2.1.1: 1,492 files, 25.1MB, built in 2 minutes 36 seconds
+🍺  /usr/local/Cellar/med-file/4.0.0: 132 files, 10.3MB, built in 2 minutes 39 seconds
+🍺  /usr/local/Cellar/qt5152/5.15.2: 10,688 files, 364.8MB, built in 266 minutes 32 seconds
+🍺  /usr/local/Cellar/pyqt@5.15.2/5.15.2: 961 files, 27MB, built in 21 minutes 16 seconds
+🍺  /usr/local/Cellar/shiboken2/5.15.2: 66 files, 2.6MB, built in 53 seconds
+🍺  /usr/local/Cellar/pyside2/5.15.2: 233 files, 39.6MB, built in 27 minutes 49 seconds
+🍺  /usr/local/Cellar/pyside2-tools/5.15.2: 14 files, 1.5MB, built in 14 seconds
+🍺  /usr/local/Cellar/vtk@8.2.0/8.2.0_1: 4,260 files, 131.1MB, built in 40 minutes 38 seconds
 ```
 
 #### dev / freecad / deps / buidling bottles / errors
@@ -412,6 +425,19 @@ pip install fancycompleter -t $PWD
 <a id="working-with-freecad-stylesheets"></a>
 
 it appears the name of the stylesheet presented in the preferences pane conforms to the actual name of the file on disk minus the `.qss` extension
+
+## homebrew / bottling with github actions / ci/cd
+
+<a id="homebrew-bottle-gha"></a>
+
+- https://github.com/osx-cross/homebrew-avr/blob/master/.github/workflows/tests.yml
+- https://github.com/Homebrew/actions/tree/master/setup-homebrew
+- https://brew.sh/2020/11/18/homebrew-tap-with-bottles-uploaded-to-github-releases/
+- https://github.com/Homebrew/discussions/discussions/549
+- https://stackoverflow.com/questions/61308519/why-the-action-cannot-access-secrets 🔥
+- https://gist.github.com/maelvls/068af21911c7debc4655cdaa41bbf092
+- https://github.com/Homebrew/discussions/discussions/1850 🙋‍♂️
+- https://github.com/immense055/Homebrew-brew/blob/master/.github/workflows/tests-self-hosted.yml github example homebrew bottling self-hosted
 
 
 ## TODOs
