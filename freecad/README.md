@@ -430,7 +430,9 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 
 <a id="homebrew-bottle-gha"></a>
 
-- https://github.com/osx-cross/homebrew-avr/blob/master/.github/workflows/tests.yml
+- https://github.com/osx-cross/homebrew-avr/blob/master/.github/workflows/tests.yml github/osx-cross/homebrew-avr
+- https://github.com/osx-cross/homebrew-avr/blob/master/.github/workflows/publish.yml github/osx-cross/homebrew-avr
+
 - https://github.com/Homebrew/actions/tree/master/setup-homebrew
 - https://brew.sh/2020/11/18/homebrew-tap-with-bottles-uploaded-to-github-releases/
 - https://github.com/Homebrew/discussions/discussions/549
@@ -438,6 +440,8 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 - https://gist.github.com/maelvls/068af21911c7debc4655cdaa41bbf092
 - https://github.com/Homebrew/discussions/discussions/1850 🙋‍♂️
 - https://github.com/immense055/Homebrew-brew/blob/master/.github/workflows/tests-self-hosted.yml github example homebrew bottling self-hosted
+- https://github.blog/changelog/2019-11-06-github-actions-macos-virtual-environment-updated-to-catalina/ boo no 10.14 support on github
+- https://github.com/google/gvisor/commit/315c167de2acddeef90b2a4765c9736e35523129 dont attempt to use secret if not present
 
 
 ## TODOs
