@@ -430,6 +430,10 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 
 <a id="homebrew-bottle-gha"></a>
 
+- https://rubydoc.brew.sh/Formula
+
+- https://github.com/brewsci/homebrew-bio/blob/develop/.github/workflows/build-bottles.yml github/brewsci/homebrew-bio
+
 - https://github.com/osx-cross/homebrew-avr/blob/master/.github/workflows/tests.yml github/osx-cross/homebrew-avr
 - https://github.com/osx-cross/homebrew-avr/blob/master/.github/workflows/publish.yml github/osx-cross/homebrew-avr
 
