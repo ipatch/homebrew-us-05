@@ -207,7 +207,7 @@ brew unlink boost-python3 && brew link boost-python3
 
 ---
 
-‚úÖ **Solved** Both the homebrew-freecad tap and the homebrew-core version of pyside can not be installed at the same time or else the **Draft** and or **Arch** workbench will not load as described below. The work around is make sure the version of pyside provided by homebrew-core is not installed.
+**Solved** Both the homebrew-freecad tap and the homebrew-core version of pyside can not be installed at the same time or else the **Draft** and or **Arch** workbench will not load as described below. The work around is make sure the version of pyside provided by homebrew-core is not installed.
 
 recently i've run into the below [**issue**][myfcgist.issue.pyside] when launching freecad where i **can not** use / switch to a workbench such as the _draft workbench_.  The output seems to be related to **pyside**, and note there are multiple brew packages related to **pyside**, there's an official **pyside** pkg, and then the official freecad brew tap has two other pyside pkgs that freecad depends on.  It appears the _shiboken2_ directly relates to the **pyside** pkg as well, FWIW.
 
@@ -236,7 +236,6 @@ VLC is an app that uses QT for it's gui, and once used QT widgets, but has migra
 
 [1vlc]: <https://github.com/videolan/vlc/tree/master/modules/gui>
 [2vlc]: <https://wiki.videolan.org/SoC_2019/#VLC_Qt_interface_redesign>
-
 
 ---
 
@@ -432,6 +431,8 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 
 - https://rubydoc.brew.sh/Formula
 
+- https://gist.github.com/maelvls/068af21911c7debc4655cdaa41bbf092 gist.github uses old travis workflow
+
 - https://github.com/brewsci/homebrew-bio/blob/develop/.github/workflows/build-bottles.yml github/brewsci/homebrew-bio
 
 - https://github.com/osx-cross/homebrew-avr/blob/master/.github/workflows/tests.yml github/osx-cross/homebrew-avr
@@ -503,7 +504,13 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 - [building ngsolve / netgen from source](https://ngsolve.org/docu/latest/install/installmacnative.html)
 - [stackoverflow > cmake out of source build answer](https://stackoverflow.com/a/24435795/708807)
 - [github > freecad > conda _build.sh_ script](https://github.com/FreeCAD/FreeCAD/blob/0.19_pre/package/conda/build.sh)
+- [kdab.com / using cmake with qt5][lnkul20]
+- [github.com/homebrew interesting taps & forks][lnkul21]
+- [github actions / macos virtual environments][lnkul22]
 
+[lnkul22]: <https://github.com/actions/virtual-environments/tree/macOS-10.15/20210718.2/images/macos>
+[lnkul21]: <https://github.com/Homebrew/brew/blob/master/docs/Interesting-Taps-and-Forks.md>
+[lnkul20]: <https://www.kdab.com/using-cmake-with-qt-5/>
 [lnkul1]: <https://github.com/coin3d/coin/blob/master/INSTALL>
 [lnkul2]: <https://github.com/coin3d/coin/wiki/Building-from-the-command-line>
 [lnkul3]: <https://www.kdab.com/~dfaure/helgrind.html>
