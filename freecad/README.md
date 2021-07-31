@@ -162,6 +162,19 @@ echo "opencascade@7.5.0/7.5.0: 9,454 files, 165.0MB, built in 36 minutes 20 seco
 🍺  /usr/local/Cellar/vtk@8.2.0/8.2.0_1: 4,260 files, 131.1MB, built in 40 minutes 38 seconds
 ```
 
+```
+# vtk build using one core
+🍺  /usr/local/Cellar/vtk@8.2.0/8.2.0_1: 4,260 files, 131.1MB, built in 42 minutes 20 seconds
+
+# vtk build using multi cores
+
+🍺  /usr/local/Cellar/vtk@8.2.0/8.2.0_1: 4,260 files, 131.1MB, built in 44 minutes 18 seconds
+
+
+# qt build time
+🍺  /usr/local/Cellar/qt5152/5.15.2: 10,688 files, 364.8MB, built in 237 minutes 41 seconds
+```
+
 #### dev / freecad / deps / buidling bottles / errors
 
 ```
@@ -429,6 +442,8 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 
 <a id="homebrew-bottle-gha"></a>
 
+- https://github.com/Linuxbrew/brew/wiki/Build-a-portable-bottle github.com / wiki / build a portable bottle
+
 - https://rubydoc.brew.sh/Formula
 
 - https://gist.github.com/maelvls/068af21911c7debc4655cdaa41bbf092 gist.github uses old travis workflow
@@ -490,6 +505,10 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 ## freecad / Useful Links
 
 <a id="useful links"></a>
+
+## todos / review links
+
+https://docs.brew.sh/Python-for-Formula-Authors#installing-1
 
 - [wiki.videolan.org, QtIntfMockups][lnkul10]
 - [**legacy** doc.qt.io qwidget example][lnkul9]
