@@ -6,3 +6,6 @@ ignore/*
 ##
 # freecad/freecad.media/**
 # freecad/freecad-media/**
+
+# homebrew artifacts
+**.formula.txt
