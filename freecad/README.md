@@ -464,6 +464,60 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 - https://github.com/google/gvisor/commit/315c167de2acddeef90b2a4765c9736e35523129 dont attempt to use secret if not present
 
 
+## homebrew / freecad / bottling / unsorted links, related to freecad tap formula
+
+- upstream homebrew-core upgrade sip from version 4.x to 6.x and with version 6.x sip is setup in a virtualenv whereas version 4.x is not.
+  - https://github.com/Homebrew/homebrew-core/commits/master/Formula/sip.rb
+
+- an example formula of sip v4.13.3, from 2012
+  - https://github.com/etehtsea/formulary/blob/ea8a614aca3a98f59b1983a1439815d42e02156b/Formula/sip.rb
+
+- an example of sip v4.19.24
+  - https://github.com/smnogar/homebrew-ros-noetic/blob/26b5ff4a01f2bfaeb0c86f86beca93e08243a570/Formula/sip@4.19.24.rb
+
+- a homebrew tap **icu4c64** with examples of _audit_ & _style_ exceptions
+  - https://github.com/codepandit/icu4c64/tree/e5ca94aa22c6d8b0606aceb119378411ffd1fbda
+  - https://github.com/codepandit/icu4c64/tree/e5ca94aa22c6d8b0606aceb119378411ffd1fbda/audit_exceptions
+
+- an example of sip v4.19.8
+  - https://github.com/zhxlp/homebrew-ffmpeg/blob/8fbf05fa3039903a0e88f679ea4b9abe12ecb77f/Formula/sip.rb
+
+- howto open a homebrew pull request
+  - https://docs.brew.sh/How-To-Open-a-Homebrew-Pull-Request
+
+- howto publish homebrew bottles (discourse link (discourse.brew.sh))
+  - https://discourse.brew.sh/t/tap-bottles-how-to-publish-after-ci-upload-to-bintray/4674/3
+
+- homebrew tap (clickhouse)
+  - https://github.com/arduanov/homebrew-clickhouse
+
+- homebrew example of github action, ie. install a formula, mxcl/homebrew-made
+  - https://github.com/mxcl/homebrew-made/blob/master/.github/workflows/ci.yml
+
+- a homebrew tap that provides a hdf5 formula example
+  - https://github.com/abinit/homebrew-tap
+
+- hombrew tap aws/homebrew-tap, provides shell scripts for building formula and bottles, works differently from other taps
+  - https://github.com/aws/homebrew-tap
+
+- download link for tarball of med-file, **salome-platform.org**, could not find a git repo for the project only a tarball
+  - https://www.salome-platform.org/downloads/current-version
+
+- homebrew-freecad tap closed med-file issue
+  - https://github.com/FreeCAD/homebrew-freecad/issues/27
+
+- a blog post example of using med-file
+  - http://code-saturne.blogspot.com/2010/02/post-processing-using-salome.html
+
+- a homebrew tap that provides a alternate version of python from upstream homebrew-core
+  - https://github.com/DataDog/homebrew-datadog-agent-macos-build/blob/782936d168406f0d5a3f625a8fbb0812cd4150e6/Formula/python@3.9.6.rb
+
+- a homebrew tap providing style & audit exceptions
+  - https://github.com/gromgit/pibrew-core
+
+- [ ] **todo** experiment with below _audit_exception_ to see if it will allow a keg only version of python but also pass ci/cd checks used by brew test bot
+  - https://github.com/queilawithaQ/queilasbrewedcore/blob/master/audit_exceptions/versioned_keg_only_allowlist.json
+
 ## TODOs
 
 <a id="todos"></a>
