@@ -518,6 +518,19 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 - [ ] **todo** experiment with below _audit_exception_ to see if it will allow a keg only version of python but also pass ci/cd checks used by brew test bot
   - https://github.com/queilawithaQ/queilasbrewedcore/blob/master/audit_exceptions/versioned_keg_only_allowlist.json
 
+- an example of a tap migrations list
+  - https://github.com/imgod123456/pankakepankakeeatmydishnetwork/blob/master/tap_migrations.json
+
+- history of python@3.9 formula from homebrew-core tap
+  - https://github.com/Homebrew/homebrew-core/commits/master?after=748c5b2c3bbbfd30e991616ebf74d8ab8c20179e+34&branch=master&path%5B%5D=Formula&path%5B%5D=python%403.9.rb
+  - https://github.com/Homebrew/homebrew-core/commit/06505ae9d051484d83ea32bfd28cd5aba27e2528#diff-38ae209ebc6d2954d5532ae8c3e6e579dc77a7d3002bed515fa930d6ea528139
+
+- https://github.com/Homebrew/legacy-homebrew/issues/17730#issuecomment-40755037
+
+---
+
+- https://www.python.org/downloads/release/python-391/
+
 ## TODOs
 
 <a id="todos"></a>
