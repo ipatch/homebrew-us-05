@@ -442,6 +442,13 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 
 <a id="homebrew-bottle-gha"></a>
 
+---
+
+when using a macos vm as a self-hosted github runner and using brew to install packages for interactive user sessions, things can become annoying because the brew test-bot will remove packages installed interactively. so a quick workaround is to use something ala macports for interactive packages ie. fish and tmux, and allow the brew test-bot to manipulate packages installed via brew, because it will remove them all after test-bot finishes it's tasks.
+
+
+---
+
 - https://github.com/Linuxbrew/brew/wiki/Build-a-portable-bottle github.com / wiki / build a portable bottle
 
 - https://rubydoc.brew.sh/Formula
