@@ -444,6 +444,8 @@ it appears the name of the stylesheet presented in the preferences pane conforms
 
 ---
 
+so two distinct users are required as `brew doctor` will fail if `/opt/local/bin` are in the user running the brew test-bot commands. so i setup a separate user to work interactively that can use macport packages, whereas `brewer` does not have access to `/opt/local/bin`
+
 when using a macos vm as a self-hosted github runner and using brew to install packages for interactive user sessions, things can become annoying because the brew test-bot will remove packages installed interactively. so a quick workaround is to use something ala macports for interactive packages ie. fish and tmux, and allow the brew test-bot to manipulate packages installed via brew, because it will remove them all after test-bot finishes it's tasks.
 
 
