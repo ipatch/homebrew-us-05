@@ -30,7 +30,7 @@
 
 <a id="issues"></a>
 
-- [ ] **possible improvment**, cmake, codebase (freecad) away from using the 4 below cmake conventions, [learn more][lnklm1]
+- [ ] **possible improvment**, cmake, codebase (freecad) move away from using the 4 below cmake conventions, [learn more][lnklm1]
 
   ```
   add_compile_options()
