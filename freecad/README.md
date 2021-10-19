@@ -86,7 +86,9 @@ export CXX="/usr/local/opt/ccache/libexec/c++"
 export CCACHE_DIR="$HOME/.ccache/freecad"
 ```
 
-> link errors will happen related to `-licudata -licui18n -licuuc` [learn more][ul10], if `LIBRARY_PATH` env var isn't set
+> ~~link errors will happen related to `-licudata -licui18n -licuuc` [learn more][ul10], if `LIBRARY_PATH` env var isn't set~~
+
+- **setting the `LIBRARY_PATH` should not be required anymore
 
 ```
 export LIBRARY_PATH="/usr/local/opt/icu4c/lib"
@@ -94,49 +96,39 @@ export LIBRARY_PATH="/usr/local/opt/icu4c/lib"
 
 - ✅ **complete** cmake args have been tested
 
-```shell
-cmake \
--DCMAKE_C_FLAGS_RELEASE=-DNDEBUG\
--DCMAKE_CXX_FLAGS_RELEASE=-DNDEBUG\
--DCMAKE_CXX_STANDARD=14 \
--DBUILD_ENABLE_CXX_STD:STRING=C++14 \
--Wno-deprecated-declarations \
--DCMAKE_INSTALL_LIBDIR=lib\
--DCMAKE_FIND_FRAMEWORK=LAST \
--DCMAKE_VERBOSE_MAKEFILE=OFF \
--Wno-dev \
--DCMAKE_OSX_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk \
--DBUILD_QT5=ON \
--DUSE_PYTHON3=1\
--DPYTHON_EXECUTABLE="/usr/local/opt/python3.9/bin/python3" \
--DPYTHON_INCLUDE_DIR="/usr/local/opt/python3.9/Frameworks/Python.framework/Headers" \
--DBUILD_FEM_NETGEN=1 \
--DBUILD_FEM=1 \
--DBUILD_TECHDRAW=0 \
--DFREECAD_USE_EXTERNAL_KDL=ON \
--DCMAKE_PREFIX_PATH= \
-"/usr/local/opt/qt5152/lib/cmake; \
-/usr/local/opt/nglib/Contents/Resources; \
-/usr/local/opt/vtk@8.2.0/lib/cmake; \
-/usr/local/Cellar/llvm/12.0.0/lib/cmake; \
-/usr/local/opt/opencascade@7.5.0/lib/cmake; \
-/usr/local/opt/med-file/share/cmake; \
-/usr/local/opt/shiboken2/lib/cmake; \
-/usr/local/opt/pyside2/lib/cmake; \
-/usr/local/opt/coin@4.0.0/lib/cmake; \
-/usr/local/opt/boost@1.75.0/lib/cmake; \
-/usr/local/opt/boost-python3@1.75.0/lib/cmake;" \
--DCMAKE_BUILD_TYPE=Release \
--DFREECAD_CREATE_MAC_APP=OFF \
--DCMAKE_INSTALL_PREFIX=/opt/beta/freecad ../freecad-src
+- **note** the `$bp` environment variable is the path to my `$(brew --prefix)`
+- **note** i had to modify the freecad src for the build script to find the path to my icu4c library [learn more][lnk10]
+
 ```
+cmake \
+-DHOMEBREW_PREFIX="$bp" \
+-DUSE_PYTHON3=1 \
+-DPYTHON_EXECUTABLE="$bp"/bin/python3 \
+-DPYTHON_INCLUDE_DIR="$bp/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/include/python3.9" \
+-DBUILD_QT5=1 \
+-DBUILD_SMESH=1 \
+-DBUILD_FEM_NETGEN=1 \
+-DFREECAD_CREATE_MAC_APP=1 \
+-DCMAKE_PREFIX_PATH="$bp/Cellar/qt@5/5.15.2/lib/cmake;$bp/Cellar/coin3d/4.0.0_1/lib/cmake;$bp/Cellar/pyside@2/5.15.2/lib/cmake;$bp/Cellar/llvm@11/11.1.0_3/lib/cmake;$bp/Cellar/nglib@6.2.2104/6.2.2104/Contents/Resources/CMake;" \
+--graphviz=/opt/code/ltmp/freecad-deps-with-netgen/freecad.graphviz.macapp.dep \
+-DCMAKE_INSTALL_PREFIX=/opt/beta/freecad.aplbundl.amd64 ../freecad-src/
+```shell
 
 ```shell
 make; make install
 ```
 
 [ul10]: <https://github.com/Homebrew/homebrew-core/issues/67427#issuecomment-754187345>
+[lnk10]: <https://github.com/FreeCAD/homebrew-freecad/releases/tag/0.20-26155.dmg>
 
+
+## freecad / building from source / cmake configure errors
+
+- [ ] TODO: populate this entry with the list errors I encountered, along with their fixes.
+
+## freecad / building from source / make install, build errors
+
+- [ ] TODO: populate this entry with the list errors I encountered, along with their fixes.
 
 #### ../../../troubleshooting
 
