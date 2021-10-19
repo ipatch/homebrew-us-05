@@ -88,11 +88,7 @@ export CCACHE_DIR="$HOME/.ccache/freecad"
 
 > ~~link errors will happen related to `-licudata -licui18n -licuuc` [learn more][ul10], if `LIBRARY_PATH` env var isn't set~~
 
-- **setting the `LIBRARY_PATH` should not be required anymore
-
-```
-export LIBRARY_PATH="/usr/local/opt/icu4c/lib"
-```
+- **setting the `LIBRARY_PATH` should not be required anymore**
 
 - ✅ **complete** cmake args have been tested
 
@@ -112,7 +108,7 @@ cmake \
 -DCMAKE_PREFIX_PATH="$bp/Cellar/qt@5/5.15.2/lib/cmake;$bp/Cellar/coin3d/4.0.0_1/lib/cmake;$bp/Cellar/pyside@2/5.15.2/lib/cmake;$bp/Cellar/llvm@11/11.1.0_3/lib/cmake;$bp/Cellar/nglib@6.2.2104/6.2.2104/Contents/Resources/CMake;" \
 --graphviz=/opt/code/ltmp/freecad-deps-with-netgen/freecad.graphviz.macapp.dep \
 -DCMAKE_INSTALL_PREFIX=/opt/beta/freecad.aplbundl.amd64 ../freecad-src/
-```shell
+```
 
 ```shell
 make; make install
