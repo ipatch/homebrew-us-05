@@ -9,6 +9,7 @@ class NeovimAT050 < Formula
   keg_only :versioned_formula
 
   depends_on "cmake" => :build
+  depends_on "lua" => :build
   depends_on "luarocks" => :build
   depends_on "pkg-config" => :build
   depends_on "gettext"
