@@ -3,6 +3,7 @@
 <a id="contents"></a>
 
 - [Installing a formula](#installing-a-formula)
+- [working with neovim](#working-with-neovim)
 - [Working with OpenSSH _from this tap_](#working-with-openssh)
   - [working with openssh / todos](#working-with-openssh-todos)
 - [Working with osxfuse](#working-with-osxfuse)
@@ -50,7 +51,9 @@ brew reinstall ipatch/us-05/[name-of-formula] --verbose --build-from-source
 
 ## Working with Neovim
 
-when attempting to install neovim on a box where macports installation exists in `/opt/local` the neovim configure scripts will find the support files in the macports installation **before** the homebrew installation (that's a **no no**) and will lead to a **failed** installation. **my quick** rename `/usr/local/` (macports installation path) to something else, ie.
+<a name="working-with-neovim"></a>
+
+when attempting to install neovim on a box where macports installation exists in `/opt/local` the neovim configure scripts will find the support files in the macports installation **before** the homebrew installation (that's a **no no**) and will lead to a **failed** installation. **my quick hack** rename `/usr/local/` (macports installation path) to something else, ie.
 
 ```
 mv /opt/local /opt/localllll
