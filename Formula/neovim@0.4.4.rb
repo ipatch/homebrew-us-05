@@ -18,6 +18,8 @@ class NeovimAT044 < Formula
     depends_on "tree-sitter"
   end
 
+  keg_only :versioned_formula
+
   depends_on "cmake" => :build
   depends_on "luarocks" => :build
   depends_on "pkg-config" => :build
