@@ -244,6 +244,10 @@ apparently explicitly setting `CC` and `CXX` env vars in `.cmake` files can lead
 - [**medium**, creating relocatable linux exe by setting RPATH][ref6]
 - [**macports.org**, clang does not respect `-syslibroot` when linking][ref7]
 
+---
+
+- https://github.com/Rylan12/homebrew-development useful homebrew tap for maintaining homebrew formula 
+
 [ref1]: <https://stackoverflow.com/a/4158763/708807>
 [ref2]: <https://docs.brew.sh/Formula-Cookbook>
 [ref3]: <https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md>
