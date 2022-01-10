@@ -48,6 +48,19 @@ To upgrade a formula that has been installed via this tap
 brew reinstall ipatch/us-05/[name-of-formula] --verbose --build-from-source
 ```
 
+## Working with Neovim
+
+when attempting to install neovim on a box where macports installation exists in `/opt/local` the neovim configure scripts will find the support files in the macports installation **before** the homebrew installation (that's a **no no**) and will lead to a **failed** installation. **my quick** rename `/usr/local/` (macports installation path) to something else, ie.
+
+```
+mv /opt/local /opt/localllll
+```
+
+undo the name change after the homebrew installation of neovim completes. [**learn more**][lm1]
+
+
+[lm1]: <https://github.com/Homebrew/discussions/discussions/2507#discussioncomment-1942343>
+
 ## Working with OpenSSH _from this repo_
 
 <a id="working-with-openssh"></a>
