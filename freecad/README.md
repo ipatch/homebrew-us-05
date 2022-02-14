@@ -26,7 +26,7 @@
 - **CSG** constructive solid geometry _modeling_
 
 
-## freecad / Issues / Questions
+## freecad / Issues / Questions / ...improvements 🤔
 
 <a id="issues"></a>
 
@@ -41,7 +41,8 @@
 
 [lnklm1]: <https://youtu.be/bsXLMQ6WgIk?t=1145>
 
-
+- [ ] **possible improvement**, when highlighting a mesh object, the hover/preselect yellow color 🟡 makes it difficult to see 👴🏼 the topology/details of the mesh when the mouse ☝ is hovering over the object/import mesh.
+  - it'd be interesting to just outline the wireframe/edges of the mesh (if possible) instead of all mesh geometry
 - [ ] **possible improvment**, auto expand width of _combo box_ on mouse hover, but when mouse is out of area restore to previous size, ie. expand the width of the combo box so all text is readable, and **not** truncated.
 - [ ] **BUG** _possibly_, open a document, the view hotkeys appear to work in the **part design** workbench but when switching to the **part** workbench they appear to **not** work
 - [ ] **gripe** pasting a sketch from one _body_ to a different _body_ does **not** place the sketch within the selected _body_
