@@ -19,6 +19,20 @@
 - [TODOs](#todos)
 - [Useful Links](#useful-links)
 
+## todos
+
+<a name="todos"></a>
+
+not sure where to put notes, links related to github CI/CD for the homebrew-freecad tap unfortunately 🤔, and don't really want to pollute the upstream homebrew-freecad tap if i can help it.
+  - https://github.com/jaredpalmer/razzle/blob/f8305c26997bae8ef0f5dfa52540d842451b4090/.github/workflows/examples.yml
+    - ☝️ above is an example of using partial workflows to resume to aid in rebuilding an app as github doesn't really support parital workflows at the moment, boo 👻
+  - https://hsalem.com/posts/ability-to-rerun-single-jobs-in-github-actions.html
+    - ☝️ blog post about adding support for re-running single jobs via github actions, CI/CD
+  - https://github.community/t/ability-to-rerun-just-a-single-job-in-a-workflow/17234
+    - ☝️ github community discussion about rerunning single job
+  - https://github.com/actions/runner/issues/432#issuecomment-834271999
+    - ☝️ github issue tracker, about adding ability to rerun single job/task within a workflow
+
 ## General 3D terms / Notes
 
 <a id="general"></a>
