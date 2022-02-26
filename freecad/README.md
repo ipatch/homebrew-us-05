@@ -32,6 +32,10 @@ not sure where to put notes, links related to github CI/CD for the homebrew-free
     - ☝️ github community discussion about rerunning single job
   - https://github.com/actions/runner/issues/432#issuecomment-834271999
     - ☝️ github issue tracker, about adding ability to rerun single job/task within a workflow
+  - https://medium.com/@tcorbisier/github-actions-re-run-a-single-5e9f1744c788
+    - ☝️ medium article about rerunning single job
+  - https://github.com/Homebrew/discussions/discussions/2238
+    - ☝️ my question 🙋‍♂️ homebrew/discussions about re-running a single job instead of the entire workflow
 
 ## General 3D terms / Notes
 
@@ -597,6 +601,19 @@ when using a macos vm as a self-hosted github runner and using brew to install p
 
 <a id="useful links"></a>
 
+- [cmake / discourse, setup cmake project to determine if universal build or not][lnkul25]
+
+- [apple, building a universal binary, ie. x86 and m1 (aarch64)][lnkul24]
+
+- [analysis situs][lnkul23], tool for working with cad kernels such as opencascade
+
+- https://github.com/FreeCAD/FreeCAD/blob/3168f8ed3f13ab659dab0f47d3b70f13543a1c89/.travis.yml#L169-L170
+
+[lnkul23]: <http://analysissitus.org/forum/index.php>
+[lnkul24]: <https://developer.apple.com/documentation/apple-silicon/building-a-universal-macos-binary>
+[lnkul25]: <https://discourse.cmake.org/t/how-to-determine-which-architectures-are-available-apple-m1/2401/12>
+
+
 ## todos / review links
 
 https://docs.brew.sh/Python-for-Formula-Authors#installing-1
@@ -631,3 +648,4 @@ https://docs.brew.sh/Python-for-Formula-Authors#installing-1
 [lnkul8]: <https://doc.qt.io/qt-5/qquickwidget.html>
 [lnkul9]: <https://doc.qt.io/archives/qt-4.7/declarative-cppextensions-qwidgets.html>
 [lnkul10]: <https://wiki.videolan.org/QtIntfMockups/>
+
