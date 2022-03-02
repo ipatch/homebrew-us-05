@@ -1,0 +1,33 @@
+From 52be962e5caf4a9c3ed234aa491174c34b888ac2 Mon Sep 17 00:00:00 2001
+From: chris <chris.r.jones.1983@gmail.com>
+Date: Wed, 2 Mar 2022 13:39:39 -0600
+Subject: [PATCH] attempt to patch llvm@13 to compile on macos high sierra
+
+---
+ lldb/source/Host/macosx/objcxx/HostInfoMacOSX.mm | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/lldb/source/Host/macosx/objcxx/HostInfoMacOSX.mm b/lldb/source/Host/macosx/objcxx/HostInfoMacOSX.mm
+index a0706ec9f..9a4d56d01 100644
+--- a/lldb/source/Host/macosx/objcxx/HostInfoMacOSX.mm
++++ b/lldb/source/Host/macosx/objcxx/HostInfoMacOSX.mm
+@@ -46,6 +46,16 @@
+ #define CPU_TYPE_ARM64 (CPU_TYPE_ARM | CPU_ARCH_ABI64)
+ #endif
+ 
++#ifndef CPU_SUBTYPE_ARM64E
++#define CPU_SUBTYPE_ARM64E (CPU_TYPE_ARM | CPU_ARCH_ABI64)
++#endif
++
++// NOTE: ipatch
++// REF: https://stackoverflow.com/questions/69906053/
++#ifndef CPU_SUBTYPE_ARM64E
++#define CPU_SUBTYPE_ARM64E (CPU_TYPE_ARM | CPU_ARCH_ABI64)
++#endif
++
+ #ifndef CPU_TYPE_ARM64_32
+ #define CPU_ARCH_ABI64_32 0x02000000
+ #define CPU_TYPE_ARM64_32 (CPU_TYPE_ARM | CPU_ARCH_ABI64_32)
+-- 
+2.35.1
+
