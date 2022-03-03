@@ -8,8 +8,8 @@ class Node < Formula
 
   stable do
     patch do
-      url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/c18fda70c1eb7d07275d937bf3fb9b90b664533e/patches/0001-node-freecad-exp-with-patching-node-for-10.13-highsi.patch"
-      sha256 "31930cae2ba4d60df14df97f1c5193c09185508a4a6c088edf0de1d26e833c15"
+      # url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/c18fda70c1eb7d07275d937bf3fb9b90b664533e/patches/0001-node-freecad-exp-with-patching-node-for-10.13-highsi.patch"
+      # sha256 "31930cae2ba4d60df14df97f1c5193c09185508a4a6c088edf0de1d26e833c15"
     end
   end
 
@@ -102,6 +102,8 @@ class Node < Formula
     # Pre-Catalina macOS also can't build with LTO
     # LTO is unpleasant if you have to build from source.
     args << "--enable-lto" if MacOS.version >= :catalina && build.bottle?
+
+    args << "--without-inspector" if MacOS.version == :highsierra
 
     system "./configure", *args
     system "make", "install"
