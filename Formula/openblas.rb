@@ -41,7 +41,9 @@ class Openblas < Formula
     end
 
     # Must call in two steps
-    system "make", "CC=#{ENV.cc}", "FC=gfortran", "libs", "netlib", "shared"
+    # NOTE: ipatch
+    # https://superuser.com/a/1704199/148584
+    system "make", "CC=#{ENV.cc}", "FC=gfortran", "libs", "netlib", "shared", "NO_AVX512=1"
     system "make", "PREFIX=#{prefix}", "install"
 
     lib.install_symlink shared_library("libopenblas") => shared_library("libblas")
