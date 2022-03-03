@@ -1,0 +1,31 @@
+From ead695b4e17187974f8a6908694ca9db20ed1c5e Mon Sep 17 00:00:00 2001
+From: chris <chris.r.jones.1983@gmail.com>
+Date: Thu, 3 Mar 2022 15:40:30 -0600
+Subject: [PATCH] #node #freecad, exp with patching node for 10.13 #highsierra
+
+---
+ deps/v8/src/libplatform/tracing/recorder.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/deps/v8/src/libplatform/tracing/recorder.h b/deps/v8/src/libplatform/tracing/recorder.h
+index 8b8eb0e0..6ab70504 100644
+--- a/deps/v8/src/libplatform/tracing/recorder.h
++++ b/deps/v8/src/libplatform/tracing/recorder.h
+@@ -14,7 +14,14 @@
+ #endif
+ 
+ #if V8_OS_MACOSX
++
++// NOTE: ipatch
++// REF: https://github.com/nodejs/node/issues/39584
++// REF: https://llvm.org/doxygen/Signposts_8cpp_source.html
++#if LLVM_SUPPORT_XCODE_SIGNPOSTS
+ #include <os/signpost.h>
++#endif // if LLVM_SUPPORT_XCODE_SIGNPOSTS
++
+ #pragma clang diagnostic push
+ #pragma clang diagnostic ignored "-Wunguarded-availability"
+ #endif
+-- 
+2.35.1
+
