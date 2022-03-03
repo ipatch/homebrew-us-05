@@ -33,7 +33,7 @@ class Node < Formula
   uses_from_macos "zlib"
 
   on_macos do
-    depends_on "llvm" => [:build, :test] if DevelopmentTools.clang_build_version <= 1100
+    depends_on "ipatch/us-05/llvm" => [:build, :test] if DevelopmentTools.clang_build_version <= 1100
   end
 
   on_linux do
