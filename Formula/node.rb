@@ -11,6 +11,13 @@ class Node < Formula
     regex(%r{href=["']?v?(\d+(?:\.\d+)+)/?["' >]}i)
   end
 
+  stable do
+    patch do
+      url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/5f1799dfb26575de50eaa1ae8e64bc7d1359c7fe/patches/0002-node-freecad-exp-with-patching-node-for-10.13-highsi.patch"
+      sha256 "31930cae2ba4d60df14df97f1c5193c09185508a4a6c088edf0de1d26e833c15"
+    end
+  end
+
   bottle do
     sha256 cellar: :any,                 arm64_monterey: "01f84ba9e17af0eee4de4950edf3ac8be2a4ff1f13a627216fbd05c7632443cc"
     sha256 cellar: :any,                 arm64_big_sur:  "7554d3387ce2cc8707c60f937b99438639543509ebe6d195216a34f4302f0a16"
@@ -95,8 +102,6 @@ class Node < Formula
     # Pre-Catalina macOS also can't build with LTO
     # LTO is unpleasant if you have to build from source.
     args << "--enable-lto" if MacOS.version >= :catalina && build.bottle?
-
-    args << "--without-inspector" if MacOS.version == :high_sierra
 
     system "./configure", *args
     system "make", "install"
