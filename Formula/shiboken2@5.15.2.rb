@@ -18,7 +18,7 @@ class Shiboken2AT5152 < Formula
   depends_on "python@3.9" => :build
   depends_on "ipatch/us-05/llvm"
   depends_on "ipatch/us-05/numpy"
-  depends_on "qt@5"
+  depends_on "ipatch/us-05/qt@5"
 
   def install
     ENV["LLVM_INSTALL_DIR"] = Formula["llvm"].opt_prefix
