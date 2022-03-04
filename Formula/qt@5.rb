@@ -21,7 +21,7 @@ class QtAT5 < Formula
 
   keg_only :versioned_formula
 
-  depends_on "node"       => :build
+  depends_on "ipatch/us-05/node"       => :build
   depends_on "pkg-config" => :build
   depends_on xcode: :build
   depends_on macos: :sierra
