@@ -8,18 +8,25 @@ class NeovimAT050 < Formula
 
   keg_only :versioned_formula
 
+  # NOTE: ipatch,
+  # https://github.com/neovim/neovim/issues/16217#issuecomment-959793388
+  #
+  # ERROR: error: passing 'VTermStringFragment' to parameter of incompatible
+  #
+  # FIX: run `brew unlink libvterm` then attemp to reinstall neovim if above error arrises
+
   depends_on "cmake" => :build
   depends_on "lua" => :build
   depends_on "luarocks" => :build
   depends_on "pkg-config" => :build
   depends_on "gettext"
+  depends_on "ipatch/us-05/tree-sitter"
   depends_on "libtermkey"
   depends_on "libuv"
   depends_on "libvterm"
   depends_on "luajit-openresty"
   depends_on "luv"
   depends_on "msgpack"
-  depends_on "ipatch/us-05/tree-sitter"
   depends_on "unibilium"
 
   uses_from_macos "gperf" => :build
