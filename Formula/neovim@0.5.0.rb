@@ -23,7 +23,7 @@ class NeovimAT050 < Formula
   depends_on "ipatch/us-05/tree-sitter"
   depends_on "libtermkey"
   depends_on "libuv"
-  depends_on "libvterm"
+  # depends_on "libvterm"
   depends_on "luajit-openresty"
   depends_on "luv"
   depends_on "msgpack"
