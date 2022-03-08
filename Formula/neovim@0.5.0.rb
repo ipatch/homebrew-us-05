@@ -69,13 +69,13 @@ class NeovimAT050 < Formula
     ENV.prepend_path "LUA_CPATH", "#{buildpath}/deps-build/lib/lua/5.1/?.so"
     lua_path = "--lua-dir=#{Formula["luajit-openresty"].opt_prefix}"
 
-    cd "deps-build" do
+    cd "deps-build/build/src" do
       %w[
         mpack/mpack-1.0.8-0.rockspec
         lpeg/lpeg-1.0.2-1.src.rock
       ].each do |rock|
         dir, rock = rock.split("/")
-        cd "build/src/#{dir}" do
+        cd dir do
           output = Utils.safe_popen_read("luarocks", "unpack", lua_path, rock, "--tree=#{buildpath}/deps-build")
           unpack_dir = output.split("\n")[-2]
           cd unpack_dir do
@@ -83,7 +83,7 @@ class NeovimAT050 < Formula
           end
         end
       end
-
+   
       # Build libvterm. Remove when we use the formula.
       cd "libvterm" do
         system "make", "install", "PREFIX=#{buildpath}/deps-build", "LDFLAGS=-static #{ENV.ldflags}"
