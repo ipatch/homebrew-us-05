@@ -10,6 +10,11 @@ class OpenjdkAT1501 < Formula
     regex(/>\s*?jdk[._-]v?(\d+(?:\.\d+)*)-ga\s*?</i)
   end
 
+  # NOTE: ipatch, the last offically upstream supported version for high sierra, jan 17th 2021
+  # https://github.com/Homebrew/homebrew-core/commit/4a1c504c0109a1b72ba071d9103331bad4948907
+  #
+  # https://github.com/Homebrew/homebrew-core/commits/master/Formula/openjdk.rb
+
   keg_only "it shadows the macOS `java` wrapper"
 
   depends_on "autoconf" => :build
