@@ -19,7 +19,7 @@ class NeovimAT050 < Formula
   depends_on "luajit-openresty"
   depends_on "luv"
   depends_on "msgpack"
-  depends_on "tree-sitter"
+  depends_on "ipatch/us-05/tree-sitter"
   depends_on "unibilium"
 
   uses_from_macos "gperf" => :build
