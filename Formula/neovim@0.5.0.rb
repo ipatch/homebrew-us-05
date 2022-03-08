@@ -16,6 +16,7 @@ class NeovimAT050 < Formula
   # FIX: run `brew unlink libvterm` then attemp to reinstall neovim if above error arrises
 
   depends_on "cmake" => :build
+  depends_on "libtool" => :build
   depends_on "lua" => :build
   depends_on "luarocks" => :build
   depends_on "pkg-config" => :build
@@ -23,7 +24,7 @@ class NeovimAT050 < Formula
   depends_on "ipatch/us-05/tree-sitter"
   depends_on "libtermkey"
   depends_on "libuv"
-  depends_on "libvterm"
+  # depends_on "libvterm"
   depends_on "luajit-openresty"
   depends_on "luv"
   depends_on "msgpack"
@@ -38,6 +39,16 @@ class NeovimAT050 < Formula
 
   # Keep resources updated according to:
   # https://github.com/neovim/neovim/blob/v#{version}/third-party/CMakeLists.txt
+
+  # NOTE: ipatch, libvterm issues
+  # REF: https://github.com/gromgit/homebrew-core-mojave/commit/64cf75e6916573e609d7637a9fc46c1286d22942
+  #
+  # TODO: Use `libvterm` formula when the following is resolved:
+  # https://github.com/neovim/neovim/pull/16219
+  resource "libvterm" do
+    url "http://www.leonerd.org.uk/code/libvterm/libvterm-0.1.4.tar.gz"
+    sha256 "bc70349e95559c667672fc8c55b9527d9db9ada0fb80a3beda533418d782d3dd"
+  end
 
   resource "mpack" do
     url "https://github.com/libmpack/libmpack-lua/releases/download/1.0.8/libmpack-lua-1.0.8.tar.gz"
@@ -72,14 +83,22 @@ class NeovimAT050 < Formula
           end
         end
       end
+
+      # Build libvterm. Remove when we use the formula.
+      cd "libvterm" do
+        system "make", "install", "PREFIX=#{buildpath}/deps-build", "LDFLAGS=-static #{ENV.ldflags}"
+        ENV.prepend_path "PKG_CONFIG_PATH", buildpath/"deps-build/lib/pkgconfig"
+      end
+
     end
 
-    mkdir "build" do
-      system "cmake", "..", *std_cmake_args, "-DLIBLUV_LIBRARY=#{Formula["luv"].opt_lib/shared_library("libluv")}"
+    system "cmake", "-S", ".", "-B", "build",
+      "-DLIBLUV_LIBRARY=#{Formula["luv"].opt_lib/shared_library("libluv")}",
+      *std_cmake_args
       # Patch out references to Homebrew shims
-      inreplace "config/auto/versiondef.h", Superenv.shims_path/ENV.cc, ENV.cc
-      system "make", "install"
-    end
+      inreplace "build/config/auto/versiondef.h", Superenv.shims_path/ENV.cc, ENV.cc
+      system "cmake", "--build", "build"
+      system "cmake", "--install", "build"
   end
 
   test do
