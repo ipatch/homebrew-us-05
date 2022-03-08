@@ -29,7 +29,7 @@ class Emscripten < Formula
   depends_on "cmake" => :build
   depends_on "ipatch/us-05/node"
   depends_on "python@3.9"
-  depends_on "yuicompressor"
+  depends_on "ipatch/us-05/yuicompressor"
 
   # OpenJDK is needed as a dependency on Linux and ARM64 for google-closure-compiler,
   # an emscripten dependency, because the native GraalVM image will not work.
