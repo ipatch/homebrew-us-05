@@ -15,6 +15,9 @@ class OpenjdkAT1501 < Formula
   #
   # https://github.com/Homebrew/homebrew-core/commits/master/Formula/openjdk.rb
 
+  # NOTE: ipatch, similar issue to what i was having with newer versions on high sierra
+  # https://github.com/Homebrew/homebrew-core/issues/34883
+
   keg_only "it shadows the macOS `java` wrapper"
 
   depends_on "autoconf" => :build
