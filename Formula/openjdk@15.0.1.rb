@@ -10,13 +10,6 @@ class OpenjdkAT1501 < Formula
     regex(/>\s*?jdk[._-]v?(\d+(?:\.\d+)*)-ga\s*?</i)
   end
 
-  bottle do
-    sha256 cellar: :any, big_sur:     "6f31366f86a5eacf66673fca9ad647b98b207820f8cfea49a22af596395d3dba"
-    sha256 cellar: :any, catalina:    "9376a1c6fdf8b0268b6cb56c9878358df148b530fcb0e3697596155fad3ca8d7"
-    sha256 cellar: :any, mojave:      "a4f00dc8b4c69bff53828f32c82b0a6be41b23a69a7775a95cdbc9e01d9bdb68"
-    sha256 cellar: :any, high_sierra: "bef2e4a43a6485253c655979cfc719332fb8631792720c0b9f6591559fb513f1"
-  end
-
   keg_only "it shadows the macOS `java` wrapper"
 
   depends_on "autoconf" => :build
