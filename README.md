@@ -53,7 +53,7 @@ brew reinstall ipatch/us-05/[name-of-formula] --verbose --build-from-source
 
 <a name="working-with-neovim"></a>
 
-when attempting to install neovim on a box where macports installation exists in `/opt/local` the neovim configure scripts will find the support files in the macports installation **before** the homebrew installation (that's a **no no**) and will lead to a **failed** installation. **my quick hack** rename `/usr/local/` (macports installation path) to something else, ie.
+When attempting to install neovim on a box where macports installation exists in `/opt/local` the neovim configure scripts will find the support files in the macports installation **before** the homebrew installation (that's a **no no**) and will lead to a **failed** installation. **my quick hack** rename `/usr/local/` (macports installation path) to something else, ie.
 
 ```
 mv /opt/local /opt/localllll
