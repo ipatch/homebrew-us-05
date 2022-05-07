@@ -1,0 +1,4 @@
+{
+  "pyside2@5.15.2.rb": "freecad/freecad/pyside2@5.15.2.rb",
+  "shiboken2@5.15.2.rb": "freecad/freecad/shiboken2@5.15.2.rb"
+}
