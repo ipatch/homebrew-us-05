@@ -40,7 +40,7 @@ class Coin3d < Formula
   depends_on "ninja" => :build
   depends_on "swig" => :build
   depends_on "boost"
-  depends_on "ipatch/us-05/pyside2@5.15.2"
+  depends_on "freecad/freecad/pyside2@5.15.2"
   depends_on "python@3.9"
 
   def install
