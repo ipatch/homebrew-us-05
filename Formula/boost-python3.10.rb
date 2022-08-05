@@ -11,7 +11,7 @@ class BoostPython310 < Formula
     formula "boost"
   end
 
-  keg_only :versioned_formula
+  # keg_only :versioned_formula
 
   depends_on "numpy" => :build
   depends_on "boost"
