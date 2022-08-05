@@ -68,6 +68,12 @@ class BoostPython310 < Formula
                    "python=#{pyver}",
                    *args
 
+    # attempt to make `brew install freecad` happy
+    unless Dir.exist?(opt_prefix+'include')
+      mkdir ('include')
+      File.write('include/weneedit.txt', 'FreeCAD cmake need it.')
+    end
+
     lib.install Dir["install-python3/lib/*.*"]
     (lib/"cmake").install Dir["install-python3/lib/cmake/boost_python*"]
     (lib/"cmake").install Dir["install-python3/lib/cmake/boost_numpy*"]
