@@ -10,9 +10,7 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        # default
-        # os: [ubuntu-latest, macos-latest]
-        os: [macos-mojave]
+        os: [macOS-latest, macos-11.0]
     runs-on: ${{ matrix.os }}
 
     steps:
