@@ -25,7 +25,7 @@ class Openssh < Formula
   depends_on "pkg-config" => :build
   depends_on "ldns"
   depends_on "libfido2"
-  # depends_on "openssl@1.1"
+  # epends_on "openssl@1.1"
   depends_on "libressl"
 
   resource "com.openssh.sshd.sb" do
@@ -44,9 +44,8 @@ class Openssh < Formula
     sha256 "3505c58bf1e584c8af92d916fe5f3f1899a6b15cc64a00ddece1dc0874b2f78f"
   end
 
-
   def install
-        ENV.append "CPPFLAGS", "-D__APPLE_SANDBOX_NAMED_EXTERNAL__"
+    ENV.append "CPPFLAGS", "-D__APPLE_SANDBOX_NAMED_EXTERNAL__"
 
     # Ensure sandbox profile prefix is correct.
     # We introduce this issue with patching, it's not an upstream bug.
@@ -61,8 +60,9 @@ class Openssh < Formula
       --with-kerberos5
       --with-libedit
     ]
-      # --with-ldns
-      # --with-ssl-dir=#{Formula["openssl@1.1"].opt_prefix}
+
+    # --with-ldns
+    # --with-ssl-dir=#{Formula["openssl@1.1"].opt_prefix}
 
     # system "/usr/local/bin/autoreconf"
     system "./configure", *args

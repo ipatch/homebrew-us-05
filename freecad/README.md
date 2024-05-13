@@ -50,12 +50,12 @@ not sure where to put notes, links related to github CI/CD for the homebrew-free
 
 - [ ] **possible improvment**, cmake, codebase (freecad) move away from using the 4 below cmake conventions, [learn more][lnklm1]
 
-  ```
-  add_compile_options()
-  include_directories()
-  link_directories()
-  link_libraries()
-  ```
+```
+add_compile_options
+include_directories
+link_directories
+link_libraries
+```
 
 [lnklm1]: <https://youtu.be/bsXLMQ6WgIk?t=1145>
 
@@ -210,7 +210,7 @@ to see notes about adding QML & qt quick to to freecad ui/ux, [learn more][freec
 
 [freecadux1]: <https://github.com/ipatch/homebrew-us-05/tree/dev/freecad#freecad-building-better-ui-ux>
 
-**TL;DR** 
+**TL;DR**
 
 > the **freecad-dev** formula file successfully installs on my local 10.14 mojave box
 
@@ -232,10 +232,10 @@ shared_ptr.hpp
 
 try the following homebrew commands
 
-```
-brew unlink boost && brew link boost
-brew unlink boost-python3 && brew link boost-python3
-```
+  ```
+  brew unlink boost && brew link boost
+  brew unlink boost-python3 && brew link boost-python3
+  ```
 
 ---
 
@@ -273,7 +273,7 @@ VLC is an app that uses QT for it's gui, and once used QT widgets, but has migra
 
 FreeCAD presently relies on QT to manage the GUI, and uses QT widgets, which is an imperative way to declare UI elements within the freecad gui.  QT has released QML in recent years as a declaritive alternative way to design UIs, similar to how HTML/CSS/JS interact to build web apps. QML is far from perfect, but IMHO it should be used for future UI design / improvements as QT is introducing less and less features for the QT widget based system.
 
-My thoughts on upgrading the UI/UX is to simply incorporate QML into the freecad ui, but **do not** try and replace everything at once, ie. keep / use both the widget based system while slowly experimenting with QML, and migrating the easier to understand widgets to QML if at all possible. From my understanding updating a QML file, `.qml` will not require an entire rebuild whereas updating a `.ui` based widget file will trigger an entire rebuild of the app.  Presently it takes ~ 40 minutes on a late 2013 MBP to build the latest FreeCAD. 
+My thoughts on upgrading the UI/UX is to simply incorporate QML into the freecad ui, but **do not** try and replace everything at once, ie. keep / use both the widget based system while slowly experimenting with QML, and migrating the easier to understand widgets to QML if at all possible. From my understanding updating a QML file, `.qml` will not require an entire rebuild whereas updating a `.ui` based widget file will trigger an entire rebuild of the app.  Presently it takes ~ 40 minutes on a late 2013 MBP to build the latest FreeCAD.
 
 A demo of what a QML based freecad UI can be found on [youtube](https://www.youtube.com/watch?v=wrOP7sLqwiM), the QML experimental ui was designed around QT 4.x and not QT 5.x There is also rather lengthy discussion on the freecad forums about adopting / integrating a QML based UI [here](https://forum.freecadweb.org/viewtopic.php?f=34&t=23053)
 
@@ -302,7 +302,7 @@ Some other useful links can be found below
 
 <a id="building-freecad-macos-nov-2020"></a>
 
-presently I'm using similar if not same steps to build freecad as the travis formula, as that is the one that generates the app asset on the freecad releases page. the current build steps i modeled my formula file after are [here &#8599;](https://travis-ci.org/github/FreeCAD/FreeCAD/jobs/741952720) 
+presently I'm using similar if not same steps to build freecad as the travis formula, as that is the one that generates the app asset on the freecad releases page. the current build steps i modeled my formula file after are [here &#8599;](https://travis-ci.org/github/FreeCAD/FreeCAD/jobs/741952720)
 
 <!-- - [ ] TODO: come up with more constructive way to incorporate svg gfx with markdown syntax, ie. md and html dont play well together -->
 
@@ -340,7 +340,7 @@ In no particular order
 The below commands I've been using to attempt to build the SALOME kernel
 
 ```shell
-cmake \ 
+cmake \
 -DCMAKE_BUILD_TYPE=RELEASE \
 -DCONFIGURATION_ROOT_DIR="/opt/code/git/salome/configuration" \
 -DCMAKE_INSTALL_PREFIX="/opt/beta/salome" \
@@ -354,9 +354,9 @@ The above command is attempting to build the SALOME kernel from the git source, 
 
 Basically, as of April 24, 2020 I'm still running into configuration issues presently due to _swig_.
 
-**TL;R** 
+**TL;R**
 
-I was using FreeCAD _fc_ the other day and was distracted / annoyed by the title bar containing the window decorators / decorations on macOS. (yes, yes I know I can use a different _wm_ that does not display window decorators, but I'm not that advantageous at the moment)  I always look at these bars and think what a waste of space (ideally the window decorators and menu bar (the bar containing the workbench drop down menu could coexist within the same bar)). I have noticed certain apps, _Alacritty_ lets me disable it _the title bar containing window decorators_ altogether, and other apps, _VS Code_ & _Vilvaldi_ integrate title bar with other UI components quite seemlessly a la how Xcode does it. I have since learned these custom "bars" are commonly referred to as _client side decorators_. 
+I was using FreeCAD _fc_ the other day and was distracted / annoyed by the title bar containing the window decorators / decorations on macOS. (yes, yes I know I can use a different _wm_ that does not display window decorators, but I'm not that advantageous at the moment)  I always look at these bars and think what a waste of space (ideally the window decorators and menu bar (the bar containing the workbench drop down menu could coexist within the same bar)). I have noticed certain apps, _Alacritty_ lets me disable it _the title bar containing window decorators_ altogether, and other apps, _VS Code_ & _Vilvaldi_ integrate title bar with other UI components quite seemlessly a la how Xcode does it. I have since learned these custom "bars" are commonly referred to as _client side decorators_.
 
 Compiling FreeCAD from source has been on the back of my mind a little while now, and since I've been messing around with it more often than not lately (3d printing).  _I mean how difficult could it be to compile _fc_ from source on macOS_ 🐇🕳 .
 
@@ -418,7 +418,7 @@ cmake \
 
 - creating a parametric draft dimension is **still** ongoing issue [learn more](https://forum.freecadweb.org/viewtopic.php?f=8&t=31507) [and even more](https://forum.freecadweb.org/viewtopic.php?t=17044)
 
-- the **gui** of freecad can be styled using a stylesheet, on my particular system (macOS) the stylesheet directory for storing custom freecad stylesheets is located below, and a youtube explaining the process can be found [here](https://www.youtube.com/watch?v=ZdG2y1-aOas) 
+- the **gui** of freecad can be styled using a stylesheet, on my particular system (macOS) the stylesheet directory for storing custom freecad stylesheets is located below, and a youtube explaining the process can be found [here](https://www.youtube.com/watch?v=ZdG2y1-aOas)
 
 ```shell
 $HOME/Library/Preferences/FreeCAD/Gui/Stylesheets
@@ -591,7 +591,7 @@ when using a macos vm as a self-hosted github runner and using brew to install p
 - [ ] possible to have _vim_ style key bindings for moving up down the _model hiearchy_ ie. <kbd>j</kbd> down & and <kbd>k</kbd> up.
 - [ ] would much prefer to see a transform gizmo similar to, if not exactly the same as the one used within prusa slicer.
 - [ ] should be able to create a _new_ group from a selection of bodies, instead of RMB on the document name then click _create group_ and have the focus in the _combo box_ change to the name of the group, for easier initial naming of the group.
-- [ ] when switching from the draft workbench back to the part design workbench the **combo view** always defaults to the **tasks** tab, and i'd much prefer to default to the **model** tab 
+- [ ] when switching from the draft workbench back to the part design workbench the **combo view** always defaults to the **tasks** tab, and i'd much prefer to default to the **model** tab
 - [ ] when using a keybinding such as <kbd>v</kbd> followed by <kbd>1</kbd> or <kbd>3</kbd> display a modal menu around mouse letting the user know what types of views can be selected, ie. solid shaded, wireframe, etc etc, while the <kbd>v</kbd> key is being held down.  If the key is let go then allow for traditional switching of the views.
 - [ ] when the <kbd>w</kbd> key binding is pressed bring up a list of workbenches, ie. how the _context menu addon_ works.
 - [ ] The right click RMB menu while within the **viewport** could be more robust, ie. put the workbench specific menus within the RMB context menu for quickly accessing workbench specific features.

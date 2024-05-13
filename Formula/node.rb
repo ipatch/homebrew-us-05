@@ -6,16 +6,16 @@ class Node < Formula
   license "MIT"
   head "https://github.com/nodejs/node.git", branch: "master"
 
-  livecheck do
-    url "https://nodejs.org/dist/"
-    regex(%r{href=["']?v?(\d+(?:\.\d+)+)/?["' >]}i)
-  end
-
   stable do
     patch do
       url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/5f1799dfb26575de50eaa1ae8e64bc7d1359c7fe/patches/0002-node-freecad-exp-with-patching-node-for-10.13-highsi.patch"
       sha256 "0aafe365248fd7ae34db9e7f246912844744537a397f6ef409504265030b714e"
     end
+  end
+
+  livecheck do
+    url "https://nodejs.org/dist/"
+    regex(%r{href=["']?v?(\d+(?:\.\d+)+)/?["' >]}i)
   end
 
   bottle do

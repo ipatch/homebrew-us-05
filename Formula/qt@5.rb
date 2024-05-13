@@ -21,7 +21,7 @@ class QtAT5 < Formula
 
   keg_only :versioned_formula
 
-  depends_on "ipatch/us-05/node"       => :build
+  depends_on "ipatch/us-05/node" => :build
   depends_on "pkg-config" => :build
   depends_on xcode: :build
   depends_on macos: :sierra
@@ -37,24 +37,24 @@ class QtAT5 < Formula
     depends_on "gcc"
     depends_on "glib"
     depends_on "icu4c"
-    depends_on "libproxy"
-    depends_on "libxkbcommon"
+    depends_on "libdrm"
     depends_on "libice"
+    depends_on "libproxy"
     depends_on "libsm"
     depends_on "libxcomposite"
-    depends_on "libdrm"
+    depends_on "libxkbcommon"
     depends_on "mesa"
     depends_on "pulseaudio"
     depends_on "python@3.9"
     depends_on "sdl2"
     depends_on "systemd"
+    depends_on "wayland"
     depends_on "xcb-util"
     depends_on "xcb-util-image"
     depends_on "xcb-util-keysyms"
     depends_on "xcb-util-renderutil"
     depends_on "xcb-util-wm"
     depends_on "zstd"
-    depends_on "wayland"
   end
 
   fails_with gcc: "5"
