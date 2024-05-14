@@ -3,6 +3,8 @@ class HelloWorldC < Formula
   homepage "https://github.com/ipatch/homebrew-us-05"
   url "file://#{__FILE__}", using: :nounzip
 
+  keg_only :versioned_formula
+
   def install
     # compile simple hello world c program
     # the `hello.c` is not necessary due to the builtin data block but left here for posterity
