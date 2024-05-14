@@ -15,7 +15,7 @@ For comprehensive instructions for building inkscape on macOS<br /> 👉 [click 
 - [ ]	INKSCAPE > building in a nutshell >>
 - [ ]	> 1) an app image needs to be created
 - [ ]	> 2) then a DMG needs be created
-- [ ]	> 3) construct a homebrew cask formula 
+- [ ]	> 3) construct a homebrew cask formula
 - [ ]	INKSCAPE > PLUGINS / EXTENSIONS / FILTERS > PYTHON > look at GIMP source and see how their managing using python
 - [ ]	INKSCAPE > FEATURE REQUEST > bring focus to canvas on mouse hover
 - [ ]	INKSCAPE > TUTORING > LEARN > explain the difference between layers and objects within layers
