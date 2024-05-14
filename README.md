@@ -262,7 +262,7 @@ apparently explicitly setting `CC` and `CXX` env vars in `.cmake` files can lead
 
 ---
 
-- https://github.com/Rylan12/homebrew-development useful homebrew tap for maintaining homebrew formula 
+- https://github.com/Rylan12/homebrew-development useful homebrew tap for maintaining homebrew formula
 
 [ref1]: <https://stackoverflow.com/a/4158763/708807>
 [ref2]: <https://docs.brew.sh/Formula-Cookbook>
