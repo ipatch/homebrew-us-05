@@ -423,7 +423,7 @@ An **Info.plist** for an app bundle on macOS can contain the below key for speci
 
 ## Working with `jhbuild` [🔝](#contents)
 
-> I went down a **jhbuild** rabbit 🐇 hole thinking it would be an ideal way for managing the build infrastructure on macOS ...I 🙅‍♂️ was wrong 
+> I went down a **jhbuild** rabbit 🐇 hole thinking it would be an ideal way for managing the build infrastructure on macOS ...I 🙅‍♂️ was wrong
 
 <details>
 <summary>Notes from working with jhbuild</summary>
@@ -516,7 +516,7 @@ jhbuild bootstrap
 **Update** | with recent packaging updates for GTK related packages, dialogs and windows appear to be opening a typical user would expect, and not with a _tab_ 👍
 
 - [ ] construct an **Inkscape.app** bundle using CMake and friends.
-  
+
 ### TODOS > Useful Links > app bundling on macOS
 
 - [gitlab.gnome.org](https://gitlab.gnome.org/GNOME/gedit/blob/master/osx/bundle/bundle)
@@ -604,7 +604,7 @@ ld: library not found for gc
 - **error**
 
 ```
-Unable to revert mtime: /Library/Fonts  
+Unable to revert mtime: /Library/Fonts
 ```
 
 - **answer**, open and close inkscape after successful build/install, error should go away after a relaunch of app
