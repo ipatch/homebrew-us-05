@@ -22,12 +22,12 @@ cask "osxfuse@3.8.3" do
     set_ownership ["/usr/local/include", "/usr/local/lib"]
   end
 
-  uninstall pkgutil: [
-                       "com.github.osxfuse.pkg.MacFUSE",
-                       "com.github.osxfuse.pkg.PrefPane",
+  uninstall kext:    "com.github.osxfuse.filesystems.osxfusefs",
+            pkgutil: [
               "com.github.osxfuse.pkg.Core",
-            ],
-            kext:    "com.github.osxfuse.filesystems.osxfusefs"
+              "com.github.osxfuse.pkg.MacFUSE",
+              "com.github.osxfuse.pkg.PrefPane",
+            ]
 
   caveats do
     reboot
