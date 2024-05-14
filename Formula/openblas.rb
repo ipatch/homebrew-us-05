@@ -26,7 +26,8 @@ class Openblas < Formula
   fails_with :clang
 
   def install
-    ENV.runtime_cpu_detection
+    # TODO: figure out why style exception is working with my local formula
+    # ENV.runtime_cpu_detection
     ENV.deparallelize # build is parallel by default, but setting -j confuses it
 
     ENV["DYNAMIC_ARCH"] = "1"
