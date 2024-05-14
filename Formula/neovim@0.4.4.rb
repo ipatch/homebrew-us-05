@@ -5,7 +5,7 @@ class NeovimAT044 < Formula
   revision 2
 
   stable do
-    url "https://github.com/neovim/neovim/archive/v0.4.4.tar.gz"
+    url "https://github.com/neovim/neovim/refs/tags/v0.4.4.tar.gz"
     sha256 "2f76aac59363677f37592e853ab2c06151cca8830d4b3fe4675b4a52d41fc42c"
 
     # Patch for Apple Silicon. Backported from

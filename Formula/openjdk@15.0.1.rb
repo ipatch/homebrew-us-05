@@ -73,8 +73,7 @@ class OpenjdkAT1501 < Formula
     #
     build = File.read(".hg_archival.txt")
                 .scan(/^tag: jdk-#{version}\+(.+)$/)
-                .map(&:first)
-                .map(&:to_i)
+                .map { |match| match.first.to_i }
                 .max
     raise "cannot find build number in .hg_archival.txt" if build.nil?
 

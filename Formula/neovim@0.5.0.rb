@@ -1,7 +1,7 @@
 class NeovimAT050 < Formula
   desc "Ambitious Vim-fork focused on extensibility and agility"
   homepage "https://neovim.io/"
-  url "https://github.com/neovim/neovim/archive/v0.5.0.tar.gz"
+  url "https://github.com/neovim/neovim/refs/tags/v0.5.0.tar.gz"
   sha256 "2294caa9d2011996499fbd70e4006e4ef55db75b99b6719154c09262e23764ef"
   license "Apache-2.0"
   head "https://github.com/neovim/neovim.git", branch: "master"
@@ -83,22 +83,21 @@ class NeovimAT050 < Formula
           end
         end
       end
-   
+
       # Build libvterm. Remove when we use the formula.
       cd "libvterm" do
         system "make", "install", "PREFIX=#{buildpath}/deps-build", "LDFLAGS=-static #{ENV.ldflags}"
         ENV.prepend_path "PKG_CONFIG_PATH", buildpath/"deps-build/lib/pkgconfig"
       end
-
     end
 
     system "cmake", "-S", ".", "-B", "build",
       "-DLIBLUV_LIBRARY=#{Formula["luv"].opt_lib/shared_library("libluv")}",
       *std_cmake_args
-      # Patch out references to Homebrew shims
-      inreplace "build/config/auto/versiondef.h", Superenv.shims_path/ENV.cc, ENV.cc
-      system "cmake", "--build", "build"
-      system "cmake", "--install", "build"
+    # Patch out references to Homebrew shims
+    inreplace "build/config/auto/versiondef.h", Superenv.shims_path/ENV.cc, ENV.cc
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

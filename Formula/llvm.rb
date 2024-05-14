@@ -1,13 +1,13 @@
 class Llvm < Formula
   desc "Next-gen compiler infrastructure"
   homepage "https://llvm.org/"
-  url "https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.1/llvm-project-13.0.1.src.tar.xz"
-  sha256 "326335a830f2e32d06d0a36393b5455d17dc73e0bd1211065227ee014f92cbf8"
   # The LLVM Project is under the Apache License v2.0 with LLVM Exceptions
   license "Apache-2.0" => { with: "LLVM-exception" }
   head "https://github.com/llvm/llvm-project.git", branch: "main"
 
   stable do
+    url "https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.1/llvm-project-13.0.1.src.tar.xz"
+    sha256 "326335a830f2e32d06d0a36393b5455d17dc73e0bd1211065227ee014f92cbf8"
     patch do
       url "https://raw.githubusercontent.com/ipatch/homebrew-us-05/530a47d928c607cf2730a05b2ed1a9877a98f237/patches/0001-attempt-to-patch-llvm-13-to-compile-on-macos-high-si.patch"
       sha256 "0d8a95ee404f80c7e71829fadf9f76cc2ddf9f8599ad4187bc9e3d2a8171fc0d"
@@ -48,10 +48,10 @@ class Llvm < Formula
 
   on_linux do
     depends_on "pkg-config" => :build
-    depends_on "glibc" if Formula["glibc"].any_version_installed?
     depends_on "binutils" # needed for gold
     depends_on "elfutils" # openmp requires <gelf.h>
     depends_on "gcc"
+    depends_on "glibc" if Formula["glibc"].any_version_installed?
   end
 
   # Fails at building LLDB
@@ -473,7 +473,7 @@ class Llvm < Formula
     end
     assert_equal "Hello World!", shell_output("./testlibc++").chomp
 
-    on_linux do
+    if OS.linux?
       # Link installed libc++, libc++abi, and libunwind archives both into
       # a position independent executable (PIE), as well as into a fully
       # position independent (PIC) DSO for things like plugins that export

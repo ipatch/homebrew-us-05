@@ -142,7 +142,7 @@ If freecad is installed via the bottle then one will have to wait for a new bott
 When installing FreeCAD from source using the formula file provided by brew each subsequent build will require a complete rebuild of FreeCAD thus requiring an additional 60 minutes to build (my Macbook), and if any of the dependencies FreeCAD relies on is updated then more than likely FreeCAD will require a rebuild.  mac homebrew does provide a feature to pin packages at specific versions to prevent them from updating, and also allows setting of an environment variable to prevent homebrew from automatically checking of updates (which can slow things down). All that said, FreeCAD can be built using all the dependencies provided by mac homebrew, but not using the formula file but rather cloning the source to an arbitrary path on a local file system providing a couple of advantages
 
 - if `brew cleanup` is ran, and FreeCAD was installed using the above provided command then all the source tarballs or bottles that were _checked out_ or downloaded during the install process will be delete from the system, and thus if a reinstall or upgrade is required then homebrew will have to refetch the bottles, or reclone the git source again.
-- mac homebrew does provide a method, _install flag_ for keeping the source regardless if the build succeeds or fails, thus allowing to navigate to the git clone of FreeCAD source however the options are limited IMHO, and performing a standard `git clone` outside of homebrew is **much** preferred. 
+- mac homebrew does provide a method, _install flag_ for keeping the source regardless if the build succeeds or fails, thus allowing to navigate to the git clone of FreeCAD source however the options are limited IMHO, and performing a standard `git clone` outside of homebrew is **much** preferred.
 - cloning the FreeCAD source allows passing **any** cmake flags not provided by the formula file
   - allowing to use other build systems such as _ninja_
   - allowing the use of alternate compilers, ie. _ccache_
@@ -177,7 +177,7 @@ I used the below cmake flags to build FreeCAD from a clone, and I'd recommend bu
 
 Set the path / environment variables for specifying the compilers to use
 
-```
+```shell
 export CC="/usr/local/opt/llvm/bin/clang"
 export CXX="/usr/local/opt/llvm/bin/clang++"
 ```
@@ -223,7 +223,7 @@ cmake \
 -DBUILD_FEM=1 \
 -DBUILD_TECHDRAW=0 \
 -DFREECAD_USE_EXTERNAL_KDL=ON \
--DFREECAD_CREATE_MAC_APP=OFF 
+-DFREECAD_CREATE_MAC_APP=OFF
 -DCMAKE_PREFIX_PATH="/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources;/usr/local/opt/vtk@8.2/lib/cmake;/usr/local;" .
 ```
 
@@ -291,7 +291,7 @@ mv freecadd freecad;
 
 ---
 
-The text within this document is by no means exhaustive and aiming to cover every edge but does aim to serve as a decent starting point for setting up macOS to build FreeCAD from source. 
+The text within this document is by no means exhaustive and aiming to cover every edge but does aim to serve as a decent starting point for setting up macOS to build FreeCAD from source.
 
 <!-- links -->
 

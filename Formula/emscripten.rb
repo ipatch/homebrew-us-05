@@ -3,7 +3,7 @@ require "language/node"
 class Emscripten < Formula
   desc "LLVM bytecode to JavaScript compiler"
   homepage "https://emscripten.org/"
-  url "https://github.com/emscripten-core/emscripten/archive/3.1.5.tar.gz"
+  url "https://github.com/emscripten-core/emscripten/refs/tags/3.1.5.tar.gz"
   sha256 "0de70707d0ae8f2cee06ae5324b09f74f91c00b927866a877acb168f5421d36b"
   license all_of: [
     "Apache-2.0", # binaryen
@@ -28,8 +28,8 @@ class Emscripten < Formula
 
   depends_on "cmake" => :build
   depends_on "ipatch/us-05/node"
-  depends_on "python@3.9"
   depends_on "ipatch/us-05/yuicompressor"
+  depends_on "python@3.9"
 
   # OpenJDK is needed as a dependency on Linux and ARM64 for google-closure-compiler,
   # an emscripten dependency, because the native GraalVM image will not work.
