@@ -4,7 +4,8 @@ cask "osxfuse@3.8.3" do
     sha256 "87e507c44c19689beefa3d47dd00ba953254d9e616cb633c1b4343407fe99700"
 
     # github.com/osxfuse was verified as official when first introduced to the cask
-    url "https://github.com/osxfuse/osxfuse/releases/download/osxfuse-#{version}/osxfuse-#{version}.dmg"
+    url "https://github.com/osxfuse/osxfuse/releases/download/osxfuse-#{version}/osxfuse-#{version}.dmg",
+      verified: "github.com/osxfuse/osxfuse"
     name "OSXFUSE"
     homepage "https://osxfuse.github.io/"
 
