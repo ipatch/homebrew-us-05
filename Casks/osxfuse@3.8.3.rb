@@ -29,6 +29,8 @@ cask "osxfuse@3.8.3" do
             ]
 
   caveats do
-    reboot
+    <<-EOS
+    after installing this cask a system reboot is required
+    EOS
   end
 end
