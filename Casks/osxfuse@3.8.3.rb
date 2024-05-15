@@ -5,7 +5,7 @@ cask "osxfuse@3.8.3" do
 
     # github.com/osxfuse was verified as official when first introduced to the cask
     url "https://github.com/osxfuse/osxfuse/releases/download/osxfuse-#{version}/osxfuse-#{version}.dmg",
-      verified: "github.com/osxfuse/osxfuse"
+        verified: "github.com/osxfuse/osxfuse"
     name "OSXFUSE"
     homepage "https://osxfuse.github.io/"
 
