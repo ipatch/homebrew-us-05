@@ -151,7 +151,7 @@ jobs:
             --only-formulae \
             --only-json-tab \
             --skip-recursive-dependents \
-            --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
+            --root-url=https://ghcr.io/v2/freecad/homebrew-freecad
           fi
         if: github.event_name == 'pull_request'
 
