@@ -9,7 +9,6 @@ cask "osxfuse@3.8.3" do
 
   auto_updates true
   conflicts_with cask: "osxfuse-dev"
-
   depends_on macos: ">= :mojave"
 
   pkg "Extras/FUSE for macOS #{version}.pkg",
