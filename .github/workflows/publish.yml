@@ -32,7 +32,9 @@ jobs:
         uses: Homebrew/actions/git-try-push@master
         with:
           token: ${{ github.token }}
-          branch: main
+          # branch: main
+          # the default branch for homebrew-us-05 is `dev`
+          branch: dev
 
       - name: Delete branch
         if: github.event.pull_request.head.repo.fork == false
