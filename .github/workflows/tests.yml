@@ -128,6 +128,14 @@ jobs:
             -e '/go@1.12/d' \
             $(brew --repo homebrew/core)/style_exceptions/binary_bootstrap_formula_urls_allowlist.json
 
+      - name: check for linux runner
+        run: |
+          if [[ $RUNNER_OS == 'Linux' ]]; then
+            echo "the RUNNER_OS appears to be linux"
+          else
+            echo "not linux"
+          fi
+
       - name: build bottle using test-bot for current formula
         id: build_bottle
         # NOTE: ipatch, below env var required, see, https://github.com/orgs/Homebrew/discussions/4856
