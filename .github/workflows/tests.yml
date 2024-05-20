@@ -100,10 +100,9 @@ jobs:
         run: echo "The operating system on the runner is, $RUNNER_OS."; echo HOMEBREW_DEVELOPER=1 >> $GITHUB_ENV
         # NOTE: not possible to have two `run:` blocks within a `name`
 
-      # NOTE: possibly causing the build issues with ubuntu runner
-      # - name: Install Homebrew Bundler RubyGems
-      #   if: steps.cache.outputs.cache-hit != 'true' && steps.last_run_status.outputs.last_run_status != 'success'
-      #   run: brew install-bundler-gems
+      - name: Install Homebrew Bundler RubyGems
+        if: steps.cache.outputs.cache-hit != 'true' && steps.last_run_status.outputs.last_run_status != 'success'
+        run: brew install-bundler-gems
 
       - run: brew test-bot --only-cleanup-before
 
@@ -137,6 +136,8 @@ jobs:
           fi
 
       - name: build bottle using test-bot for current formula
+        env:
+          HOMEBREW_NO_INSTALL_FROM_API: 1
         id: build_bottle
         # run: brew test-bot --only-formulae
         run: |
@@ -147,12 +148,6 @@ jobs:
         if: github.event_name == 'pull_request'
 
       #   # NOTE: ipatch, below env var required, see, https://github.com/orgs/Homebrew/discussions/4856
-      #   env:
-      #     HOMEBREW_NO_INSTALL_FROM_API: 1
-      #     # if [[ $RUNNER_OS == 'Linux' && $RUNNER_LABELS == *"ubuntu"* ]]; then
-      #     if [[ $RUNNER_OS == 'Linux' ]]; then
-      #       brew test-bot --only-formulae
-      #       --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
       #     else
       #       # Check if the runner name is vmmojave or vmcatalina and add the flag if true
       #       # NOTE: ipatch, keep-old is not the droid you're looking for,
