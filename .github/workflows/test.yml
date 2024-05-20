@@ -134,7 +134,8 @@ jobs:
         env:
           HOMEBREW_NO_INSTALL_FROM_API: 1
         run: |
-          if [[ $RUNNER_OS == 'Linux' && $RUNNER_LABELS == *"ubuntu"* ]]; then
+          # if [[ $RUNNER_OS == 'Linux' && $RUNNER_LABELS == *"ubuntu"* ]]; then
+          if [[ $RUNNER_OS == 'Linux' ]]; then
             brew test-bot --only-formulae
             --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
           else
