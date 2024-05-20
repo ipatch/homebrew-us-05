@@ -134,25 +134,31 @@ jobs:
         env:
           HOMEBREW_NO_INSTALL_FROM_API: 1
         run: |
-          # Check if the runner name is vmmojave or vmcatalina and add the flag if true
-          # NOTE: ipatch, keep-old is not the droid you're looking for,
-          # see: https://github.com/orgs/Homebrew/discussions/4935
-          # --keep-old \
-          if [[ runner.name == 'vmmojave' || runner.name == 'vmcatalina' ]]; then
-            brew test-bot \
-            --skip-online-checks \
-            --only-formulae \
-            --only-json-tab \
-            --skip-recursive-dependents \
-            --build-dependents-from-source \
-            --root-url=https://ghcr.io/v2/freecad/homebrew-freecad
-          else
-            brew test-bot \
-            --skip-online-checks \
-            --only-formulae \
-            --only-json-tab \
-            --skip-recursive-dependents \
+          # if [[ $RUNNER_OS == 'Linux' && $RUNNER_LABELS == *"ubuntu"* ]]; then
+          if [[ $RUNNER_OS == 'Linux' ]]; then
+            brew test-bot --only-formulae
             --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
+          else
+            # Check if the runner name is vmmojave or vmcatalina and add the flag if true
+            # NOTE: ipatch, keep-old is not the droid you're looking for,
+            # see: https://github.com/orgs/Homebrew/discussions/4935
+            # --keep-old \
+            if [[ runner.name == 'vmmojave' || runner.name == 'vmcatalina' ]]; then
+              brew test-bot \
+              --skip-online-checks \
+              --only-formulae \
+              --only-json-tab \
+              --skip-recursive-dependents \
+              --build-dependents-from-source \
+              --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
+            else
+              brew test-bot \
+              --skip-online-checks \
+              --only-formulae \
+              --only-json-tab \
+              --skip-recursive-dependents \
+              --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
+            fi
           fi
         if: github.event_name == 'pull_request'
 
@@ -174,7 +180,7 @@ jobs:
       - name: Upload bottles as artifact
         id: upload_bottle_artifacts
         if: always() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v3.1.3
+        uses: actions/upload-artifact@v4.3.3
         with:
           name: bottles
           path: '*.bottle.*'
