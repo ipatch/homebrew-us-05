@@ -141,8 +141,9 @@ jobs:
         # run: brew test-bot --only-formulae
         run: |
           if [[ $RUNNER_OS == 'Linux' ]]; then
-          brew test-bot --only-formulae \
-          --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
+            brew test-bot --only-formulae \
+            --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
+          fi
         if: github.event_name == 'pull_request'
 
       #   # NOTE: ipatch, below env var required, see, https://github.com/orgs/Homebrew/discussions/4856
