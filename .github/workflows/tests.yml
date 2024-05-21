@@ -135,42 +135,37 @@ jobs:
             echo "not linux"
           fi
 
-      - name: build bottle using test-bot for current formula
-        env:
-          HOMEBREW_NO_INSTALL_FROM_API: 1
-        id: build_bottle
-        # run: brew test-bot --only-formulae
+      # NOTE: ipatch, env var required, see, https://github.com/orgs/Homebrew/discussions/4856
+      - name: unset HOMEBREW_NO_INSTALL_FROM_API if runner is linux
         run: |
           if [[ $RUNNER_OS == 'Linux' ]]; then
-            brew test-bot --only-formulae \
+            unset HOMEBREW_NO_INSTALL_FROM_API
+          fi
+
+      - name: build bottle using test-bot for current formula
+        id: build_bottle
+        # Check if the runner name is vmmojave or vmcatalina and add the flag if true
+        # NOTE: ipatch, keep-old is not the droid you're looking for,
+        # see: https://github.com/orgs/Homebrew/discussions/4935
+        # --keep-old \
+        run: |
+          if [[ runner.name == 'vmmojave' || runner.name == 'vmcatalina' ]]; then
+            brew test-bot \
+            --skip-online-checks \
+            --only-formulae \
+            --only-json-tab \
+            --skip-recursive-dependents \
+            --build-dependents-from-source \
+            --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
+          else
+            brew test-bot \
+            --skip-online-checks \
+            --only-formulae \
+            --only-json-tab \
+            --skip-recursive-dependents \
             --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
           fi
         if: github.event_name == 'pull_request'
-
-      #   # NOTE: ipatch, below env var required, see, https://github.com/orgs/Homebrew/discussions/4856
-      #     else
-      #       # Check if the runner name is vmmojave or vmcatalina and add the flag if true
-      #       # NOTE: ipatch, keep-old is not the droid you're looking for,
-      #       # see: https://github.com/orgs/Homebrew/discussions/4935
-      #       # --keep-old \
-      #       if [[ runner.name == 'vmmojave' || runner.name == 'vmcatalina' ]]; then
-      #         brew test-bot \
-      #         --skip-online-checks \
-      #         --only-formulae \
-      #         --only-json-tab \
-      #         --skip-recursive-dependents \
-      #         --build-dependents-from-source \
-      #         --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
-      #       else
-      #         brew test-bot \
-      #         --skip-online-checks \
-      #         --only-formulae \
-      #         --only-json-tab \
-      #         --skip-recursive-dependents \
-      #         --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
-      #       fi
-      #     fi
-      #   if: github.event_name == 'pull_request'
 
       # - name: debug with tmate on failure
       #   if: ${{ failure() }}
