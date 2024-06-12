@@ -1,0 +1,39 @@
+---
+name: build MacOS app bundle
+
+on:
+  workflow_dispatch:
+
+# env:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-14
+          - macos-13
+          - macos-12
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: debug with lhotari/action-upterm
+        id: debug_workflow_run
+        # uses: actions/checkout@v2
+        uses: lhotari/action-upterm@v1
+        if: ${{ failure() }}
+        with:
+          # limit ssh access to user who triggered the workflow
+          limit-access-to-actor: true
+          # shut down server after 10 minutes if no one connects
+          wait-timeout-minutes: 10
+
