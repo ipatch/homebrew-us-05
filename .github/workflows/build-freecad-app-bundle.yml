@@ -1,15 +1,21 @@
 ---
-name: build MacOS app bundle
+name: build FreeCAD MacOS app bundle
 
 on:
   workflow_dispatch:
 
-# env:
+env:
+  HOMEBREW_NO_ANALYTICS: 1
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_INSTALL_CLEANUP: 1
+  HOMEBREW_NO_INSTALL_FROM_API: 1
+  HOMEBREW_DEVELOPER: 1
 
 jobs:
   build:
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         os:
           - macos-14
@@ -18,16 +24,34 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
+    timeout-minutes: 1200
+
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      - name: checkout repository
-        uses: actions/checkout@v4.1.7
+      - name: Cache Homebrew Bundler RubyGems
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
+          key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
+          restore-keys: ${{ runner.os }}-rubygems-
+
+      - name: setup freecad tap
+        id: setup-freecad-tap
+        run: |
+          brew tap freecad/freecad
+
+      - name: install freecad deps
+        id: install-freecad-deps
+        run: brew install --only-dependencies freecad
+
+      # - name: checkout repository
+      #   uses: actions/checkout@v2
 
       - name: debug with lhotari/action-upterm
-        id: debug_workflow_run
+        id: debug-workflow-run
         # uses: actions/checkout@v2
         uses: lhotari/action-upterm@v1
         if: ${{ failure() }}
