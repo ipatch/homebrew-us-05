@@ -1,108 +1,28 @@
----
 name: brew test-bot
 
 on:
   push:
     branches:
       - main
-      - master
-
   pull_request:
-
-  # workflow_dispatch:  # NOTE: nova with homebrew gha
-
-env:
-  HOMEBREW_NO_ANALYTICS: 1
-  HOMEBREW_NO_AUTO_UPDATE: 1
-  HOMEBREW_NO_INSTALL_CLEANUP: 1
-  HOMEBREW_NO_INSTALL_FROM_API: 1
-  HOMEBREW_DEVELOPER: 1
 
 jobs:
   test-bot:
     strategy:
-      # NOTE: ipatch, `fail-fast` disabled because subsequent runners can not run job if previous job failed
-      fail-fast: false
-      # NOTE: ipatch, all three self hosted runners (vms) are hosted on same computer
-      #   ...so limit job to one runner at a time.
-      # REF: 
-      # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#defining-the-maximum-number
-      max-parallel: 1
       matrix:
-        # os: [ubuntu-latest, macos-latest] # NOTE: default
-        # NOTE: homebrew/homebrew-core uses private self hosted runners
-        os: 
-          - ubuntu-22.04
-          # NOTE: macos-*-large runner requires additional spending limits
-          # - macos-14-large
-          - macos-14
-          # - macos-13-large
-          - macos-13
-          # - macos-12-large
-          - macos-12
-          # - self-hosted-catalinavm
-          # - self-hosted-bigsurvm
-          # - self-hosted-mojavevm
-
+        os: [ubuntu-22.04, macos-13]
     runs-on: ${{ matrix.os }}
-
-    timeout-minutes: 1200
-
     steps:
-      - name: Get current date
-        id: get_current_date
-        run: echo "date=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
-
-      - name: Print value of date from previous step
-        id: print_date
-        run: echo "${{ steps.get_current_date.outputs.date }}"
-
-      - name: Set default run status
-        id: set_default_run_status
-        run: echo "last_run_status=default" >> $GITHUB_ENV
-
-      - name: Restore last run status
-        id: restore_last_run_status
-        uses: actions/cache@v4
-        with:
-          path: |
-            last_run_status
-          key: |
-            ${{ github.run_id }}-${{ matrix.os }}-${{ steps.date.outputs.date }}
-          restore-keys: |
-            ${{ github.run_id }}-${{ matrix.os }}-
-
-      - name: Set last run status
-        id: set_last_run_status
-        run: echo "The last run status is ${{ env.last_run_status }}"
-
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Cache Homebrew Bundler RubyGems
-        if: steps.last_run_status.outputs.last_run_status != 'success'
-        id: cache
         uses: actions/cache@v4
         with:
           path: ${{ steps.set-up-homebrew.outputs.gems-path }}
           key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ runner.os }}-rubygems-
-
-      - name: print env
-        id: print_env
-        run: env
-
-      # NOTE: use a condition to add env var for mojave runner
-      # REF: https://docs.github.com/en/actions/learn-github-actions/environment-variables
-      - name: condition, check runner name 
-        if: runner.name == 'vmmojave'
-        run: echo "The operating system on the runner is, $RUNNER_OS."; echo HOMEBREW_DEVELOPER=1 >> $GITHUB_ENV
-        # NOTE: not possible to have two `run:` blocks within a `name`
-
-      - name: Install Homebrew Bundler RubyGems
-        if: steps.cache.outputs.cache-hit != 'true' && steps.last_run_status.outputs.last_run_status != 'success'
-        run: brew install-bundler-gems
 
       - run: brew test-bot --only-cleanup-before
 
@@ -110,88 +30,12 @@ jobs:
 
       - run: brew test-bot --only-tap-syntax
 
-      # NOTE: ipatch, attempt to set homebrew-core repo to specific commit for catalina bottling
-      - name: check for catalina vm and set homebrew-core repo to specific commit
-        if: runner.name == 'vmcatalina'
-        run: |
-          cd $(brew --repo homebrew/core); \
-          git checkout ipatch-1015-cmake-bottle
-
-      - name: condition, update style exceptions for vmmojave  
-        if: runner.name == 'vmmojave'
-        run: |
-          sed -i '' \
-            -e '/go@1.9/d' \
-            -e '/go@1.10/d' \
-            -e '/go@1.11/d' \
-            -e '/go@1.12/d' \
-            $(brew --repo homebrew/core)/style_exceptions/binary_bootstrap_formula_urls_allowlist.json
-
-      - name: check for linux runner
-        run: |
-          if [[ $RUNNER_OS == 'Linux' ]]; then
-            echo "the RUNNER_OS appears to be linux"
-          else
-            echo "not linux"
-          fi
-
-      # NOTE: ipatch, env var required, see, https://github.com/orgs/Homebrew/discussions/4856
-      - name: unset HOMEBREW_NO_INSTALL_FROM_API if runner is linux
-        run: |
-          if [[ $RUNNER_OS == 'Linux' ]]; then
-            unset HOMEBREW_NO_INSTALL_FROM_API
-          fi
-
-      - name: build bottle using test-bot for current formula
-        id: build_bottle
-        # Check if the runner name is vmmojave or vmcatalina and add the flag if true
-        # NOTE: ipatch, keep-old is not the droid you're looking for,
-        # see: https://github.com/orgs/Homebrew/discussions/4935
-        # --keep-old \
-        run: |
-          if [[ runner.name == 'vmmojave' || runner.name == 'vmcatalina' ]]; then
-            brew test-bot \
-            --skip-online-checks \
-            --only-formulae \
-            --only-json-tab \
-            --skip-recursive-dependents \
-            --build-dependents-from-source \
-            --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
-          else
-            brew test-bot \
-            --skip-online-checks \
-            --only-formulae \
-            --only-json-tab \
-            --skip-recursive-dependents \
-            --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
-          fi
+      - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
 
-      # - name: debug with tmate on failure
-      #   if: ${{ failure() }}
-      #   uses: mxschmitt/action-tmate@v3      
-
-      - name: debug with lhotari/action-upterm
-        id: debug_workflow_run
-        # uses: actions/checkout@v2
-        uses: lhotari/action-upterm@v1
-        if: ${{ failure() }}
-        with:
-          # limit ssh access to user who triggered the workflow
-          limit-access-to-actor: true
-          # shut down server after 10 minutes if no one connects
-          wait-timeout-minutes: 10
-
       - name: Upload bottles as artifact
-        id: upload_bottle_artifacts
         if: always() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4
         with:
-          name: bottles
+          name: bottles_${{ matrix.os }}
           path: '*.bottle.*'
-
-      - name: Save run status
-        id: save_run_status
-        if: steps.last_run_status.outputs.last_run_status != 'success'
-        run: echo "last_run_status=${{ steps.test_run.outcome }}" >> $GITHUB_ENV
-
