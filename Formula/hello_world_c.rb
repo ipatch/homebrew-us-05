@@ -2,7 +2,7 @@ class HelloWorldC < Formula
   desc "Simple 'Hello, World!' program written in C"
   homepage "https://github.com/arjuncvinod/Hello-World-in-Different-Languages"
   url "https://raw.githubusercontent.com/arjuncvinod/Hello-World-in-Different-Languages/main/C.c"
-  version "1.0"
+  version "1.1"
   sha256 "742b3b98f6ad8d80396d6be1be32ddf66e06466120954c713f1b6ed373786a10"
 
   bottle do
