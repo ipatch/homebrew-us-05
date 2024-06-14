@@ -24,7 +24,7 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.7
 
       - name: debug with lhotari/action-upterm
         id: debug_workflow_run
