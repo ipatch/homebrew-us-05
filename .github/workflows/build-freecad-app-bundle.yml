@@ -35,7 +35,7 @@ jobs:
       - name: Determine Homebrew Path
         id: determine-homebrew-path
         run: |
-           BREW_PATH=$(/usr/bin/uname -m | grep -q 'arm64' && echo '/opt/homebrew' || echo '/usr/local')
+           BREW_PATH=$(brew --prefix)
            echo "BREW_PATH=\"$BREW_PATH\"" >> "$GITHUB_ENV"
            echo "brew-path=\"$BREW_PATH\"" >> "$GITHUB_OUTPUT"
 
@@ -50,18 +50,19 @@ jobs:
           key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ runner.os }}-rubygems-
 
-      - name: Cache Homebrew
-        id: cache-homebrew
+      - name: Cache Homebrew Packages
+        id: cache-homebrew-packages
         uses: actions/cache@v4
+        env:
+          cache-name: homebrew-packages
         with:
           path: |
             ${{ env.BREW_PATH }}
-            ${{ env.BREW_PATH }}/Library/Homebrew/vendor/bundle/ruby
-            ${{ env.BREW_PATH }}/Library/Taps
-            ${{ env.BREW_PATH }}/Cellar
-            ~/Library/Caches/Homebrew
-          key: homebrew-${{ runner.os }}-${{ hashFiles('**/Brewfile') }}
-          restore-keys: homebrew-${{ runner.os }}-
+            # ~/Library/Caches/Homebrew
+          # key: homebrew-${{ runner.os }}-${{ hashFiles('**/Brewfile') }}
+          key: ${{ matrix.os }}-${{ env.cache-name }}-${{ hashFiles('.config/brew/Brewfile') }}
+          restore-keys: |
+            ${{ matrix.os }}-${{ env.cache-name }}-homebrew-${{ runner.os }}-
 
       - name: Check Homebrew Cache
         run: ls -la ${{ env.BREW_PATH }}/Cellar
