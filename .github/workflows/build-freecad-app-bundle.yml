@@ -35,10 +35,9 @@ jobs:
       - name: Determine Homebrew Path
         id: determine-homebrew-path
         run: |
-          echo \
-            "BREW_PATH=\
-              $(/usr/bin/uname -m | grep -q 'arm64' && echo '/opt/homebrew' || echo '/usr/local')" >> $GITHUB_ENV
-          echo "brew-path=$BREW_PATH" >> $GITHUB_OUTPUT
+           BREW_PATH=$(/usr/bin/uname -m | grep -q 'arm64' && echo '/opt/homebrew' || echo '/usr/local')
+           echo "BREW_PATH=\"$BREW_PATH\"" >> "$GITHUB_ENV"
+           echo "brew-path=\"$BREW_PATH\"" >> "$GITHUB_OUTPUT"
 
       - name: Cache Homebrew Bundler RubyGems
         uses: actions/cache@v4
