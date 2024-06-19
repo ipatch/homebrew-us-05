@@ -32,6 +32,10 @@ jobs:
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
+      - name: Determine Homebrew Path
+        id: determine-homebrew-path
+        run: echo "##[set-output name=brew-path;]$(/usr/bin/uname -m grep -q 'arm64' && echo '/opt/homebrew' || echo '/usr/local')"
+
       - name: Cache Homebrew Bundler RubyGems
         uses: actions/cache@v4
         with:
@@ -44,22 +48,22 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            /usr/local/Homebrew
-            /usr/local/Homebrew/Library/Homebrew/vendor/bundle/ruby
-            /usr/local/Homebrew/Library/Taps
-            /usr/local/Homebrew/Cellar
-            /Users/${{ github.actor }}/Library/Caches/Homebrew
+            ${{ steps.determine-homebrew-path.outputs.brew-path }}
+            ${{ steps.determine-homebrew-path.outputs.brew-path }}/Library/Homebrew/vendor/bundle/ruby
+            ${{ steps.determine-homebrew-path.outputs.brew-path }}/Library/Taps
+            ${{ steps.determine-homebrew-path.outputs.brew-path }}/Cellar
+            ~/Library/Caches/Homebrew
           key: homebrew-${{ runner.os }}-${{ hashFiles('**/Brewfile') }}
           restore-keys: homebrew-${{ runner.os }}-
 
       - name: setup freecad tap
         id: setup-freecad-tap
         run: |
-          brew tap freecad/freecad
+          brew tap -v freecad/freecad
 
       - name: install freecad deps
         id: install-freecad-deps
-        run: brew install --only-dependencies freecad
+        run: brew install --only-dependencies -v freecad/freecad/freecad
 
       # - name: checkout repository
       #   uses: actions/checkout@v2
