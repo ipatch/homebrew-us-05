@@ -58,14 +58,12 @@ jobs:
         with:
           path: |
             ${{ env.BREW_PATH }}
-            # ~/Library/Caches/Homebrew
-          # key: homebrew-${{ runner.os }}-${{ hashFiles('**/Brewfile') }}
-          key: ${{ matrix.os }}-${{ env.cache-name }}-${{ hashFiles('.config/brew/Brewfile') }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('.config/brew/Brewfile') }}
           restore-keys: |
-            ${{ matrix.os }}-${{ env.cache-name }}-homebrew-${{ runner.os }}-
+            ${{ runner.os }}-${{ env.cache-name }}-homebrew-${{ runner.os }}-
 
-      - if: ${{ steps.cache-homebrew-packages.outputs.cache-hit != 'true' }}
-        name: List the state of the brew packages
+      - name: List the state of the brew packages
+        if: ${{ steps.cache-homebrew-packages.outputs.cache-hit != 'true' }}
         continue-on-error: true
         run: brew list
 
