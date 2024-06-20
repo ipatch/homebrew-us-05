@@ -28,10 +28,6 @@ jobs:
     timeout-minutes: 1200
 
     steps:
-      # - name: Set up Homebrew
-      #   id: set-up-homebrew
-      #   uses: Homebrew/actions/setup-homebrew@master
-
       - name: set foos
         id: set-foos
         run: |
@@ -60,13 +56,7 @@ jobs:
           echo "the value of bp is set to $bp"
           echo "the value of hbc is set to $hbc"
 
-      - name: Cache Homebrew Bundler RubyGems
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
-          key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
-          restore-keys: ${{ runner.os }}-rubygems-
-
+      # TODO: fixme, this caching is not working
       - name: Cache Homebrew Packages
         id: cache-homebrew-packages
         uses: actions/cache@v4
