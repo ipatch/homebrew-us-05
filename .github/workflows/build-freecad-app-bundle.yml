@@ -43,21 +43,22 @@ jobs:
           foo: ${{ steps.set-foos.outputs.foo }}
         run: echo "the value of foo is $foo"
 
-      - name: Get Homebrew prefix
-        id: get-homebrew-prefix
+      - name: set Homebrew prefix & cache paths
+        id: set-homebrew-prefix-and-cache-paths
         run: |
-           BREW_PREFIX=$(brew --prefix)
-           HOMEBREW_CACHE="$BREW_PREFIX/cache"
-           echo "BREW_PREFIX=\"$BREW_PREFIX\"" >> "$GITHUB_ENV"
-           echo "brew-prefix=\"$BREW_PREFIX\"" >> "$GITHUB_OUTPUT"
-           echo "HOMEBREW_CACHE=$HOMEBREW_CACHE" >> "GITHUB_ENV"
+           bp=$(brew --prefix)
+           hbc="$bp/cache"
+           echo "bp=\"$bp\"" >> "$GITHUB_OUTPUT"
+           echo "hbc=\"$hbc\"" >> "$GITHUB_OUTPUT"
 
-      - name: Print Brew Prefix
-        id: print-brew-prefix
-        run: echo "Using BREW_PREFIX=$BREW_PREFIX"
-
-      - name: Print Homebrew Cache Path
-        run: echo "Using HOMEBREW_CACHE=$HOMEBREW_CACHE"
+      - name: Print Brew Prefix & Cache paths
+        id: print-brew-prefix-cache-paths
+        env:
+          bp: ${{ steps.set-homebrew-prefix-and-cache-paths.bp }}
+          hbc: ${{ steps.set-homebrew-prefix-and-cache-paths.hbc }}
+        run: |
+          echo "the value of bp is set to $bp"
+          echo "the value of hbc is set to $hbc"
 
       - name: Cache Homebrew Bundler RubyGems
         uses: actions/cache@v4
