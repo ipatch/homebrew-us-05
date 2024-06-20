@@ -54,8 +54,8 @@ jobs:
       - name: Print Brew Prefix & Cache paths
         id: print-brew-prefix-cache-paths
         env:
-          bp: ${{ steps.set-homebrew-prefix-and-cache-paths.bp }}
-          hbc: ${{ steps.set-homebrew-prefix-and-cache-paths.hbc }}
+          bp: ${{ steps.set-homebrew-prefix-and-cache-paths.outputs.bp }}
+          hbc: ${{ steps.set-homebrew-prefix-and-cache-paths..outputs.hbc }}
         run: |
           echo "the value of bp is set to $bp"
           echo "the value of hbc is set to $hbc"
