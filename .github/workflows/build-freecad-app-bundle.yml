@@ -36,12 +36,17 @@ jobs:
         id: determine-homebrew-path
         run: |
            BREW_PATH=$(brew --prefix)
+           HOMEBREW_CACHE="$BREW_PATH/cache"
            echo "BREW_PATH=\"$BREW_PATH\"" >> "$GITHUB_ENV"
            echo "brew-path=\"$BREW_PATH\"" >> "$GITHUB_OUTPUT"
+           echo "HOMEBREW_CACHE=$HOMEBREW_CACHE" >> "GITHUB_ENV"
 
       - name: Print Brew Path
         id: print-brew-path
         run: echo "Using BREW_PATH=$BREW_PATH"
+
+      - name: Print Homebrew Cache Path
+        run: echo "Using HOMEBREW_CACHE=$HOMEBREW_CACHE"
 
       - name: Cache Homebrew Bundler RubyGems
         uses: actions/cache@v4
@@ -58,7 +63,7 @@ jobs:
         with:
           path: |
             ${{ env.BREW_PATH }}
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('.config/brew/Brewfile') }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('$HOME/Brewfile') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-homebrew-${{ runner.os }}-
 
@@ -67,7 +72,7 @@ jobs:
         continue-on-error: true
         run: brew list
 
-      - name: Check Homebrew Cache
+      - name: List files in Homebrew Cellar
         run: ls -la ${{ env.BREW_PATH }}/Cellar
 
       - name: setup freecad tap
