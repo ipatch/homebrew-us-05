@@ -35,8 +35,6 @@ jobs:
       - name: set foos
         id: set-foos
         run: |
-          # foo1=$(echo "bar1") >> "$GITHUB_ENV"
-          # foo2=$(echo "bar2") >> "$GITHUB_ENV"
           echo "foo=bar" >> "$GITHUB_OUTPUT"
 
       - name: print foos
