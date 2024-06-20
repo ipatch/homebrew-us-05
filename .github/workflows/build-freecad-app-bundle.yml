@@ -99,14 +99,18 @@ jobs:
       # - name: checkout repository
       #   uses: actions/checkout@v2
 
-      - name: debug with lhotari/action-upterm
-        id: debug-workflow-run
-        # uses: actions/checkout@v2
-        uses: lhotari/action-upterm@v1
+      - name: debug with tmate on failure
         if: ${{ failure() }}
-        with:
-          # limit ssh access to user who triggered the workflow
-          limit-access-to-actor: true
-          # shut down server after 10 minutes if no one connects
-          wait-timeout-minutes: 10
+        uses: mxschmitt/action-tmate@v3      
+
+      # - name: debug with lhotari/action-upterm
+      #   id: debug-workflow-run
+      #   # uses: actions/checkout@v2
+      #   uses: lhotari/action-upterm@v1
+      #   if: ${{ failure() }}
+      #   with:
+      #     # limit ssh access to user who triggered the workflow
+      #     limit-access-to-actor: true
+      #     # shut down server after 10 minutes if no one connects
+      #     wait-timeout-minutes: 10
 
