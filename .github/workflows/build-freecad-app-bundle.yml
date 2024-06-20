@@ -33,18 +33,17 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: set foos
+        id: set-foos
         run: |
-          foo1=$(echo "bar1") >> "$GITHUB_ENV"
-          foo2=$(echo "bar2") >> "$GITHUB_ENV"
-
-      - name: print GITHUB_ENV
-        run: |
-          printf '%s\n' "$GITHUB_ENV" # print the contents of the GITHUB_ENV
+          # foo1=$(echo "bar1") >> "$GITHUB_ENV"
+          # foo2=$(echo "bar2") >> "$GITHUB_ENV"
+          echo "foo=bar" >> "$GITHUB_OUTPUT"
 
       - name: print foos
-        run: |
-          echo "$foo1"
-          echo "$foo2"
+        id: print-foos
+        env:
+          foo: ${{ steps.set-foos.outputs.foo }}
+        run: echo "the value of foo is $foo"
 
       - name: Get Homebrew prefix
         id: get-homebrew-prefix
