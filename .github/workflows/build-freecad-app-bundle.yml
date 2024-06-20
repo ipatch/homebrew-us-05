@@ -81,11 +81,11 @@ jobs:
         continue-on-error: true
         run: brew list
 
-      - name: List files in Homebrew Cellar
-        env:
-          bp: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
-        run: |
-          ls -la $bp/Cellar
+      # - name: List files in Homebrew Cellar
+      #   env:
+      #     bp: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
+      #   run: |
+      #     ls -la $bp/Cellar
 
       # - name: setup freecad tap
       #   id: setup-freecad-tap
