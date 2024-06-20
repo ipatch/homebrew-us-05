@@ -32,6 +32,28 @@ jobs:
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
+      - name: Cache Homebrew
+        id: cache-homebrew
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ steps.set-up-homebrew.outputs.homebrew-prefix }}
+            ${{ steps.set-up-homebrew.outputs.homebrew-cache }}
+          key: ${{ runner.os }}-homebrew-${{ hashFiles('**/Brewfile') }}
+          restore-keys: |
+            ${{ runner.os }}-homebrew-
+
+      - name: Install dependencies from Brewfile
+        run: brew bundle --file=Brewfile
+
+      - name: Cache Homebrew Cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.homebrew-cache }}
+          key: ${{ runner.os }}-homebrew-cache-${{ hashFiles('**/Brewfile') }}
+          restore-keys: |
+            ${{ runner.os }}-homebrew-cache-
+
       - name: set foos
         id: set-foos
         run: |
@@ -43,8 +65,8 @@ jobs:
           foo: ${{ steps.set-foos.outputs.foo }}
         run: echo "the value of foo is $foo"
 
-      - name: set Homebrew prefix & cache paths
-        id: set-homebrew-prefix-and-cache-paths
+      - name: set brew prefix & cache paths
+        id: set-brew-prefix-and-cache-paths
         run: |
            bp=$(brew --prefix)
            hbc="$bp/cache"
@@ -54,8 +76,8 @@ jobs:
       - name: Print Brew Prefix & Cache paths
         id: print-brew-prefix-cache-paths
         env:
-          bp: ${{ steps.set-homebrew-prefix-and-cache-paths.outputs.bp }}
-          hbc: ${{ steps.set-homebrew-prefix-and-cache-paths.outputs.hbc }}
+          bp: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
+          hbc: ${{ steps.set-brew-prefix-and-cache-paths.outputs.hbc }}
         run: |
           echo "the value of bp is set to $bp"
           echo "the value of hbc is set to $hbc"
