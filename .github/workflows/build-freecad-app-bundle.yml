@@ -34,8 +34,8 @@ jobs:
 
       - name: set foos
         run: |
-          foo1=$(echo "bar1")
-          foo2=$(echo "bar2")
+          foo1=$(echo "bar1") >> "$GITHUB_ENV"
+          foo2=$(echo "bar2") >> "$GITHUB_ENV"
 
       - name: print foos
         run: |
