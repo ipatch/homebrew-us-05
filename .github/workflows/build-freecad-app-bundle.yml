@@ -42,8 +42,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-homebrew-
 
-      - name: Install dependencies from Brewfile
-        run: brew bundle --file=Brewfile
+      # - name: Install dependencies from Brewfile
+      #   run: brew bundle --file=Brewfile
 
       # - name: Cache Homebrew Cache
       #   uses: actions/cache@v4
