@@ -37,6 +37,10 @@ jobs:
           foo1=$(echo "bar1") >> "$GITHUB_ENV"
           foo2=$(echo "bar2") >> "$GITHUB_ENV"
 
+      - name: print GITHUB_ENV
+        run: |
+          printf '%s\n' "$GITHUB_ENV" # print the contents of the GITHUB_ENV
+
       - name: print foos
         run: |
           echo "$foo1"
