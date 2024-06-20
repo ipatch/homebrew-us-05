@@ -1,6 +1,6 @@
 ---
 
-name: build FreeCAD MacOS app bundle
+name: Build FreeCAD MacOS app bundle
 
 on:
   workflow_dispatch:
@@ -20,8 +20,8 @@ jobs:
       matrix:
         os:
           - macos-14
-          - macos-13
-          - macos-12
+          # - macos-13
+          # - macos-12
 
     runs-on: ${{ matrix.os }}
 
@@ -32,18 +32,28 @@ jobs:
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      - name: Determine Homebrew Path
-        id: determine-homebrew-path
+      - name: set foos
         run: |
-           BREW_PATH=$(brew --prefix)
-           HOMEBREW_CACHE="$BREW_PATH/cache"
-           echo "BREW_PATH=\"$BREW_PATH\"" >> "$GITHUB_ENV"
-           echo "brew-path=\"$BREW_PATH\"" >> "$GITHUB_OUTPUT"
+          foo1=$(echo "bar1")
+          foo2=$(echo "bar2")
+
+      - name: print foos
+        run: |
+          echo "$foo1"
+          echo "$foo2"
+
+      - name: Get Homebrew prefix
+        id: get-homebrew-prefix
+        run: |
+           BREW_PREFIX=$(brew --prefix)
+           HOMEBREW_CACHE="$BREW_PREFIX/cache"
+           echo "BREW_PREFIX=\"$BREW_PREFIX\"" >> "$GITHUB_ENV"
+           echo "brew-prefix=\"$BREW_PREFIX\"" >> "$GITHUB_OUTPUT"
            echo "HOMEBREW_CACHE=$HOMEBREW_CACHE" >> "GITHUB_ENV"
 
-      - name: Print Brew Path
-        id: print-brew-path
-        run: echo "Using BREW_PATH=$BREW_PATH"
+      - name: Print Brew Prefix
+        id: print-brew-prefix
+        run: echo "Using BREW_PREFIX=$BREW_PREFIX"
 
       - name: Print Homebrew Cache Path
         run: echo "Using HOMEBREW_CACHE=$HOMEBREW_CACHE"
@@ -55,34 +65,34 @@ jobs:
           key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ runner.os }}-rubygems-
 
-      - name: Cache Homebrew Packages
-        id: cache-homebrew-packages
-        uses: actions/cache@v4
-        env:
-          cache-name: cache-homebrew-packages
-        with:
-          path: |
-            ${{ env.BREW_PATH }}
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('$HOME/Brewfile') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ env.cache-name }}-homebrew-${{ runner.os }}-
-
-      - name: List the state of the brew packages
-        if: ${{ steps.cache-homebrew-packages.outputs.cache-hit != 'true' }}
-        continue-on-error: true
-        run: brew list
-
-      - name: List files in Homebrew Cellar
-        run: ls -la ${{ env.BREW_PATH }}/Cellar
-
-      - name: setup freecad tap
-        id: setup-freecad-tap
-        run: |
-          brew tap -v freecad/freecad
-
-      - name: install freecad deps
-        id: install-freecad-deps
-        run: brew install --only-dependencies --formula -v freecad/freecad/freecad
+      # - name: Cache Homebrew Packages
+      #   id: cache-homebrew-packages
+      #   uses: actions/cache@v4
+      #   env:
+      #     cache-name: cache-homebrew-packages
+      #   with:
+      #     path: |
+      #       ${{ env.BREW_PREFIX }}
+      #     key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('$HOME/Brewfile') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-${{ env.cache-name }}-homebrew-${{ runner.os }}-
+      #
+      # - name: List the state of the brew packages
+      #   if: ${{ steps.cache-homebrew-packages.outputs.cache-hit != 'true' }}
+      #   continue-on-error: true
+      #   run: brew list
+      #
+      # - name: List files in Homebrew Cellar
+      #   run: ls -la ${{ env.BREW_PREFIX }}/Cellar
+      #
+      # - name: setup freecad tap
+      #   id: setup-freecad-tap
+      #   run: |
+      #     brew tap -v freecad/freecad
+      #
+      # - name: install freecad deps
+      #   id: install-freecad-deps
+      #   run: brew install --only-dependencies --formula -v freecad/freecad/freecad
 
       # - name: checkout repository
       #   uses: actions/checkout@v2
