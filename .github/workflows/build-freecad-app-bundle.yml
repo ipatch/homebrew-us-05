@@ -46,6 +46,8 @@ jobs:
            hbc="$bp/cache"
            echo "bp=\"$bp\"" >> "$GITHUB_OUTPUT"
            echo "hbc=\"$hbc\"" >> "$GITHUB_OUTPUT"
+           echo "bp=\"$bp\"" >> "$GITHUB_ENV"
+           echo "hbc=\"$hbc\"" >> "$GITHUB_ENV"
 
       - name: Print Brew Prefix & Cache paths
         id: print-brew-prefix-cache-paths
