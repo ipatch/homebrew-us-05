@@ -93,6 +93,9 @@ jobs:
       # - name: checkout repository
       #   uses: actions/checkout@v2
 
+      - name: intentionally fail
+        run: exit 1
+
       - name: debug with tmate on failure
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3      
