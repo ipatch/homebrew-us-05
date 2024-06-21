@@ -71,9 +71,9 @@ jobs:
 
       - name: Remove preinstalled Homebrew packages
         run: |
-          brew list --formula | xargs brew uninstall --force
-          brew list --cask | xargs brew uninstall --cask --force
-          brew cleanup
+          brew list --formula | xargs brew uninstall --force;
+          brew list --cask | xargs brew uninstall --cask --force;
+          # brew cleanup
 
       - name: setup freecad tap
         id: setup-freecad-tap
@@ -86,6 +86,9 @@ jobs:
         with:
           run: brew install --only-dependencies --formula -v freecad/freecad/freecad
           path: ${{ env.bp }}
+          cache: yes
+          key: ${{ runner.os }}-freecad-deps-${{ github.run_id }}-${{ hashFiles('**/Brewfile') }}
+          verbose: true
 
       # NOWORK!
       # - name: save homebrew package cache
