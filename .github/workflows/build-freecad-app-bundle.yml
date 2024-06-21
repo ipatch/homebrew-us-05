@@ -76,18 +76,23 @@ jobs:
 
       - name: install freecad deps
         id: install-freecad-deps
-        run: brew install --only-dependencies --formula -v freecad/freecad/freecad
-
-      - name: save homebrew package cache
-        id: save-homebrew-package-cache
-        uses: actions/cache@v4
+        uses: tecolicom/actions-install-and-cache@v1
         with:
-          path: ${{ env.hbc }}
-          key: ${{ runner.os }}-cache-homebrew-packages-${{ hashFiles('**/Brewfile') }}
-          # NOWORK!
-          # key: ${{ runner.os }}-cache-homebrew-packages-${{ hashFiles('$HOME/Brewfile') }}
-          restore-keys: |
-            ${{ runner.os}}-cache-homebrew-packages
+          run: brew install --only-dependencies --formula -v freecad/freecad/freecad
+          path: ${{ env.bp }}
+
+      # NOWORK!
+      # - name: save homebrew package cache
+      #   id: save-homebrew-package-cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ${{ env.hbc }}
+      #     # NOWORK!
+      #     # key: ${{ runner.os }}-cache-homebrew-packages-${{ hashFiles('**/Brewfile') }}
+      #     # NOWORK!
+      #     # key: ${{ runner.os }}-cache-homebrew-packages-${{ hashFiles('$HOME/Brewfile') }}
+      #     restore-keys: |
+      #       ${{ runner.os}}-cache-homebrew-packages
 
       # TODO: fixme, this caching is not working
       # - name: Cache Homebrew Packages
