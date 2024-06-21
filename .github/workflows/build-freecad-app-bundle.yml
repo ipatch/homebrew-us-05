@@ -58,9 +58,11 @@ jobs:
           echo "the value of bp is set to $bp"
           echo "the value of hbc is set to $hbc"
 
-      - name: Print current version of Homebrew
+      - name: Print current version of Homebrew and update
         run: |
-          brew -v
+          brew -v;
+          brew update;
+          brew -v;
 
       # TODO: fixme, this caching is not working
       # - name: Cache Homebrew Packages
