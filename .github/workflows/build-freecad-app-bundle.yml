@@ -85,10 +85,13 @@ jobs:
         uses: tecolicom/actions-install-and-cache@v1
         with:
           run: brew install --only-dependencies --formula -v freecad/freecad/freecad
-          path: ${{ env.bp }}
+          # path: ${{ env.bp }}
+          path: $(brew --prefix)
           cache: yes
-          key: ${{ runner.os }}-freecad-deps-${{ github.run_id }}-${{ hashFiles('**/Brewfile') }}
+          # key: ${{ runner.os }}-freecad-deps-${{ github.run_id }}-${{ hashFiles('**/Brewfile') }}
+          key: ${{ env.envHash }}-${{ env.os }}-brew
           verbose: true
+          sudo: false
 
       # NOWORK!
       # - name: save homebrew package cache
