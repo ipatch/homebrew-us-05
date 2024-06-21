@@ -69,6 +69,12 @@ jobs:
           brew update;
           brew -v;
 
+      - name: Remove preinstalled Homebrew packages
+        run: |
+          brew list --formula | xargs brew uninstall --force
+          brew list --cask | xargs brew uninstall --cask --force
+          brew cleanup
+
       - name: setup freecad tap
         id: setup-freecad-tap
         run: |
