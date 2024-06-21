@@ -58,6 +58,11 @@ jobs:
           echo "the value of bp is set to $bp"
           echo "the value of hbc is set to $hbc"
 
+      - name: Ensure cache directory exists
+        run: |
+          mkdir -p ${{ env.hbc }}
+          ls -la ${{ env.hbc }}
+
       - name: Print current version of Homebrew and update
         run: |
           brew -v;
