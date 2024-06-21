@@ -64,6 +64,24 @@ jobs:
           brew update;
           brew -v;
 
+      - name: setup freecad tap
+        id: setup-freecad-tap
+        run: |
+          brew tap -v freecad/freecad
+
+      - name: install freecad deps
+        id: install-freecad-deps
+        run: brew install --only-dependencies --formula -v freecad/freecad/freecad
+
+      - name: save homebrew package cache
+        id: save-homebrew-package-cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.hbc }}
+          key: ${{ runner.os }}-cache-homebrew-packages-${{ hashFiles('$HOME/Brewfile') }}
+          restore-keys: |
+            ${{ runner.os}}-cache-homebrew-packages
+
       # TODO: fixme, this caching is not working
       # - name: Cache Homebrew Packages
       #   id: cache-homebrew-packages
@@ -85,14 +103,6 @@ jobs:
       #   run: |
       #     ls -la $bp/Cellar
 
-      # - name: setup freecad tap
-      #   id: setup-freecad-tap
-      #   run: |
-      #     brew tap -v freecad/freecad
-      #
-      # - name: install freecad deps
-      #   id: install-freecad-deps
-      #   run: brew install --only-dependencies --formula -v freecad/freecad/freecad
 
       # - name: checkout repository
       #   uses: actions/checkout@v2
