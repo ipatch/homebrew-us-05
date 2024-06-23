@@ -1,5 +1,10 @@
 ---
 
+# TODOS:
+# 1. [ ] setup more descriptive filenames for homebrew package cache ie. macos-14-arm64-brew-[hash]
+# 2. [ ] setup step to clone the freecad github repo
+# 3. [ ] cache the cloned repo.
+
 name: Build FreeCAD MacOS app bundle
 
 on:
@@ -91,6 +96,7 @@ jobs:
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
           # filename: 22bb85dd26b0ab6965dc2fef8179b253--freecad-deps-macOS-brew
           key: ${{ env.envHash }}-freecad-deps-${{ env.MACOS_VERSION }}-brew
+          # filename: 22bb85dd26b0ab6965dc2fef8179b253--freecad-deps--brew
           verbose: true
           sudo: false
 
