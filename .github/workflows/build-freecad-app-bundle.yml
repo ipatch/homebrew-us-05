@@ -4,11 +4,20 @@
 # 1. [ ] setup more descriptive filenames for homebrew package cache ie. macos-14-arm64-brew-[hash]
 # 2. [ ] setup step to clone the freecad github repo
 # 3. [ ] cache the cloned repo.
+# 4. [ ] check for outdated deps after restoring the cache
+
+# REFS:
+# 1. example of work around for updating cache: https://github.com/actions/cache/issues/342#issuecomment-1711054115
+# 2. saveing & restoring cache: https://github.com/marketplace/actions/cache#skipping-steps-based-on-cache-hit
 
 name: Build FreeCAD MacOS app bundle
 
 on:
   workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
 
 env:
   HOMEBREW_NO_ANALYTICS: 1
@@ -29,6 +38,8 @@ jobs:
           # - macos-12
 
     runs-on: ${{ matrix.os }}
+    env:
+      cache-key: your-cache-key
 
     timeout-minutes: 1200
 
@@ -80,68 +91,69 @@ jobs:
       #     brew list --cask | xargs brew uninstall --cask --force;
       #     brew cleanup
 
+      - name: checkout
+        uses: actions/checkout@v3 # gh command require repository
+
+      - name: restore cache
+        id: cache-restore
+        uses: actions/cache/restore@v3
+        with:
+          path: $(brew --prefix)
+          key: ${{ env.cache-key }}
+
+      # TODO: skip step if cache hit occured
       - name: setup freecad tap
+        if: steps.cache-restore.outputs.cache-hit != 'true'
         id: setup-freecad-tap
         run: |
           brew tap -v freecad/freecad
 
-      - name: install freecad deps
-        id: install-freecad-deps
-        uses: tecolicom/actions-install-and-cache@v1
-        with:
-          run: brew install --only-dependencies --formula -v freecad/freecad/freecad
-          path: $(brew --prefix)
-          cache: yes
-          # key: ${{ runner.os }}-freecad-deps-${{ github.run_id }}-${{ hashFiles('**/Brewfile') }}
-          # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
-          # filename: 22bb85dd26b0ab6965dc2fef8179b253--freecad-deps-macOS-brew
-          key: ${{ env.envHash }}-freecad-deps-${{ env.MACOS_VERSION }}-brew
-          # filename: 22bb85dd26b0ab6965dc2fef8179b253--freecad-deps--brew
-          verbose: true
-          sudo: false
-
-      # NOWORK!
-      # - name: save homebrew package cache
-      #   id: save-homebrew-package-cache
-      #   uses: actions/cache@v4
+      # NOTE: working but does not update!
+      # - name: install freecad deps
+      #   id: install-freecad-deps
+      #   uses: tecolicom/actions-install-and-cache@v1
       #   with:
-      #     path: ${{ env.hbc }}
-      #     # NOWORK!
-      #     # key: ${{ runner.os }}-cache-homebrew-packages-${{ hashFiles('**/Brewfile') }}
-      #     # NOWORK!
-      #     # key: ${{ runner.os }}-cache-homebrew-packages-${{ hashFiles('$HOME/Brewfile') }}
-      #     restore-keys: |
-      #       ${{ runner.os}}-cache-homebrew-packages
+      #     run: brew install --only-dependencies --formula -v freecad/freecad/freecad
+      #     path: $(brew --prefix)
+      #     cache: yes
+      #     # key: ${{ runner.os }}-freecad-deps-${{ github.run_id }}-${{ hashFiles('**/Brewfile') }}
+      #     # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
+      #     # filename: 22bb85dd26b0ab6965dc2fef8179b253--freecad-deps-macOS-brew
+      #     key: ${{ env.envHash }}-freecad-deps-${{ env.MACOS_VERSION }}-brew
+      #     # filename: 22bb85dd26b0ab6965dc2fef8179b253--freecad-deps--brew
+      #     verbose: true
+      #     sudo: false
 
-      # - name: List the state of the brew packages
-      #   if: ${{ steps.cache-homebrew-packages.outputs.cache-hit != 'true' }}
-      #   continue-on-error: true
-      #   run: brew list
+      # TODO: skip step if cache hit occured
+      - name: install freecad deps
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        id: install-freecad-deps
+        run: brew install --only-dependencies --formula -v freecad/freecad/freecad
 
-      # - name: List files in Homebrew Cellar
-      #   env:
-      #     bp: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
-      #   run: |
-      #     ls -la $bp/Cellar
+      - name: update & upgrade brew & formula / packages
+        run: |
+          brew update -v;
+          brew upgrade -v;
 
-      # - name: checkout repository
-      #   uses: actions/checkout@v2
+      - name: delete previous cache
+        if: ${{ steps.cache-restore.outputs.cache-hit }}
+        continue-on-error: true
+        run: |
+          gh extension install actions/gh-actions-cache
+          gh actions-cache delete "${{ env.cache-key }}" --confirm
+        env:
+          GH_TOKEN: $ {{ secrets.GITHUB_TOKEN }}
 
-      - name: intentionally fail
-        run: exit 1
+      - name: save cache
+        uses: actions/cache/save@v3
+        with:
+          path: $(brew --prefix)
+          key: ${{ env.cache-key }}
+
+      # - name: intentionally fail
+      #   run: exit 1
 
       - name: debug with tmate on failure
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3      
-
-      # - name: debug with lhotari/action-upterm
-      #   id: debug-workflow-run
-      #   # uses: actions/checkout@v2
-      #   uses: lhotari/action-upterm@v1
-      #   if: ${{ failure() }}
-      #   with:
-      #     # limit ssh access to user who triggered the workflow
-      #     limit-access-to-actor: true
-      #     # shut down server after 10 minutes if no one connects
-      #     wait-timeout-minutes: 10
 
