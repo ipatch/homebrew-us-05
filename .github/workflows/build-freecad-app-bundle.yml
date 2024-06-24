@@ -79,11 +79,11 @@ jobs:
           mkdir -p ${{ env.hbc }}
           ls -la ${{ env.hbc }}
 
-      - name: Print current version of Homebrew and update
-        run: |
-          brew -v;
-          brew update;
-          brew -v;
+      # - name: Print current version of Homebrew and update
+      #   run: |
+      #     brew -v;
+      #     brew update;
+      #     brew -v;
 
       # - name: Remove preinstalled Homebrew packages
       #   run: |
@@ -128,7 +128,9 @@ jobs:
       - name: install freecad deps
         if: steps.cache-restore.outputs.cache-hit != 'true'
         id: install-freecad-deps
-        run: brew install --only-dependencies --formula -v freecad/freecad/freecad
+        # run: brew install --only-dependencies --formula -v freecad/freecad/freecad
+        run: |
+          brew install wget
 
       - name: update & upgrade brew & formula / packages
         run: |
@@ -147,7 +149,9 @@ jobs:
       - name: save cache
         uses: actions/cache/save@v3
         with:
-          path: $(brew --prefix)
+          # NO WORK!
+          # path: $(brew --prefix)
+          path: /opt/homebrew
           key: ${{ env.cache-key }}
 
       # - name: intentionally fail
