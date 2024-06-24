@@ -39,7 +39,8 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     env:
-      cache-key: your-cache-key
+      # cache-key: your-cache-key
+      cache-key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
 
     timeout-minutes: 1200
 
@@ -79,18 +80,6 @@ jobs:
           mkdir -p ${{ env.hbc }}
           ls -la ${{ env.hbc }}
 
-      # - name: Print current version of Homebrew and update
-      #   run: |
-      #     brew -v;
-      #     brew update;
-      #     brew -v;
-
-      # - name: Remove preinstalled Homebrew packages
-      #   run: |
-      #     brew list --formula | xargs brew uninstall --force;
-      #     brew list --cask | xargs brew uninstall --cask --force;
-      #     brew cleanup
-
       - name: checkout
         uses: actions/checkout@v3 # gh command require repository
 
@@ -98,8 +87,15 @@ jobs:
         id: cache-restore
         uses: actions/cache/restore@v3
         with:
-          path: $(brew --prefix)
+          path: ${{ env.bp }}
           key: ${{ env.cache-key }}
+          
+      - name: Remove preinstalled Homebrew packages
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        run: |
+          brew list --formula | xargs brew uninstall --force;
+          brew list --cask | xargs brew uninstall --cask --force;
+          brew cleanup
 
       # TODO: skip step if cache hit occured
       - name: setup freecad tap
@@ -148,10 +144,14 @@ jobs:
 
       - name: save cache
         uses: actions/cache/save@v3
+        # env:
+        #   bp: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
         with:
           # NO WORK!
           # path: $(brew --prefix)
-          path: /opt/homebrew
+          # WORK!
+          # path: /opt/homebrew
+          path: ${{ env.bp }}
           key: ${{ env.cache-key }}
 
       # - name: intentionally fail
