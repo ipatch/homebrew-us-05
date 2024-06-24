@@ -38,9 +38,9 @@ jobs:
           # - macos-12
 
     runs-on: ${{ matrix.os }}
-    env:
+    # env:
       # cache-key: your-cache-key
-      cache-key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
+      # cache-key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
 
     timeout-minutes: 1200
 
@@ -88,7 +88,8 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: ${{ env.bp }}
-          key: ${{ env.cache-key }}
+          # key: ${{ env.cache-key }}
+          key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
           
       - name: Remove preinstalled Homebrew packages
         if: steps.cache-restore.outputs.cache-hit != 'true'
@@ -152,7 +153,10 @@ jobs:
           # WORK!
           # path: /opt/homebrew
           path: ${{ env.bp }}
-          key: ${{ env.cache-key }}
+          # key: ${{ env.cache-key }}
+          key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
+
+
 
       # - name: intentionally fail
       #   run: exit 1
