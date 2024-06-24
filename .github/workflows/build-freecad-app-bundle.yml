@@ -151,8 +151,8 @@ jobs:
           # NO WORK!
           # path: $(brew --prefix)
           # WORK!
-          # path: /opt/homebrew
-          path: ${{ env.bp }}
+          path: /opt/homebrew
+          # path: ${{ env.bp }}
           # key: ${{ env.cache-key }}
           key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
 
