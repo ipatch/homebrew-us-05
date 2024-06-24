@@ -87,7 +87,8 @@ jobs:
         id: cache-restore
         uses: actions/cache/restore@v3
         with:
-          path: ${{ env.bp }}
+          path: /opt/homebrew
+          # path: ${{ env.bp }}
           # key: ${{ env.cache-key }}
           key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
           
