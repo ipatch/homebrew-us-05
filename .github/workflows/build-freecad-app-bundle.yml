@@ -146,11 +146,11 @@ jobs:
 
       # TODO: fixme `env.cache-key` is not defined
       - name: delete previous cache
-        if: ${{ steps.cache-restore.outputs.cache-hit }}
+        if: ${{ steps.cache-brewdeps-restore.outputs.cache-hit }}
         continue-on-error: true
         run: |
           gh extension install actions/gh-actions-cache
-          gh actions-cache delete "${{ env.cache-key }}" --confirm
+          gh actions-cache delete "${{ runner.os }}-${{ github.run_id}}-brew" --confirm
         env:
           GH_TOKEN: $ {{ secrets.GITHUB_TOKEN }}
 
