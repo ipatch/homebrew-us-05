@@ -103,12 +103,12 @@ jobs:
       #       ${{ runner.os }}-*-brew
       #       ${{ runner.os }}-
           
-      # - name: Remove preinstalled Homebrew packages
-      #   if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
-      #   run: |
-      #     brew list --formula | xargs brew uninstall --formula --force;
-      #     brew list --cask | xargs brew uninstall --cask --force;
-      #     brew cleanup
+      - name: Remove preinstalled Homebrew packages
+        if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
+        run: |
+          brew list --formula | xargs brew uninstall --formula --force;
+          brew list --cask | xargs brew uninstall --cask --force;
+          brew cleanup
 
       # - name: setup freecad tap
       #   if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
@@ -159,11 +159,14 @@ jobs:
         # env:
         #   bp: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
         with:
-          # NO WORK!
           # path: $(brew --prefix)
+          #----
           # WORK!
           path: /opt/homebrew
-          # path: ${{ env.bp }}
+          #----
+          # NO WORK!
+          # path: ${{ env.bp }} # does not properly save /opt/homebrew on macos arm64
+          #----
           # key: ${{ env.cache-key }}
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
           # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
