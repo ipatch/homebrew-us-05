@@ -156,15 +156,15 @@ jobs:
 
       - name: save homebrew install
         uses: actions/cache@v2
-        # env:
-        #   bp: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
+        env:
+          bp: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
         with:
           #----
-          # ???
-          path: $(brew --prefix)
+          # NO WORK!
+          # path: $(brew --prefix)
           #----
-          # WORK!
-          # path: /opt/homebrew
+          # ???
+          path: $bp
           #----
           # NO WORK!
           # path: ${{ env.bp }} # does not properly save /opt/homebrew on macos arm64
