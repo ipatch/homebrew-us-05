@@ -91,12 +91,13 @@ jobs:
           # path: ${{ env.bp }}
           # key: ${{ env.cache-key }}
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
-          key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            homebrew-packages-${{ runner.os }}
           
       - name: Remove preinstalled Homebrew packages
         if: steps.cache-restore.outputs.cache-hit != 'true'
         run: |
-          brew list --formula | xargs brew uninstall --force;
+          brew list --formula | xargs brew uninstall --formula --force;
           brew list --cask | xargs brew uninstall --cask --force;
           brew cleanup
 
@@ -157,7 +158,7 @@ jobs:
           # path: ${{ env.bp }}
           # key: ${{ env.cache-key }}
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
-          key: homebrew-packages-${{ runner.os }}
+          key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
 
       # - name: intentionally fail
       #   run: exit 1
