@@ -165,7 +165,8 @@ jobs:
           # key: ${{ env.cache-key }}
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
           # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
-          key: ${{ steps.cache-brewdeps-restore.outputs.cache-primary-key }}
+          # key: ${{ steps.cache-brewdeps-restore.outputs.cache-primary-key }}
+          key: ${{ runner.os }}-brewdeps
 
       # - name: intentionally fail
       #   run: exit 1
