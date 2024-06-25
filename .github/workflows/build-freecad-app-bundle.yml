@@ -104,14 +104,14 @@ jobs:
             ${{ runner.os }}-
           
       - name: Remove preinstalled Homebrew packages
-        if: steps.cache-restore.outputs.cache-hit != 'true'
+        if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
         run: |
           brew list --formula | xargs brew uninstall --formula --force;
           brew list --cask | xargs brew uninstall --cask --force;
           brew cleanup
 
       - name: setup freecad tap
-        if: steps.cache-restore.outputs.cache-hit != 'true'
+        if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
         id: setup-freecad-tap
         run: |
           brew tap -v freecad/freecad
@@ -133,7 +133,7 @@ jobs:
       #     sudo: false
 
       - name: install freecad deps
-        if: steps.cache-restore.outputs.cache-hit != 'true'
+        if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
         id: install-freecad-deps
         # run: brew install --only-dependencies --formula -v freecad/freecad/freecad
         run: |
