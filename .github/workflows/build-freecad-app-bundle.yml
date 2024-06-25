@@ -89,14 +89,16 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: /opt/homebrew
-          key: ${{ runner.os }}-brewdeps
           # path: ${{ env.bp }}
+          key: ${{ runner.os }}-brewdeps
           # key: ${{ env.cache-key }}
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
           # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
           # restore-keys: |
             # homebrew-packages-${{ runner.os }}-
             # homebrew-packages-${{ runner.os }}
+          restore-keys: |
+            ${{ runner.os }}-brewdeps
           
       - name: Remove preinstalled Homebrew packages
         if: steps.cache-restore.outputs.cache-hit != 'true'
