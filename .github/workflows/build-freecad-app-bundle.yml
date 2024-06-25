@@ -91,7 +91,7 @@ jobs:
         with:
           # path: /opt/homebrew
           path: ${{ env.bp }}
-          key: ${{ runner.os }}-${{ github.run_id }}-brew
+          key: ${{ runner.os }}-${{ github.run_id }}-brewdeps
           # key: ${{ env.cache-key }}
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
           # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
@@ -99,7 +99,7 @@ jobs:
             # homebrew-packages-${{ runner.os }}-
             # homebrew-packages-${{ runner.os }}
           restore-keys: |
-            ${{ runner.os }}-${{ github.run_id }}-brew
+            ${{ runner.os }}-${{ github.run_id }}-brewdeps
             ${{ runner.os }}-*-brew
             ${{ runner.os }}-
           
@@ -150,7 +150,7 @@ jobs:
         continue-on-error: true
         run: |
           gh extension install actions/gh-actions-cache
-          gh actions-cache delete "${{ runner.os }}-${{ github.run_id}}-brew" --confirm
+          gh actions-cache delete "${{ runner.os }}-${{ github.run_id}}-brewdeps" --confirm
         env:
           GH_TOKEN: $ {{ secrets.GITHUB_TOKEN }}
 
@@ -168,7 +168,7 @@ jobs:
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
           # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
           # key: ${{ steps.cache-brewdeps-restore.outputs.cache-primary-key }}
-          key: ${{ runner.os }}-${{ github.run_id }}-brew
+          key: ${{ runner.os }}-${{ github.run_id }}-brewdeps
 
       # - name: intentionally fail
       #   run: exit 1
