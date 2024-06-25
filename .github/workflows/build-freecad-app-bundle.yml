@@ -9,6 +9,7 @@
 # REFS:
 # 1. example of work around for updating cache: https://github.com/actions/cache/issues/342#issuecomment-1711054115
 # 2. saveing & restoring cache: https://github.com/marketplace/actions/cache#skipping-steps-based-on-cache-hit
+# 3. https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#matching-a-cache-key
 
 name: Build FreeCAD MacOS app bundle
 
@@ -93,6 +94,7 @@ jobs:
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
           key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
           restore-keys: |
+            homebrew-packages-${{ runner.os }}-
             homebrew-packages-${{ runner.os }}
           
       - name: Remove preinstalled Homebrew packages
