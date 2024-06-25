@@ -86,7 +86,7 @@ jobs:
 
       - name: restore cache
         id: cache-brewdeps-restore
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v2
         with:
           path: /opt/homebrew
           # path: ${{ env.bp }}
