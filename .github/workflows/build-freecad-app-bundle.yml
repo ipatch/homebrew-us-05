@@ -159,10 +159,12 @@ jobs:
         # env:
         #   bp: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
         with:
-          # path: $(brew --prefix)
+          #----
+          # ???
+          path: $(brew --prefix)
           #----
           # WORK!
-          path: /opt/homebrew
+          # path: /opt/homebrew
           #----
           # NO WORK!
           # path: ${{ env.bp }} # does not properly save /opt/homebrew on macos arm64
