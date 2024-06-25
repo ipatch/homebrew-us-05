@@ -84,37 +84,37 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3 # gh command require repository
 
-      - name: restore cache
-        id: cache-brewdeps-restore
-        # uses: actions/cache/restore@v2
-        uses: actions/cache@v2
-        with:
-          # path: /opt/homebrew
-          path: ${{ env.bp }}
-          key: ${{ runner.os }}-${{ github.run_id }}-brewdeps
-          # key: ${{ env.cache-key }}
-          # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
-          # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
-          # restore-keys: |
-            # homebrew-packages-${{ runner.os }}-
-            # homebrew-packages-${{ runner.os }}
-          restore-keys: |
-            ${{ runner.os }}-${{ github.run_id }}-brewdeps
-            ${{ runner.os }}-*-brew
-            ${{ runner.os }}-
+      # - name: restore cache
+      #   id: cache-brewdeps-restore
+      #   # uses: actions/cache/restore@v2
+      #   uses: actions/cache@v2
+      #   with:
+      #     # path: /opt/homebrew
+      #     path: ${{ env.bp }}
+      #     key: ${{ runner.os }}-${{ github.run_id }}-brewdeps
+      #     # key: ${{ env.cache-key }}
+      #     # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
+      #     # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
+      #     # restore-keys: |
+      #       # homebrew-packages-${{ runner.os }}-
+      #       # homebrew-packages-${{ runner.os }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-${{ github.run_id }}-brewdeps
+      #       ${{ runner.os }}-*-brew
+      #       ${{ runner.os }}-
           
-      - name: Remove preinstalled Homebrew packages
-        if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
-        run: |
-          brew list --formula | xargs brew uninstall --formula --force;
-          brew list --cask | xargs brew uninstall --cask --force;
-          brew cleanup
+      # - name: Remove preinstalled Homebrew packages
+      #   if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
+      #   run: |
+      #     brew list --formula | xargs brew uninstall --formula --force;
+      #     brew list --cask | xargs brew uninstall --cask --force;
+      #     brew cleanup
 
-      - name: setup freecad tap
-        if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
-        id: setup-freecad-tap
-        run: |
-          brew tap -v freecad/freecad
+      # - name: setup freecad tap
+      #   if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
+      #   id: setup-freecad-tap
+      #   run: |
+      #     brew tap -v freecad/freecad
 
       # NOTE: working but does not update!
       # - name: install freecad deps
@@ -144,15 +144,15 @@ jobs:
           brew update -v;
           brew upgrade -v;
 
-      # TODO: fixme `env.cache-key` is not defined
-      - name: delete previous cache
-        if: ${{ steps.cache-brewdeps-restore.outputs.cache-hit }}
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh extension install actions/gh-actions-cache
-          gh actions-cache delete "${{ runner.os }}-${{ github.run_id}}-brewdeps" --confirm
+      # # TODO: fixme `env.cache-key` is not defined
+      # - name: delete previous cache
+      #   if: ${{ steps.cache-brewdeps-restore.outputs.cache-hit }}
+      #   continue-on-error: true
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}
+      #   run: |
+      #     gh extension install actions/gh-actions-cache
+      #     gh actions-cache delete "${{ runner.os }}-${{ github.run_id}}-brewdeps" --confirm
 
       - name: save homebrew install
         uses: actions/cache@v2
@@ -168,7 +168,7 @@ jobs:
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
           # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
           # key: ${{ steps.cache-brewdeps-restore.outputs.cache-primary-key }}
-          key: ${{ runner.os }}-${{ github.run_id }}-brewdeps
+          key: ${{ runner.os }}-brewdeps
 
       # - name: intentionally fail
       #   run: exit 1
