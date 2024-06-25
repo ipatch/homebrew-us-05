@@ -89,8 +89,8 @@ jobs:
         # uses: actions/cache/restore@v2
         uses: actions/cache@v2
         with:
-          path: /opt/homebrew
-          # path: ${{ env.bp }}
+          # path: /opt/homebrew
+          path: ${{ env.bp }}
           key: ${{ runner.os }}-${{ github.run_id }}-brew
           # key: ${{ env.cache-key }}
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
@@ -162,8 +162,8 @@ jobs:
           # NO WORK!
           # path: $(brew --prefix)
           # WORK!
-          path: /opt/homebrew
-          # path: ${{ env.bp }}
+          # path: /opt/homebrew
+          path: ${{ env.bp }}
           # key: ${{ env.cache-key }}
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
           # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
