@@ -85,17 +85,18 @@ jobs:
         uses: actions/checkout@v3 # gh command require repository
 
       - name: restore cache
-        id: cache-restore
-        uses: actions/cache/restore@v3
+        id: cache-brewdeps-restore
+        uses: actions/cache/restore@v4
         with:
           path: /opt/homebrew
+          key: ${{ runner.os }}-brewdeps
           # path: ${{ env.bp }}
           # key: ${{ env.cache-key }}
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
-          key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: |
-            homebrew-packages-${{ runner.os }}-
-            homebrew-packages-${{ runner.os }}
+          # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
+          # restore-keys: |
+            # homebrew-packages-${{ runner.os }}-
+            # homebrew-packages-${{ runner.os }}
           
       - name: Remove preinstalled Homebrew packages
         if: steps.cache-restore.outputs.cache-hit != 'true'
@@ -104,7 +105,6 @@ jobs:
           brew list --cask | xargs brew uninstall --cask --force;
           brew cleanup
 
-      # TODO: skip step if cache hit occured
       - name: setup freecad tap
         if: steps.cache-restore.outputs.cache-hit != 'true'
         id: setup-freecad-tap
@@ -127,7 +127,6 @@ jobs:
       #     verbose: true
       #     sudo: false
 
-      # TODO: skip step if cache hit occured
       - name: install freecad deps
         if: steps.cache-restore.outputs.cache-hit != 'true'
         id: install-freecad-deps
@@ -140,6 +139,7 @@ jobs:
           brew update -v;
           brew upgrade -v;
 
+      # TODO: fixme `env.cache-key` is not defined
       - name: delete previous cache
         if: ${{ steps.cache-restore.outputs.cache-hit }}
         continue-on-error: true
@@ -149,8 +149,8 @@ jobs:
         env:
           GH_TOKEN: $ {{ secrets.GITHUB_TOKEN }}
 
-      - name: save cache
-        uses: actions/cache/save@v3
+      - name: save homebrew install
+        uses: actions/cache/save@v4
         # env:
         #   bp: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
         with:
@@ -161,7 +161,8 @@ jobs:
           # path: ${{ env.bp }}
           # key: ${{ env.cache-key }}
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
-          key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
+          # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
+          key: ${{ steps.cache-brewdeps-restore.outputs.cache-primary-key }}
 
       # - name: intentionally fail
       #   run: exit 1
