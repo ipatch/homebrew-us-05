@@ -90,7 +90,8 @@ jobs:
           path: /opt/homebrew
           # path: ${{ env.bp }}
           # key: ${{ env.cache-key }}
-          key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
+          # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
+          key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
           
       - name: Remove preinstalled Homebrew packages
         if: steps.cache-restore.outputs.cache-hit != 'true'
@@ -155,9 +156,8 @@ jobs:
           path: /opt/homebrew
           # path: ${{ env.bp }}
           # key: ${{ env.cache-key }}
-          key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
-
-
+          # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
+          key: homebrew-packages-${{ runner.os }}
 
       # - name: intentionally fail
       #   run: exit 1
