@@ -91,6 +91,7 @@ jobs:
           # path: ${{ env.bp }}
           # key: ${{ env.cache-key }}
           # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
+          key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
           restore-keys: |
             homebrew-packages-${{ runner.os }}
           
