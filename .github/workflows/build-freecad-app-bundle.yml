@@ -152,7 +152,7 @@ jobs:
           gh extension install actions/gh-actions-cache
           gh actions-cache delete "${{ runner.os }}-${{ github.run_id}}-brewdeps" --confirm
         env:
-          GH_TOKEN: $ {{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+          GH_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
 
       - name: save homebrew install
         uses: actions/cache@v2
