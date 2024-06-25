@@ -137,7 +137,7 @@ jobs:
         id: install-freecad-deps
         # run: brew install --only-dependencies --formula -v freecad/freecad/freecad
         run: |
-          brew install wget gh
+          brew install wget gh zstd
 
       - name: update & upgrade brew & formula / packages
         run: |
