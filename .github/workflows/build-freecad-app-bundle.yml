@@ -33,8 +33,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        os:
-          - macos-14
+        os: [macos-14]
+        arch: [x64, arm64]
           # - macos-13
           # - macos-12
 
@@ -57,29 +57,25 @@ jobs:
           foo: ${{ steps.set-foos.outputs.foo }}
         run: echo "the value of foo is $foo"
 
-      - name: set brew prefix & cache paths
-        id: set-brew-prefix-and-cache-paths
+      - name: set specific vars based on OS and arch
+        id: set-os-arch-var
+        run: |
+          echo "my_os"=${{ matrix.os }}" >> "$GITHUB_ENV"
+          echo "my_arch"=${{ matrix.arch }}" >> "$GITHUB_ENV"
+
+      - name: set brew prefix
+        id: set-brew-prefix
         run: |
            bp=$(brew --prefix)
-           hbc="$bp/cache"
            echo "bp=\"$bp\"" >> "$GITHUB_OUTPUT"
-           echo "hbc=\"$hbc\"" >> "$GITHUB_OUTPUT"
            echo "bp=\"$bp\"" >> "$GITHUB_ENV"
-           echo "hbc=\"$hbc\"" >> "$GITHUB_ENV"
 
-      - name: Print Brew Prefix & Cache paths
-        id: print-brew-prefix-cache-paths
+      - name: Print Brew Prefix
+        id: print-brew-prefix
         env:
           bp: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
-          hbc: ${{ steps.set-brew-prefix-and-cache-paths.outputs.hbc }}
         run: |
           echo "the value of bp is set to $bp"
-          echo "the value of hbc is set to $hbc"
-
-      - name: Ensure cache directory exists
-        run: |
-          mkdir -p ${{ env.hbc }}
-          ls -la ${{ env.hbc }}
 
       - name: checkout
         uses: actions/checkout@v3 # gh command require repository
@@ -156,6 +152,8 @@ jobs:
 
       - name: cache & save homebrew setup
         # uses: tecolicom/actions-install-and-cache@v1
+        # TODO: setup condition to use this step if OS is macos and arch is arm64
+        if: env.my_os == 'macos-14' && env.my_arch == 'arm64'
         uses: actions/cache@v4
         with:
           path: /opt/homebrew
