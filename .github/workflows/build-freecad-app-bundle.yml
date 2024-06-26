@@ -84,7 +84,8 @@ jobs:
         if: env.my_os == 'macos-14' && env.my_arch == 'arm64'
         id: cache-brewdeps-restore
         # uses: actions/cache/restore@v2
-        uses: actions/cache@v2
+        # uses: actions/cache@v2
+        uses: actions/cache/restore@v4
         with:
           path: /opt/homebrew
           key: ${{ runner.os }}-brewdeps
