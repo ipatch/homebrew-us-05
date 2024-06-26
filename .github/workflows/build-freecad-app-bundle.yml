@@ -1,7 +1,7 @@
 ---
 
 # TODOS:
-# 1. [ ] setup more descriptive filenames for homebrew package cache ie. macos-14-arm64-brew-[hash]
+# 1. [x] setup more descriptive filenames for homebrew package cache ie. macos-14-arm64-brew-[hash]
 # 2. [ ] setup step to clone the freecad github repo
 # 3. [ ] cache the cloned repo.
 # 4. [ ] check for outdated deps after restoring the cache
@@ -10,6 +10,10 @@
 # 1. example of work around for updating cache: https://github.com/actions/cache/issues/342#issuecomment-1711054115
 # 2. saveing & restoring cache: https://github.com/marketplace/actions/cache#skipping-steps-based-on-cache-hit
 # 3. https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#matching-a-cache-key
+
+# MILESTONES:
+# 1. https://github.com/ipatch/homebrew-us-05/blob/1982e316043c68d47b9045b22bc991810807b13e/.github/workflows/build-freecad-app-bundle.yml
+#   - cache appears to be restored, deleted, and then saved in the following order
 
 name: Build FreeCAD MacOS app bundle
 
