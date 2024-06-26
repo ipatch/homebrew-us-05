@@ -80,24 +80,18 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3 # gh command require repository
 
-      # - name: restore cache
-      #   id: cache-brewdeps-restore
-      #   # uses: actions/cache/restore@v2
-      #   uses: actions/cache@v2
-      #   with:
-      #     # path: /opt/homebrew
-      #     path: ${{ env.bp }}
-      #     key: ${{ runner.os }}-${{ github.run_id }}-brewdeps
-      #     # key: ${{ env.cache-key }}
-      #     # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
-      #     # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
-      #     # restore-keys: |
-      #       # homebrew-packages-${{ runner.os }}-
-      #       # homebrew-packages-${{ runner.os }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-${{ github.run_id }}-brewdeps
-      #       ${{ runner.os }}-*-brew
-      #       ${{ runner.os }}-
+      - name: restore cache
+        if: env.my_os == 'macos-14' && env.my_arch == 'arm64'
+        id: cache-brewdeps-restore
+        # uses: actions/cache/restore@v2
+        uses: actions/cache@v2
+        with:
+          path: /opt/homebrew
+          key: ${{ runner.os }}-brewdeps
+          restore-keys: |
+            ${{ runner.os }}-brewdeps
+            ${{ runner.os }}-*-brew
+            ${{ runner.os }}-
           
       - name: Remove preinstalled Homebrew packages
         if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
@@ -111,22 +105,6 @@ jobs:
       #   id: setup-freecad-tap
       #   run: |
       #     brew tap -v freecad/freecad
-
-      # NOTE: working but does not update!
-      # - name: install freecad deps
-      #   id: install-freecad-deps
-      #   uses: tecolicom/actions-install-and-cache@v1
-      #   with:
-      #     run: brew install --only-dependencies --formula -v freecad/freecad/freecad
-      #     path: $(brew --prefix)
-      #     cache: yes
-      #     # key: ${{ runner.os }}-freecad-deps-${{ github.run_id }}-${{ hashFiles('**/Brewfile') }}
-      #     # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
-      #     # filename: 22bb85dd26b0ab6965dc2fef8179b253--freecad-deps-macOS-brew
-      #     key: ${{ env.envHash }}-freecad-deps-${{ env.MACOS_VERSION }}-brew
-      #     # filename: 22bb85dd26b0ab6965dc2fef8179b253--freecad-deps--brew
-      #     verbose: true
-      #     sudo: false
 
       - name: install freecad deps
         if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
@@ -148,11 +126,9 @@ jobs:
       #     GH_TOKEN: ${{ github.token }}
       #   run: |
       #     gh extension install actions/gh-actions-cache
-      #     gh actions-cache delete "${{ runner.os }}-${{ github.run_id}}-brewdeps" --confirm
+      #     gh actions-cache delete "${{ runner.os }}-brewdeps" --confirm
 
       - name: cache & save homebrew setup
-        # uses: tecolicom/actions-install-and-cache@v1
-        # TODO: setup condition to use this step if OS is macos and arch is arm64
         if: env.my_os == 'macos-14' && env.my_arch == 'arm64'
         uses: actions/cache/save@v4
         # uses: actions/cache/@v4
@@ -161,20 +137,10 @@ jobs:
           #----
           # NO WORK! # using tecolicom/actions-install-and-cache
           # path: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
-          #----
-          # NO WORK! # using `actions/cache@v2` or using tecolicom/actions-install-and-cache
           # path: $(brew --prefix)
-          #----
-          # NO WORK!
           # path: $bp
-          #----
-          # NO WORK!
           # path: ${{ env.bp }} # does not properly save /opt/homebrew on macos arm64
           #----
-          # key: ${{ env.cache-key }}
-          # key: ${{ env.envHash }}-freecad-deps-${{ runner.os }}-brew
-          # key: homebrew-packages-${{ runner.os }}-${{ github.run_id }}
-          # key: ${{ steps.cache-brewdeps-restore.outputs.cache-primary-key }}
           key: ${{ runner.os }}-brewdeps
 
       # - name: intentionally fail
