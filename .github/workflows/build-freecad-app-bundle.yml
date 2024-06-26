@@ -102,11 +102,11 @@ jobs:
             ${{ runner.os }}-*-brew
             ${{ runner.os }}-
           
-      # - name: setup freecad tap
-      #   if: steps.cache-brewdeps-restore.outputs.cache-hit != 'true'
-      #   id: setup-freecad-tap
-      #   run: |
-      #     brew tap -v freecad/freecad
+      - name: setup freecad tap
+        if: ${{ steps.cache-brewdeps-restore.outputs.cache-hit != 'true' }}
+        id: setup-freecad-tap
+        run: |
+          brew tap -v freecad/freecad
 
       - name: install freecad deps
         if: ${{ steps.cache-brewdeps-restore.outputs.cache-hit != 'true' }}
@@ -120,15 +120,14 @@ jobs:
           brew update -v;
           brew upgrade -v;
 
-      # # TODO: fixme `env.cache-key` is not defined
-      # - name: delete previous cache
-      #   if: ${{ steps.cache-brewdeps-restore.outputs.cache-hit }}
-      #   continue-on-error: true
-      #   env:
-      #     GH_TOKEN: ${{ github.token }}
-      #   run: |
-      #     gh extension install actions/gh-actions-cache
-      #     gh actions-cache delete "${{ runner.os }}-brewdeps" --confirm
+      - name: delete previous cache
+        if: ${{ steps.cache-brewdeps-restore.outputs.cache-hit }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh extension install actions/gh-actions-cache
+          gh actions-cache delete "${{ runner.os }}-brewdeps" --confirm
 
       - name: cache & save homebrew setup
         if: env.my_os == 'macos-14' && env.my_arch == 'arm64'
