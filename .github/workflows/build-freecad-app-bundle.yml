@@ -137,7 +137,7 @@ jobs:
         id: install-freecad-deps
         # run: brew install --only-dependencies --formula -v freecad/freecad/freecad
         run: |
-          brew install wget gh zstd
+          brew install wget gh zstd md5sha1sum
 
       - name: update & upgrade brew & formula / packages
         run: |
@@ -160,10 +160,10 @@ jobs:
         with:
           #----
           # NO WORK!
-          # path: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
+          path: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
           #----
-          # NO WORK! # using `actions/cache@v2`
-          path: $(brew --prefix)
+          # NO WORK! # using `actions/cache@v2` or using tecolicom/actions-install-and-cache
+          # path: $(brew --prefix)
           #----
           # NO WORK!
           # path: $bp
