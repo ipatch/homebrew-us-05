@@ -158,9 +158,10 @@ jobs:
         uses: tecolicom/actions-install-and-cache@v1
         # uses: actions/cache@v2
         with:
+          path: /opt/homebrew
           #----
-          # NO WORK!
-          path: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
+          # NO WORK! # using tecolicom/actions-install-and-cache
+          # path: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
           #----
           # NO WORK! # using `actions/cache@v2` or using tecolicom/actions-install-and-cache
           # path: $(brew --prefix)
