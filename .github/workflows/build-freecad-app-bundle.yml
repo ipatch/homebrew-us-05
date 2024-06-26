@@ -154,7 +154,8 @@ jobs:
         # uses: tecolicom/actions-install-and-cache@v1
         # TODO: setup condition to use this step if OS is macos and arch is arm64
         if: env.my_os == 'macos-14' && env.my_arch == 'arm64'
-        uses: actions/cache@v4
+        uses: actions/cache/save@v4
+        # uses: actions/cache/@v4
         with:
           path: /opt/homebrew
           #----
