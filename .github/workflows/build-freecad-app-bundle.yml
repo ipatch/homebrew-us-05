@@ -154,13 +154,16 @@ jobs:
       #     gh extension install actions/gh-actions-cache
       #     gh actions-cache delete "${{ runner.os }}-${{ github.run_id}}-brewdeps" --confirm
 
-      - name: save homebrew install
-        uses: actions/cache@v2
+      - name: cache & save homebrew setup
+        uses: tecolicom/actions-install-and-cache@v1
+        # uses: actions/cache@v2
         with:
-          path: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
           #----
           # NO WORK!
-          # path: $(brew --prefix)
+          # path: ${{ steps.set-brew-prefix-and-cache-paths.outputs.bp }}
+          #----
+          # NO WORK! # using `actions/cache@v2`
+          path: $(brew --prefix)
           #----
           # NO WORK!
           # path: $bp
