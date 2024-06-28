@@ -95,7 +95,7 @@ jobs:
       - name: restore cache
         if: env.my_os == 'macos-14' && env.my_arch == 'arm64'
         id: cache-brewdeps-restore
-        uses: actions/cache@v4
+        uses: actions/cache@master
         # uses: actions/cache@v2
         # uses: actions/cache/restore@v4
         with:
