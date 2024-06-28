@@ -101,10 +101,10 @@ jobs:
         with:
           path: /opt/homebrew
           key: ${{ runner.os }}-brewdeps
-          restore-keys: |
-            ${{ runner.os }}-brewdeps
-            ${{ runner.os }}-*-brew
-            ${{ runner.os }}-
+          # restore-keys: |
+          #   ${{ runner.os }}-brewdeps
+          #   ${{ runner.os }}-*-brew
+          #   ${{ runner.os }}-
           
       - name: setup freecad tap
         if: ${{ steps.cache-brewdeps-restore.outputs.cache-hit != 'true' }}
