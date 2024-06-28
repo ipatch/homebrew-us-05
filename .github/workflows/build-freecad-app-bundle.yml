@@ -109,8 +109,8 @@ jobs:
         # uses: actions/cache/restore@v4
         with:
           path: /opt/homebrew
-          key: ${{ steps.cache-key.outputs.key }}
-          # key: ${{ runner.os }}-brewdeps
+          key: ${{ runner.os }}-brewdeps
+          # key: ${{ steps.cache-key.outputs.key }}
           # restore-keys: |
           #   ${{ runner.os }}-brewdeps
           #   ${{ runner.os }}-*-brew
@@ -143,9 +143,10 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
+          # gh actions-cache delete "${{ steps.cache-key.outputs.key }}" --confirm
         run: |
-          gh extension install actions/gh-actions-cache
-          gh actions-cache delete "${{ steps.cache-key.outputs.key }}" --confirm
+          gh extension install actions/gh-actions-cache;
+          gh actions-cache delete "${{ runner.os }}-brewdeps" --confirm
 
       - name: cache & save homebrew setup
         if: env.my_os == 'macos-14' && env.my_arch == 'arm64'
@@ -160,8 +161,8 @@ jobs:
           # path: $bp
           # path: ${{ env.bp }} # does not properly save /opt/homebrew on macos arm64
           #----
-          # key: ${{ runner.os }}-brewdeps
-          key: ${{ steps.cache-key.outputs.key }}
+          key: ${{ runner.os }}-brewdeps
+          # key: ${{ steps.cache-key.outputs.key }}
 
       # - name: intentionally fail
       #   run: exit 1
