@@ -97,6 +97,10 @@ jobs:
         run: |
           echo "key=cache test $(date -u)" >> $GITHUB_OUTPUT
 
+      - name: install zstd
+        run: |
+          brew install -v zstd;
+
       - name: restore cache
         if: env.my_os == 'macos-14' && env.my_arch == 'arm64'
         id: cache-brewdeps-restore
@@ -124,6 +128,10 @@ jobs:
         run: |
           brew install wget gh zstd;
           brew install --only-dependencies --formula -v freecad/freecad/freecad;
+
+      - name: list outdated brew packages
+        run: |
+          brew outdated;
 
       - name: update & upgrade brew & formula / packages
         run: |
