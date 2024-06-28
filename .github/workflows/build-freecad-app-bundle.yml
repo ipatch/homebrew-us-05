@@ -91,6 +91,11 @@ jobs:
           brew list --formula | xargs brew uninstall --formula --force;
           brew list --cask | xargs brew uninstall --cask --force;
           brew cleanup
+      
+      - name: Create unique key for homebrew package cache
+        id: cache-key
+        run: |
+          echo "key=cache test $(date -u)" >> $GITHUB_OUTPUT
 
       - name: restore cache
         if: env.my_os == 'macos-14' && env.my_arch == 'arm64'
@@ -100,7 +105,8 @@ jobs:
         # uses: actions/cache/restore@v4
         with:
           path: /opt/homebrew
-          key: ${{ runner.os }}-brewdeps
+          key: ${{ steps.cache-key.outputs.key }}
+          # key: ${{ runner.os }}-brewdeps
           # restore-keys: |
           #   ${{ runner.os }}-brewdeps
           #   ${{ runner.os }}-*-brew
@@ -131,7 +137,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh extension install actions/gh-actions-cache
-          gh actions-cache delete "${{ runner.os }}-brewdeps" --confirm
+          gh actions-cache delete "${{ steps.cache-key.outputs.key }}" --confirm
 
       - name: cache & save homebrew setup
         if: env.my_os == 'macos-14' && env.my_arch == 'arm64'
@@ -146,7 +152,8 @@ jobs:
           # path: $bp
           # path: ${{ env.bp }} # does not properly save /opt/homebrew on macos arm64
           #----
-          key: ${{ runner.os }}-brewdeps
+          # key: ${{ runner.os }}-brewdeps
+          key: ${{ steps.cache-key.outputs.key }}
 
       # - name: intentionally fail
       #   run: exit 1
