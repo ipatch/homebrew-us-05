@@ -2,7 +2,7 @@
 
 module Homebrew
   module Cmd
-    class InstallExtension < AbstractCommand
+    class InstallAsahi < AbstractCommand
       cmd_args do
         description <<~EOS
           This is an extension of the `brew install` command.
@@ -16,6 +16,22 @@ module Homebrew
       end
 
       def run
+        if args.named.empty?
+          # print help message when no args are provided
+          puts <<~EOS
+          Usage: brew install-asahi [options] <formula>
+
+          This is an extension of the `brew install` command
+
+          Options:
+            TODO
+
+          Examples:
+            TODO
+          EOS
+          return
+        end
+
         args.named.each do |formula|
           # Custom behavior before install
           ohai "Running custom pre-install hook for #{formula}"
