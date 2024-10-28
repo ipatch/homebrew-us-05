@@ -14,6 +14,8 @@ class PythonAT3912 < Formula
   # build packages later. Xcode-only systems need different flags.
   pour_bottle? only_if: :clt_installed
 
+  disable! date: "2024-01-01", because: "no longer useful"
+
   depends_on "pkg-config" => :build
   depends_on "gdbm"
   depends_on "mpdecimal"
