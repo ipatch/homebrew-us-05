@@ -18,7 +18,7 @@ class TreeSitter < Formula
 
     # NOTE: This step needs to be done *before* `cargo install`
     cd "lib/binding_web" do
-      system "npm", "install", *Language::Node.local_npm_install_args
+      system "npm", "install", *std_npm_args(prefix: false)
     end
     system "script/build-wasm"
 

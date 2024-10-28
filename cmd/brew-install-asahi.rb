@@ -19,15 +19,15 @@ module Homebrew
         if args.named.empty?
           # print help message when no args are provided
           puts <<~EOS
-          Usage: brew install-asahi [options] <formula>
+            Usage: brew install-asahi [options] <formula>
 
-          This is an extension of the `brew install` command
+            This is an extension of the `brew install` command
 
-          Options:
-            TODO
+            Options:
+              TODO
 
-          Examples:
-            TODO
+            Examples:
+              TODO
           EOS
           return
         end
