@@ -32,11 +32,11 @@ jobs:
 
       - run: brew test-bot --only-tap-syntax
 
-      # - run: brew test-bot --only-formulae
-        # if: github.event_name == 'pull_request'
+      - run: brew test-bot --only-formulae
+        if: github.event_name == 'pull_request'
 
-      - name: debug debug actions
-        run: "false"
+      # - name: debug debug actions
+      #   run: "false"
 
       - name: debug with lhotari/action-upterm
         id: debug-workflow-run
