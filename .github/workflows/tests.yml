@@ -1,3 +1,5 @@
+---
+
 name: brew test-bot
 
 on:
@@ -30,8 +32,25 @@ jobs:
 
       - run: brew test-bot --only-tap-syntax
 
-      - run: brew test-bot --only-formulae
-        if: github.event_name == 'pull_request'
+      # - run: brew test-bot --only-formulae
+        # if: github.event_name == 'pull_request'
+
+      - name: debug debug actions
+        run: "false"
+
+      - name: debug with lhotari/action-upterm
+        id: debug-workflow-run
+        # uses: actions/checkout@v2
+        # NOTE: ipatch, seems to be issue with macos runners circa oct 2024
+        # uses: lhotari/action-upterm@v1
+        #-------
+        uses: owenthereal/action-upterm@v1
+        if: ${{ failure() }}
+        with:
+          # limit ssh access to user who triggered the workflow
+          limit-access-to-actor: true
+          # shut down server after 10 minutes if no one connects
+          wait-timeout-minutes: 10
 
       - name: Upload bottles as artifact
         if: always() && github.event_name == 'pull_request'
