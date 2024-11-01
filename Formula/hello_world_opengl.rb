@@ -15,11 +15,11 @@ class HelloWorldOpengl < Formula
   depends_on "cmake" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "xorg-server" => :build if OS.linux?
   depends_on "glew"
   depends_on "glfw"
   depends_on "mesa" if OS.linux?
   depends_on "mesa-glu"
+  depends_on "xorg-server" if OS.linux?
 
   # NOTE: ipatch, run below cmd to get latest commit hash to update stable URL
   # curl -s "https://api.github.com/gists/8517a5914d56c45b0ebc4dd4df5160c4" | jq -r '.history[0].version'
@@ -39,19 +39,6 @@ class HelloWorldOpengl < Formula
     #----
     # l $bp/opt/xorg-server/lib/xorg/modules/extensions/libglx.so
     #---
-    # CMake Error at CMakeLists.txt:17 (target_link_libraries):
-    #   Target "hello_world_opengl" links to:
-    #
-    #   OpenGL::GLU
-    #
-    # but the target was not found.  Possible reasons include:
-    #
-    #   * There is a typo in the target name.
-    #   * A find_package call is missing for an IMPORTED target.
-    #   * An ALIAS target is missing.
-    #
-    #   -- Generating done (0.0s)
-    # CMake Generate step failed.  Build files cannot be regenerated correctly.
 
     # NOTE: ipatch, tshooting oct 27, 2024
     # TODO: fill in below dirs
@@ -74,28 +61,21 @@ class HelloWorldOpengl < Formula
     else # macos
       macos_sdk =
         "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
-      macos_opengl_lib =
-        "#{macos_sdk}/Library/Frameworks/OpenGL.framework/Versions/Current/Libraries/libGL.tbd"
 
-      apl_sdk = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
-      apl_frmwks ="#{apl_sdk}/System/Library/Frameworks"
-      macos_opengl_lib
+      macos_frmwks = "#{macos_sdk}/Library/Frameworks"
     end
 
     # TODO: remove refs to /library/developer/commandlinetools/
     ENV.delete("CMAKE_LIBRARY_PATH")
     ENV.delete("CMAKE_INCLUDE_PATH")
 
-    # -DOPENGL_GLU_INCLUDE_DIR=#{apl_frmwks}/OpenGL.framework
-    # -DOPENGL_glu_LIBRARY=#{apl_frmwks}/OpenGL.framework
     args_macos_only = %W[
-      -DOPENGL_INCLUDE_DIR=#{apl_frmwks}/OpenGL.framework
-      -DOPENGL_gl_LIBRARY=#{apl_frmwks}/OpenGL.framework
+      -DOPENGL_INCLUDE_DIR=#{macos_frmwks}/OpenGL.framework
+      -DOPENGL_gl_LIBRARY=#{macos_frmwks}/OpenGL.framework
       -DCMAKE_OSX_SYSROOT=#{macos_sdk}
       -DCMAKE_IGNORE_PATH=/Library/Developer/CommandLineTools/SDKs
     ]
 
-    cmake_prefix_paths = []
     cmake_prefix_paths << Formula["mesa-glu"].prefix
     cmake_prefix_path_string = cmake_prefix_paths.join(";")
 
