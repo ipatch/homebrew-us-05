@@ -6,6 +6,12 @@ class HelloWorldOpengl < Formula
   sha256 "c8d18243fcff36af525d9d5082880a7ffff8750eae1a2a77f1d61f021ddf5fdf"
   head "https://gist.github.com/ipatch/8517a5914d56c45b0ebc4dd4df5160c4.git", branch: "main"
 
+  bottle do
+    root_url "https://github.com/ipatch/homebrew-us-05/releases/download/hello_world_opengl-1.0"
+    sha256 cellar: :any,                 ventura:      "4fbb3499b2e9a50efedb41b6f6841abc6ebbd060295f0312d0d9c50b52279fea"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "351cf40a2d88cb37d6bcc909a175a1587356f73f7732143942077d3fc3456b03"
+  end
+
   depends_on "cmake" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
