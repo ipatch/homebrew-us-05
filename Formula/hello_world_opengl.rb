@@ -8,8 +8,9 @@ class HelloWorldOpengl < Formula
 
   bottle do
     root_url "https://github.com/ipatch/homebrew-us-05/releases/download/hello_world_opengl-1.0"
-    sha256 cellar: :any,                 ventura:      "4fbb3499b2e9a50efedb41b6f6841abc6ebbd060295f0312d0d9c50b52279fea"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "351cf40a2d88cb37d6bcc909a175a1587356f73f7732143942077d3fc3456b03"
+    rebuild 1
+    sha256 cellar: :any,                 ventura:      "0f1af4b96a0018ea9a9af128c91b389e014f65eb591beb817a472364f647f9f5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "2e20408368b2da1111885e56468c1f4b8851071385099ea6d14b5c2cb50a5e74"
   end
 
   depends_on "cmake" => :build
