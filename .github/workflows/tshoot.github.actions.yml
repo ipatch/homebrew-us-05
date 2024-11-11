@@ -7,17 +7,13 @@ on:
 
 jobs:
   test-token:
-    runs-on: [self-hosted-ubuntu-22.04, macos-15]
+    runs-on: self-hosted-ubuntu-22.04
     steps:
       - name: check for self-hosted runner
-        continue-on-error: true
-        # if: ${{ !runner.environment || !contains(runner.environment, 'self-hosted') }}
-        if: ${{ contains(runner.labels, 'self-hosted') }}
         run: |
-          echo "should be seend on self-hosted runners"
+          echo "foo"
 
       - name: Test GitHub Token
-        continue-on-error: true
         # env:
         #   GITHUB_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
         run: |
