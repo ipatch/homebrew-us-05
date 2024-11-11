@@ -6,12 +6,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-token:
-    runs-on: self-hosted-ubuntu-22.04
+  tshoot-github-actions:
+    runs-on: [self-hosted-ubuntu-22.04, macos-15]
     steps:
       - name: check for self-hosted runner
+        if: ${{ contains(runner.labels, 'self-hosted') }}
         run: |
-          echo "foo"
+          echo "this should only print on self-hosted runners"
 
       - name: Test GitHub Token
         # env:
