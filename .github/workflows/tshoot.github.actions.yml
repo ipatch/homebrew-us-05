@@ -15,8 +15,12 @@ jobs:
           - macos-15
     runs-on: ${{ matrix.os }}
     steps:
+      - name: check for the inverse of self-hosted runner
+        if: ${{ !contains(matrix.os, 'self-hosted-ubuntu-22.04') }}
+        run: |
+          echo "this should only print on NON self-hosted runners"
+
       - name: check for self-hosted runner
-        # if: ${{ contains(runner.labels, 'self-hosted') }}
         if: ${{ contains(matrix.os, 'self-hosted-ubuntu-22.04') }}
         run: |
           echo "this should only print on self-hosted runners"
