@@ -7,7 +7,13 @@ on:
 
 jobs:
   tshoot-github-actions:
-    runs-on: [self-hosted-ubuntu-22.04, macos-15]
+    strategy:
+      max-parallel: 2
+      matrix:
+        os:
+          - self-hosted-ubuntu-22.04
+          - macos-15
+    runs-on: ${{ matrix.os }}
     steps:
       - name: check for self-hosted runner
         if: ${{ contains(runner.labels, 'self-hosted') }}
