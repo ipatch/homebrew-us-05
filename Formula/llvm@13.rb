@@ -1,4 +1,4 @@
-class Llvm < Formula
+class LlvmAt13 < Formula
   desc "Next-gen compiler infrastructure"
   homepage "https://llvm.org/"
   # The LLVM Project is under the Apache License v2.0 with LLVM Exceptions
@@ -19,19 +19,10 @@ class Llvm < Formula
     regex(/LLVM (\d+\.\d+\.\d+)/i)
   end
 
-  bottle do
-    sha256 cellar: :any,                 arm64_monterey: "477c5a7aecc0e9d4ae46b0d91a543ff05bfc8dd9425c0164b18b459d58c4f22e"
-    sha256 cellar: :any,                 arm64_big_sur:  "517ca3d47badf7b9f04b3d5f1631a4ec17ff1287a530135b8d1dd4595641b9ed"
-    sha256 cellar: :any,                 monterey:       "975fb76591ea79464eecd4c5aa59a5d02a1191896be2c4c0234fe2947939065f"
-    sha256 cellar: :any,                 big_sur:        "e3ca3e4eef575642d3ee42ae39469967038ee9bc60c4a9b7051518cf365f8541"
-    sha256 cellar: :any,                 catalina:       "d083573fafec26a47b61d23452b552c6598668abf841f4f9a5f21cc68b98d451"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "adbd65a1289ce19fef13c039d1424bc789e9b2cce6c2f5a1241eebeeb00501a7"
-  end
+  keg_only :versioned_formula
 
   # Clang cannot find system headers if Xcode CLT is not installed
   pour_bottle? only_if: :clt_installed
-
-  keg_only :provided_by_macos
 
   # https://llvm.org/docs/GettingStarted.html#requirement
   # We intentionally use Make instead of Ninja.
