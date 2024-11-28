@@ -1,0 +1,70 @@
+class HelloWorldCmake < Formula
+  desc "Simple 'Hello, World CMake!' program written in C++"
+  homepage "https://github.com/ipatch/hello-world-cmake"
+  url "https://github.com/ipatch/hello-world-cmake/archive/refs/heads/main.tar.gz"
+  version "1.0"
+  sha256 ""
+
+  depends_on "cmake" => :build
+  depends_on "xerces-c"
+
+  def install
+    puts "---------------------------------------"
+    puts "#{HOMEBREW_PREFIX}"
+    puts "---------------------------------------"
+
+    hbp = "#{HOMEBREW_PREFIX}"
+
+    # NOTE: ipatch, attempt to nuke default cmake_prefix_path to prevent qt6 from sneaking in
+    ENV.delete("CMAKE_PREFIX_PATH") # Clear existing paths
+    puts "----------------------------------------------------"
+    puts "CMAKE_PREFIX_PATH=#{ENV["CMAKE_PREFIX_PATH"]}"
+    puts "CMAKE_PREFIX_PATH Datatype: #{ENV["CMAKE_PREFIX_PATH"].class}"
+    puts "----------------------------------------------------"
+    puts "homebrew prefix: #{hbp}"
+    puts "prefix: #{prefix}"
+    puts "rpath: #{rpath}"
+    puts "----------------------------------------------------"
+
+    # cmake_prefix_paths = []
+    # cmake_prefix_paths << Formula["xerces-c"].prefix
+    cmake_prefix_paths = [Formula["xerces-c"].prefix].join(";")
+
+    args = %W[ 
+      -D HOMEBREW_PREFIX=#{HOMEBREW_PREFIX}
+      -D CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=FALSE
+      -D CMAKE_FIND_USE_CMAKE_SYSTEM_PATH=FALSE
+      -G Ninja
+      -D CMAKE_MAKE_PROGRAM=#{HOMEBREW_PREFIX}/opt/ninja/bin/ninja
+      -D CMAKE_C_COMPILER=#{HOMEBREW_PREFIX}/opt/llvm/bin/clang
+      -D CMAKE_CXX_COMPILER=#{HOMEBREW_PREFIX}/opt/llvm/bin/clang++
+
+      -D CMAKE_PREFIX_PATH=#{cmake_prefix_paths}
+
+      -DCMAKE_IGNORE_PATH="#{HOMEBREW_PREFIX}/lib;#{HOMEBREW_PREFIX}/include;"
+    ]
+      # -D CMAKE_FIND_DEBUG_MODE=ON
+
+    # NOTE: ipatch, do not make build dir a sub dir of the src dir
+    puts "current working directory: #{Dir.pwd}"
+    src_dir = Dir.pwd.to_s
+    parent_dir = File.expand_path("..", src_dir)
+    build_dir = "#{parent_dir}/build"
+    # Create the build directory if it doesn't exist
+    mkdir_p(build_dir)
+    # Change the working directory to the build directory
+    # false positive: `warning: conflicting chdir during another chdir block`
+    Dir.chdir(build_dir)
+    puts "----------------------------------------------------"
+    puts Dir.pwd
+    puts "----------------------------------------------------"
+
+    system "cmake", *args, src_dir.to_s 
+    system "cmake", "--build", build_dir.to_s
+    system "cmake", "--install", build_dir.to_s
+  end
+
+  test do
+    assert_equal "Hello, World!", shell_output("#{bin}/hello_world_c")
+  end
+end
