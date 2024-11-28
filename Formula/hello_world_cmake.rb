@@ -39,6 +39,8 @@ class HelloWorldCmake < Formula
       -D CMAKE_C_COMPILER=#{HOMEBREW_PREFIX}/opt/llvm/bin/clang
       -D CMAKE_CXX_COMPILER=#{HOMEBREW_PREFIX}/opt/llvm/bin/clang++
 
+      -DCMAKE_INSTALL_PREFIX=#{prefix}
+
       -D CMAKE_PREFIX_PATH=#{cmake_prefix_paths}
 
       -DCMAKE_IGNORE_PATH="#{HOMEBREW_PREFIX}/lib;#{HOMEBREW_PREFIX}/include;"
