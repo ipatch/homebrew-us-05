@@ -6,6 +6,7 @@ class HelloWorldCmake < Formula
   sha256 ""
 
   depends_on "cmake" => :build
+  depends_on "ninja" => :build
   depends_on "xerces-c"
 
   def install
