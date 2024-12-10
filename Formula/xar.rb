@@ -7,6 +7,7 @@ class Xar < Formula
 
   depends_on "autoconf" => :build
   depends_on "libxml2" => :build
+  depends_on "openssl" => :build
 
   def install
     cd "xar" do
