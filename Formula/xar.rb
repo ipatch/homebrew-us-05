@@ -10,6 +10,8 @@ class Xar < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux: "1dd22789470e69991ef7ccecb4a3e2a3b16b4dbaa18ed418766a1e425eb0051e"
   end
 
+  # NOTE: ipatch, implement a livecheck
+
   depends_on "autoconf" => :build
   depends_on "acl"
   depends_on "bzip2"
