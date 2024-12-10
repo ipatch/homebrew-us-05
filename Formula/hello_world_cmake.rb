@@ -3,7 +3,7 @@ class HelloWorldCmake < Formula
   homepage "https://github.com/ipatch/hello-world-cmake"
   url "https://github.com/ipatch/hello-world-cmake/archive/refs/heads/main.tar.gz"
   version "1.0"
-  sha256 ""
+  sha256 "563365a7bed1f1189e1de8a98eb87b44fea67f997fda41beb1c7c75075a4ff42"
 
   depends_on "cmake" => :build
   depends_on "ninja" => :build
@@ -11,10 +11,10 @@ class HelloWorldCmake < Formula
 
   def install
     puts "---------------------------------------"
-    puts "#{HOMEBREW_PREFIX}"
+    puts (HOMEBREW_PREFIX)
     puts "---------------------------------------"
 
-    hbp = "#{HOMEBREW_PREFIX}"
+    hbp = HOMEBREW_PREFIX.to_s
 
     # NOTE: ipatch, attempt to nuke default cmake_prefix_path to prevent qt6 from sneaking in
     ENV.delete("CMAKE_PREFIX_PATH") # Clear existing paths
@@ -31,7 +31,7 @@ class HelloWorldCmake < Formula
     # cmake_prefix_paths << Formula["xerces-c"].prefix
     cmake_prefix_paths = [Formula["xerces-c"].prefix].join(";")
 
-    args = %W[ 
+    args = %W[
       -D HOMEBREW_PREFIX=#{HOMEBREW_PREFIX}
       -D CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=FALSE
       -D CMAKE_FIND_USE_CMAKE_SYSTEM_PATH=FALSE
@@ -46,7 +46,7 @@ class HelloWorldCmake < Formula
 
       -DCMAKE_IGNORE_PATH="#{HOMEBREW_PREFIX}/lib;#{HOMEBREW_PREFIX}/include;"
     ]
-      # -D CMAKE_FIND_DEBUG_MODE=ON
+    # -D CMAKE_FIND_DEBUG_MODE=ON
 
     # NOTE: ipatch, do not make build dir a sub dir of the src dir
     puts "current working directory: #{Dir.pwd}"
@@ -62,7 +62,7 @@ class HelloWorldCmake < Formula
     puts Dir.pwd
     puts "----------------------------------------------------"
 
-    system "cmake", *args, src_dir.to_s 
+    system "cmake", *args, src_dir.to_s
     system "cmake", "--build", build_dir.to_s
     system "cmake", "--install", build_dir.to_s
   end
