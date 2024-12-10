@@ -7,16 +7,15 @@ class Neopbzx < Formula
 
   # NOTE: ipatch, implement a livecheck
 
+  depends_on "llvm" => :build
   depends_on "xar"
+  depends_on "xz"
 
   def install
-    cd "pbzx" do
-      system "./autogen.sh"
-      system "./configure", "--disable-dependency-tracking",
-                            "--prefix=#{prefix}"
-      system "make"
-      system "make", "install"
-    end
+    ENV.clang
+    system ENV.cc, "-llzma", "-lxar", "pbzx.c", "-o", "pbzx"
+    # install the compiled code
+    bin.install "pbzx"
   end
 
   test do
