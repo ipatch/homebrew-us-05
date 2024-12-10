@@ -1,7 +1,7 @@
 class Pbzx < Formula
   desc "Fork of the pbzx stream parser"
-  homepage "https://github.com/NiklasRosenstein/pbzx"
-  url "https://github.com/NiklasRosenstein/pbzx/archive/bf536e167f2e514866f91d7baa0df1dff5a13711.tar.gz"
+  homepage "https://github.com/ipatch/pbzx.git"
+  url "https://github.com/ipatch/pbzx/archive/bf536e167f2e514866f91d7baa0df1dff5a13711.tar.gz"
   version "dev"
   sha256 "1945d98462d68f5daa565def25d994610d13201e0e8f57c042d9c65835c25478"
 
