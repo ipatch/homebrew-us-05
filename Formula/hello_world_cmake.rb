@@ -5,6 +5,13 @@ class HelloWorldCmake < Formula
   version "1.0"
   sha256 "563365a7bed1f1189e1de8a98eb87b44fea67f997fda41beb1c7c75075a4ff42"
 
+  bottle do
+    root_url "https://github.com/ipatch/homebrew-us-05/releases/download/hello_world_cmake-1.0"
+    rebuild 1
+    sha256 cellar: :any,                 ventura:      "d6371a3cab58656824e6b04a9042f72439e930a3278fbcd80e16bdd0f710910f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "101729109183e4ba7ebf97cea2c3db58da57f8f41be450c2f7aa1afc0f9d29e4"
+  end
+
   depends_on "cmake" => :build
   depends_on "llvm" => :build
   depends_on "ninja" => :build
