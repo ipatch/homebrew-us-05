@@ -1,4 +1,4 @@
-class LlvmAt13 < Formula
+class LlvmAT13 < Formula
   desc "Next-gen compiler infrastructure"
   homepage "https://llvm.org/"
   # The LLVM Project is under the Apache License v2.0 with LLVM Exceptions
