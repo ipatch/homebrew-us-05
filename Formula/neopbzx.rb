@@ -5,6 +5,11 @@ class Neopbzx < Formula
   version "dev"
   sha256 "1945d98462d68f5daa565def25d994610d13201e0e8f57c042d9c65835c25478"
 
+  bottle do
+    root_url "https://github.com/ipatch/homebrew-us-05/releases/download/neopbzx-dev"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "c5ab93f558397ae135980e4a35dfec96b96212ff9b40cfe15423de638abbfa5f"
+  end
+
   # NOTE: ipatch, implement a livecheck
 
   depends_on "llvm" => :build
