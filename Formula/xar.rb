@@ -5,6 +5,11 @@ class Xar < Formula
   version "dev"
   sha256 "0ef6618d4b841c16d16ff6c9b0f1cd908f5f785ba08bef50178b293a7d170ff4"
 
+  bottle do
+    root_url "https://github.com/ipatch/homebrew-us-05/releases/download/xar-dev"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "1dd22789470e69991ef7ccecb4a3e2a3b16b4dbaa18ed418766a1e425eb0051e"
+  end
+
   depends_on "autoconf" => :build
   depends_on "acl"
   depends_on "bzip2"
