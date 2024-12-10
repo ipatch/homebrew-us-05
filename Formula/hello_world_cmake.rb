@@ -6,8 +6,8 @@ class HelloWorldCmake < Formula
   sha256 "563365a7bed1f1189e1de8a98eb87b44fea67f997fda41beb1c7c75075a4ff42"
 
   depends_on "cmake" => :build
-  depends_on "ninja" => :build
   depends_on "llvm" => :build
+  depends_on "ninja" => :build
   depends_on "xerces-c"
 
   def install
