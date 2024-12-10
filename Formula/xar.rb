@@ -6,8 +6,13 @@ class Xar < Formula
   sha256 "0ef6618d4b841c16d16ff6c9b0f1cd908f5f785ba08bef50178b293a7d170ff4"
 
   depends_on "autoconf" => :build
-  depends_on "libxml2" => :build
-  depends_on "openssl" => :build
+  depends_on "acl"
+  depends_on "bzip2"
+  depends_on "icu4c"
+  depends_on "libxml2"
+  depends_on "openssl"
+  depends_on "xz"
+  depends_on "zlib"
 
   def install
     cd "xar" do
