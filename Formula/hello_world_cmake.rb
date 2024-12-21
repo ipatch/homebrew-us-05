@@ -15,6 +15,7 @@ class HelloWorldCmake < Formula
   depends_on "cmake" => :build
   depends_on "llvm" => :build
   depends_on "ninja" => :build
+  depends_on "freecad/freecad/medfile"
   depends_on "xerces-c"
 
   def install
