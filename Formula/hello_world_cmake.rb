@@ -3,7 +3,7 @@ class HelloWorldCmake < Formula
   homepage "https://github.com/ipatch/hello-world-cmake"
   url "https://github.com/ipatch/hello-world-cmake/archive/refs/heads/main.tar.gz"
   version "1.0"
-  sha256 "563365a7bed1f1189e1de8a98eb87b44fea67f997fda41beb1c7c75075a4ff42"
+  sha256 "6dfc493aae1e34b7f9b121eb511a1dfad3e9282a79438f508d3952f1b8820f93"
 
   bottle do
     root_url "https://github.com/ipatch/homebrew-us-05/releases/download/hello_world_cmake-1.0"
