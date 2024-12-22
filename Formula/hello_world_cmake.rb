@@ -40,6 +40,9 @@ class HelloWorldCmake < Formula
     # cmake_prefix_paths << Formula["xerces-c"].prefix
     cmake_prefix_paths = [Formula["xerces-c"].prefix].join(";")
 
+    linux_linker_flags = "-L#{HOMEBREW_PREFIX}/opt/gcc/lib/gcc/current " \
+                         "-Wl,-rpath,#{HOMEBREW_PREFIX}/opt/gcc/lib/gcc/current"
+
     args = %W[
       -D HOMEBREW_PREFIX=#{HOMEBREW_PREFIX}
       -D CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=FALSE
@@ -54,7 +57,9 @@ class HelloWorldCmake < Formula
       -D CMAKE_PREFIX_PATH=#{cmake_prefix_paths}
 
       -DCMAKE_IGNORE_PATH="#{HOMEBREW_PREFIX}/lib;#{HOMEBREW_PREFIX}/include;"
+      -DCMAKE_EXE_LINKER_FLAGS=#{linux_linker_flags}
     ]
+    # -D CMAKE_LIBRARY_PATH="#{HOMEBREW_PREFIX}/opt/gcc/lib/gcc/current"
     # -D CMAKE_FIND_DEBUG_MODE=ON
 
     # NOTE: ipatch, do not make build dir a sub dir of the src dir
