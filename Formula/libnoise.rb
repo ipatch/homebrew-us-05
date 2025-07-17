@@ -6,6 +6,12 @@ class Libnoise < Formula
   sha256 "99d69a30a097549d1ba68e62fa913b28d79a26ce873b1c8ce551bd47fe46241e"
   head "https://github.com/eXpl0it3r/libnoise.git", branch: "master"
 
+  bottle do
+    root_url "https://github.com/ipatch/homebrew-us-05/releases/download/libnoise-1.0.0"
+    sha256 cellar: :any_skip_relocation, ventura:      "fcac01af422f078824e9a48ab644cd2847495baa00be6f572ef2a6424fadd2fa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "8c37df202672a6e8168f7dd3f84972ec5bacb0a84ff5136d181d56e1e9a2da4c"
+  end
+
   depends_on "cmake" => :build
   depends_on "llvm" => :build
   depends_on "ninja" => :build
