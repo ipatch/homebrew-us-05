@@ -224,8 +224,8 @@ class QtAT5 < Formula
 
     system bin/"qmake", testpath/"hello.pro"
     system "make"
-    assert_predicate testpath/"hello", :exist?
-    assert_predicate testpath/"main.o", :exist?
+    assert_path_exists testpath/"hello"
+    assert_path_exists testpath/"main.o"
     system "./hello"
   end
 end
