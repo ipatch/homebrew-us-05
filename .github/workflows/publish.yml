@@ -5,6 +5,9 @@ on:
     types:
       - labeled
 
+env:
+  HOMEBREW_DEVELOPER: 1
+
 jobs:
   pr-pull:
     if: contains(github.event.pull_request.labels.*.name, 'pr-pull')
@@ -21,6 +24,7 @@ jobs:
       - name: Set up git
         uses: Homebrew/actions/git-user-config@master
 
+
       # since i'm uploading bottles using github packages the below env vars are reqd
       - name: Pull bottles
         env:
@@ -29,6 +33,20 @@ jobs:
           HOMEBREW_GITHUB_PACKAGES_USER: ${{ github.actor }}
           PULL_REQUEST: ${{ github.event.pull_request.number }}
         run: brew pr-pull --debug --tap="$GITHUB_REPOSITORY" "$PULL_REQUEST"
+
+      - name: debug with lhotari/action-upterm
+        id: debug-workflow-run
+        # uses: actions/checkout@v2
+        # NOTE: ipatch, seems to be issue with macos runners circa oct 2024
+        # uses: lhotari/action-upterm@v1
+        #-------
+        uses: owenthereal/action-upterm@v1
+        if: ${{ failure() }}
+        with:
+          # limit ssh access to user who triggered the workflow
+          limit-access-to-actor: true
+          # shut down server after 10 minutes if no one connects
+          wait-timeout-minutes: 10
 
       - name: Push commits
         uses: Homebrew/actions/git-try-push@master
