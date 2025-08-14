@@ -6,6 +6,13 @@ class Libnoise < Formula
   sha256 "99d69a30a097549d1ba68e62fa913b28d79a26ce873b1c8ce551bd47fe46241e"
   head "https://github.com/eXpl0it3r/libnoise.git", branch: "master"
 
+  bottle do
+    root_url "https://ghcr.io/v2/ipatch/us-05"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, ventura:      "46f6b42795cbcec66b485c0ef3e57e8b0379a85cf49bfebdfd9cb0d0c7aa30d2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "14f66c1b362dbf28dbefef589a6d7fde47111ce50146537eb17577075fda9b48"
+  end
+
   depends_on "cmake" => :build
   depends_on "llvm" => :build
   depends_on "ninja" => :build
