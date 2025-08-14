@@ -32,16 +32,20 @@ jobs:
 
       # - run: brew test-bot --only-tap-syntax
 
-      - run: |
+      - name: build bottle using test-bot for current formula
+        id: build-bottle
+        run: |
           brew test-bot \
           --only-formulae \
           --only-json-tab \
           --skip-recursive-dependents \
+          --fail-fast \
           --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
 
         if: github.event_name == 'pull_request'
 
-      # - name: debug debug actions
+      # TODO: figure out a way to conditionally call this step
+      # - name: debug actions
       #   run: "false"
 
       - name: debug with lhotari/action-upterm
