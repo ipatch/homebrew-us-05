@@ -30,7 +30,9 @@ jobs:
 
       - run: brew test-bot --only-setup
 
-      # - run: brew test-bot --only-tap-syntax
+      - name: Install required tools
+        run: |
+          brew install jq gh
 
       - name: build bottle using test-bot for current formula
         id: build-bottle
@@ -49,7 +51,6 @@ jobs:
       #     GITHUB_CONTEXT: ${{ toJSON(github) }}
       #   run: echo "$GITHUB_CONTEXT"
 
-      # TODO: figure out a way to conditionally call this step
       - name: debug actions
         if: github.event_name == 'pull_request'
         run: |
