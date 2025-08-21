@@ -5,6 +5,12 @@ class Xar < Formula
   version "dev"
   sha256 "0ef6618d4b841c16d16ff6c9b0f1cd908f5f785ba08bef50178b293a7d170ff4"
 
+  bottle do
+    root_url "https://ghcr.io/v2/ipatch/us-05"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "8b26970c1785a504322a7f1838949d4b804fe50d1499a0127ea4f5ca05b87a6f"
+  end
+
   # NOTE: ipatch, implement a livecheck
 
   depends_on "autoconf" => :build
