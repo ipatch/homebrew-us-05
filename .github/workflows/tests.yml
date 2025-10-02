@@ -1,3 +1,5 @@
+---
+
 name: brew test-bot
 
 on:
@@ -10,7 +12,7 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-13]
+        os: [ubuntu-22.04, macos-15-intel]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Homebrew
@@ -28,10 +30,52 @@ jobs:
 
       - run: brew test-bot --only-setup
 
-      - run: brew test-bot --only-tap-syntax
+      - name: Install required tools
+        run: |
+          brew install jq gh
 
-      - run: brew test-bot --only-formulae
+      - name: build bottle using test-bot for current formula
+        id: build-bottle
+        run: |
+          brew test-bot \
+          --only-formulae \
+          --only-json-tab \
+          --skip-recursive-dependents \
+          --fail-fast \
+          --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
+
         if: github.event_name == 'pull_request'
+
+      # - name: Dump GitHub context
+      #   env:
+      #     GITHUB_CONTEXT: ${{ toJSON(github) }}
+      #   run: echo "$GITHUB_CONTEXT"
+
+      - name: debug actions
+        if: github.event_name == 'pull_request'
+        run: |
+          COMMIT_MSG=$(gh api repos/${{ github.repository }}/commits/${{ github.event.pull_request.head.sha }} --jq .commit.message)
+          echo "Commit message: $COMMIT_MSG"
+          if echo "$COMMIT_MSG" | grep -qi '\[debug\]'; then
+            echo "Debug flag found, begin to debug workflow run"
+            false  # trigger the debug workflow step
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }} 
+
+      - name: debug with lhotari/action-upterm
+        id: debug-workflow-run
+        # uses: actions/checkout@v2
+        # NOTE: ipatch, seems to be issue with macos runners circa oct 2024
+        # uses: lhotari/action-upterm@v1
+        #-------
+        uses: owenthereal/action-upterm@v1
+        if: ${{ failure() }}
+        with:
+          # limit ssh access to user who triggered the workflow
+          limit-access-to-actor: true
+          # shut down server after 10 minutes if no one connects
+          wait-timeout-minutes: 10
 
       - name: Upload bottles as artifact
         if: always() && github.event_name == 'pull_request'
