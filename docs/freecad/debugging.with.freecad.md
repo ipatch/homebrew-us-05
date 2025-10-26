@@ -172,6 +172,9 @@ python3 3807149 capin    8u  IPv4 32012245      0t0  TCP localhost:rrac->localho
 
 ## useful links (in no particular order ...yet)
 
+- a decent tutorial on using debugpy to debugpy pyside related functionality inside of studio max
+https://help.autodesk.com/view/MAXDEV/2024/ENU/?guid=MAXDEV_Python_tutorials_creating_the_dialog_html
+
 freecad forum post, Advice requested on developing python workbench in VS Code
 
 https://forum.freecad.org/viewtopic.php?f=10&t=62231&p=536278&hilit=python+debug+vscode#p536278
