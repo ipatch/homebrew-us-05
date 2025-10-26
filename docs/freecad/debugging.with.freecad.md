@@ -1,6 +1,8 @@
-
-
 > my poor excuse attempting to document my struggles when learning how setup a development environment to debug freecad
+
+## TL;DR
+
+<!-- insert some copypasta for t1000's -->
 
 the first i did was a google search (duh), and that leads to the below freecad forum post.
 
@@ -42,6 +44,23 @@ my next attempt with debugpy was to start it from a terminal outside of freecad 
 ```shell
 python3.13 -Xfrozen_modules=off -m debugpy --listen 0.0.0.0:5678 --pid $(pgrep freecad)
 ```
+
+going this route lends itself to its own set of traps, one being if you do not have gdb installed well you're not going to get to far. so make sure you can install gdb using homebrew on asahi linux (insert can of worms here).
+
+so you got gdb installed now you rerun the above command, and you see the following warnings / error messages.
+
+## useful links (in no particular order ...yet)
+
+the below freecad forum topic explains how wmayer proposes debugging freecad circa 2010, though it is outdated for sure the python console commands seem useful none the less. ie.
+
+```python
+import FreeCADGui
+FreeCADGui.showMainWindow()
+```
+
+
+https://forum.freecad.org/viewtopic.php?t=231#p1428
+
 
 
 [1]: <https://github.com/microsoft/ptvsd>
