@@ -72,6 +72,33 @@ and that's not good because we need the arm64 version of that shared library as 
 
 so after modifying the required files in the vendored version of pydevd [learn more][4]
 
+we should have a library file that should work with our arm64 linux box ie. an m1 running asahi linux.
+
+but then we get the below error / warning,
+
+```
+[New LWP 3336149]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+0x0000ffff4c3adc40 in wait4 () from /lib64/libc.so.6
+Python Exception <class 'ModuleNotFoundError'>: No module named 'libstdcxx'
+The target architecture is set to "auto" (currently "aarch64").
+$1 = (void *) 0xaaabc9ad4e20
+[Detaching after vfork from child process 3796625]
+```
+
+so to avoid the above warning i updated my gdbinit file with the following,
+
+```shell
+# allow auto-load of helpers NOTE: ipatch, be carefull can be seen as a security risk
+set auto-load safe-path /
+
+# add libstdc++ helper dir to gdb's python sys.path
+python
+import sys
+sys.path.insert(0, "/home/capin/homebrew/opt/gcc/share/gcc-15/python")
+```
+
 
 ## troubleshooting
 
@@ -185,6 +212,7 @@ the below freecad forum topic explains how wmayer proposes debugging freecad cir
 import FreeCADGui
 FreeCADGui.showMainWindow()
 ```
+
 
 
 https://forum.freecad.org/viewtopic.php?t=231#p1428
