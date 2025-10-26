@@ -29,4 +29,4 @@ i did run into a couple hurdles while working my way through process ie. attempt
   a. need to install the new version ie. debugpy.
 
 
-[1] <https://github.com/microsoft/ptvsd>
+[1]: <https://github.com/microsoft/ptvsd>
