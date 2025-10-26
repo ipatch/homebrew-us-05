@@ -26,7 +26,26 @@ so for my current setup i had the free oss version of vscode without the proprie
 i did run into a couple hurdles while working my way through process ie. attempting to a reliable dev setup going to debug py related code of freecad.
 
 1. the original debugger that shipped with vs code or was the original extension is now deprecated. [learn more][1]
-  a. need to install the new version ie. debugpy.
+  a. need to install the new version ie. debugpy. [learn more][2]
+
+my first attempt at using debugpy was to launch a gui version of freecad, and within the freecad python console run,
+
+```
+import debugpy
+debugpy.listen(("0.0.0.0", 5678))
+```
+
+that will execute but a pop up / floating window will appear within the main freecad gui window stating an error message. and apparently i'm not the first one who has tried this. [learn more][3]
+
+my next attempt with debugpy was to start it from a terminal outside of freecad and use it to attach to a running freecad proccess, using something like the below command,
+
+```shell
+python3.13 -Xfrozen_modules=off -m debugpy --listen 0.0.0.0:5678 --pid $(pgrep freecad)
+```
 
 
 [1]: <https://github.com/microsoft/ptvsd>
+[2]: <https://github.com/microsoft/debugpy>
+[3]: <https://forum.freecad.org/viewtopic.php?p=853381#p853381>
+
+
