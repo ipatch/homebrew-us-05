@@ -172,6 +172,15 @@ python3 3807149 capin    8u  IPv4 32012245      0t0  TCP localhost:rrac->localho
 
 ## useful links (in no particular order ...yet)
 
+- github repo that contains "stubs" may be useful auto completion in certain scenarios
+https://github.com/Vanuan/freecad-python-stubs
+
+- below is a link to the github commit where wwmayer checked in the code for the remote debugger logic for freecad
+https://github.com/FreeCAD/FreeCAD/commit/5947a5bad
+
+- a comprehensive freecad forum post about using pyzo ide with freecad to debug python functionality of freecad
+https://forum.freecad.org/viewtopic.php?t=78047
+
 - a decent tutorial on using debugpy to debugpy pyside related functionality inside of studio max
 https://help.autodesk.com/view/MAXDEV/2024/ENU/?guid=MAXDEV_Python_tutorials_creating_the_dialog_html
 
