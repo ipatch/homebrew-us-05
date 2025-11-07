@@ -29,6 +29,7 @@ jobs:
       - name: sanatize homebrew-core tap
         run: |
           brew update-reset "$(brew --repository homebrew/core)" || true
+          git -C "$(brew --repository homebrew/core)" clean -fd || true
           # git -C "$(brew --repo homebrew/core)" reset --hard origin/master
           # git -C "$(brew --repo homebrew/core)" clean -d -f
           # git -C "$(brew --repo homebrew/core)" stash clear || true
