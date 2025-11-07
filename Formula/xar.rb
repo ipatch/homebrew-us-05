@@ -8,8 +8,7 @@ class Xar < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/ipatch/us-05"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "8b26970c1785a504322a7f1838949d4b804fe50d1499a0127ea4f5ca05b87a6f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "e149d77cf5ae6792d042bc673a6ab73dc93aa406ab622b8b93e5a67ba06d9148"
   end
 
   # NOTE: ipatch, implement a livecheck
