@@ -26,11 +26,12 @@ jobs:
           key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ runner.os }}-rubygems-
 
-      - name: Clean Homebrew taps
+      - name: sanatize homebrew-core tap
         run: |
-          git -C "$(brew --repo homebrew/core)" reset --hard origin/master
-          git -C "$(brew --repo homebrew/core)" clean -d -f
-          git -C "$(brew --repo homebrew/core)" stash clear || true
+          brew update-reset "$(brew --repository homebrew/core)" || true
+          # git -C "$(brew --repo homebrew/core)" reset --hard origin/master
+          # git -C "$(brew --repo homebrew/core)" clean -d -f
+          # git -C "$(brew --repo homebrew/core)" stash clear || true
 
       - run: brew test-bot --only-cleanup-before
 
