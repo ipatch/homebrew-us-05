@@ -178,7 +178,7 @@ https://github.com/Vanuan/freecad-python-stubs
 - below is a link to the github commit where wwmayer checked in the code for the remote debugger logic for freecad
 https://github.com/FreeCAD/FreeCAD/commit/5947a5bad
 
-- a comprehensive freecad forum post about using pyzo ide with freecad to debug python functionality of freecad
+- a comprehensive freecad forum post about using pyzo ide with freecad to debug python functionality of freecad<br />
 https://forum.freecad.org/viewtopic.php?t=78047
 
 - a decent tutorial on using debugpy to debugpy pyside related functionality inside of studio max
@@ -281,6 +281,13 @@ QThreadStorage: entry 1 destroyed before end of thread 0xaaab283c7720
 ⚠️ debugpy failed: timed out waiting for adapter to connect
 QThreadStorage
 ```
+
+## unsorted (possibly) useful links
+
+<a id="unsorted-useful-links"></a>
+
+- https://wiki.python.org/moin/DebuggingWithGdb
+- https://forum.freecad.org/viewtopic.php?t=43681 (german)
 
 
 [1]: <https://github.com/microsoft/ptvsd>
