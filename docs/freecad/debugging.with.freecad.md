@@ -172,48 +172,39 @@ python3 3807149 capin    8u  IPv4 32012245      0t0  TCP localhost:rrac->localho
 
 ## useful links (in no particular order ...yet)
 
-- github repo that contains "stubs" may be useful auto completion in certain scenarios
+- github repo that contains "stubs" may be useful auto completion in certain scenarios<br />
 https://github.com/Vanuan/freecad-python-stubs
 
-- below is a link to the github commit where wwmayer checked in the code for the remote debugger logic for freecad
+- below is a link to the github commit where wwmayer checked in the code for the remote debugger logic for freecad<br />
 https://github.com/FreeCAD/FreeCAD/commit/5947a5bad
 
 - a comprehensive freecad forum post about using pyzo ide with freecad to debug python functionality of freecad<br />
 https://forum.freecad.org/viewtopic.php?t=78047
 
-- a decent tutorial on using debugpy to debugpy pyside related functionality inside of studio max
+- a decent tutorial on using debugpy to debugpy pyside related functionality inside of studio max<br />
 https://help.autodesk.com/view/MAXDEV/2024/ENU/?guid=MAXDEV_Python_tutorials_creating_the_dialog_html
 
-freecad forum post, Advice requested on developing python workbench in VS Code
-
+- freecad forum post, Advice requested on developing python workbench in VS Code<br />
 https://forum.freecad.org/viewtopic.php?f=10&t=62231&p=536278&hilit=python+debug+vscode#p536278
 
-freecad forum post debugging macros with vs 2017
-
+- freecad forum post debugging macros with vs 2017<br />
 https://forum.freecad.org/viewtopic.php?f=22&t=28901
 
----
-
-another freecad forum post about debugging python
-
+- another freecad forum post about debugging python<br />
 https://forum.freecad.org/viewtopic.php?f=10&t=28256
 
----
 
-freecad forum post, python debugger, python editor
-
+- freecad forum post, python debugger, python editor<br />
 https://forum.freecad.org/viewtopic.php?f=10&t=21898
 
 ---
 
-the below freecad forum link is a dicussion about debugging interanl issues related to opencascade
-
+- the below freecad forum link is a dicussion about debugging interanl issues related to opencascade<br />
 https://forum.freecad.org/viewtopic.php?f=10&t=47017
 
 ---
 
-a freecad forum post asking what ide do people use, and specifically **wmayer** reply
-
+- a freecad forum post asking what ide do people use, and specifically **wmayer** reply<br />
 https://forum.freecad.org/viewtopic.php?f=10&t=3380&p=26446
 
 ---
