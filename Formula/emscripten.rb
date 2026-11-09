@@ -129,7 +129,7 @@ class Emscripten < Formula
         -DCMAKE_INSTALL_PREFIX=#{libexec}/binaryen
       ]
 
-      system "cmake", ".", *args
+      system "cmake", "-S", ".", "-B", ".", *args
       system "make", "install"
     end
 
@@ -146,7 +146,7 @@ class Emscripten < Formula
 
     # Add JAVA_HOME to env_script on ARM64 macOS and Linux, so that google-closure-compiler
     # can find OpenJDK
-    emscript_env = { PYTHON: Formula["python@3.9"].opt_bin/"python3" }
+    emscript_env = { PYTHON: formula_opt_bin("python@3.9")/"python3" }
     emscript_env.merge! Language::Java.overridable_java_home_env if OS.linux? || Hardware::CPU.arm?
 
     %w[em++ em-config emar emcc emcmake emconfigure emlink.py emmake
@@ -155,7 +155,7 @@ class Emscripten < Formula
     end
   end
 
-  def post_install
+  def post_install_steps
     system bin/"emcc", "--check"
     if File.exist?(libexec/".emscripten") && !File.exist?(libexec/".homebrew")
       touch libexec/".homebrew"

@@ -52,8 +52,8 @@ class HelloWorldOpengl < Formula
 
     if OS.linux?
       cmake_prefix_paths << Formula["mesa"].prefix
-      opengl_lib = Formula["mesa"].opt_prefix/"lib/libGL.so"
-      opengl_glx_lib = Formula["xorg-server"].opt_prefix/"lib/xorg/modules/extensions/libglx.so"
+      opengl_lib = formula_opt_prefix("mesa")/"lib/libGL.so"
+      opengl_glx_lib = formula_opt_prefix("xorg-server")/"lib/xorg/modules/extensions/libglx.so"
 
       args_linux_only = %W[
         -DOPENGL_opengl_LIBRARY=#{opengl_lib}

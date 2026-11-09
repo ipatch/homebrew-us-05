@@ -113,7 +113,7 @@ class PythonAT3912 < Formula
       --datadir=#{share}
       --without-ensurepip
       --enable-loadable-sqlite-extensions
-      --with-openssl=#{Formula["openssl@1.1"].opt_prefix}
+      --with-openssl=#{formula_opt_prefix("openssl@1.1")}
       --with-dbmliborder=gdbm:ndbm
       --enable-optimizations
       --with-lto
@@ -157,12 +157,12 @@ class PythonAT3912 < Formula
     # superenv makes cc always find includes/libs!
     inreplace "setup.py",
       "do_readline = self.compiler.find_library_file(self.lib_dirs, 'readline')",
-      "do_readline = '#{Formula["readline"].opt_lib}/#{shared_library("libhistory")}'"
+      "do_readline = '#{formula_opt_lib("readline")}/#{shared_library("libhistory")}'"
 
     inreplace "setup.py" do |s|
       s.gsub! "sqlite_setup_debug = False", "sqlite_setup_debug = True"
       s.gsub! "for d_ in self.inc_dirs + sqlite_inc_paths:",
-              "for d_ in ['#{Formula["sqlite"].opt_include}']:"
+              "for d_ in ['#{formula_opt_include("sqlite")}']:"
     end
 
     if OS.linux?
@@ -173,7 +173,7 @@ class PythonAT3912 < Formula
       # We want our ncurses! Override system ncurses includes!
       inreplace "configure",
         'CPPFLAGS="$CPPFLAGS -I/usr/include/ncursesw"',
-        "CPPFLAGS=\"$CPPFLAGS -I#{Formula["ncurses"].opt_include}\""
+        "CPPFLAGS=\"$CPPFLAGS -I#{formula_opt_include("ncurses")}\""
     end
 
     # Allow python modules to use ctypes.find_library to find homebrew's stuff
@@ -181,7 +181,7 @@ class PythonAT3912 < Formula
     # `brew install enchant && pip install pyenchant`
     inreplace "./Lib/ctypes/macholib/dyld.py" do |f|
       f.gsub! "DEFAULT_LIBRARY_FALLBACK = [",
-              "DEFAULT_LIBRARY_FALLBACK = [ '#{HOMEBREW_PREFIX}/lib', '#{Formula["openssl@1.1"].opt_lib}',"
+              "DEFAULT_LIBRARY_FALLBACK = [ '#{HOMEBREW_PREFIX}/lib', '#{formula_opt_lib("openssl@1.1")}',"
       f.gsub! "DEFAULT_FRAMEWORK_FALLBACK = [", "DEFAULT_FRAMEWORK_FALLBACK = [ '#{HOMEBREW_PREFIX}/Frameworks',"
     end
 
@@ -285,7 +285,7 @@ class PythonAT3912 < Formula
     end
   end
 
-  def post_install
+  def post_install_steps
     ENV.delete "PYTHONPATH"
 
     # Fix up the site-packages so that user-installed Python software survives
@@ -350,10 +350,10 @@ class PythonAT3912 < Formula
     end
 
     # Help distutils find brewed stuff when building extensions
-    include_dirs = [HOMEBREW_PREFIX/"include", Formula["openssl@1.1"].opt_include,
-                    Formula["sqlite"].opt_include]
-    library_dirs = [HOMEBREW_PREFIX/"lib", Formula["openssl@1.1"].opt_lib,
-                    Formula["sqlite"].opt_lib]
+    include_dirs = [HOMEBREW_PREFIX/"include", formula_opt_include("openssl@1.1"),
+                    formula_opt_include("sqlite")]
+    library_dirs = [HOMEBREW_PREFIX/"lib", formula_opt_lib("openssl@1.1"),
+                    formula_opt_lib("sqlite")]
 
     cfg = lib_cellar/"distutils/distutils.cfg"
 

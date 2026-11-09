@@ -66,7 +66,7 @@ class NeovimAT060 < Formula
 
     ENV.prepend_path "LUA_PATH", "#{buildpath}/deps-build/share/lua/5.1/?.lua"
     ENV.prepend_path "LUA_CPATH", "#{buildpath}/deps-build/lib/lua/5.1/?.so"
-    lua_path = "--lua-dir=#{Formula["luajit-openresty"].opt_prefix}"
+    lua_path = "--lua-dir=#{formula_opt_prefix("luajit-openresty")}"
 
     cd "deps-build/build/src" do
       %w[
@@ -91,7 +91,7 @@ class NeovimAT060 < Formula
     end
 
     system "cmake", "-S", ".", "-B", "build",
-      "-DLIBLUV_LIBRARY=#{Formula["luv"].opt_lib/shared_library("libluv")}",
+      "-DLIBLUV_LIBRARY=#{formula_opt_lib("luv")/shared_library("libluv")}",
       *std_cmake_args
     # Patch out references to Homebrew shims
     inreplace "build/config/auto/versiondef.h", Superenv.shims_path/ENV.cc, ENV.cc

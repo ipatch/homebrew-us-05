@@ -38,8 +38,8 @@ class Inkscape < Formula
   def install
     # TODO: is `LIBPREFIX` req
     ENV.prepend_path "LIBPREFIX", "/usr/local"
-    ENV.prepend_path "PKG_CONFIG_PATH", Formula["atk"].opt_lib/"pkgconfig"
-    ENV.prepend_path "PKG_CONFIG_PATH", Formula["libffi"].opt_lib/"pkgconfig"
+    ENV.prepend_path "PKG_CONFIG_PATH", formula_opt_lib("atk")/"pkgconfig"
+    ENV.prepend_path "PKG_CONFIG_PATH", formula_opt_lib("libffi")/"pkgconfig"
 
     mkdir "build" do
       Dir.chdir("build")

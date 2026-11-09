@@ -11,16 +11,18 @@ cask "osxfuse@383" do
 
     auto_updates true
     conflicts_with cask: "osxfuse-dev"
-    depends_on macos: ">= :mojave"
+    depends_on :macos
 
     pkg "Extras/FUSE for macOS #{version}.pkg",
         choices: [
-          "choiceIdentifier" => "com.github.osxfuse.pkg.MacFUSE",
-          "choiceAttribute"  => "selected",
-          "attributeSetting" => 1,
+          {
+            "choiceIdentifier" => "com.github.osxfuse.pkg.MacFUSE",
+            "choiceAttribute"  => "selected",
+            "attributeSetting" => 1,
+          },
         ]
 
-    postflight do
+    postflight_steps do
       set_ownership ["/usr/local/include", "/usr/local/lib"]
     end
 

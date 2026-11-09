@@ -20,10 +20,10 @@ class Libnoise < Formula
   # conflicts_with 'formula-name'
 
   def install
-    ninja_bin = Formula["ninja"].opt_bin/"ninja"
-    clang_cc = Formula["llvm"].opt_bin/"clang"
-    clang_cxx = Formula["llvm"].opt_bin/"clang++"
-    llvm_ar = Formula["llvm"].opt_bin/"llvm-ar"
+    ninja_bin = formula_opt_bin("ninja")/"ninja"
+    clang_cc = formula_opt_bin("llvm")/"clang"
+    clang_cxx = formula_opt_bin("llvm")/"clang++"
+    llvm_ar = formula_opt_bin("llvm")/"llvm-ar"
 
     args = %W[
       -DCMAKE_POLICY_VERSION_MINIMUM=3.5

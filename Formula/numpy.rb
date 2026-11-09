@@ -23,7 +23,7 @@ class Numpy < Formula
   fails_with gcc: "5"
 
   def install
-    openblas = Formula["openblas"].opt_prefix
+    openblas = formula_opt_prefix("openblas")
     ENV["ATLAS"] = "None" # avoid linking against Accelerate.framework
     ENV["BLAS"] = ENV["LAPACK"] = "#{openblas}/lib/#{shared_library("libopenblas")}"
 
@@ -36,8 +36,8 @@ class Numpy < Formula
 
     Pathname("site.cfg").write config
 
-    xy = Language::Python.major_minor_version Formula["python@3.9"].opt_bin/"python3"
-    ENV.prepend_create_path "PYTHONPATH", Formula["cython"].opt_libexec/"lib/python#{xy}/site-packages"
+    xy = Language::Python.major_minor_version formula_opt_bin("python@3.9")/"python3"
+    ENV.prepend_create_path "PYTHONPATH", formula_opt_libexec("cython")/"lib/python#{xy}/site-packages"
     ENV.prepend_path "PYTHONPATH", buildpath/"temp/lib/python#{xy}/site-packages"
     resources.each do |r|
       r.stage do
@@ -45,13 +45,13 @@ class Numpy < Formula
       end
     end
 
-    system Formula["python@3.9"].opt_bin/"python3", "setup.py", "build",
-        "--fcompiler=#{Formula["gcc"].opt_bin}/gfortran", "--parallel=#{ENV.make_jobs}"
-    system Formula["python@3.9"].opt_bin/"python3", *Language::Python.setup_install_args(prefix)
+    system formula_opt_bin("python@3.9")/"python3", "setup.py", "build",
+        "--fcompiler=#{formula_opt_bin("gcc")}/gfortran", "--parallel=#{ENV.make_jobs}"
+    system formula_opt_bin("python@3.9")/"python3", *Language::Python.setup_install_args(prefix)
   end
 
   test do
-    system Formula["python@3.9"].opt_bin/"python3", "-c", <<~EOS
+    system formula_opt_bin("python@3.9")/"python3", "-c", <<~EOS
       import numpy as np
       t = np.ones((3,3), int)
       assert t.sum() == 9
