@@ -64,11 +64,11 @@ class Node < Formula
   end
 
   def install
-    ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm"].opt_lib
+    ENV.remove "HOMEBREW_LIBRARY_PATHS", formula_opt_lib("llvm")
     ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
 
     # make sure subprocesses spawned by make are using our Python 3
-    ENV["PYTHON"] = Formula["python@3.9"].opt_bin/"python3"
+    ENV["PYTHON"] = formula_opt_bin("python@3.9")/"python3"
 
     # Never install the bundled "npm", always prefer our
     # installation from tarball for better packaging control.
@@ -126,7 +126,7 @@ class Node < Formula
     bash_completion.install bootstrap/"lib/utils/completion.sh" => "npm"
   end
 
-  def post_install
+  def post_install_steps
     node_modules = HOMEBREW_PREFIX/"lib/node_modules"
     node_modules.mkpath
     # Kill npm but preserve all other modules across node updates/upgrades.

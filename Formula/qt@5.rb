@@ -24,7 +24,7 @@ class QtAT5 < Formula
   depends_on "ipatch/us-05/node" => :build
   depends_on "pkg-config" => :build
   depends_on xcode: :build
-  depends_on macos: :sierra
+  depends_on :macos
 
   uses_from_macos "gperf" => :build
   uses_from_macos "bison"
@@ -151,7 +151,7 @@ class QtAT5 < Formula
     # Remove reference to shims directory
     inreplace "qtbase/mkspecs/qmodule.pri",
               /^PKG_CONFIG_EXECUTABLE = .*$/,
-              "PKG_CONFIG_EXECUTABLE = #{Formula["pkg-config"].opt_bin/"pkg-config"}"
+              "PKG_CONFIG_EXECUTABLE = #{formula_opt_bin("pkg-config")/"pkg-config"}"
     system "make"
     ENV.deparallelize
     system "make", "install"

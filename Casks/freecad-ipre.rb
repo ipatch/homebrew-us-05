@@ -12,5 +12,7 @@ cask "freecad-ipre" do
   # depends_on macos: :sierra
 
   # Renamed to avoid conflict with other FreeCAD.app, and the hb-cask-versions
+  depends_on :macos
+
   app "FreeCAD.app", target: "FreeCAD_ipre.app"
 end

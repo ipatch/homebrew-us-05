@@ -59,7 +59,7 @@ class NeovimAT044 < Formula
 
     ENV.prepend_path "LUA_PATH", "#{buildpath}/deps-build/share/lua/5.1/?.lua"
     ENV.prepend_path "LUA_CPATH", "#{buildpath}/deps-build/lib/lua/5.1/?.so"
-    lua_path = "--lua-dir=#{Formula["luajit-openresty"].opt_prefix}"
+    lua_path = "--lua-dir=#{formula_opt_prefix("luajit-openresty")}"
 
     cd "deps-build" do
       %w[
@@ -78,7 +78,7 @@ class NeovimAT044 < Formula
     end
 
     mkdir "build" do
-      system "cmake", "..", *std_cmake_args
+      system "cmake", "-S", "..", "-B", ".", *std_cmake_args
       # Patch out references to Homebrew shims
       inreplace "config/auto/versiondef.h", /#{HOMEBREW_LIBRARY}[^ ]+/o, ENV.cc
       system "make", "install"

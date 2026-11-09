@@ -54,7 +54,7 @@ class Openssh < Formula
     args = %W[
       --prefix=#{prefix}
       --sysconfdir=#{etc}/ssh
-      --with-ssl-dir=#{Formula["libressl"].opt_prefix}
+      --with-ssl-dir=#{formula_opt_prefix("libressl")}
       --with-security-key-builtin
       --with-pam
       --with-kerberos5
