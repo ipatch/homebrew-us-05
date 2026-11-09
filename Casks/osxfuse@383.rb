@@ -1,4 +1,5 @@
 cask "osxfuse@383" do
+  depends_on :macos
   if OS.mac?
     version "3.8.3"
     sha256 "87e507c44c19689beefa3d47dd00ba953254d9e616cb633c1b4343407fe99700"
