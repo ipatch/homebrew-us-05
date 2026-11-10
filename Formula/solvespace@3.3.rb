@@ -5,6 +5,11 @@ class SolvespaceAT33 < Formula
   sha256 "a62837f8346701b248016adf41457a7b93778e2fe1a289d738fd188d77c99eea"
   revision 1
 
+  bottle do
+    root_url "https://ghcr.io/v2/ipatch/us-05"
+    sha256 cellar: :any, x86_64_linux: "7f8f6a4eae892cde3bb86d68b2232996e7b38cb810d197f75df47cfbdefa506b"
+  end
+
   keg_only :versioned_formula
 
   depends_on "cmake" => :build
