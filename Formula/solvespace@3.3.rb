@@ -31,6 +31,20 @@ class SolvespaceAT33 < Formula
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args, *args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
+
+    # SolveSpace doesn't export a CMake package; provide one for consumers
+    # like OrcaSlicer that call find_package(SLVS) and link SLVS::slvs
+    (lib/"cmake/SLVS").mkpath
+    (lib/"cmake/SLVS/SLVSConfig.cmake").write <<~CMAKE
+      get_filename_component(_slvs_prefix "${CMAKE_CURRENT_LIST_DIR}/../../.." ABSOLUTE)
+      if(NOT TARGET SLVS::slvs)
+        add_library(SLVS::slvs SHARED IMPORTED)
+        set_target_properties(SLVS::slvs PROPERTIES
+          IMPORTED_LOCATION "${_slvs_prefix}/lib/#{shared_library("libslvs")}"
+          INTERFACE_INCLUDE_DIRECTORIES "${_slvs_prefix}/include")
+      endif()
+      set(SLVS_FOUND TRUE)
+    CMAKE
   end
 
   def caveats
