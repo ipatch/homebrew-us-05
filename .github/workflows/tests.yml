@@ -48,7 +48,6 @@ jobs:
           brew test-bot \
           --only-formulae \
           --only-json-tab \
-          --skip-recursive-dependents \
           --fail-fast \
           --root-url=https://ghcr.io/v2/ipatch/homebrew-us-05
 
