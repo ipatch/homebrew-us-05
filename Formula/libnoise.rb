@@ -7,6 +7,11 @@ class Libnoise < Formula
   revision 1
   head "https://github.com/eXpl0it3r/libnoise.git", branch: "master"
 
+  bottle do
+    root_url "https://ghcr.io/v2/ipatch/us-05"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "dcb6bdd2626263eff6c71775c3977cb119254edaca368fa054542d3a4c00988c"
+  end
+
   depends_on "cmake" => :build
   depends_on "llvm" => :build
   depends_on "ninja" => :build
