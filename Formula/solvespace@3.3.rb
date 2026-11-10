@@ -13,8 +13,11 @@ class SolvespaceAT33 < Formula
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "libpng"
+  depends_on "mesa"
   depends_on "qt"
+  depends_on "qtbase"
   depends_on "zlib"
+  depends_on "zlib-ng-compat"
 
   def install
     # NOTE: ipatch rm the following cmake vars
