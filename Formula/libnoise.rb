@@ -1,9 +1,9 @@
 class Libnoise < Formula
   desc "Portable, open-source, coherent noise-generating library for C++"
   homepage "https://libnoise.sourceforge.net/"
-  url "https://github.com/eXpl0it3r/libnoise/archive/refs/heads/master.tar.gz"
+  url "https://github.com/eXpl0it3r/libnoise/archive/cdfec3aa25534a50c5bec2c8969c83476cd7c322.tar.gz"
   version "1.0.0"
-  sha256 "85caab555291810faf247606f3ed6f83c7a3df50d20fd0c7b2135195ee4980a5"
+  sha256 "20f6078485c53a066f56ca4d6f07f2e0995d8e18cd094f6ce045bd3f03b30c82"
   revision 1
   head "https://github.com/eXpl0it3r/libnoise.git", branch: "master"
 
