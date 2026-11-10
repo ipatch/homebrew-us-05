@@ -9,7 +9,8 @@ class Libnoise < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/ipatch/us-05"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "dcb6bdd2626263eff6c71775c3977cb119254edaca368fa054542d3a4c00988c"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "67e9240a3da57f4c5e9118dba86d2cc9b11de565e17b41593079db7825056901"
   end
 
   depends_on "cmake" => :build
