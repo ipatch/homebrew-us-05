@@ -44,6 +44,9 @@ class Libnoise < Formula
     system "cmake", "-S", ".", "-B", "build", *args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
+
+    # Consumers like OrcaSlicer include <libnoise/...>; upstream installs headers as include/noise
+    include.install_symlink "noise" => "libnoise"
   end
 
   def caveats
