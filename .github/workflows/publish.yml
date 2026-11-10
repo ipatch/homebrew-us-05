@@ -49,7 +49,7 @@ jobs:
           wait-timeout-minutes: 10
 
       - name: Push commits
-        uses: Homebrew/actions/git-try-push@master
+        uses: Homebrew/actions/git-try-push@main
         with:
           token: ${{ github.token }}
           # branch: main
