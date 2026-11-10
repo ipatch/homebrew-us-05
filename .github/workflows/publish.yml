@@ -22,7 +22,7 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@main
 
       - name: Set up git
-        uses: Homebrew/actions/git-user-config@master
+        uses: Homebrew/actions/git-user-config@main
 
 
       # since i'm uploading bottles using github packages the below env vars are reqd
