@@ -10,6 +10,8 @@ class BoostAT180python3 < Formula
     formula "boost"
   end
 
+  disable! date: "2026-11-13", because: "no longer useful"
+
   depends_on "numpy" => :build
   depends_on "boost"
   depends_on "python@3.10"
